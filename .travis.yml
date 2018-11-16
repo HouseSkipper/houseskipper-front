@@ -18,3 +18,12 @@ script:
 
  notifications:
     slack: houseskipper:smfTiIqJXd6xCpCqeMBCqXeY
+
+deploy:
+  provider: heroku
+  skip_cleanup: true
+  api_key:
+    secure: "jF7C/BBCCSnV+O0VxGjPhwIycEQLqGC5Su5vrFabTckSiW30PhzSnE+HzQQcF2HE2VIIx6nPaz7MGfKLxdLSQDTbXIOSmoYUu8k0krtc87Vg0NwhYklfyUu69HiI9aS95DPDr/QY/y35TgXvL3apVlP3dWzkA0jF9oa/jc6BHHUz2VWU8AUm7g4zidZ6ZwNn3Fd86dO1S2RHWBZEtoBcPa6rzaiWozYziz7LrkAxVAa3pbB8HVnyjxlzrPXey3ZCj52zeZj+tGiv14oUClXdKYfnGcxpODVjF13P8FhblWdcTvRfebwa2E8u/Qu0Fq20WCi12YFr/oFqAndgH3FH7nk9eza1UgPGEcA9FP8P4hp/lhIMZipb6jI1MoyJY2lmFkowpfbXuZyxnWjeIA06Y1Y3Kj9wgzzHvo8kw9B+CFFg/hUK5C1+20/ZWa2oinfkpnKBXsqrEcdnNM9IIvpzH3KV7pWrqmLSH46lOikTW9OnjRfJb8NXt1h3amoNxkbp2NZf9/Q6QakxbDxcNvTyWKLBkpz9rjChpnshq2+zME7yx19jrprpHXXx0QLo0Rll2u5vhp/NIffiloLLUDan1j0QeUKv0p7twBTtiEaGF5kh5vERD7gWcQlzRd14TalwWxYV1Akni2728JB1W0um7bc7g7LFNLwthmFgPq+KosE="
+  app: houseskipper
+  on:
+    branch: master
