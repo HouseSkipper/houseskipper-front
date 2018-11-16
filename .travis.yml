@@ -2,12 +2,10 @@ language: node_js
 node_js:
   - "8.9"
 
+sudo: required
+
 addons:
-    apt:
-      sources:
-      - google-chrome
-      packages:
-      - google-chrome-stable
+  chrome: stable
 
 branches:
   only:
