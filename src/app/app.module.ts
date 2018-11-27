@@ -1,22 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptorService} from './interceptors/jwt-interceptor.service';
 import {MatButtonModule, MatIconModule, MatToolbarModule} from '@angular/material';
+import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import {APP_ROUTES} from './app.routes';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
+      BrowserModule,
+      HttpClientModule,
       MatIconModule,
       MatToolbarModule,
-      MatButtonModule
+      MatButtonModule,
+      APP_ROUTES
   ],
   providers: [
       {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
