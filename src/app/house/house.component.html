@@ -1,0 +1,129 @@
+<mat-accordion class="example-headers-align">
+    <form novalidate [formGroup]="form">
+        <!-- Type Logement -->
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-house"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Votre logement
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field class="margin">
+                <input matInput placeholder="Nom du logement" formControlName="nomLogement" minlength="5" required
+                       name="nomLogement"/>
+                <mat-error *ngIf="form.get('nomLogement').dirty && form.get('nomLogement').hasError('required')">
+                    Nom du logement est <strong>requis</strong>
+                </mat-error>
+                <mat-error *ngIf="form.get('nomLogement').dirty && form.get('nomLogement').hasError('minlength')">
+                    Nom du logement requière <strong>5 caractères minimum</strong>
+                </mat-error>
+            </mat-form-field>
+            <section class="sectionTypeLogement">
+                <mat-radio-group required name="typeLogement">
+                    <mat-radio-button class="margin" value="maison">Maison</mat-radio-button>
+                    <mat-radio-button class="margin" value="appartement">Appartement</mat-radio-button>
+                </mat-radio-group>
+            </section>
+            <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Adresse Logement -->
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-maps"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Adresse du logement
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Adresse postal" formControlName="adPostal" required
+                           name="adPostal"/>
+                    <mat-error *ngIf="form.get('adPostal').dirty && form.get('adPostal').hasError('required')">
+                        Adresse postal est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Code postal" formControlName="codePostal" required
+                           name="codePostal"/>
+                    <mat-error *ngIf="form.get('codePostal').dirty && form.get('codePostal').hasError('required')">
+                        Code postal est <strong>requis</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Ville" formControlName="ville" required
+                           name="ville"/>
+                    <mat-error *ngIf="form.get('ville').dirty && form.get('ville').hasError('required')">
+                        Ville est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Information Logement -->
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-info"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Information supplémentaire
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Surface habitable" formControlName="sh" required
+                           name="sh"/>
+                    <mat-error *ngIf="form.get('sh').dirty && form.get('sh').hasError('required')">
+                        Surface habitable est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Surface extérieur" formControlName="se" required
+                           name="se"/>
+                    <mat-error *ngIf="form.get('se').dirty && form.get('se').hasError('required')">
+                        Surface extérieur est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Nombre de pièces" formControlName="nbPiece" required
+                           name="nbPiece"/>
+                    <mat-error *ngIf="form.get('nbPiece').dirty && form.get('nbPiece').hasError('required')">
+                        Nombre de pièces est <strong>requis</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Année de construction" formControlName="anneeCons" required
+                           name="anneeCons"/>
+                    <mat-error *ngIf="form.get('anneeCons').dirty && form.get('anneeCons').hasError('required')">
+                        Année de construction est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </form>
+</mat-accordion>

@@ -3,16 +3,28 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptorService} from './interceptors/jwt-interceptor.service';
-import {MatButtonModule, MatIconModule, MatToolbarModule} from '@angular/material';
+import {
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatIconModule, MatInputModule,
+    MatRadioModule,
+    MatToolbarModule
+} from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {APP_ROUTES} from './app.routes';
+import { HouseComponent } from './house/house.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    HouseComponent
   ],
   imports: [
       BrowserModule,
@@ -20,6 +32,13 @@ import {APP_ROUTES} from './app.routes';
       MatIconModule,
       MatToolbarModule,
       MatButtonModule,
+      MatExpansionModule,
+      BrowserAnimationsModule,
+      ReactiveFormsModule,
+      MatCheckboxModule,
+      MatRadioModule,
+      MatDialogModule,
+      MatInputModule,
       APP_ROUTES
   ],
   providers: [
