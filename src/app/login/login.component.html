@@ -1,3 +1,15 @@
-<p>
-  login works!
-</p>
+<div id="login-container" class="form-container">
+    <h1 class="mat-headline">User Login</h1>
+    <form class="form-container" novalidate [formGroup]="form">
+        <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput placeholder="Email Address" formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" type="password" formControlName="password">
+        </mat-form-field>
+    </form>
+    <button id="submitButton" mat-button type="submit" [disabled]="form.invalid" (click)="submit(form.value)">Log in</button>
+    <mat-error *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
+</div>

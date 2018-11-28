@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptorService} from './interceptors/jwt-interceptor.service';
-import {MatButtonModule, MatIconModule, MatToolbarModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule} from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {APP_ROUTES} from './app.routes';
+import {ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -15,11 +17,16 @@ import {APP_ROUTES} from './app.routes';
     SignUpComponent
   ],
   imports: [
+      ReactiveFormsModule,
       BrowserModule,
       HttpClientModule,
       MatIconModule,
       MatToolbarModule,
       MatButtonModule,
+      MatCardModule,
+      MatFormFieldModule,
+      MatInputModule,
+      BrowserAnimationsModule,
       APP_ROUTES
   ],
   providers: [
