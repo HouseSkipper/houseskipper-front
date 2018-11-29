@@ -2,8 +2,8 @@ export interface User {
     id?: string;
     photo?: string;
     email: string;
-    prenom: string;
-    nom: string;
+    firstname: string;
+    lastname: string;
     password?: string;
     token?: string;
 }

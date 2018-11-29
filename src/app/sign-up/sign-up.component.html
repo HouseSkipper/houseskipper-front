@@ -1,3 +1,31 @@
-<p>
-  sign-up works!
-</p>
+<div id="login-container" class="form-container">
+    <h1 class="mat-headline">Create Account</h1>
+    <form class="form-container" novalidate [formGroup]="form">
+        <div class="name">
+            <mat-form-field appearance="outline" [class.mgb15]="invalid && form.get('firstname').invalid">
+                <mat-label>Firstname</mat-label>
+                <input matInput placeholder="Firstname" formControlName="firstname">
+                <mat-error *ngIf="invalid && form.get('firstname').hasError('required')" class="alert alert-danger">Firstname is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" [class.mgb15]="invalid && form.get('lastname').invalid">
+                <mat-label>Lastname</mat-label>
+                <input matInput placeholder="Lastname" formControlName="lastname">
+                <mat-error *ngIf="invalid && form.get('lastname').hasError('required')" class="alert alert-danger">Lastname is required</mat-error>
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" [class.mgb15]="invalid && form.get('email').invalid">
+            <mat-label>Email Address</mat-label>
+            <input matInput placeholder="Email Address" formControlName="email">
+            <mat-error *ngIf="invalid && form.get('email').hasError('required')" class="alert alert-danger">Email is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" [class.mgb15]="invalid && form.get('password').invalid">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" type="password" formControlName="password">
+            <mat-error *ngIf="invalid && form.get('password').hasError('required')" class="alert alert-danger">Password is required</mat-error>
+        </mat-form-field>
+    </form>
+    <button id="submitButton" mat-button type="submit" [disabled]="form.invalid" (click)="submit(form.value)">
+        Create account
+    </button>
+</div>

@@ -11,6 +11,7 @@ export const environment = {
         port: '4443',
         endpoints: {
             oneUsers: '/api/users/:id',
+            allUsers: '/api/users',
             authenticate: '/api/users/authenticate',
         }
     }

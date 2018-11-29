@@ -1,15 +1,90 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {User} from '../interfaces/user';
+import {first, flatMap, map} from 'rxjs/operators';
+import {AuthenticationService} from '../services/authentication.service';
+import {Router} from '@angular/router';
+import {of} from 'rxjs';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {
-  }
+    private _errorMsg = '';
+    private _form: FormGroup;
+    private _invalid: boolean;
+
+    get invalid(): boolean {
+        return this._invalid;
+    }
+
+    private readonly _submit$: EventEmitter<User>;
+
+    get form(): FormGroup {
+        return this._form;
+    }
+
+    @Output('submit')
+    get submit$(): EventEmitter<User> {
+        return this._submit$;
+    }
+
+    /**
+     * Function to emit event to submit form and person
+     */
+    submit(user: User) {
+        of(user)
+            .pipe(
+                map(_ => {
+                    return {'firstname' : _.firstname, 'lastname': _.firstname, 'password' : _.password, 'email' : _.email};
+                }),
+                // flatMap(_ => this._userService.create(_))
+            ).subscribe(
+            data => {
+                console.log(data);
+                this._router.navigate(['/']);
+            },
+            error => {
+                this._errorMsg = error;
+            }
+        );
+    }
+
+    constructor(private _userService: AuthenticationService, private _router: Router) {
+        this._submit$ = new EventEmitter<User>();
+        this._form = this._buildForm();
+    }
+
+    private _buildForm(): FormGroup {
+        return new FormGroup({
+            firstname: new FormControl('', Validators.compose([
+                Validators.required, Validators.minLength(3)
+            ])),
+            lastname: new FormControl('', Validators.compose([
+                Validators.required, Validators.minLength(3)
+            ])),
+            password: new FormControl('', Validators.compose([
+                Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
+            ])),
+            email: new FormControl('', Validators.compose([
+                Validators.required,
+                Validators.pattern(
+                    '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}' +
+                    '\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')
+            ]))
+        });
+    }
+
+    ngOnInit() {
+        // this._authService.logout();
+    }
+
+    get errorMsg(): string {
+        return this._errorMsg;
+    }
 
 }
