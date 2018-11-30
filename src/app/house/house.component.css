@@ -1,6 +1,9 @@
+mat-accordion {
+    padding: 10px;
+}
+
 mat-expansion-panel {
-    background: #3c3966;
-    color: white;
+    background: rgb(133,158,248);
     width: 60%;
     margin-left: 20%;
     margin-right: 20%;
@@ -11,6 +14,7 @@ mat-expansion-panel {
 mat-panel-description {
     color: white;
 }
+
 
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {

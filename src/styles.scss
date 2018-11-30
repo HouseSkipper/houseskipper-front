@@ -20,14 +20,15 @@ html {
 }
 
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
-    border-color: white;
+    border-color: white !important;
+
 }
 
 .mat-radio-button.mat-accent .mat-radio-inner-circle{
     color: white;
-    background-color: white;
+    background-color: white !important;
 }
 
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-    background-color: white;
+    background-color: white !important;
 }

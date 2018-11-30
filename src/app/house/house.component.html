@@ -120,6 +120,63 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+            <div>
+                <mat-form-field class="margin">
+                    <mat-select placeholder="Type" formControlName="typeBien" required name="typeBien" (selectionChange)="changeType()">
+                        <mat-option *ngFor="let type of types" [value]="type.value">
+                            {{type.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="margin" *ngIf="!!studio">
+                    <input matInput placeholder="Nb pièces " formControlName="anneeCons" required
+                           name="anneeCons"/>
+                    <mat-error *ngIf="form.get('anneeCons').dirty && form.get('anneeCons').hasError('required')">
+                        Année de construction est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Pièces -->
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-door"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Vos pièces
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <button mat-button (click)="addPiece()">Ajouter une pièce</button>
+            <div *ngFor="let piece of pieces">
+                <button mat-button (click)="deletePiece(piece.id)">Supprimer une pièce</button>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Nom de la pièce" formControlName="nomPiece" required
+                           name="nomPiece"/>
+                    <mat-error *ngIf="form.get('nomPiece').dirty && form.get('nomPiece').hasError('required')">
+                        Le nom de la pièce est <strong>requis</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Surface" formControlName="surface" required
+                           name="surface"/>
+                    <mat-error *ngIf="form.get('surface').dirty && form.get('surface').hasError('required')">
+                        La surface de la pièce est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Description" formControlName="description" required
+                           name="description"/>
+                    <mat-error *ngIf="form.get('description').dirty && form.get('description').hasError('required')">
+                        La description de la pièce est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
                 <button mat-button color="primary" (click)="nextStep()">Next</button>

@@ -9,7 +9,7 @@ import {
     MatDialogModule,
     MatExpansionModule,
     MatIconModule, MatInputModule,
-    MatRadioModule,
+    MatRadioModule, MatSelectModule,
     MatToolbarModule
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
@@ -39,6 +39,7 @@ import {ReactiveFormsModule} from '@angular/forms';
       MatRadioModule,
       MatDialogModule,
       MatInputModule,
+      MatSelectModule,
       APP_ROUTES
   ],
   providers: [
