@@ -5,6 +5,7 @@ import {first, flatMap, map} from 'rxjs/operators';
 import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
 import {of} from 'rxjs';
+import {UsersService} from '../services/users.service';
 
 @Component({
     selector: 'app-sign-up',
@@ -40,9 +41,9 @@ export class SignUpComponent implements OnInit {
         of(user)
             .pipe(
                 map(_ => {
-                    return {'firstname' : _.firstname, 'lastname': _.firstname, 'password' : _.password, 'email' : _.email};
+                    return {'firstname' : _.firstname, 'lastname': _.firstname, 'password' : _.password, 'username' : _.username};
                 }),
-                // flatMap(_ => this._userService.create(_))
+                flatMap(_ => this._userService.create(_))
             ).subscribe(
             data => {
                 console.log(data);
@@ -54,7 +55,7 @@ export class SignUpComponent implements OnInit {
         );
     }
 
-    constructor(private _userService: AuthenticationService, private _router: Router) {
+    constructor(private _userService: UsersService, private _router: Router) {
         this._submit$ = new EventEmitter<User>();
         this._form = this._buildForm();
     }
@@ -70,7 +71,7 @@ export class SignUpComponent implements OnInit {
             password: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
             ])),
-            email: new FormControl('', Validators.compose([
+            username: new FormControl('', Validators.compose([
                 Validators.required,
                 Validators.pattern(
                     '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}' +
@@ -79,12 +80,12 @@ export class SignUpComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
-        // this._authService.logout();
-    }
 
     get errorMsg(): string {
         return this._errorMsg;
+    }
+
+    ngOnInit(): void {
     }
 
 }

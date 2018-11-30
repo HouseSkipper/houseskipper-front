@@ -14,10 +14,10 @@
                 <mat-error *ngIf="invalid && form.get('lastname').hasError('required')" class="alert alert-danger">Lastname is required</mat-error>
             </mat-form-field>
         </div>
-        <mat-form-field appearance="outline" [class.mgb15]="invalid && form.get('email').invalid">
+        <mat-form-field appearance="outline" [class.mgb15]="invalid && form.get('username').invalid">
             <mat-label>Email Address</mat-label>
-            <input matInput placeholder="Email Address" formControlName="email">
-            <mat-error *ngIf="invalid && form.get('email').hasError('required')" class="alert alert-danger">Email is required</mat-error>
+            <input matInput placeholder="Email Address" formControlName="username">
+            <mat-error *ngIf="invalid && form.get('username').hasError('required')" class="alert alert-danger">Email is required</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" [class.mgb15]="invalid && form.get('password').invalid">
             <mat-label>Password</mat-label>

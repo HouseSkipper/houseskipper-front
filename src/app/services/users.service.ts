@@ -44,7 +44,7 @@ export class UsersService {
      * Function to create a new person
      */
     create(user: User): Observable<any> {
-        return this._http.post<User>(this._backendURL.allUsers, user, this._options());
+        return this._http.post<User>(this._backendURL.signup, user, this._options());
     }
 
     /*update(user: User): Observable<any> {

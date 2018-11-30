@@ -7,12 +7,13 @@ export const environment = {
     production: false,
     backend: {
         protocol: 'http',
-        host: '0.0.0.0',
-        port: '4443',
+        host: 'localhost',
+        port: '8080',
         endpoints: {
             oneUsers: '/api/users/:id',
             allUsers: '/api/users',
-            authenticate: '/api/users/authenticate',
+            authenticate: '/login',
+            signup: '/users/sign-up'
         }
     }
 };
