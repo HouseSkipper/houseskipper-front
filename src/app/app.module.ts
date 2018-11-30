@@ -5,19 +5,19 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptorService} from './interceptors/jwt-interceptor.service';
 import {
     MatButtonModule,
-    MatCheckboxModule,
-    MatDialogModule,
+    MatCardModule, MatCheckboxModule, MatDialogModule,
     MatExpansionModule,
-    MatIconModule, MatInputModule,
-    MatRadioModule, MatSelectModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule, MatRadioModule, MatSelectModule,
     MatToolbarModule
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {APP_ROUTES} from './app.routes';
-import { HouseComponent } from './house/house.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HouseComponent } from './house/house.component';
 
 @NgModule({
   declarations: [
@@ -27,19 +27,23 @@ import {ReactiveFormsModule} from '@angular/forms';
     HouseComponent
   ],
   imports: [
+      ReactiveFormsModule,
       BrowserModule,
       HttpClientModule,
       MatIconModule,
       MatToolbarModule,
       MatButtonModule,
       MatExpansionModule,
-      BrowserAnimationsModule,
       ReactiveFormsModule,
       MatCheckboxModule,
       MatRadioModule,
       MatDialogModule,
       MatInputModule,
       MatSelectModule,
+      MatCardModule,
+      MatFormFieldModule,
+      MatInputModule,
+      BrowserAnimationsModule,
       APP_ROUTES
   ],
   providers: [

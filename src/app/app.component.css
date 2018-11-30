@@ -5,3 +5,9 @@
 mat-icon {
     margin-right:10px;
 }
+
+.main-content {
+    display:flex;
+    justify-content: center;
+    padding:10px;
+}
