@@ -1,4 +1,5 @@
 export interface Task {
+    id?: string;
     room: string;
     description: string;
     budget: string;

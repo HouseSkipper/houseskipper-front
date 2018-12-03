@@ -13,6 +13,12 @@ export const environment = {
         endpoints: {
             oneUsers: '/api/users/:id',
             authenticate: '/api/users/authenticate',
+            tasks: {
+              allTasks: '/tasks',
+              oneTask: '/tasks/:id',
+              allTasksForUser: '/users/:id/tasks'
+            }
+
         }
     }
 };

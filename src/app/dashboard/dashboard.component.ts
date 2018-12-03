@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {DataService} from '../services/task.service';
 import {DataSource} from '@angular/cdk/table';
-import {Task} from '../interfaces/Task';
+import {Task} from '../interfaces/task';
 import {MatDialog} from '@angular/material';
 import {TaskDialogComponent} from '../task-dialog/task-dialog.component';
 import {DataaService} from '../services/dataa.service';
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
             data: 'Add Task'
         });
         dialogRef.componentInstance.event.subscribe((result) => {
-            this._dataService.save(result.data);
+            this._dataService.create(result.data);
             this.dataSource = new TaskDataSource(this._dataService);
         });
     }
