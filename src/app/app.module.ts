@@ -7,14 +7,20 @@ import {MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatIn
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {APP_ROUTES} from './app.routes';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialModule} from './material.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {DataService} from './services/task.service';
+import { TaskDialogComponent } from './task-dialog/task-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    DashboardComponent,
+    TaskDialogComponent
   ],
   imports: [
       ReactiveFormsModule,
@@ -27,11 +33,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       MatFormFieldModule,
       MatInputModule,
       BrowserAnimationsModule,
+      MaterialModule,
+      FormsModule,
       APP_ROUTES
   ],
   providers: [
       {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
+      DataService
   ],
+    entryComponents: [
+        TaskDialogComponent
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
