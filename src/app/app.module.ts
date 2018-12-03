@@ -13,6 +13,7 @@ import {MaterialModule} from './material.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {DataService} from './services/task.service';
 import { TaskDialogComponent } from './task-dialog/task-dialog.component';
+import {DataaService} from './services/dataa.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { TaskDialogComponent } from './task-dialog/task-dialog.component';
   ],
   providers: [
       {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
-      DataService
+      DataService, DataaService
   ],
     entryComponents: [
         TaskDialogComponent

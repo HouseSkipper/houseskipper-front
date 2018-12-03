@@ -14,7 +14,7 @@ import {DataaService} from '../services/dataa.service';
 })
 export class DashboardComponent implements OnInit {
 
-    constructor(private _dataService: DataService, public dialog: MatDialog) { }
+    constructor(private _dataService: DataaService, public dialog: MatDialog) { }
 
     displayedColumns = ['start_date', 'room', 'description', 'budget', 'status', 'delete'];
     dataSource = new TaskDataSource(this._dataService);
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
     }
     deleteTask(id) {
-        // this._dataService.remove(id);
+        this._dataService.remove(id);
         this.dataSource = new TaskDataSource(this._dataService);
     }
 
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
             data: 'Add Task'
         });
         dialogRef.componentInstance.event.subscribe((result) => {
-            this._dataService.addPost(result.data);
+            this._dataService.save(result.data);
             this.dataSource = new TaskDataSource(this._dataService);
         });
     }
@@ -41,12 +41,12 @@ export class DashboardComponent implements OnInit {
 
 
 export class TaskDataSource extends DataSource<any> {
-    constructor(private _dataService: DataService) {
+    constructor(private _dataService: DataaService) {
         super();
     }
 
     connect(): Observable<Task[]> {
-        return this._dataService.getData();
+        return this._dataService.getAll();
     }
     disconnect() {
     }
