@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {$} from 'protractor';
 
 export interface Type {
@@ -25,6 +25,7 @@ export class HouseComponent implements OnInit {
     private _types: Type[];
     private _studio: boolean;
     private _pieces: Piece[];
+    items: FormArray;
 
     constructor() {
         this._form = this._buildForm();
@@ -36,6 +37,15 @@ export class HouseComponent implements OnInit {
         ];
         this._studio = false;
         this._pieces = [];
+    }
+
+    createItem(p: number): FormGroup {
+        return new FormGroup({
+            id: new FormControl(p),
+            nomPiece: new FormControl(''),
+            surface: new FormControl(''),
+            description: new FormControl('')
+        });
     }
 
 
@@ -55,6 +65,7 @@ export class HouseComponent implements OnInit {
         return this._pieces;
     }
 
+
     addPiece() {
         this._pieces.push(
             {
@@ -63,11 +74,12 @@ export class HouseComponent implements OnInit {
                 surface: 0,
                 description: ''
             } as Piece);
-        console.log(this._pieces);
     }
 
     deletePiece(p: number) {
-        this._pieces.splice(p, 1);
+        // this._pieces.splice(p, 1);
+        this.items = this._form.get('items') as FormArray;
+        this.items.removeAt(p);
     }
 
 
@@ -115,13 +127,22 @@ export class HouseComponent implements OnInit {
             nbPiece: new FormControl('', Validators.required),
             anneeCons: new FormControl('', Validators.required),
             typeBien: new FormControl('', Validators.required),
-            nomPiece: new FormControl('', Validators.required),
-            surface: new FormControl('', Validators.required),
-            description: new FormControl('', Validators.required),
+            numeroType: new FormControl('0', Validators.required),
+            items: new FormArray([this.createItem(0)]),
             chauffage: new FormControl('', Validators.required),
             amperage: new FormControl('', Validators.required),
             commentaire: new FormControl(''),
         });
+    }
+
+    addItem(): void {
+        this.items = this._form.get('items') as FormArray;
+        this.items.push(this.createItem(this.items.length));
+    }
+
+
+    submit(payload: any) {
+        console.log(payload);
     }
 
 }
