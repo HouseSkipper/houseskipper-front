@@ -52,6 +52,7 @@ export class SignUpComponent implements OnInit {
             error => {
                 console.log(error);
                 this._errorMsg = error;
+                this._invalid = true;
             }
         );
     }
@@ -77,6 +78,10 @@ export class SignUpComponent implements OnInit {
                 Validators.pattern(
                     '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}' +
                     '\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')
+            ])),
+            telephone: new FormControl('', Validators.compose([
+                Validators.required,
+                Validators.pattern('\\d{10}')
             ]))
         });
     }
