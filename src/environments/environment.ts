@@ -7,8 +7,8 @@ export const environment = {
     production: false,
     backend: {
         protocol: 'http',
-        host: '0.0.0.0',
-        port: '4443',
+        host: 'localhost',
+        port: '8080',
         endpoints: {
             oneUsers: '/api/users/:id',
             authenticate: '/api/users/authenticate',

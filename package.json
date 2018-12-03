@@ -11,7 +11,7 @@
     "dev:watch": "make clean-dev && concurrently -k --raw \"make build-dev\" \"make run-dev\""
   },
   "engines": {
-    "node": "10.11.0",
+    "node": "10.14.1",
     "npm": "6.4.1"
   },
   "private": true,
@@ -23,6 +23,7 @@
     "@angular/compiler": "~7.0.0",
     "@angular/compiler-cli": "~7.0.0",
     "@angular/core": "~7.0.0",
+    "@angular/flex-layout": "^7.0.0-beta.19",
     "@angular/forms": "~7.0.0",
     "@angular/http": "~7.0.0",
     "@angular/material": "^7.1.0",
@@ -31,7 +32,9 @@
     "@angular/router": "~7.0.0",
     "core-js": "^2.5.4",
     "express": "*",
+    "hammerjs": "^2.0.8",
     "rxjs": "~6.3.3",
+    "rxjs-compat": "^6.3.3",
     "typescript": "~3.1.1",
     "zone.js": "~0.8.26"
   },
