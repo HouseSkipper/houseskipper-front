@@ -9,8 +9,8 @@
             <mat-label>Password</mat-label>
             <input matInput placeholder="Password" type="password" formControlName="password">
         </mat-form-field>
+        <mat-error *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
     </form>
     <button id="submitButton" mat-button type="submit" [disabled]="form.invalid" (click)="submit(form.value)">Log in</button>
     <div class="align-center"><a class="md-accent" [routerLink]="['/signup']">Don't have an account yet?</a></div>
-    <mat-error *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
 </div>

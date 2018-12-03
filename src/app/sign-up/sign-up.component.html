@@ -1,4 +1,4 @@
-<div id="login-container" class="form-container">
+<div id="login-container">
     <h1 class="mat-headline">Create Account</h1>
     <form class="form-container" novalidate [formGroup]="form">
         <div class="name">
@@ -28,4 +28,5 @@
     <button id="submitButton" mat-button type="submit" [disabled]="form.invalid" (click)="submit(form.value)">
         Create account
     </button>
+    <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
 </div>

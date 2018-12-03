@@ -34,11 +34,9 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    console.log('xd');
                     this._router.navigate(['/']);
                 },
                 error => {
-                    console.log('mdr');
                     this._errorMsg = error;
                 }
             )
