@@ -1,7 +1,16 @@
 mat-accordion {
     padding: 10px;
-    flex-basis: 468px;
-    width: 80vh;
+}
+
+form {
+    flex-direction: column;
+    width: 800px;
+}
+
+@media all and (max-width: 900px) {
+    form {
+       width: auto;
+    }
 }
 
 mat-expansion-panel {

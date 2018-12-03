@@ -63,6 +63,7 @@ export class HouseComponent implements OnInit {
                 surface: 0,
                 description: ''
             } as Piece);
+        console.log(this._pieces);
     }
 
     deletePiece(p: number) {
@@ -117,6 +118,9 @@ export class HouseComponent implements OnInit {
             nomPiece: new FormControl('', Validators.required),
             surface: new FormControl('', Validators.required),
             description: new FormControl('', Validators.required),
+            chauffage: new FormControl('', Validators.required),
+            amperage: new FormControl('', Validators.required),
+            commentaire: new FormControl(''),
         });
     }
 

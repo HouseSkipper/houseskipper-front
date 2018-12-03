@@ -152,26 +152,26 @@
                     Vos pièces
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <button mat-button (click)="addPiece()">Ajouter une pièce</button>
+            <button mat-button="add" (click)="addPiece()"><mat-icon svgIcon="icon-add"></mat-icon></button>
             <div *ngFor="let piece of pieces">
-                <button mat-button (click)="deletePiece(piece.id)">Supprimer une pièce</button>
+                <button mat-button (click)="deletePiece(piece.id)"><mat-icon svgIcon="icon-delete"></mat-icon></button>
                 <mat-form-field class="margin">
                     <input matInput placeholder="Nom de la pièce" formControlName="nomPiece" required
-                           name="nomPiece"/>
+                           name="piece{{piece.id}}"/>
                     <mat-error *ngIf="form.get('nomPiece').dirty && form.get('nomPiece').hasError('required')">
                         Le nom de la pièce est <strong>requis</strong>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="margin">
                     <input matInput placeholder="Surface" formControlName="surface" required
-                           name="surface"/>
+                           name="surface{{piece.id}}"/>
                     <mat-error *ngIf="form.get('surface').dirty && form.get('surface').hasError('required')">
                         La surface de la pièce est <strong>requise</strong>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="margin">
                     <input matInput placeholder="Description" formControlName="description" required
-                           name="description"/>
+                           name="description{{piece.id}}"/>
                     <mat-error *ngIf="form.get('description').dirty && form.get('description').hasError('required')">
                         La description de la pièce est <strong>requise</strong>
                     </mat-error>
@@ -180,6 +180,61 @@
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
                 <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Énergie -->
+        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-energy"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Énergie
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Votre type de chauffage" formControlName="chauffage" required
+                           name="chauffage"/>
+                    <mat-error *ngIf="form.get('chauffage').dirty && form.get('chauffage').hasError('required')">
+                        Type de chauffage est <strong>requis</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Ampérage électrique de votre habitation" formControlName="amperage" required
+                           name="amperage"/>
+                    <mat-error *ngIf="form.get('amperage').dirty && form.get('amperage').hasError('required')">
+                        Ampérage électrique de votre habitation est <strong>requis</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Commentaire -->
+        <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-message"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Commentaire
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Commentaire sur votre habitation" formControlName="commentaire"
+                           name="commentaire"/>
+                </mat-form-field>
+            </div>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
             </mat-action-row>
         </mat-expansion-panel>
     </form>

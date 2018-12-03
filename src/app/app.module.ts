@@ -9,7 +9,7 @@ import {
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule, MatRadioModule, MatSelectModule,
+    MatInputModule, MatRadioModule, MatSelectModule, MatSidenavModule,
     MatToolbarModule
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
@@ -44,6 +44,7 @@ import { HouseComponent } from './house/house.component';
       MatFormFieldModule,
       MatInputModule,
       BrowserAnimationsModule,
+      MatSidenavModule,
       APP_ROUTES
   ],
   providers: [
