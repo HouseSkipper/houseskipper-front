@@ -11,8 +11,8 @@
     "dev:watch": "make clean-dev && concurrently -k --raw \"make build-dev\" \"make run-dev\""
   },
   "engines": {
-    "node": "10.11.0",
-    "npm": "6.4.1"
+    "node": ">=10.11.0",
+    "npm": ">=6.4.1"
   },
   "private": true,
   "dependencies": {
