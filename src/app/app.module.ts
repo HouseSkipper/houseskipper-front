@@ -3,7 +3,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptorService} from './interceptors/jwt-interceptor.service';
-import {MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule} from '@angular/material';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+    MatToolbarModule
+} from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {APP_ROUTES} from './app.routes';
@@ -29,6 +37,7 @@ import { ProfileComponent } from './profile/profile.component';
       MatFormFieldModule,
       MatInputModule,
       BrowserAnimationsModule,
+      MatSelectModule,
       APP_ROUTES
   ],
   providers: [

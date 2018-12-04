@@ -15,6 +15,12 @@ import {UsersService} from '../services/users.service';
 export class SignUpComponent implements OnInit {
 
 
+    private _roles: string[] = ['Particulier-propriétaire'];
+
+    get roles(): string[] {
+        return this._roles;
+    }
+
     private _errorMsg = '';
     private _form: FormGroup;
     private _invalid: boolean;
@@ -41,7 +47,7 @@ export class SignUpComponent implements OnInit {
         of(user)
             .pipe(
                 map(_ => {
-                    return {'firstname' : _.firstname, 'lastname': _.firstname, 'password' : _.password, 'username' : _.username};
+                    return {'firstname' : _.firstname, 'lastname': _.firstname, 'password' : _.password, 'username' : _.username, 'telephone' : _.telephone, 'role': _.role};
                 }),
                 flatMap(_ => this._userService.create(_))
             ).subscribe(
@@ -82,7 +88,8 @@ export class SignUpComponent implements OnInit {
             telephone: new FormControl('', Validators.compose([
                 Validators.required,
                 Validators.pattern('\\d{10}')
-            ]))
+            ])),
+            role: new FormControl('', Validators.required)
         });
     }
 

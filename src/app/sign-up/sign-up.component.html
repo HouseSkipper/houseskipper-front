@@ -34,6 +34,16 @@
             <mat-error *ngIf="form.invalid && form.get('telephone').hasError('required')" class="alert alert-danger">Telephone is required</mat-error>
             <mat-error *ngIf="form.invalid && form.get('telephone').hasError('pattern')" class="alert alert-danger">Telephone number is invalid</mat-error>
         </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Register as a</mat-label>
+            <mat-select placeholder="Choose your status" formControlName="role">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let role of roles" [value]="role">
+                    {{role}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('role').hasError('required')">Please choose a role</mat-error>
+        </mat-form-field>
     </form>
     <button id="submitButton" mat-button [disabled]="!form.valid" type="submit" (click)="submit(form.value)">
         Create account
