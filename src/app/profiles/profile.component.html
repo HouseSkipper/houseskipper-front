@@ -1,0 +1,28 @@
+<p class="mat-title">Mise à jour du profil</p>
+<p class="mat-title">Compétences :</p>
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar="https://upload.wikimedia.org/wikipedia/commons/1/1f/Tools.svg"></div>
+        <mat-card-title>Bricolage :</mat-card-title>
+        <mat-card-subtitle *ngIf="value < 3">Débutant</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="value >= 3 && value < 5">Intermédaire</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="value == 5">Avancé</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Tools.svg" alt="bricolage">
+    <mat-card-content>
+        <section>
+            <mat-slider
+                    min="0"
+                    max="5"
+                    step="1"
+                    [(ngModel)]="value"
+            ></mat-slider>
+            <mat-form-field>
+                <input matInput type="number" placeholder="Travaux effectuées" [(ngModel)]="value">
+            </mat-form-field>
+        </section>
+    </mat-card-content>
+</mat-card>
+
+<button id="submitButton" mat-raised-button type="submit">Sauvegarder le profil</button>
+
