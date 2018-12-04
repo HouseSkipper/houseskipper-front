@@ -8,10 +8,11 @@ export const environment = {
     backend: {
         protocol: 'http',
         host: '0.0.0.0',
-        port: '4443',
+        port: '8080',
         endpoints: {
             oneUsers: '/api/users/:id',
             authenticate: '/api/users/authenticate',
+            allHouses: '/houses'
         }
     }
 };

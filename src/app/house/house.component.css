@@ -4,14 +4,9 @@ mat-accordion {
 
 form {
     flex-direction: column;
-    width: 800px;
+    width: 140vh;
 }
 
-@media all and (max-width: 900px) {
-    form {
-       width: auto;
-    }
-}
 
 mat-expansion-panel {
     background: rgb(133,158,248);

@@ -11,17 +11,17 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <mat-form-field class="margin">
-                <input matInput placeholder="Nom du logement" formControlName="nomLogement" minlength="5" required
-                       name="nomLogement"/>
-                <mat-error *ngIf="form.get('nomLogement').dirty && form.get('nomLogement').hasError('required')">
+                <input matInput placeholder="Nom du logement" formControlName="houseName" minlength="5" required
+                       name="houseName"/>
+                <mat-error *ngIf="form.get('houseName').dirty && form.get('houseName').hasError('required')">
                     Nom du logement est <strong>requis</strong>
                 </mat-error>
-                <mat-error *ngIf="form.get('nomLogement').dirty && form.get('nomLogement').hasError('minlength')">
+                <mat-error *ngIf="form.get('houseName').dirty && form.get('houseName').hasError('minlength')">
                     Nom du logement requière <strong>5 caractères minimum</strong>
                 </mat-error>
             </mat-form-field>
             <section class="sectionTypeLogement">
-                <mat-radio-group required name="typeLogement" formControlName="typeLogement">
+                <mat-radio-group required name="houseType" formControlName="houseType">
                     <mat-radio-button class="margin" value="maison">Maison</mat-radio-button>
                     <mat-radio-button class="margin" value="appartement">Appartement</mat-radio-button>
                 </mat-radio-group>
@@ -43,27 +43,27 @@
             </mat-expansion-panel-header>
             <div>
                 <mat-form-field class="margin">
-                    <input matInput placeholder="Adresse postal" formControlName="adPostal" required
-                           name="adPostal"/>
-                    <mat-error *ngIf="form.get('adPostal').dirty && form.get('adPostal').hasError('required')">
+                    <input matInput placeholder="Adresse postal" formControlName="address" required
+                           name="address"/>
+                    <mat-error *ngIf="form.get('address').dirty && form.get('address').hasError('required')">
                         Adresse postal est <strong>requise</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field class="margin">
-                    <input matInput placeholder="Code postal" formControlName="codePostal" required
-                           name="codePostal"/>
-                    <mat-error *ngIf="form.get('codePostal').dirty && form.get('codePostal').hasError('required')">
+                    <input matInput placeholder="Code postal" formControlName="postalCode" required
+                           name="postalCode"/>
+                    <mat-error *ngIf="form.get('postalCode').dirty && form.get('postalCode').hasError('required')">
                         Code postal est <strong>requis</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field class="margin">
-                    <input matInput placeholder="Ville" formControlName="ville" required
-                           name="ville"/>
-                    <mat-error *ngIf="form.get('ville').dirty && form.get('ville').hasError('required')">
+                    <input matInput placeholder="Ville" formControlName="city" required
+                           name="city"/>
+                    <mat-error *ngIf="form.get('city').dirty && form.get('city').hasError('required')">
                         Ville est <strong>requise</strong>
                     </mat-error>
                 </mat-form-field>
@@ -86,43 +86,43 @@
             </mat-expansion-panel-header>
             <div>
                 <mat-form-field class="margin">
-                    <input matInput placeholder="Surface habitable" formControlName="sh" required
-                           name="sh"/>
-                    <mat-error *ngIf="form.get('sh').dirty && form.get('sh').hasError('required')">
+                    <input matInput placeholder="Surface habitable" formControlName="livingSpace" required
+                           name="livingSpace"/>
+                    <mat-error *ngIf="form.get('livingSpace').dirty && form.get('livingSpace').hasError('required')">
                         Surface habitable est <strong>requise</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field class="margin">
-                    <input matInput placeholder="Surface extérieur" formControlName="se" required
-                           name="se"/>
-                    <mat-error *ngIf="form.get('se').dirty && form.get('se').hasError('required')">
+                    <input matInput placeholder="Surface extérieur" formControlName="outsideSpace" required
+                           name="outsideSpace"/>
+                    <mat-error *ngIf="form.get('outsideSpace').dirty && form.get('outsideSpace').hasError('required')">
                         Surface extérieur est <strong>requise</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field class="margin">
-                    <input matInput placeholder="Nombre de pièces" formControlName="nbPiece" required
-                           name="nbPiece"/>
-                    <mat-error *ngIf="form.get('nbPiece').dirty && form.get('nbPiece').hasError('required')">
+                    <input matInput placeholder="Nombre de pièces" formControlName="numberPieces" required
+                           name="numberPieces"/>
+                    <mat-error *ngIf="form.get('numberPieces').dirty && form.get('numberPieces').hasError('required')">
                         Nombre de pièces est <strong>requis</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field class="margin">
-                    <input matInput placeholder="Année de construction" formControlName="anneeCons" required
-                           name="anneeCons"/>
-                    <mat-error *ngIf="form.get('anneeCons').dirty && form.get('anneeCons').hasError('required')">
+                    <input matInput placeholder="Année de construction" formControlName="constructionYear" required
+                           name="constructionYear"/>
+                    <mat-error *ngIf="form.get('constructionYear').dirty && form.get('constructionYear').hasError('required')">
                         Année de construction est <strong>requise</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field class="margin">
-                    <mat-select placeholder="Type" formControlName="typeBien" required name="typeBien"
+                    <mat-select placeholder="Type" formControlName="standardType" required name="standardType"
                                 (selectionChange)="changeType()">
                         <mat-option *ngFor="let type of types" [value]="type.value">
                             {{type.value}}
@@ -130,9 +130,9 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="margin" *ngIf="!!studio">
-                    <input matInput placeholder="Numéro associé au type" formControlName="numeroType" required
-                           name="numeroType"/>
-                    <mat-error *ngIf="form.get('numeroType').dirty && form.get('numeroType').hasError('required')">
+                    <input matInput placeholder="Numéro associé au type" formControlName="standardTypeNumber" required
+                           name="standardTypeNumber"/>
+                    <mat-error *ngIf="form.get('standardTypeNumber').dirty && form.get('standardTypeNumber').hasError('required')">
                         Numéro est <strong>requis</strong>
                     </mat-error>
                 </mat-form-field>
@@ -156,22 +156,22 @@
             <button mat-button="add" (click)="addItem()">
                 <mat-icon svgIcon="icon-add"></mat-icon>
             </button>
-            <div formArrayName="items" *ngFor="let piece of form.get('items').controls; let i = index;">
+            <div formArrayName="rooms" *ngFor="let piece of form.get('rooms').controls; let i = index;">
                 <div [formGroupName]="i">
                     <button mat-button (click)="deletePiece(piece.id)">
                         <mat-icon svgIcon="icon-delete"></mat-icon>
                     </button>
                     <mat-form-field class="margin">
-                        <input matInput placeholder="Nom de la pièce" formControlName="nomPiece" required
+                        <input matInput placeholder="Nom de la pièce" formControlName="roomName" required
                                name="piece{{piece.id}}"/>
-                        <mat-error *ngIf="form.get('items').controls[i].get('nomPiece').dirty && form.get('items').controls[i].get('nomPiece').hasError('required')">
+                        <mat-error *ngIf="form.get('rooms').controls[i].get('roomName').dirty && form.get('rooms').controls[i].get('roomName').hasError('required')">
                             Le nom de la pièce est <strong>requis</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="margin">
-                        <input matInput placeholder="Surface" formControlName="surface" required
-                               name="surface{{piece.id}}"/>
-                        <mat-error *ngIf="form.get('items').controls[i].get('surface').dirty && form.get('items').controls[i].get('surface').hasError('required')">
+                        <input matInput placeholder="Surface" formControlName="space" required
+                               name="space{{piece.id}}"/>
+                        <mat-error *ngIf="form.get('rooms').controls[i].get('space').dirty && form.get('rooms').controls[i].get('space').hasError('required')">
                             La surface de la pièce est <strong>requise</strong>
                         </mat-error>
                     </mat-form-field>
@@ -179,7 +179,7 @@
                         <input matInput placeholder="Description" formControlName="description" required
                                name="description{{piece.id}}"/>
                         <mat-error
-                                *ngIf="form.get('items').controls[i].get('description').dirty && form.get('items').controls[i].get('description').hasError('required')">
+                                *ngIf="form.get('rooms').controls[i].get('description').dirty && form.get('rooms').controls[i].get('description').hasError('required')">
                             La description de la pièce est <strong>requise</strong>
                         </mat-error>
                     </mat-form-field>
@@ -203,9 +203,9 @@
             </mat-expansion-panel-header>
             <div>
                 <mat-form-field class="margin">
-                    <input matInput placeholder="Votre type de chauffage" formControlName="chauffage" required
-                           name="chauffage"/>
-                    <mat-error *ngIf="form.get('chauffage').dirty && form.get('chauffage').hasError('required')">
+                    <input matInput placeholder="Votre type de chauffage" formControlName="heatingType" required
+                           name="heatingType"/>
+                    <mat-error *ngIf="form.get('heatingType').dirty && form.get('heatingType').hasError('required')">
                         Type de chauffage est <strong>requis</strong>
                     </mat-error>
                 </mat-form-field>
@@ -238,8 +238,8 @@
             </mat-expansion-panel-header>
             <div>
                 <mat-form-field class="margin">
-                    <input matInput placeholder="Commentaire sur votre habitation" formControlName="commentaire"
-                           name="commentaire"/>
+                    <input matInput placeholder="Commentaire sur votre habitation" formControlName="comment"
+                           name="comment"/>
                 </mat-form-field>
             </div>
             <mat-action-row>

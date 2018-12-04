@@ -1,17 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {$} from 'protractor';
+import {House} from '../interfaces/house';
+import {HouseService} from '../services/house.service';
 
 export interface Type {
     value: string;
 }
 
-export interface Piece {
-    id: string;
-    nom: string;
-    surface: number;
-    description: string;
-}
 
 @Component({
     selector: 'app-house',
@@ -24,10 +20,9 @@ export class HouseComponent implements OnInit {
     private _step: number;
     private _types: Type[];
     private _studio: boolean;
-    private _pieces: Piece[];
-    items: FormArray;
+    rooms: FormArray;
 
-    constructor() {
+    constructor(private _houseService: HouseService) {
         this._form = this._buildForm();
         this._step = 0;
         this._types = [
@@ -36,14 +31,13 @@ export class HouseComponent implements OnInit {
             {value: 'F'}
         ];
         this._studio = false;
-        this._pieces = [];
     }
 
     createItem(p: number): FormGroup {
         return new FormGroup({
             id: new FormControl(p),
-            nomPiece: new FormControl(''),
-            surface: new FormControl(''),
+            roomName: new FormControl(''),
+            space: new FormControl(''),
             description: new FormControl('')
         });
     }
@@ -61,30 +55,14 @@ export class HouseComponent implements OnInit {
         return this._studio;
     }
 
-    get pieces(): Piece[] {
-        return this._pieces;
-    }
-
-
-    addPiece() {
-        this._pieces.push(
-            {
-                id: this._pieces.length.toString(),
-                nom: '',
-                surface: 0,
-                description: ''
-            } as Piece);
-    }
-
     deletePiece(p: number) {
-        // this._pieces.splice(p, 1);
-        this.items = this._form.get('items') as FormArray;
-        this.items.removeAt(p);
+        this.rooms = this._form.get('rooms') as FormArray;
+        this.rooms.removeAt(p);
     }
 
 
     changeType() {
-        if ( this._form.value.typeBien === 'Studio') {
+        if ( this._form.value.standardType === 'Studio') {
             this._studio = false;
         } else {
             this._studio = true;
@@ -115,34 +93,34 @@ export class HouseComponent implements OnInit {
 
     private _buildForm(): FormGroup {
         return new FormGroup({
-            nomLogement: new FormControl('', Validators.compose([
+            houseName: new FormControl('', Validators.compose([
                 Validators.required, Validators.minLength(5)
             ])),
-            typeLogement: new FormControl('', Validators.required),
-            adPostal: new FormControl('', Validators.required),
-            codePostal: new FormControl('', Validators.required),
-            ville: new FormControl('', Validators.required),
-            sh: new FormControl('', Validators.required),
-            se: new FormControl('', Validators.required),
-            nbPiece: new FormControl('', Validators.required),
-            anneeCons: new FormControl('', Validators.required),
-            typeBien: new FormControl('', Validators.required),
-            numeroType: new FormControl('0', Validators.required),
-            items: new FormArray([this.createItem(0)]),
-            chauffage: new FormControl('', Validators.required),
+            houseType: new FormControl('', Validators.required),
+            address: new FormControl('', Validators.required),
+            postalCode: new FormControl('', Validators.required),
+            city: new FormControl('', Validators.required),
+            livingSpace: new FormControl('', Validators.required),
+            outsideSpace: new FormControl('', Validators.required),
+            numberPieces: new FormControl('', Validators.required),
+            constructionYear: new FormControl('', Validators.required),
+            standardType: new FormControl('', Validators.required),
+            standardTypeNumber: new FormControl('1', Validators.required),
+            rooms: new FormArray([this.createItem(0)]),
+            heatingType: new FormControl('', Validators.required),
             amperage: new FormControl('', Validators.required),
-            commentaire: new FormControl(''),
+            comment: new FormControl(''),
         });
     }
 
     addItem(): void {
-        this.items = this._form.get('items') as FormArray;
-        this.items.push(this.createItem(this.items.length));
+        this.rooms = this._form.get('rooms') as FormArray;
+        this.rooms.push(this.createItem(this.rooms.length));
     }
 
 
-    submit(payload: any) {
-        console.log(payload);
+    submit(payload: House) {
+        this._houseService.create(payload).subscribe();
     }
 
 }
