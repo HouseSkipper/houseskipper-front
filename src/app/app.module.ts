@@ -10,21 +10,22 @@ import {
     MatIconModule,
     MatInputModule,
     MatSliderModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDialogModule
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {APP_ROUTES} from './app.routes';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ProfileComponent } from './profiles/profile.component';
+import { SkillsComponent } from './skills/skills.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    ProfileComponent
+      SkillsComponent
   ],
   imports: [
       ReactiveFormsModule,
@@ -37,6 +38,7 @@ import { ProfileComponent } from './profiles/profile.component';
       MatFormFieldModule,
       MatInputModule,
       MatSliderModule,
+      MatDialogModule,
       BrowserAnimationsModule,
       FormsModule,
       APP_ROUTES

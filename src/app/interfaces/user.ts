@@ -7,3 +7,10 @@ export interface User {
     password?: string;
     token?: string;
 }
+
+export interface Skill {
+    id?: string;
+    userId?: string;
+    type: string;
+    nb_Works?: string;
+}

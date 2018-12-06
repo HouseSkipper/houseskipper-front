@@ -12,6 +12,8 @@ export const environment = {
         endpoints: {
             oneUsers: '/api/users/:id',
             authenticate: '/api/users/authenticate',
+            allSkills: '/api/users/:id/skills',
+            oneSkill: '/api/users/:id/skills/:idSkill'
         }
     }
 };
