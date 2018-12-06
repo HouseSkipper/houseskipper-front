@@ -15,8 +15,12 @@ import {
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {APP_ROUTES} from './app.routes';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialModule} from './material.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {DataService} from './services/task.service';
+import { TaskDialogComponent } from './task-dialog/task-dialog.component';
 import {ProfileComponent} from './profile/profile.component';
 import {FormHouseComponent} from './houses/form/form.house.component';
 import { HouseComponent } from './houses/house/house.component';
@@ -50,12 +54,17 @@ import { HouseComponent } from './houses/house/house.component';
         BrowserAnimationsModule,
         MatSelectModule,
         MatSidenavModule,
+        DashboardComponent,
+        TaskDialogComponent,
+        MaterialModule,
+        FormsModule,
         APP_ROUTES
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [TaskDialogComponent]
 })
 export class AppModule {
 }
