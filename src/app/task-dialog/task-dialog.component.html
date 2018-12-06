@@ -3,7 +3,7 @@
   <form class="example-form" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <mat-select matInput placeholder="Choose a Room" required [(ngModel)]="blogTask.room" name="budget">
-        <mat-option *ngFor="let roomm of rooms" [value]="roomm.value">
+        <mat-option *ngFor="let roomm of room" [value]="roomm.value">
           {{ roomm.viewValue }}
         </mat-option>
       </mat-select>

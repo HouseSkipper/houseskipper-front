@@ -47,7 +47,8 @@ export class HouseService {
     }
 
     fecthAllHouse(): Observable<any> {
-        return this._httpClient.get<House[]>(this._backendURL.allHouses.replace(':username', this._authentication.currentUserValue.username))
+        return this._httpClient.get<House[]>(this._backendURL.allHouses.
+        replace(':username', this._authentication.currentUserValue.username))
             .pipe(
                 filter(_ => !!_),
                 defaultIfEmpty([])

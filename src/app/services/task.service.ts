@@ -13,9 +13,12 @@ export class DataService {
 
     private readonly _backendURL: any;
     ELEMENT_DATA: Task[] = [
-        {start_date: new Date(), room: 'Salon', description: 'refaire la painture', budget: '500 Euros', status: 'En cours'},
-        {start_date: new Date(), room: 'Bain', description: 'changer le sanitaire', budget: '500 Euros', status: 'En cours' },
-        {start_date: new Date(), room: 'Hall', description: 'refaire la painture', budget: '500 Euros', status: 'En cours' },
+        {start_date: new Date(), room: 'Salon', description: 'refaire la painture',
+            budget: '500 Euros', status: 'En cours', username: 'admin'},
+        {start_date: new Date(), room: 'Bain', description: 'changer le sanitaire',
+            budget: '500 Euros', status: 'En cours', username: 'admin' },
+        {start_date: new Date(), room: 'Hall', description: 'refaire la painture',
+            budget: '500 Euros', status: 'En cours', username: 'admin' },
     ];
     budgets = [
         {value: '< 200 euros', viewValue: '< 200 euros'},
@@ -37,13 +40,8 @@ export class DataService {
 
         // build all backend urls
         Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[ k ] =
-            `${baseUrl}${environment.backend.endpoints.tasks[ k ]}`);
+            `${baseUrl}${environment.backend.endpoints[ k ]}`);
 
-    }
-
-
-    getData(): Observable<Task[]> {
-        return of<Task[]>(this.ELEMENT_DATA);
     }
 
     getBudgets() {
@@ -58,15 +56,5 @@ export class DataService {
                 defaultIfEmpty([])
             );
     }
-    addPost(data) {
-        this.ELEMENT_DATA.push(data);
-    }
 
-    deleteTask(index) {
-        this.ELEMENT_DATA = this.ELEMENT_DATA.splice(index, 1);
-    }
-
-    dataLength() {
-        return this.ELEMENT_DATA.length;
-    }
 }

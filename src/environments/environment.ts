@@ -16,12 +16,12 @@ export const environment = {
             authenticate: '/login',
             signup: '/users/sign-up',
             allHouses: '/:username/houses',
+            rooms: '/rooms',
             tasks: {
-              allTasks: '/tasks',
+              allTasks: '/:username/tasks',
               oneTask: '/tasks/:id',
               allTasksForUser: '/users/:id/tasks'
-            },
-            rooms: '/rooms'
+            }
         }
     }
 };

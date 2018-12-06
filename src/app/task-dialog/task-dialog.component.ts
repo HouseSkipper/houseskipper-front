@@ -2,6 +2,7 @@ import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {DataService} from '../services/task.service';
 import {Task} from '../interfaces/task';
+import {Room} from '../interfaces/house';
 
 @Component({
   selector: 'app-task-dialog',
@@ -18,11 +19,13 @@ export class TaskDialogComponent implements OnInit {
         status: 'En Attente',
         start_date: new Date()
     };
-
+    private _rooms: Room[];
     budgets = this.dataService.getBudgets();
-    rooms = this.dataService.getAll();
     public event: EventEmitter<any> = new EventEmitter();
 
+    getrooms(): Room[] {
+        return this._rooms;
+    }
     constructor(
         public dialogRef: MatDialogRef<TaskDialogComponent>,
         public dataService: DataService,
@@ -34,6 +37,7 @@ export class TaskDialogComponent implements OnInit {
         } else {
             this.data = 'Add Task';
         }
+        this.dataService.getAll().subscribe((_) => this._rooms = _ );
     }
 
     onNoClick(): void {
