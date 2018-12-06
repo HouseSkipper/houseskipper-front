@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {$} from 'protractor';
-import {House} from '../interfaces/house';
-import {HouseService} from '../services/house.service';
+import {House} from '../../interfaces/house';
+import {HouseService} from '../../services/house.service';
 
 export interface Type {
     value: string;
@@ -10,11 +9,11 @@ export interface Type {
 
 
 @Component({
-    selector: 'app-house',
-    templateUrl: './house.component.html',
-    styleUrls: ['./house.component.css']
+    selector: 'app-form-house',
+    templateUrl: './form.house.component.html',
+    styleUrls: ['./form.house.component.css']
 })
-export class HouseComponent implements OnInit {
+export class FormHouseComponent implements OnInit {
 
     private readonly _form: FormGroup;
     private _step: number;

@@ -14,7 +14,7 @@ export const environment = {
             allUsers: '/api/users',
             authenticate: '/login',
             signup: '/users/sign-up',
-            allHouses: '/houses'
+            allHouses: '/:username/houses'
         }
     }
 };

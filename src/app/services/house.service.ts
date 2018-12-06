@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {House} from '../interfaces/house';
 import {environment} from '../../environments/environment';
 import {AuthenticationService} from './authentication.service';
+import {defaultIfEmpty, filter} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -37,12 +38,20 @@ export class HouseService {
         const user = this._authentication.currentUserValue;
         console.log(user);
         if (user !== null) {
-            house.username = this._authentication.currentUserValue.id;
+            house.username = this._authentication.currentUserValue.username;
         } else {
             house.username = 'admin';
         }
         console.log(house);
         return this._httpClient.post<House>(this._backendURL.allHouses, house, this._options());
+    }
+
+    fecthAllHouse(): Observable<any> {
+        return this._httpClient.get<House[]>(this._backendURL.allHouses.replace(':username', this._authentication.currentUserValue.username))
+            .pipe(
+                filter(_ => !!_),
+                defaultIfEmpty([])
+            );
     }
 
 }
