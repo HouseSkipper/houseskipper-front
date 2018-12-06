@@ -12,7 +12,10 @@ export const environment = {
         port: '8080',
         endpoints: {
             oneUsers: '/api/users/:id',
-            authenticate: '/api/users/authenticate',
+            allUsers: '/api/users',
+            authenticate: '/login',
+            signup: '/users/sign-up',
+            allHouses: '/:username/houses',
             tasks: {
               allTasks: '/tasks',
               oneTask: '/tasks/:id',

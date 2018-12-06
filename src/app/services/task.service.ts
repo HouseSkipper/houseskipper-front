@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 import {defaultIfEmpty, filter} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Room} from '../interfaces/Room';
+import {Room} from '../interfaces/house';
 
 @Injectable({
     providedIn: 'root'

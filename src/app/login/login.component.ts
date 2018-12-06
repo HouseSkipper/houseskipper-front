@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
      * Function to emit event to submit form and person
      */
     submit(user: User) {
-        this._authService.login(user.email, user.password)
+        this._authService.login(user.username, user.password)
             .pipe(first())
             .subscribe(
                 data => {
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
     private _buildForm(): FormGroup {
         return new FormGroup({
-            email: new FormControl('', Validators.compose([
+            username: new FormControl('', Validators.compose([
                 Validators.required
             ])),
             password: new FormControl('', Validators.compose([

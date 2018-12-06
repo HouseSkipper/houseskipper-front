@@ -38,6 +38,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.gitignore
 yarn.lock
-package-lock.json
