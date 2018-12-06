@@ -5,11 +5,11 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptorService} from './interceptors/jwt-interceptor.service';
 import {
     MatButtonModule,
-    MatCardModule, MatCheckboxModule, MatDialogModule,
-    MatExpansionModule,
+    MatCardModule, MatCheckboxModule, MatDialogModule, MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule, MatRadioModule, MatSelectModule, MatSidenavModule,
+    MatInputModule, MatRadioModule,
+    MatSelectModule, MatSidenavModule,
     MatToolbarModule
 } from '@angular/material';
 import { LoginComponent } from './login/login.component';
@@ -17,6 +17,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import {APP_ROUTES} from './app.routes';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ProfileComponent } from './profile/profile.component';
 import { HouseComponent } from './house/house.component';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { HouseComponent } from './house/house.component';
     AppComponent,
     LoginComponent,
     SignUpComponent,
+    ProfileComponent,
     HouseComponent
   ],
   imports: [
@@ -44,6 +46,7 @@ import { HouseComponent } from './house/house.component';
       MatFormFieldModule,
       MatInputModule,
       BrowserAnimationsModule,
+      MatSelectModule,
       MatSidenavModule,
       APP_ROUTES
   ],

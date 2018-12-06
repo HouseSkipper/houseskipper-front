@@ -1,3 +1,52 @@
-<p>
-  sign-up works!
-</p>
+<div id="login-container">
+    <h1 class="mat-headline">Create Account</h1>
+    <form class="form-container" novalidate [formGroup]="form">
+        <div class="name">
+            <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('firstname').invalid">
+                <mat-label>Firstname</mat-label>
+                <input matInput placeholder="Firstname" formControlName="firstname">
+                <mat-error *ngIf="form.invalid && form.get('firstname').hasError('required')" class="alert alert-danger">Firstname is required</mat-error>
+                <mat-error *ngIf="form.invalid && form.get('firstname').hasError('minlength')" class="alert alert-danger">Firstname is min length 3</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('lastname').invalid">
+                <mat-label>Lastname</mat-label>
+                <input matInput placeholder="Lastname" formControlName="lastname">
+                <mat-error *ngIf="form.invalid && form.get('lastname').hasError('required')" class="alert alert-danger">Lastname is required</mat-error>
+                <mat-error *ngIf="form.invalid && form.get('lastname').hasError('minlength')" class="alert alert-danger">Lastname is min length 3</mat-error>
+            </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('username').invalid">
+            <mat-label>Email Address</mat-label>
+            <input matInput placeholder="Email Address" formControlName="username">
+            <mat-error *ngIf="form.invalid && form.get('username').hasError('required')" class="alert alert-danger">Email is required</mat-error>
+            <mat-error *ngIf="form.invalid && form.get('username').hasError('pattern')" class="alert alert-danger">Email is not valid</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('password').invalid">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" type="password" formControlName="password">
+            <mat-error *ngIf="form.invalid && form.get('password').hasError('required')" class="alert alert-danger">Password is required</mat-error>
+            <mat-error *ngIf="form.invalid && form.get('password').hasError('pattern')" class="alert alert-danger">Password is 8 chars with uppercase, lowercase and special</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('telephone').invalid">
+            <mat-label>Telephone</mat-label>
+            <input matInput placeholder="Telephone" formControlName="telephone">
+            <mat-error *ngIf="form.invalid && form.get('telephone').hasError('required')" class="alert alert-danger">Telephone is required</mat-error>
+            <mat-error *ngIf="form.invalid && form.get('telephone').hasError('pattern')" class="alert alert-danger">Telephone number is invalid</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Register as a</mat-label>
+            <mat-select placeholder="Choose your status" formControlName="role">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let role of roles" [value]="role">
+                    {{role}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('role').hasError('required')">Please choose a role</mat-error>
+        </mat-form-field>
+    </form>
+    <button id="submitButton" mat-button [disabled]="!form.valid" type="submit" (click)="submit(form.value)">
+        Create account
+    </button>
+    <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
+</div>
