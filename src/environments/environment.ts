@@ -17,8 +17,8 @@ export const environment = {
               allTasks: '/tasks',
               oneTask: '/tasks/:id',
               allTasksForUser: '/users/:id/tasks'
-            }
-
+            },
+            rooms: '/rooms'
         }
     }
 };

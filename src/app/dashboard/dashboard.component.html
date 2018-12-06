@@ -43,9 +43,18 @@
                 <ng-container matColumnDef="delete">
                   <mat-header-cell *matHeaderCellDef></mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <a (click)="deleteTask(element.position)"
+                    <a (click)="deleteTask(element.id)"
                        type="button">
                       <mat-icon class="icon">delete</mat-icon>
+                    </a>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <a (click)="editTask(element)"
+                       type="button">
+                      <mat-icon class="icon">edit</mat-icon>
                     </a>
                   </mat-cell>
                 </ng-container>

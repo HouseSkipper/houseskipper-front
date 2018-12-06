@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {defaultIfEmpty, filter, map} from 'rxjs/operators';
 import {Task} from '../interfaces/task';
+import {Room} from '../interfaces/Room';
 
 @Injectable({
   providedIn: 'root'
@@ -23,20 +24,21 @@ export class DataaService {
     }
 
     // build all backend urls
-    Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[ k ] = `${baseUrl}${environment.backend.endpoints[ k ]}`);
+    Object.keys(environment.backend.endpoints.tasks).forEach(k => this._backendURL[ k ] =
+        `${baseUrl}${environment.backend.endpoints.tasks[ k ]}`);
 
   }
 
   getAll(): Observable<Task[]> {
-    return this._http.get<Task[]>(this._backendURL.allTasks)
+      console.log(this._backendURL.allTasks);
+      return this._http.get<Task[]>(this._backendURL.allTasks)
       .pipe(
         filter(_ => !!_),
         defaultIfEmpty([])
       );
   }
-
     get(id: string) {
-      return this._http.get<Task>(this._backendURL.oneGift.replace(':id', id));
+      return this._http.get<Task>(this._backendURL.oneTask.replace(':id', id));
     }
 
     create(task: Task): Observable<any> {

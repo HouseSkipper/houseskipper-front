@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {DataService} from '../services/task.service';
+import {Task} from '../interfaces/task';
 
 @Component({
   selector: 'app-task-dialog',
@@ -9,6 +10,7 @@ import {DataService} from '../services/task.service';
 })
 export class TaskDialogComponent implements OnInit {
 
+    data: string;
     blogTask = {
         room: '',
         description: '',
@@ -18,13 +20,20 @@ export class TaskDialogComponent implements OnInit {
     };
 
     budgets = this.dataService.getBudgets();
+    rooms = this.dataService.getAll();
     public event: EventEmitter<any> = new EventEmitter();
 
     constructor(
         public dialogRef: MatDialogRef<TaskDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any,
-        public dataService: DataService
+        public dataService: DataService,
+        @Inject(MAT_DIALOG_DATA) public blog: Task
     ) {
+        if (!!blog) {
+            this.blogTask = blog;
+            this.data = 'Edit Task';
+        } else {
+            this.data = 'Add Task';
+        }
     }
 
     onNoClick(): void {
