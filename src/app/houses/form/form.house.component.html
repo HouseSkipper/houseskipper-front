@@ -4,28 +4,30 @@
         <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <mat-icon svgIcon="icon-house"></mat-icon>
+                    <mat-icon svgIcon="icon-houses"></mat-icon>
                 </mat-panel-title>
                 <mat-panel-description>
                     Votre logement
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-form-field class="margin">
-                <input matInput placeholder="Nom du logement" formControlName="houseName" minlength="5" required
-                       name="houseName"/>
-                <mat-error *ngIf="form.get('houseName').dirty && form.get('houseName').hasError('required')">
-                    Nom du logement est <strong>requis</strong>
-                </mat-error>
-                <mat-error *ngIf="form.get('houseName').dirty && form.get('houseName').hasError('minlength')">
-                    Nom du logement requière <strong>5 caractères minimum</strong>
-                </mat-error>
-            </mat-form-field>
-            <section class="sectionTypeLogement">
-                <mat-radio-group required name="houseType" formControlName="houseType">
-                    <mat-radio-button class="margin" value="maison">Maison</mat-radio-button>
-                    <mat-radio-button class="margin" value="appartement">Appartement</mat-radio-button>
-                </mat-radio-group>
-            </section>
+            <div class="centerElement">
+                <mat-form-field class="margin">
+                    <input matInput placeholder="Nom du logement" formControlName="houseName" minlength="5" required
+                           name="houseName"/>
+                    <mat-error *ngIf="form.get('houseName').dirty && form.get('houseName').hasError('required')">
+                        Nom du logement est <strong>requis</strong>
+                    </mat-error>
+                    <mat-error *ngIf="form.get('houseName').dirty && form.get('houseName').hasError('minlength')">
+                        Nom du logement requière <strong>5 caractères minimum</strong>
+                    </mat-error>
+                </mat-form-field>
+                <section class="sectionTypeLogement">
+                    <mat-radio-group required name="houseType" formControlName="houseType">
+                        <mat-radio-button class="margin" value="maison">Maison</mat-radio-button>
+                        <mat-radio-button class="margin" value="appartement">Appartement</mat-radio-button>
+                    </mat-radio-group>
+                </section>
+            </div>
             <mat-action-row>
                 <button mat-button color="primary" (click)="nextStep()">Next</button>
             </mat-action-row>
@@ -115,7 +117,8 @@
                 <mat-form-field class="margin">
                     <input matInput placeholder="Année de construction" formControlName="constructionYear" required
                            name="constructionYear"/>
-                    <mat-error *ngIf="form.get('constructionYear').dirty && form.get('constructionYear').hasError('required')">
+                    <mat-error
+                            *ngIf="form.get('constructionYear').dirty && form.get('constructionYear').hasError('required')">
                         Année de construction est <strong>requise</strong>
                     </mat-error>
                 </mat-form-field>
@@ -132,7 +135,8 @@
                 <mat-form-field class="margin" *ngIf="!!studio">
                     <input matInput placeholder="Numéro associé au type" formControlName="standardTypeNumber" required
                            name="standardTypeNumber"/>
-                    <mat-error *ngIf="form.get('standardTypeNumber').dirty && form.get('standardTypeNumber').hasError('required')">
+                    <mat-error
+                            *ngIf="form.get('standardTypeNumber').dirty && form.get('standardTypeNumber').hasError('required')">
                         Numéro est <strong>requis</strong>
                     </mat-error>
                 </mat-form-field>
@@ -164,20 +168,22 @@
                     <mat-form-field class="margin">
                         <input matInput placeholder="Nom de la pièce" formControlName="roomName" required
                                name="piece{{piece.id}}"/>
-                        <mat-error *ngIf="form.get('rooms').controls[i].get('roomName').dirty && form.get('rooms').controls[i].get('roomName').hasError('required')">
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('roomName').dirty && form.get('rooms').controls[i].get('roomName').hasError('required')">
                             Le nom de la pièce est <strong>requis</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="margin">
                         <input matInput placeholder="Surface" formControlName="space" required
                                name="space{{piece.id}}"/>
-                        <mat-error *ngIf="form.get('rooms').controls[i].get('space').dirty && form.get('rooms').controls[i].get('space').hasError('required')">
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('space').dirty && form.get('rooms').controls[i].get('space').hasError('required')">
                             La surface de la pièce est <strong>requise</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="margin">
-                        <input matInput placeholder="Description" formControlName="description" required
-                               name="description{{piece.id}}"/>
+                        <textarea matInput placeholder="Description" formControlName="description" required
+                                  name="description{{piece.id}}"></textarea>
                         <mat-error
                                 *ngIf="form.get('rooms').controls[i].get('description').dirty && form.get('rooms').controls[i].get('description').hasError('required')">
                             La description de la pièce est <strong>requise</strong>
@@ -237,9 +243,9 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div>
-                <mat-form-field class="margin">
-                    <input matInput placeholder="Commentaire sur votre habitation" formControlName="comment"
-                           name="comment"/>
+                <mat-form-field class="margin textaeraPerso">
+                    <textarea matInput placeholder="Commentaire sur votre habitation" formControlName="comment"
+                              name="comment"></textarea>
                 </mat-form-field>
             </div>
             <mat-action-row>

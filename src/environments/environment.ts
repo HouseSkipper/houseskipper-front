@@ -16,7 +16,8 @@ export const environment = {
             authenticate: '/login',
             signup: '/users/sign-up',
             allHouses: '/:username/houses',
-            rooms: '/rooms',
+            addHouse: '/add/house',
+            removeHouse: '/:username/houses/:houseId',
             tasks: {
               allTasks: '/:username/tasks',
               oneTask: '/tasks/:id',

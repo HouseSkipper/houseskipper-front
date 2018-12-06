@@ -18,7 +18,6 @@ mat-panel-description {
     color: white;
 }
 
-
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {
     flex-basis: 0;
@@ -38,4 +37,14 @@ mat-panel-description {
 
 .margin {
     margin: 0 10px;
+}
+
+.textaeraPerso{
+    width: 95%;
+}
+
+.centerElement{
+    align-items: center;
+    width: 30%;
+
 }
