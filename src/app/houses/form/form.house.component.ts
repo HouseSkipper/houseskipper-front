@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {House} from '../../interfaces/house';
 import {HouseService} from '../../services/house.service';
+import {Router} from '@angular/router';
 
 export interface Type {
     value: string;
@@ -21,7 +22,7 @@ export class FormHouseComponent implements OnInit {
     private _studio: boolean;
     rooms: FormArray;
 
-    constructor(private _houseService: HouseService) {
+    constructor(private _houseService: HouseService, private _router: Router) {
         this._form = this._buildForm();
         this._step = 0;
         this._types = [
@@ -119,7 +120,7 @@ export class FormHouseComponent implements OnInit {
 
 
     submit(payload: House) {
-        this._houseService.create(payload).subscribe();
+        this._houseService.create(payload).subscribe( (_) => this._router.navigate([ '/users/houses']));
     }
 
 }
