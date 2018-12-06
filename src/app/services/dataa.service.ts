@@ -4,7 +4,6 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {defaultIfEmpty, filter, map} from 'rxjs/operators';
 import {Task} from '../interfaces/task';
-import {Room} from '../interfaces/Room';
 
 @Injectable({
   providedIn: 'root'
