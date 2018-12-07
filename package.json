@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "test": "",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dev:watch": "make clean-dev && concurrently -k --raw \"make build-dev\" \"make run-dev\""
