@@ -17,7 +17,7 @@ before_install:
   - npm install express path --save
 
 install:
-  - npm install
+  - yarn install
 
 notifications:
     slack: houseskipper:smfTiIqJXd6xCpCqeMBCqXeY

@@ -56,7 +56,6 @@ import {SkillsComponent} from './skills/skills.component';
         MatFormFieldModule,
         MatInputModule,
         BrowserAnimationsModule,
-        MatSelectModule,
         MatSidenavModule,
         MaterialModule,
         FormsModule,
