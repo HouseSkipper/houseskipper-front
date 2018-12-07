@@ -14,5 +14,5 @@ export interface Skill {
     id?: string;
     userId?: string;
     type: string;
-    nb_Works?: string;
+    nb_works?: string;
 }

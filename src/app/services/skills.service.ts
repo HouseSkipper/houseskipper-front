@@ -26,12 +26,11 @@ export class SkillsService {
     }
 
     fetchAll(): Observable<Skill[]> {
-        return this._http.get<Skill[]>(this._backendURL.allSkills.replace(':id', this._authentication.currentUserValue.id));
+        return this._http.get<Skill[]>(this._backendURL.allSkills);
     }
 
     update(skill: Skill): Observable<any> {
-        return this._http.put<Skill>(this._backendURL.oneSkill.replace(':id', this._authentication.currentUserValue.id)
-            .replace(':idSkill', skill.id), skill, this._options());
+        return this._http.put<Skill>(this._backendURL.oneSkill.replace(':idSkill', skill.id), skill, this._options());
     }
 
     private _options(headerList: Object = {}): any {
