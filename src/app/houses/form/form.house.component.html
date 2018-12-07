@@ -11,7 +11,7 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="centerElement">
-                <mat-form-field class="margin">
+                <mat-form-field class="margin" appearance="outline">
                     <input matInput placeholder="Nom du logement" formControlName="houseName" minlength="5" required
                            name="houseName"/>
                     <mat-error *ngIf="form.get('houseName').dirty && form.get('houseName').hasError('required')">
@@ -43,8 +43,8 @@
                     Adresse du logement
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <div>
-                <mat-form-field class="margin">
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
                     <input matInput placeholder="Adresse postal" formControlName="address" required
                            name="address"/>
                     <mat-error *ngIf="form.get('address').dirty && form.get('address').hasError('required')">
@@ -52,8 +52,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div>
-                <mat-form-field class="margin">
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
                     <input matInput placeholder="Code postal" formControlName="postalCode" required
                            name="postalCode"/>
                     <mat-error *ngIf="form.get('postalCode').dirty && form.get('postalCode').hasError('required')">
@@ -61,8 +61,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div>
-                <mat-form-field class="margin">
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
                     <input matInput placeholder="Ville" formControlName="city" required
                            name="city"/>
                     <mat-error *ngIf="form.get('city').dirty && form.get('city').hasError('required')">
@@ -86,8 +86,8 @@
                     Information supplémentaire
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <div>
-                <mat-form-field class="margin">
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
                     <input matInput placeholder="Surface habitable" formControlName="livingSpace" required
                            name="livingSpace"/>
                     <mat-error *ngIf="form.get('livingSpace').dirty && form.get('livingSpace').hasError('required')">
@@ -95,8 +95,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div>
-                <mat-form-field class="margin">
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
                     <input matInput placeholder="Surface extérieur" formControlName="outsideSpace" required
                            name="outsideSpace"/>
                     <mat-error *ngIf="form.get('outsideSpace').dirty && form.get('outsideSpace').hasError('required')">
@@ -104,8 +104,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div>
-                <mat-form-field class="margin">
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
                     <input matInput placeholder="Nombre de pièces" formControlName="numberPieces" required
                            name="numberPieces"/>
                     <mat-error *ngIf="form.get('numberPieces').dirty && form.get('numberPieces').hasError('required')">
@@ -113,8 +113,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div>
-                <mat-form-field class="margin">
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
                     <input matInput placeholder="Année de construction" formControlName="constructionYear" required
                            name="constructionYear"/>
                     <mat-error
@@ -123,8 +123,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div>
-                <mat-form-field class="margin">
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
                     <mat-select placeholder="Type" formControlName="standardType" required name="standardType"
                                 (selectionChange)="changeType()">
                         <mat-option *ngFor="let type of types" [value]="type.value">
@@ -132,7 +132,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field class="margin" *ngIf="!!studio">
+                <mat-form-field class="margin" *ngIf="!!studio" appearance="outline">
                     <input matInput placeholder="Numéro associé au type" formControlName="standardTypeNumber" required
                            name="standardTypeNumber"/>
                     <mat-error
@@ -165,7 +165,7 @@
                     <button mat-button (click)="deletePiece(piece.id)">
                         <mat-icon svgIcon="icon-delete"></mat-icon>
                     </button>
-                    <mat-form-field class="margin">
+                    <mat-form-field class="margin" appearance="outline">
                         <input matInput placeholder="Nom de la pièce" formControlName="roomName" required
                                name="piece{{piece.id}}"/>
                         <mat-error
@@ -173,7 +173,7 @@
                             Le nom de la pièce est <strong>requis</strong>
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="margin">
+                    <mat-form-field class="margin" appearance="outline">
                         <input matInput placeholder="Surface" formControlName="space" required
                                name="space{{piece.id}}"/>
                         <mat-error
@@ -181,7 +181,7 @@
                             La surface de la pièce est <strong>requise</strong>
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="margin">
+                    <mat-form-field class="margin" appearance="outline">
                         <textarea matInput placeholder="Description" formControlName="description" required
                                   name="description{{piece.id}}"></textarea>
                         <mat-error
@@ -207,8 +207,8 @@
                     Énergie
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <div>
-                <mat-form-field class="margin">
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
                     <input matInput placeholder="Votre type de chauffage" formControlName="heatingType" required
                            name="heatingType"/>
                     <mat-error *ngIf="form.get('heatingType').dirty && form.get('heatingType').hasError('required')">
@@ -216,8 +216,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div>
-                <mat-form-field class="margin">
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
                     <input matInput placeholder="Ampérage électrique de votre habitation" formControlName="amperage"
                            required
                            name="amperage"/>
@@ -243,7 +243,7 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div>
-                <mat-form-field class="margin textaeraPerso">
+                <mat-form-field class="margin textaeraPerso" appearance="outline">
                     <textarea matInput placeholder="Commentaire sur votre habitation" formControlName="comment"
                               name="comment"></textarea>
                 </mat-form-field>
