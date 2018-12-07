@@ -28,7 +28,7 @@ export class HouseComponent implements OnInit {
   }
 
   delete(id: string) {
-    this._houseService.remove(id).subscribe((_) => this._router.navigate(['/users/houses']));
+    this._houseService.remove(id).subscribe(null, null, () => this.ngOnInit());
   }
 
 
