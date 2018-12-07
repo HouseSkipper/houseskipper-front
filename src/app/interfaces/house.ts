@@ -15,7 +15,6 @@ export interface House {
     heatingType: string;
     amperage: number;
     comment: string;
-    username?: string;
 }
 
 export interface Room {

@@ -15,14 +15,14 @@ export const environment = {
             allUsers: '/api/users',
             authenticate: '/login',
             signup: '/users/sign-up',
-            allHouses: '/:username/houses',
+            allHouses: '/houses/house',
             addHouse: '/add/house',
-            removeHouse: '/:username/houses/:houseId',
+            removeHouse: '/houses/:houseId',
             rooms: '/rooms',
             tasks: {
-              allTasks: '/:username/tasks',
+              allTasks: '/tasks',
               oneTask: '/tasks/:id',
-              allTasksForUser: '/users/:id/tasks'
+              allTasksForUser: 'tasks'
             }
         }
     }

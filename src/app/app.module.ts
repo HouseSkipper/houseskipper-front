@@ -26,6 +26,8 @@ import { HouseComponent } from './houses/house/house.component';
 import {DataService} from './services/task.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
     LoginComponent,
     SignUpComponent,
     DashboardComponent,
-    TaskDialogComponent
+    TaskDialogComponent,
+    ProfileComponent
   ],
     imports: [
         ReactiveFormsModule,
