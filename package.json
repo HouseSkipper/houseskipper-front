@@ -9,7 +9,8 @@
     "test": "ls",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev:watch": "make clean-dev && concurrently -k --raw \"make build-dev\" \"make run-dev\""
+    "dev:watch": "make clean-dev && concurrently -k --raw \"make build-dev\" \"make run-dev\"",
+    "postinstall": "ng build --prod"
   },
   "engines": {
     "node": ">=10.11.0",

@@ -18,7 +18,6 @@ before_install:
 
 install:
   - yarn install
-  - ng build
 
 notifications:
     slack: houseskipper:smfTiIqJXd6xCpCqeMBCqXeY
