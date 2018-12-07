@@ -1,0 +1,70 @@
+<div>
+  <br>
+  <div class="container">
+    <div class="container">
+      <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
+        <div class="blocks">
+          <button button="submit" mat-raised-button color="primary" (click)="openDialog()">
+            <mat-icon>add</mat-icon> Add Task
+          </button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="container">
+      <div layout="row" Align="center center" class="content" >
+        <mat-card class="card" >
+          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+            <h3>Recent Tasks</h3>
+          </mat-card-title>
+          <mat-card-content>
+            <div class="example-container mat-elevation-z8">
+              <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="start_date">
+                  <mat-header-cell *matHeaderCellDef> Start Date </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.start_date  | date: 'dd/MM/y'}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="room">
+                  <mat-header-cell *matHeaderCellDef> Room </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.room}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                  <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="budget">
+                  <mat-header-cell *matHeaderCellDef> Budget </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.budget}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                  <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="delete">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <a (click)="deleteTask(element.id)"
+                       type="button">
+                      <mat-icon class="icon">delete</mat-icon>
+                    </a>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <a (click)="editTask(element)"
+                       type="button">
+                      <mat-icon class="icon">edit</mat-icon>
+                    </a>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

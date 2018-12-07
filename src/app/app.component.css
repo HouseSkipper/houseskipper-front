@@ -9,5 +9,7 @@ mat-icon {
 .main-content {
     display:flex;
     justify-content: center;
-    padding:10px;
+    align-items: center;
+    padding:20px;
+    min-height: calc(100vh - 130px);
 }

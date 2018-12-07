@@ -39,3 +39,4 @@ testem.log
 Thumbs.db
 
 .gitignore
+yarn.lock

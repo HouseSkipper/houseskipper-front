@@ -1,0 +1,58 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    padding:10px;
+}
+
+.name {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+mat-form-field, button {
+    display:block;
+    margin-right:20px;
+}
+
+#login-container {
+    flex-basis:468px;
+   /* display:flex;
+    flex-basis:468px;
+    align-content:center;
+    align-items: center;
+    height:100vh;
+    flex-direction: column;*/
+}
+
+.mgb15{
+    margin-bottom: 15px;
+}
+
+button, mat-error, h1 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+h1 {
+    text-align: center;
+}
+
+
+/*
+.form-container > * {
+    width: 70%;
+}*/
+
+#submitButton, a {
+    height:15%;
+    width: 50%;
+    text-align: center;
+    text-decoration: none;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}

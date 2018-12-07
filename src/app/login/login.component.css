@@ -1,32 +1,39 @@
 .form-container {
-    display: flex;
+    display:block;
     flex-direction: column;
     margin-left: auto;
     margin-right: auto;
     padding:20px;
-
 }
 
 #login-container {
-    justify-content: center;
+    flex-basis:468px;
     align-items: center;
     height:80vh;
 }
 
 mat-form-field, button, mat-error, h1 {
+    display: block;
     margin-left: auto;
     margin-right: auto;
-
+    width:100%;
 }
 
 h1 {
     text-align: center;
 }
 
-.form-container > * {
-    width: 70%;
+
+#submitButton, span, a {
+    height:15%;
+    width: 100%;
 }
 
-#submitButton {
-    width: 70%;
+.align-center, a {
+    text-align: center;
+    text-decoration: none;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
 }

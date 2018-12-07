@@ -1,0 +1,20 @@
+.card {
+    min-width: 80%;
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    min-width: 100vh;
+}
+
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+
+a {
+    cursor: pointer;
+}
+
