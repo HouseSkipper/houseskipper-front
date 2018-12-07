@@ -19,11 +19,10 @@ export const environment = {
             addHouse: '/add/house',
             removeHouse: '/houses/:houseId',
             tasks: {
-              allTasks: '/tasks',
+              allTasks: '/:username/tasks',
               oneTask: '/tasks/:id',
               allTasksForUser: '/users/:id/tasks'
-            },
-            rooms: '/rooms'
+            }
         }
     }
 };
