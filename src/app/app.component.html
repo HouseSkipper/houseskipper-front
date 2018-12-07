@@ -10,7 +10,7 @@
     <span>Home</span>
   </button>
   <div *ngIf="currentUser">
-    <button mat-button (click)="update()">
+    <button mat-button [routerLink]="['/skills']">
       <span>Account</span>
     </button>
     <button  mat-button [routerLink]="['/users/dashboard']">

@@ -47,7 +47,9 @@ export class HouseService {
     }
 
     remove(id: string): Observable<any> {
-        return this._httpClient.delete(this._backendURL.removeHouse.replace(':houseId', id));
+        return this._httpClient.delete(this._backendURL.removeHouse.replace(':houseId', id)).pipe(
+            map(_ => id)
+        );
     }
 
 }

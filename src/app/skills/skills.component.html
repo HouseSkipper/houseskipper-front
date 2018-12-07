@@ -1,20 +1,19 @@
-<div>
     <!--
     <section>
         <p class="mat-title">Mise à jour du profil</p>
         <p class="mat-title">Compétences :</p>
     </section>
     -->
-    <mat-list class="perso">
+    <mat-list>
         <mat-list-item>
-            <mat-card *ngFor="let skill of skills" class="mat-whiteframe-2dp mat-card">
+            <mat-card *ngFor="let skill of skills">
                 <mat-card-header>
                     <mat-card-title>{{ skill.type }} :</mat-card-title>
                     <mat-card-subtitle *ngIf="skill.nb_works < 3">Débutant</mat-card-subtitle>
                     <mat-card-subtitle *ngIf="skill.nb_works >= 3 && skill.nb_works < 5">Intermédaire</mat-card-subtitle>
                     <mat-card-subtitle *ngIf="skill.nb_works == 5">Avancé</mat-card-subtitle>
                 </mat-card-header>
-                <img mat-card-image src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Tools.svg" alt="bricolage">
+                <img src="http://jonkie.ch/img/thumb/tb-tux_progress.png" alt="bricolage">
                 <mat-card-content>
                     <section>
                         <mat-slider
@@ -35,4 +34,3 @@
             </mat-card>
         </mat-list-item>
     </mat-list>
-</div>
