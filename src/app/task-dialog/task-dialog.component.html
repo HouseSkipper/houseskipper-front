@@ -2,9 +2,9 @@
 <div mat-dialog-content>
   <form class="example-form" (ngSubmit)="onSubmit()">
     <mat-form-field>
-      <mat-select matInput placeholder="Choose a Room" required [(ngModel)]="blogTask.room" name="budget">
-        <mat-option *ngFor="let roomm of room" [value]="roomm.value">
-          {{ roomm.viewValue }}
+      <mat-select matInput placeholder="Choose a Room" required [(ngModel)]="blogTask.room" name="room">
+        <mat-option *ngFor="let room of rooms" [value]="room.roomName">
+          {{ room.roomName }}
         </mat-option>
       </mat-select>
     </mat-form-field>

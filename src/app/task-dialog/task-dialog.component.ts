@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {DataService} from '../services/task.service';
 import {Task} from '../interfaces/task';
 import {Room} from '../interfaces/house';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-task-dialog',
@@ -23,7 +24,7 @@ export class TaskDialogComponent implements OnInit {
     budgets = this.dataService.getBudgets();
     public event: EventEmitter<any> = new EventEmitter();
 
-    getrooms(): Room[] {
+    get rooms(): Room[] {
         return this._rooms;
     }
     constructor(
@@ -37,7 +38,8 @@ export class TaskDialogComponent implements OnInit {
         } else {
             this.data = 'Add Task';
         }
-        this.dataService.getAll().subscribe((_) => this._rooms = _ );
+        this.dataService.getAll().subscribe((_) => this._rooms = _);
+
     }
 
     onNoClick(): void {
