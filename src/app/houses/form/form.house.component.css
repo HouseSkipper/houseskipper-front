@@ -1,0 +1,62 @@
+mat-accordion {
+    padding: 10px;
+}
+
+form {
+    flex-direction: column;
+    width: 150vh;
+}
+
+
+mat-expansion-panel {
+    /* background: rgb(133,158,248);*/
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+
+mat-panel-description {
+   /* color: white; */
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.sectionTypeLogement {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.margin {
+    margin: 0 10px;
+}
+
+.textaeraPerso{
+    width: 95%;
+}
+
+.centerElement{
+   display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.right-aligned-header > .mat-content {
+    justify-content: space-between;
+}
+
+.mat-content > mat-panel-title, .mat-content > mat-panel-description {
+    flex: 0 0 auto;
+}

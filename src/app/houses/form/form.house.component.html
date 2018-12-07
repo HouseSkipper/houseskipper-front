@@ -1,0 +1,273 @@
+<mat-accordion class="example-headers-align">
+    <form novalidate [formGroup]="form">
+        <!-- Type Logement -->
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+            <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-houses"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Votre logement
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Nom du logement</mat-label>
+                    <input matInput placeholder="Nom du logement" formControlName="houseName" minlength="5" required
+                           name="houseName"/>
+                    <mat-error *ngIf="form.get('houseName').dirty && form.get('houseName').hasError('required')">
+                        Nom du logement est <strong>requis</strong>
+                    </mat-error>
+                    <mat-error *ngIf="form.get('houseName').dirty && form.get('houseName').hasError('minlength')">
+                        Nom du logement requière <strong>5 caractères minimum</strong>
+                    </mat-error>
+                </mat-form-field>
+                <section class="sectionTypeLogement">
+                    <mat-radio-group required name="houseType" formControlName="houseType">
+                        <mat-radio-button class="margin" value="maison">Maison</mat-radio-button>
+                        <mat-radio-button class="margin" value="appartement">Appartement</mat-radio-button>
+                    </mat-radio-group>
+                </section>
+            </div>
+            <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Adresse Logement -->
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-maps"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Adresse du logement
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Adresse postal</mat-label>
+                    <input matInput placeholder="Adresse postal" formControlName="address" required
+                           name="address"/>
+                    <mat-error *ngIf="form.get('address').dirty && form.get('address').hasError('required')">
+                        Adresse postal est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Code postal</mat-label>
+                    <input matInput placeholder="Code postal" formControlName="postalCode" required
+                           name="postalCode"/>
+                    <mat-error *ngIf="form.get('postalCode').dirty && form.get('postalCode').hasError('required')">
+                        Code postal est <strong>requis</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Ville</mat-label>
+                    <input matInput placeholder="Ville" formControlName="city" required
+                           name="city"/>
+                    <mat-error *ngIf="form.get('city').dirty && form.get('city').hasError('required')">
+                        Ville est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Information Logement -->
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-info"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Information supplémentaire
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Surface habitable</mat-label>
+                    <input matInput placeholder="Surface habitable" formControlName="livingSpace" required
+                           name="livingSpace"/>
+                    <mat-error *ngIf="form.get('livingSpace').dirty && form.get('livingSpace').hasError('required')">
+                        Surface habitable est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Surface extérieur</mat-label>
+                    <input matInput placeholder="Surface extérieur" formControlName="outsideSpace" required
+                           name="outsideSpace"/>
+                    <mat-error *ngIf="form.get('outsideSpace').dirty && form.get('outsideSpace').hasError('required')">
+                        Surface extérieur est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Nombre de pièces</mat-label>
+                    <input matInput placeholder="Nombre de pièces" formControlName="numberPieces" required
+                           name="numberPieces"/>
+                    <mat-error *ngIf="form.get('numberPieces').dirty && form.get('numberPieces').hasError('required')">
+                        Nombre de pièces est <strong>requis</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Année de construction</mat-label>
+                    <input matInput placeholder="Année de construction" formControlName="constructionYear" required
+                           name="constructionYear"/>
+                    <mat-error
+                            *ngIf="form.get('constructionYear').dirty && form.get('constructionYear').hasError('required')">
+                        Année de construction est <strong>requise</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-select placeholder="Type" formControlName="standardType" required name="standardType"
+                                (selectionChange)="changeType()">
+                        <mat-option *ngFor="let type of types" [value]="type.value">
+                            {{type.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="margin" *ngIf="!!studio" appearance="outline">
+                    <mat-label>Numéro associé</mat-label>
+                    <input matInput placeholder="Numéro associé au type" formControlName="standardTypeNumber"
+                           name="standardTypeNumber"/>
+                    <mat-error
+                            *ngIf="form.get('standardTypeNumber').dirty && form.get('standardTypeNumber').hasError('required')">
+                        Numéro est <strong>requis</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Pièces -->
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-door"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Vos pièces
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <button mat-button="add" (click)="addItem()">
+                <mat-icon svgIcon="icon-add"></mat-icon>
+            </button>
+            <div formArrayName="rooms" *ngFor="let piece of form.get('rooms').controls; let i = index;">
+                <div [formGroupName]="i">
+                    <button mat-button (click)="deletePiece(piece.id)">
+                        <mat-icon svgIcon="icon-delete"></mat-icon>
+                    </button>
+                    <mat-form-field class="margin" appearance="outline">
+                        <mat-label>Nom de la pièce</mat-label>
+                        <input matInput placeholder="Nom de la pièce" formControlName="roomName" required
+                               name="piece{{piece.id}}"/>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('roomName').dirty && form.get('rooms').controls[i].get('roomName').hasError('required')">
+                            Le nom de la pièce est <strong>requis</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="margin" appearance="outline">
+                        <mat-label>Surface</mat-label>
+                        <input matInput placeholder="Surface" formControlName="space" required
+                               name="space{{piece.id}}"/>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('space').dirty && form.get('rooms').controls[i].get('space').hasError('required')">
+                            La surface de la pièce est <strong>requise</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="margin" appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Description" formControlName="description" required
+                                  name="description{{piece.id}}"></textarea>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('description').dirty && form.get('rooms').controls[i].get('description').hasError('required')">
+                            La description de la pièce est <strong>requise</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Énergie -->
+        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title >
+                    <mat-icon svgIcon="icon-energy"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Énergie
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Chauffage</mat-label>
+                    <input matInput placeholder="Votre type de chauffage" formControlName="heatingType" required
+                           name="heatingType"/>
+                    <mat-error *ngIf="form.get('heatingType').dirty && form.get('heatingType').hasError('required')">
+                        Type de chauffage est <strong>requis</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Ampérage de l'habitation</mat-label>
+                    <input matInput placeholder="Ampérage électrique de votre habitation" formControlName="amperage"
+                           required
+                           name="amperage"/>
+                    <mat-error *ngIf="form.get('amperage').dirty && form.get('amperage').hasError('required')">
+                        Ampérage électrique de votre habitation est <strong>requis</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Commentaire -->
+        <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-message"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Commentaire
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-form-field class="margin textaeraPerso" appearance="outline">
+                    <mat-label>Commentaire</mat-label>
+                    <textarea matInput placeholder="Commentaire sur votre habitation" formControlName="comment"
+                              name="comment"></textarea>
+                </mat-form-field>
+            </div>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <!--button mat-button color="primary" type="submit" (click)="submit(form.value)">Save</button-->
+                <button mat-button color="primary" type="submit" (click)="submit(form.value)" [disabled]="form.invalid">Save</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </form>
+</mat-accordion>

@@ -8,8 +8,8 @@
   @include angular-material-theme($theme);
 }*/
 
-/*@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';*/
-@import './custom-theme.scss';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+/*@import './custom-theme.scss';*/
 
 body {
     height:100%;
@@ -17,4 +17,19 @@ body {
 
 html {
     height:100%;
+}
+
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+    border-color: #603FB0 !important;
+
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle{
+    color: #603FB0;
+    background-color: #603FB0 !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: #603FB0 !important;
 }

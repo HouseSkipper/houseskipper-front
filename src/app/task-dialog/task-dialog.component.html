@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{data}}</h1>
+<div mat-dialog-content>
+  <form class="example-form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-select matInput placeholder="Choose a Room" required [(ngModel)]="blogTask.room" name="room">
+        <mat-option *ngFor="let room of rooms" [value]="room.roomName">
+          {{ room.roomName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Task Description" required [(ngModel)]="blogTask.description" name="description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select matInput placeholder="Task Budget" required [(ngModel)]="blogTask.budget" name="budget">
+        <mat-option *ngFor="let budget of budgets" [value]="budget.value">
+          {{ budget.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="submit" color="primary">Save</button>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button class="close" (click)="onNoClick()" color="warn">Cancel</button>
+</div>

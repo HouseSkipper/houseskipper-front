@@ -1,0 +1,58 @@
+<div>
+    <br>
+    <div class="container">
+        <div class="container">
+            <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
+                <div class="blocks">
+                    <button button="submit" mat-raised-button color="primary" [routerLink]="['/users/houses/addhouse']">
+                        <mat-icon>add</mat-icon>
+                        Add House
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div layout="row" Align="center center" class="content">
+                <mat-card class="card">
+                    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+                        <h3>Houses</h3>
+                    </mat-card-title>
+                    <mat-card-content>
+                        <div class="example-container mat-elevation-z8">
+                            <mat-table #table [dataSource]="dataSource">
+                                <ng-container matColumnDef="House_Name">
+                                    <mat-header-cell *matHeaderCellDef> House Name</mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.houseName}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="Type">
+                                    <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.houseType}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="Address">
+                                    <mat-header-cell *matHeaderCellDef> Address</mat-header-cell>
+                                    <mat-cell
+                                            *matCellDef="let element"> {{element.address}} {{element.city}} {{element.postalCode}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="numberPieces">
+                                    <mat-header-cell *matHeaderCellDef> Number Pieces</mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.numberPieces}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="Delete">
+                                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <a type="button" (click)="delete(element.id)">
+                                            <mat-icon svgIcon="icon-delete">delete</mat-icon>
+                                        </a>
+                                    </mat-cell>
+                                </ng-container>
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            </mat-table>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
