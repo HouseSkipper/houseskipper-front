@@ -35,28 +35,19 @@ export class HouseService {
     }
 
     create(house: House): Observable<any> {
-        const user = this._authentication.currentUserValue;
-        if (user !== null) {
-            house.username = this._authentication.currentUserValue.username;
-        }
         return this._httpClient.post<House>(this._backendURL.addHouse, house, this._options());
     }
 
     fecthAllHouse(): Observable<any> {
-        return this._httpClient.get<House[]>(this._backendURL.allHouses.replace(':username', this._authentication.currentUserValue.username))
+        return this._httpClient.get<House[]>(this._backendURL.allHouses)
             .pipe(
                 filter(_ => !!_),
                 defaultIfEmpty([])
             );
     }
 
-    remove(id: string) {
-        const http = this._backendURL.removeHouse.replace(':houseId', id).replace(':username', this._authentication.currentUserValue.username);
-        console.log(http);
-        return this._httpClient.delete(http)
-            .pipe(
-                map(_ => id)
-            );
+    remove(id: string): Observable<any> {
+        return this._httpClient.delete(this._backendURL.removeHouse.replace(':houseId', id));
     }
 
 }

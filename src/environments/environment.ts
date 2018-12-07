@@ -15,9 +15,9 @@ export const environment = {
             allUsers: '/api/users',
             authenticate: '/login',
             signup: '/users/sign-up',
-            allHouses: '/:username/houses',
+            allHouses: '/houses/house',
             addHouse: '/add/house',
-            removeHouse: '/:username/houses/:houseId',
+            removeHouse: '/houses/:houseId',
             tasks: {
               allTasks: '/tasks',
               oneTask: '/tasks/:id',
