@@ -23,7 +23,9 @@ export const environment = {
               allTasks: '/tasks',
               oneTask: '/tasks/:id',
               allTasksForUser: 'tasks'
-            }
+            },
+            allSkills: '/api/users/:id/skills',
+            oneSkill: '/api/users/:id/skills/:idSkill'
         }
     }
 };
