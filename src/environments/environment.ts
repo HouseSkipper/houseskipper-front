@@ -19,9 +19,9 @@ export const environment = {
             addHouse: '/add/house',
             removeHouse: '/:username/houses/:houseId',
             tasks: {
-              allTasks: '/:username/tasks',
+              allTasks: '/tasks',
               oneTask: '/tasks/:id',
-              allTasksForUser: '/users/:id/tasks'
+              allTasksForUser: 'tasks'
             }
         }
     }
