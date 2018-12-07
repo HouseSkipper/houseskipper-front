@@ -9,7 +9,7 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule, MatRadioModule,
-    MatSelectModule, MatSidenavModule,
+    MatSelectModule, MatSidenavModule, MatSliderModule,
     MatToolbarModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
@@ -18,28 +18,26 @@ import {APP_ROUTES} from './app.routes';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
-import { TaskDialogComponent } from './task-dialog/task-dialog.component';
+import {TaskDialogComponent} from './task-dialog/task-dialog.component';
 import {DataaService} from './services/dataa.service';
-import {ProfileComponent} from './profile/profile.component';
 import {FormHouseComponent} from './houses/form/form.house.component';
-import { HouseComponent } from './houses/house/house.component';
+import {HouseComponent} from './houses/house/house.component';
 import {DataService} from './services/task.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
-
+import {SkillsComponent} from './skills/skills.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-      HouseComponent,
-      FormHouseComponent,
-      ProfileComponent,
-    LoginComponent,
-    SignUpComponent,
-    DashboardComponent,
-    TaskDialogComponent,
-    ProfileComponent
-  ],
+    declarations: [
+        AppComponent,
+        HouseComponent,
+        FormHouseComponent,
+        LoginComponent,
+        SignUpComponent,
+        DashboardComponent,
+        TaskDialogComponent,
+        SkillsComponent
+    ],
     imports: [
         ReactiveFormsModule,
         BrowserModule,
@@ -62,12 +60,13 @@ import {DashboardComponent} from './dashboard/dashboard.component';
         MatSidenavModule,
         MaterialModule,
         FormsModule,
+        MatSliderModule,
         APP_ROUTES
     ],
-  providers: [
-      {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
-      DataService, DataaService
-  ],
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
+        DataService, DataaService
+    ],
     entryComponents: [
         TaskDialogComponent
     ],

@@ -4,7 +4,7 @@ mat-accordion {
 
 form {
     flex-direction: column;
-    width: 140vh;
+    width: 150vh;
 }
 
 
@@ -16,6 +16,9 @@ mat-expansion-panel {
 
 mat-panel-description {
     color: white;
+    display: flex;
+    align-content: center;
+    align-items: center;
 }
 
 .example-headers-align .mat-expansion-panel-header-title,
@@ -44,7 +47,8 @@ mat-panel-description {
 }
 
 .centerElement{
+   display: flex;
+    flex-direction: column;
+    align-content: center;
     align-items: center;
-    width: 30%;
-
 }

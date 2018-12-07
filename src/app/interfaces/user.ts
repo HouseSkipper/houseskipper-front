@@ -9,3 +9,10 @@ export interface User {
     role?: string;
     token?: string;
 }
+
+export interface Skill {
+    id?: string;
+    userId?: string;
+    type: string;
+    nb_works?: string;
+}
