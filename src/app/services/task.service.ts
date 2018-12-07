@@ -12,14 +12,6 @@ import {Room} from '../interfaces/house';
 export class DataService {
 
     private readonly _backendURL: any;
-    ELEMENT_DATA: Task[] = [
-        {start_date: new Date(), room: 'Salon', description: 'refaire la painture',
-            budget: '500 Euros', status: 'En cours', username: 'admin'},
-        {start_date: new Date(), room: 'Bain', description: 'changer le sanitaire',
-            budget: '500 Euros', status: 'En cours', username: 'admin' },
-        {start_date: new Date(), room: 'Hall', description: 'refaire la painture',
-            budget: '500 Euros', status: 'En cours', username: 'admin' },
-    ];
     budgets = [
         {value: '< 200 euros', viewValue: '< 200 euros'},
         {value: '300 euros', viewValue: '300 euros'},
