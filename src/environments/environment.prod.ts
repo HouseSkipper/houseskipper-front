@@ -4,14 +4,27 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-    production: false,
+    production: true,
     backend: {
-        protocol: 'http',
-        host: '0.0.0.0',
-        port: '4443',
+        protocol: 'https',
+        host: 'houseskipper-back.herokuapp.com',
+        port: '',
         endpoints: {
             oneUsers: '/api/users/:id',
-            authenticate: '/api/users/authenticate'
+            allUsers: '/api/users',
+            authenticate: '/login',
+            signup: '/users/sign-up',
+            allHouses: '/houses/house',
+            addHouse: '/add/house',
+            removeHouse: '/houses/:houseId',
+            rooms: '/rooms',
+            tasks: {
+                allTasks: '/tasks',
+                oneTask: '/tasks/:id',
+                allTasksForUser: 'tasks'
+            },
+            allSkills: '/skills',
+            oneSkill: '/skills/:idSkill'
         }
     }
 };
