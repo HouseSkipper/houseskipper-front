@@ -93,7 +93,8 @@ export class FormHouseComponent implements OnInit {
         let type = this._form.value.standardType;
         if (type !== 'Studio') {
             type = type.charAt(1);
-            console.log(type);
+        } else {
+            type = 1;
         }
         this.rooms = this._form.get('rooms') as FormArray;
         const taille = this.rooms.length;
@@ -140,7 +141,7 @@ export class FormHouseComponent implements OnInit {
             postalCode: new FormControl('', Validators.required),
             city: new FormControl('', Validators.required),
             pays: new FormControl('', Validators.required),
-            outsideSpace: new FormControl('', Validators.required),
+            outsideSpace: new FormControl('0', Validators.required),
             constructionYear: new FormControl('', Validators.required),
             standardType: new FormControl('', Validators.required),
             // rooms: new FormArray([this.createItem(0)]),
@@ -154,10 +155,10 @@ export class FormHouseComponent implements OnInit {
             electricite: new FormControl('', Validators.required),
             panneauxPhoto: new FormControl('', Validators.required),
             eolienne: new FormControl('', Validators.required),
-            surfaceExterieurAvant: new FormControl('', Validators.required),
-            surfaceExterieurDroit: new FormControl('', Validators.required),
-            surfaceExterieurGauche: new FormControl('', Validators.required),
-            surfaceExterieurArriere: new FormControl('', Validators.required),
+            surfaceExterieurAvant: new FormControl('0', Validators.required),
+            surfaceExterieurDroit: new FormControl('0', Validators.required),
+            surfaceExterieurGauche: new FormControl('0', Validators.required),
+            surfaceExterieurArriere: new FormControl('0', Validators.required),
             comment: new FormControl(''),
         });
     }
