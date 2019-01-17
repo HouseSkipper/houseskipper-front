@@ -3,7 +3,7 @@ export interface House {
     houseName: string;
     houseType: string;
     residence: string;
-    exterieur: string;
+    exterieur: number;
     address: string;
     posatlCode: number;
     city: string;
@@ -16,10 +16,10 @@ export interface House {
     surfaceToiture: number;
     revetementToiture: string;
     classeEnergetique: string;
-    gaz: string;
-    electricite: string;
-    panneauxPhoto: string;
-    eolienne: string;
+    gaz: number;
+    electricite: number;
+    panneauxPhoto: number;
+    eolienne: number;
     surfaceExterieurAvant: number;
     surfaceExterieurDroit: number;
     surfaceExterieurGauche: number;
@@ -30,11 +30,11 @@ export interface House {
 export interface Room {
     id?: string;
     roomName: string;
-    space: string;
+    space: number;
     nbFenetre: number;
     nbPorteFenetre: number;
     typeChauffage: string;
     nbRadiateur: number;
-    volet: string;
+    volet: number;
     nbVolet: number;
 }

@@ -45,8 +45,8 @@
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Extérieur</mat-label>
                     <mat-select placeholder="Extérieur" formControlName="exterieur" required name="exterieur">
-                        <mat-option value="oui">Oui</mat-option>
-                        <mat-option value="non">Non</mat-option>
+                        <mat-option value="1">Oui</mat-option>
+                        <mat-option value="0">Non</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -197,8 +197,8 @@
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Gaz</mat-label>
                     <mat-select placeholder="Gaz" formControlName="gaz" required name="gaz">
-                        <mat-option value="oui">Oui</mat-option>
-                        <mat-option value="non">Non</mat-option>
+                        <mat-option value="1">Oui</mat-option>
+                        <mat-option value="0">Non</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -206,8 +206,8 @@
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Électricité</mat-label>
                     <mat-select placeholder="Électricité" formControlName="electricite" required name="electricite">
-                        <mat-option value="oui">Oui</mat-option>
-                        <mat-option value="non">Non</mat-option>
+                        <mat-option value="1">Oui</mat-option>
+                        <mat-option value="0">Non</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -216,8 +216,8 @@
                     <mat-label>Panneaux photovoltaïques</mat-label>
                     <mat-select placeholder="Panneaux photovoltaïques" formControlName="panneauxPhoto" required
                                 name="panneauxPhoto">
-                        <mat-option value="oui">Oui</mat-option>
-                        <mat-option value="non">Non</mat-option>
+                        <mat-option value="1">Oui</mat-option>
+                        <mat-option value="0">Non</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -225,8 +225,8 @@
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Éolienne</mat-label>
                     <mat-select placeholder="Éolienne" formControlName="eolienne" required name="eolienne">
-                        <mat-option value="oui">Oui</mat-option>
-                        <mat-option value="non">Non</mat-option>
+                        <mat-option value="1">Oui</mat-option>
+                        <mat-option value="0">Non</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -313,12 +313,12 @@
                     <mat-form-field class="margin" appearance="outline">
                         <mat-label>Volet</mat-label>
                         <mat-select placeholder="Volet" formControlName="volet" required>
-                            <mat-option value="oui">Oui</mat-option>
-                            <mat-option value="non">Non</mat-option>
+                            <mat-option value="1">Oui</mat-option>
+                            <mat-option value="0">Non</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline"
-                                    *ngIf="form.get('rooms').controls[i].get('volet').value === 'oui'">
+                                    *ngIf="form.get('rooms').controls[i].get('volet').value === '1'">
                         <mat-label>Nombre de volets</mat-label>
                         <input matInput placeholder="Nombre de volets" formControlName="nbVolet"
                                required
@@ -371,7 +371,7 @@
         </mat-expansion-panel>
 
         <!-- Extérieur -->
-        <mat-expansion-panel *ngIf="form.get('exterieur').value === 'oui'" [expanded]="step === 5" (opened)="setStep(5)"
+        <mat-expansion-panel *ngIf="form.get('exterieur').value === '1'" [expanded]="step === 5" (opened)="setStep(5)"
                              hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>

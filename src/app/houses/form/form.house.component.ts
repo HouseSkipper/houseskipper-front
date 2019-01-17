@@ -60,8 +60,8 @@ export class FormHouseComponent implements OnInit {
             nbPorteFenetre: new FormControl(''),
             typeChauffage: new FormControl('radiateur'),
             nbRadiateur: new FormControl('0'),
-            volet: new FormControl('non'),
-            nbVolet: new FormControl('1')
+            volet: new FormControl('0'),
+            nbVolet: new FormControl('0')
         });
     }
 
@@ -135,7 +135,7 @@ export class FormHouseComponent implements OnInit {
             ])),
             houseType: new FormControl('', Validators.required),
             residence: new FormControl('', Validators.required),
-            exterieur: new FormControl('non', Validators.required),
+            exterieur: new FormControl('0', Validators.required),
             address: new FormControl('', Validators.required),
             postalCode: new FormControl('', Validators.required),
             city: new FormControl('', Validators.required),
