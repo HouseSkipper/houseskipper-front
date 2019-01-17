@@ -25,6 +25,7 @@ import {HouseComponent} from './houses/house/house.component';
 import {DataService} from './services/task.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {SkillsComponent} from './skills/skills.component';
+import {FileSelectDirective} from 'ng2-file-upload';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {SkillsComponent} from './skills/skills.component';
         SignUpComponent,
         DashboardComponent,
         TaskDialogComponent,
-        SkillsComponent
+        SkillsComponent,
+        FileSelectDirective
     ],
     imports: [
         ReactiveFormsModule,
