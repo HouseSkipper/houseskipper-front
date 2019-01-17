@@ -25,7 +25,7 @@ import {HouseComponent} from './houses/house/house.component';
 import {DataService} from './services/task.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {SkillsComponent} from './skills/skills.component';
-import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
+import {FileUploadModule} from 'ng2-file-upload';
 
 
 @NgModule({
@@ -62,6 +62,7 @@ import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
         FormsModule,
         MatSliderModule,
         FileUploadModule,
+
         APP_ROUTES
     ],
     providers: [

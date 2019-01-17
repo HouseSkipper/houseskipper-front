@@ -30,8 +30,6 @@ export class DataaService {
   }
 
   getAll(): Observable<Task[]> {
-      console.log(this._backendURL.allTasks + '------------------------------------------');
-      console.log(this._authentication.currentUserValue.username + '------------------------------------------');
       return this._http.get<Task[]>(this._backendURL.allTasks.
       replace(':username', this._authentication.currentUserValue.username))
       .pipe(
@@ -45,6 +43,7 @@ export class DataaService {
 
     create(task: Task): Observable<any> {
       const user = this._authentication.currentUserValue;
+      console.log(task.description);
         if (user !== null) {
             task.username = this._authentication.currentUserValue.username;
         } else {
@@ -68,6 +67,21 @@ export class DataaService {
         .pipe(
           map(_ => id)
         );
+    }
+
+    getFiles(id): Observable<string[]> {
+      console.log(id + 'getfiles');
+        return this._http.get<string[]>(this._backendURL.fileNames.replace(':id', id)
+            .replace(':username', this._authentication.currentUserValue.username))
+            .pipe(
+                filter(_ => !!_),
+                defaultIfEmpty([])
+            );
+    }
+
+    downloadFileNow(fileName): Observable<any> {
+        return this._http.get(this._backendURL.dowload.replace(':fileName', fileName)
+            .replace(':username', this._authentication.currentUserValue.username), { responseType : 'arraybuffer'});
     }
 
   private _options(headerList: Object = {}): any {
