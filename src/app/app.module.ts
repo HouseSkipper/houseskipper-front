@@ -58,7 +58,6 @@ import {FileSelectDirective} from 'ng2-file-upload';
         MatFormFieldModule,
         MatInputModule,
         BrowserAnimationsModule,
-        MatSelectModule,
         MatSidenavModule,
         MaterialModule,
         FormsModule,

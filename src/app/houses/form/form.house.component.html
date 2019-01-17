@@ -169,7 +169,7 @@
             <button mat-button="add" (click)="addItem()">
                 <mat-icon svgIcon="icon-add"></mat-icon>
             </button>
-            <div formArrayName="rooms" *ngFor="let piece of form.get('rooms').controls; let i = index;">
+            <div formArrayName="rooms" *ngFor="let piece of form.get('rooms')['controls']; let i = index;">
                 <div [formGroupName]="i">
                     <button mat-button (click)="deletePiece(piece.id)">
                         <mat-icon svgIcon="icon-delete"></mat-icon>
