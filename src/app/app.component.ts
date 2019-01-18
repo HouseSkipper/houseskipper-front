@@ -39,5 +39,15 @@ export class AppComponent implements OnInit {
         this._matIconRegistry.addSvgIcon('icon-energy', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/energy.svg'));
         this._matIconRegistry.addSvgIcon('icon-message', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/message.svg'));
         this._matIconRegistry.addSvgIcon('icon-tree', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/tree.svg'));
+        this._matIconRegistry.addSvgIcon('icon-gros-oeuvres', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/brick-wall.svg'));
+        this._matIconRegistry.addSvgIcon('icon-seconds-oeuvres', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/hammer.svg'));
+        this._matIconRegistry.addSvgIcon('icon-bricolage', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/toolbox.svg'));
+        this._matIconRegistry.addSvgIcon('icon-jardinage', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/watering-can.svg'));
+        this._matIconRegistry.addSvgIcon('icon-paysage', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/forest.svg'));
+
+
+
+
+
     }
 }
