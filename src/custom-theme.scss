@@ -67,22 +67,22 @@ $md-secondary: (
                 A700 : #ffffff,
         )
 );
-
-$md-complementary: (
-        50 : #fff4e8,
-        100 : #ffe3c6,
-        200 : #ffd1a0,
-        300 : #ffbf7a,
-        400 : #ffb15e,
-        500 : #ffa341,
-        600 : #ff9b3b,
-        700 : #ff9132,
-        800 : #ff882a,
-        900 : #ff771c,
+/* For use in src/lib/core/theming/_palette.scss */
+$md-accent: (
+        50 : #fbfeec,
+        100 : #f5fdd0,
+        200 : #eefbb1,
+        300 : #e7f992,
+        400 : #e1f87a,
+        500 : #dcf763,
+        600 : #d8f65b,
+        700 : #d3f551,
+        800 : #cef347,
+        900 : #c5f135,
         A100 : #ffffff,
         A200 : #ffffff,
-        A400 : #ffdfcd,
-        A700 : #ffcfb3,
+        A400 : #f4ffd2,
+        A700 : #edffb8,
         contrast: (
                 50 : #000000,
                 100 : #000000,
@@ -101,9 +101,18 @@ $md-complementary: (
         )
 );
 
+
+
+
+$color1: rgba(61, 59, 105, 1);
+$color2: rgba(142, 157, 195, 1);
+$color3: rgba(132, 140, 142, 1);
+$color4: rgba(220, 247, 99, 1);
+$color5: rgba(191, 183, 182, 1);
+
 $custom-theme-primary: mat-palette($md-primary);
-$custom-theme-accent: mat-palette($md-secondary);
-$custom-theme-warn: mat-palette($md-complementary);
+$custom-theme-accent: mat-palette($md-accent);
+$custom-theme-warn: mat-palette($md-accent);
 
 $custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
 

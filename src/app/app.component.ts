@@ -29,6 +29,8 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._matIconRegistry.addSvgIcon('icon-logo', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/Logo-House-skipper-TEXT.svg'));
+        this._matIconRegistry.addSvgIcon('icon-logo-wtext', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/Logo-House-skipper.svg'));
         this._matIconRegistry.addSvgIcon('icon-menu', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/logo.svg'));
         this._matIconRegistry.addSvgIcon('icon-houses', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/house.svg'));
         this._matIconRegistry.addSvgIcon('icon-maps', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/maps-and-flags.svg'));

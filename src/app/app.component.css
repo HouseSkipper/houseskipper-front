@@ -1,15 +1,23 @@
-.fill {
-    flex: 1 1 auto;
-}
-
 mat-icon {
     margin-right:10px;
 }
 
 .main-content {
-    display:flex;
+    /*display:flex;*/
     justify-content: center;
     align-items: center;
-    padding:20px;
+    //padding:20px;
     min-height: calc(100vh - 130px);
+}
+
+
+.login {
+    height: 100vh;
+    /*min-width: 100vh;*/
+    background-image: url("../assets/images/background_image.jpg");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size:cover;
+    background-position: center;
+    background-attachment: fixed;
 }

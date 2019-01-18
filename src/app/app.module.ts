@@ -25,6 +25,10 @@ import {HouseComponent} from './houses/house/house.component';
 import {DataService} from './services/task.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {SkillsComponent} from './skills/skills.component';
+import { MainNavBarComponent } from './shared/main-nav-bar/main-nav-bar.component';
+import { CustomSideFormComponent } from './shared/custom-side-form/custom-side-form.component';
+import { SignupSideFormComponent } from './signup-side-form/signup-side-form.component';
+import { SideFormDirective } from './side-form.directive';
 
 
 @NgModule({
@@ -36,7 +40,10 @@ import {SkillsComponent} from './skills/skills.component';
         SignUpComponent,
         DashboardComponent,
         TaskDialogComponent,
-        SkillsComponent
+        SkillsComponent,
+        MainNavBarComponent,
+        CustomSideFormComponent,
+        SignupSideFormComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -60,6 +67,7 @@ import {SkillsComponent} from './skills/skills.component';
         MaterialModule,
         FormsModule,
         MatSliderModule,
+        MatSidenavModule,
         APP_ROUTES
     ],
     providers: [

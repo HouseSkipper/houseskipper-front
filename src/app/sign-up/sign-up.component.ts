@@ -1,72 +1,92 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../interfaces/user';
-import {first, flatMap, map} from 'rxjs/operators';
+import {filter, first, flatMap, map, tap} from 'rxjs/operators';
 import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
 import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
-    styleUrls: ['./sign-up.component.css']
+    styleUrls: ['./sign-up.component.css'],
+    animations: [
+        trigger('slideInOut', [
+            transition(':leave', [
+                animate('400ms ease-in', style({transform: 'translateX(-100%)'}))
+            ]),
+            transition(':enter', [
+                style({transform: 'translateX(-100%)'}),
+                animate('400ms ease-in', style({transform: 'translateX(0%)'}))
+            ])
+        ])
+    ]
 })
 export class SignUpComponent implements OnInit {
 
-
-    private _roles: string[] = ['Particulier-propriétaire'];
-
-    get roles(): string[] {
-        return this._roles;
-    }
-
-    private _errorMsg = '';
+    private _fields: string[string[]];
     private _form: FormGroup;
+    private _step: string;
+    private _stepNum: number;
+    private _fieldsFlatten: string[];
+    private _errorMsg: string;
     private _invalid: boolean;
+    private _roles: string[] = ['Particulier-propriétaire'];
+    private readonly _submit$: EventEmitter<any>;
 
-    get invalid(): boolean {
-        return this._invalid;
-    }
 
-    private readonly _submit$: EventEmitter<User>;
-
-    get form(): FormGroup {
-        return this._form;
-    }
-
-    @Output('submit')
-    get submit$(): EventEmitter<User> {
-        return this._submit$;
-    }
-
-    /**
-     * Function to emit event to submit form and person
-     */
-    submit(user: User) {
-        of(user)
-            .pipe(
-                map(_ => {
-                    return {'firstname' : _.firstname, 'lastname': _.firstname, 'password' : _.password, 'username' : _.username, 'telephone' : _.telephone, 'role': _.role};
-                }),
-                flatMap(_ => this._userService.create(_))
-            ).subscribe(
-            data => {
-                console.log(data);
-                this._router.navigate(['/']);
-            },
-            error => {
-                console.log(error);
-                this._errorMsg = error;
-                this._invalid = true;
-            }
-        );
-    }
 
     constructor(private _userService: UsersService, private _router: Router) {
-        this._submit$ = new EventEmitter<User>();
+        this._fieldsFlatten = [];
+        this._stepNum = 0;
+        this._submit$ = new EventEmitter<any>();
         this._form = this._buildForm();
     }
+
+    ngOnInit() {
+        this._fields = [];
+        this._fields.push({title: 'Entity', values: ['firstname', 'lastname']});
+        this._fields.push({title: 'Contact', values: ['username', 'telephone']});
+        this._fields.push({title: 'Account', values: ['password', 'role']});
+        let i = 0;
+        this._fields.forEach(key => {
+            for (const subfield of key.values) {
+                this._fieldsFlatten[i] = subfield;
+                i++;
+            }
+        });
+        this._step = this._fieldsFlatten[0];
+    }
+
+    continue(data: any) {
+        if (this._form.get(this._step).valid) {
+            const index = this._fieldsFlatten.indexOf(this._step);
+            console.log('index:' + index);
+            if (index < this._fieldsFlatten.length - 1) {
+                console.log('on est dans la même categorie');
+                this._step = this._fieldsFlatten[index + 1];
+            } else {
+                this.saveUser(data as User);
+            }
+        }
+    }
+
+    setStep(value: string): void {
+        const index = this._fieldsFlatten.indexOf(value);
+        if (this._form.get(this._fieldsFlatten[index - 1]).valid) {
+            this._step = value;
+        }
+        if (value === this.fields[0][0]) {
+            this._step = value;
+        } else {
+            if (this._form.get('firstname').valid) {
+                this._step = value;
+            }
+        }
+    }
+
 
     private _buildForm(): FormGroup {
         return new FormGroup({
@@ -93,12 +113,86 @@ export class SignUpComponent implements OnInit {
         });
     }
 
-
-    get errorMsg(): string {
-        return this._errorMsg;
+    saveUser(user: User) {
+        of(user)
+            .pipe(
+                map(_ => {
+                        return {
+                            'firstname': _.firstname,
+                            'lastname': _.firstname,
+                            'password': _.password,
+                            'username': _.username,
+                            'telephone': _.telephone,
+                            'role': _.role
+                        };
+                    }
+                ),
+                flatMap(_ => this._userService.create(_))
+            ).subscribe(
+            data => {
+                console.log(data);
+                this._router.navigate(['/']);
+            },
+            error => {
+                console.log(error);
+                this._errorMsg = error;
+                this._invalid = true;
+            });
     }
 
-    ngOnInit(): void {
+    /*init(config: any) {
+        this.fields(config.fields);
+        let i = 0;
+        this._fields.forEach(key => {
+            for (const subfield of key.values) {
+                this._fieldsFlatten[i] = subfield;
+                i++;
+            }
+        });
+        this._step = this._fieldsFlatten[0];
+        this._form = config.form;
+        console.log(this._fieldsFlatten);
+    }*/
+
+
+    get roles(): string[] {
+        return this._roles;
     }
+
+    @Output('submit')
+    get submit$(): EventEmitter<User> {
+        return this._submit$;
+    }
+
+    @Output()
+    get form(): FormGroup {
+        return this._form;
+    }
+
+    @Input()
+    set form(value: FormGroup) {
+        this._form = value;
+    }
+
+    @Output()
+    get step(): string {
+        return this._step;
+    }
+
+    @Input()
+    set step(value: string) {
+        this._step = value;
+    }
+
+    get fields(): any {
+        return this._fields;
+    }
+
+    @Input()
+    set fields(value: any) {
+        this._fields = value;
+    }
+
+
 
 }
