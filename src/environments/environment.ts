@@ -15,6 +15,7 @@ export const environment = {
             allUsers: '/api/users',
             authenticate: '/login',
             signup: '/users/sign-up',
+            validateAccount: '/users/validateAccount/:emailToken',
             allHouses: '/houses/house',
             addHouse: '/add/house',
             removeHouse: '/houses/:houseId',

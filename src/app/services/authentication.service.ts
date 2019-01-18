@@ -48,6 +48,13 @@ export class AuthenticationService {
             );
     }
 
+    loginAfterValidationAccount(user: User) {
+        if (user && user.token) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this._currentUserSubject.next(user);
+        }
+    }
+
     logout() {
         localStorage.removeItem('currentUser');
         this._currentUserSubject.next(null);

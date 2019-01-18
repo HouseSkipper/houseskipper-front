@@ -27,6 +27,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {SkillsComponent} from './skills/skills.component';
 import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
 import {DirectiveType} from '@angular/core/src/render3';
+import { ValidateAccountComponent } from './validate-account/validate-account.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {DirectiveType} from '@angular/core/src/render3';
         SignUpComponent,
         DashboardComponent,
         TaskDialogComponent,
-        SkillsComponent
+        SkillsComponent,
+        ValidateAccountComponent
     ],
     imports: [
         ReactiveFormsModule,
