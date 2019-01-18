@@ -3,8 +3,12 @@ mat-accordion {
 }
 
 form {
-    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
     width: 100vh;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
