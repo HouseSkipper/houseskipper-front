@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {House} from '../../interfaces/house';
 import {HouseService} from '../../services/house.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {flatMap, map} from 'rxjs/operators';
 
 export interface Type {
     value: string;
@@ -14,7 +15,7 @@ export interface Type {
     templateUrl: './form.house.component.html',
     styleUrls: ['./form.house.component.css']
 })
-export class FormHouseComponent implements OnInit {
+export class FormHouseComponent implements OnInit, OnChanges {
 
     private readonly _form: FormGroup;
     private _step: number;
@@ -23,8 +24,10 @@ export class FormHouseComponent implements OnInit {
     rooms: FormArray;
     private  _pays: string[];
     private  _classeEnergetique: string[];
+    private _isUpdateMode: boolean;
+    private _model: House;
 
-    constructor(private _houseService: HouseService, private _router: Router) {
+    constructor(private _houseService: HouseService, private _router: Router, private _route: ActivatedRoute) {
         this._form = this._buildForm();
         this._step = 0;
         this._types = [
@@ -44,6 +47,63 @@ export class FormHouseComponent implements OnInit {
 
     }
 
+    ngOnChanges(house) {
+        if (house.houseName !== undefined) {
+            if (house.exterieur === 0) {
+                house.exterieur = '0';
+            } else {
+                house.exterieur = '1';
+            }
+            if (house.gaz === 0) {
+                house.gaz = '0';
+            } else {
+                house.gaz = '1';
+            }
+            if (house.electricite === 0) {
+                house.electricite = '0';
+            } else {
+                house.electricite = '1';
+            }
+            if (house.panneauxPhoto === 0) {
+                house.panneauxPhoto = '0';
+            } else {
+                house.panneauxPhoto = '1';
+            }
+            if (house.eolienne === 0) {
+                house.eolienne = '0';
+            } else {
+                house.eolienne = '1';
+            }
+            for (let i = 0; i < house.rooms.length ; i++) {
+                if (house.rooms[i].volet === 0) {
+                    house.rooms[i].volet = '0';
+                } else {
+                    house.rooms[i].volet = '1';
+                }
+            }
+            console.log(house.rooms);
+            this._model = house;
+            this._isUpdateMode = true;
+            this._form.get('rooms').reset();
+            this._form.patchValue(this._model);
+            this.rooms = this._form.get('rooms') as FormArray;
+            let taille = this.rooms.length;
+            for (let i = 0; i < taille ; i++) {
+                this.deletePiece(0);
+            }
+            taille = house.rooms.length;
+            for (let i = 0; i < taille ; i++) {
+                console.log('entre');
+                this.rooms.push(this.createRoom(house.rooms[i].id, house.rooms[i].roomName, house.rooms[i].space, house.rooms[i].nbFenetre,
+                    house.rooms[i].nbPorteFenetre, house.rooms[i].typeChauffage, house.rooms[i].nbRadiateur, house.rooms[i].volet, house.rooms[i].nbVolet));
+            }
+            console.log(this._form);
+
+        } else {
+            this._isUpdateMode = false;
+        }
+    }
+
     get classEnergetique(): string[] {
         return this._classeEnergetique;
     }
@@ -55,13 +115,48 @@ export class FormHouseComponent implements OnInit {
         return new FormGroup({
             id: new FormControl(p),
             roomName: new FormControl(nom),
-            space: new FormControl(''),
-            nbFenetre: new FormControl(''),
-            nbPorteFenetre: new FormControl(''),
+            space: new FormControl('', Validators.compose([
+                    Validators.required, Validators.pattern('\\d*')
+                ])),
+            nbFenetre: new FormControl('0', Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
+            nbPorteFenetre: new FormControl('0', Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
             typeChauffage: new FormControl('radiateur'),
-            nbRadiateur: new FormControl('0'),
+            nbRadiateur: new FormControl('0', Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
             volet: new FormControl('0'),
-            nbVolet: new FormControl('0')
+            nbVolet: new FormControl('0', Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ]))
+        });
+    }
+
+    createRoom(id: number, nom: string, space: number, nbFenetre: string, nbPorteFenetre: string, typeChauffage: string,
+               nbRadiateur: string, volet: string, nbVolet: string): FormGroup {
+        return new FormGroup({
+            id: new FormControl(id),
+            roomName: new FormControl(nom),
+            space: new FormControl(space, Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
+            nbFenetre: new FormControl(nbFenetre, Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
+            nbPorteFenetre: new FormControl(nbPorteFenetre, Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
+            typeChauffage: new FormControl(typeChauffage),
+            nbRadiateur: new FormControl(nbRadiateur, Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
+            volet: new FormControl(volet),
+            nbVolet: new FormControl(nbVolet, Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ]))
         });
     }
 
@@ -112,7 +207,11 @@ export class FormHouseComponent implements OnInit {
     }
 
     nextStep() {
-        this._step++;
+        if (this._form.get('exterieur').value === '0' && this._step === 4) {
+            this._step = this._step + 2;
+        } else {
+            this._step++;
+        }
     }
 
     prevStep() {
@@ -120,7 +219,15 @@ export class FormHouseComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._route.params
+            .pipe(
+                map((params: any) => params.id),
+                flatMap((id: string) => this._houseService.fetchHouse(id))
+            )
+            .subscribe((house: House) => house === undefined ? undefined : this.ngOnChanges(house));
+            // .subscribe((house: House) => console.log(house));
     }
+
 
     /**
      * Returns private property _form
@@ -138,27 +245,43 @@ export class FormHouseComponent implements OnInit {
             residence: new FormControl('', Validators.required),
             exterieur: new FormControl('0', Validators.required),
             address: new FormControl('', Validators.required),
-            postalCode: new FormControl('', Validators.required),
+            postalCode: new FormControl('', Validators.compose([
+                Validators.required, Validators.pattern('\\d{5}')
+            ])),
             city: new FormControl('', Validators.required),
             pays: new FormControl('', Validators.required),
-            outsideSpace: new FormControl('0', Validators.required),
-            constructionYear: new FormControl('', Validators.required),
+            outsideSpace: new FormControl('0', Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
+            constructionYear: new FormControl('', Validators.compose([
+                Validators.required, Validators.pattern('\\d{4}')
+            ])),
             standardType: new FormControl('', Validators.required),
             // rooms: new FormArray([this.createItem(0)]),
             // rooms: new FormArray([this.createItem(0, 'Cuisine' )]),
             rooms: new FormArray([this.createItem(0, 'Cuisine')]),
             revetementExterieur: new FormControl('', Validators.required),
-            surfaceToiture: new FormControl('', Validators.required),
+            surfaceToiture: new FormControl('', Validators.compose([
+                    Validators.required, Validators.pattern('\\d*')
+                ])),
             revetementToiture: new FormControl('', Validators.required),
             classeEnergetique: new FormControl('', Validators.required),
             gaz: new FormControl('', Validators.required),
             electricite: new FormControl('', Validators.required),
             panneauxPhoto: new FormControl('', Validators.required),
             eolienne: new FormControl('', Validators.required),
-            surfaceExterieurAvant: new FormControl('0', Validators.required),
-            surfaceExterieurDroit: new FormControl('0', Validators.required),
-            surfaceExterieurGauche: new FormControl('0', Validators.required),
-            surfaceExterieurArriere: new FormControl('0', Validators.required),
+            surfaceExterieurAvant: new FormControl('0', Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
+            surfaceExterieurDroit: new FormControl('0', Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
+            surfaceExterieurGauche: new FormControl('0', Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
+            surfaceExterieurArriere: new FormControl('0', Validators.compose([
+                Validators.required, Validators.pattern('\\d*')
+            ])),
             comment: new FormControl(''),
         });
     }
@@ -170,7 +293,30 @@ export class FormHouseComponent implements OnInit {
 
 
     submit(payload: House) {
+        payload = this.verifier(payload);
         this._houseService.create(payload).subscribe( (_) => this._router.navigate([ '/users/houses']));
     }
 
+
+    get isUpdateMode(): boolean {
+        return this._isUpdateMode;
+    }
+
+    modifier(payload: House) {
+        payload = this.verifier(payload);
+        payload.id = this._model.id;
+        this._houseService.modifier(payload).subscribe( (_) => this._router.navigate([ '/users/houses']));
+    }
+
+    private verifier(house: House): House {
+        for (let i = 0; i < house.rooms.length ; i++) {
+            if (house.rooms[i].volet === 0) {
+                house.rooms[i].nbVolet = 0;
+            }
+            if (house.rooms[i].typeChauffage === 'sol') {
+                house.rooms[i].nbRadiateur = 0;
+            }
+        }
+        return house;
+    }
 }

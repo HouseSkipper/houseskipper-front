@@ -59,6 +59,10 @@
                             *ngIf="form.get('constructionYear').dirty && form.get('constructionYear').hasError('required')">
                         Année de construction est <strong>requise</strong>
                     </mat-error>
+                    <mat-error
+                            *ngIf="form.get('constructionYear').hasError('pattern')">
+                        Année de construction doit être un <strong>nombre de 4 chiffres</strong>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="centerElement">
@@ -115,6 +119,10 @@
                            name="postalCode"/>
                     <mat-error *ngIf="form.get('postalCode').dirty && form.get('postalCode').hasError('required')">
                         Code postal est <strong>requis</strong>
+                    </mat-error>
+                    <mat-error
+                            *ngIf="form.get('postalCode').hasError('pattern')">
+                        Code postal doit être un <strong>nombre de 5 chiffres</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -250,9 +258,9 @@
             <button mat-button="add" (click)="addItem()">
                 <mat-icon svgIcon="icon-add"></mat-icon>
             </button>
-            <div formArrayName="rooms" *ngFor="let piece of form.get('rooms')['controls']; let i = index;">
+            <div formArrayName="rooms" *ngFor="let piece of form.get('rooms').controls; let i = index;">
                 <div [formGroupName]="i">
-                    <button mat-button (click)="deletePiece(piece.id)">
+                    <button mat-button (click)="deletePiece(form.get('rooms').controls[i].get('id').value)">
                         <mat-icon svgIcon="icon-delete"></mat-icon>
                     </button>
                     <mat-form-field class="margin" appearance="outline">
@@ -272,6 +280,10 @@
                                 *ngIf="form.get('rooms').controls[i].get('space').dirty && form.get('rooms').controls[i].get('space').hasError('required')">
                             La surface de la pièce est <strong>requise</strong>
                         </mat-error>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('space').hasError('pattern')">
+                            La surface de la pièce doit être un <strong>nombre</strong>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline">
                         <mat-label>Nombre de fenêtres</mat-label>
@@ -281,6 +293,10 @@
                                 *ngIf="form.get('rooms').controls[i].get('nbFenetre').dirty && form.get('rooms').controls[i].get('nbFenetre').hasError('required')">
                             Le nombre de fenêtres est <strong>requis</strong>
                         </mat-error>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('nbFenetre').hasError('pattern')">
+                            Le nombre de fenêtres doit être un <strong>nombre</strong>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline">
                         <mat-label>Nombre de portes fenêtres</mat-label>
@@ -289,7 +305,11 @@
                                name="nbPorteFenetre{{piece.id}}"/>
                         <mat-error
                                 *ngIf="form.get('rooms').controls[i].get('nbPorteFenetre').dirty && form.get('rooms').controls[i].get('nbPorteFenetre').hasError('required')">
-                            Le nombre de fenêtres est <strong>requis</strong>
+                            Le nombre de portes fenêtres est <strong>requis</strong>
+                        </mat-error>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('nbPorteFenetre').hasError('pattern')">
+                            Le nombre de portes fenêtres doit être un <strong>nombre</strong>
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline">
@@ -309,6 +329,10 @@
                                 *ngIf="form.get('rooms').controls[i].get('nbRadiateur').dirty && form.get('rooms').controls[i].get('nbRadiateur').hasError('required')">
                             Le nombre de radiateurs est <strong>requis</strong>
                         </mat-error>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('nbRadiateur').hasError('pattern')">
+                            Le nombre de radiateurs doit être un <strong>nombre</strong>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline">
                         <mat-label>Volet</mat-label>
@@ -325,7 +349,11 @@
                                name="nbVolet{{piece.id}}"/>
                         <mat-error
                                 *ngIf="form.get('rooms').controls[i].get('nbVolet').dirty && form.get('rooms').controls[i].get('nbVolet').hasError('required')">
-                            Le nombre de radiateurs est <strong>requis</strong>
+                            Le nombre de volets est <strong>requis</strong>
+                        </mat-error>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('nbVolet').hasError('pattern')">
+                            Le nombre de volets doit être un <strong>nombre</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -349,6 +377,10 @@
                     <mat-error
                             *ngIf="form.get('surfaceToiture').dirty && form.get('surfaceToiture').hasError('required')">
                         Surface toiture est <strong>requise</strong>
+                    </mat-error>
+                    <mat-error
+                            *ngIf="form.get('surfaceToiture').hasError('pattern')">
+                        Surface toiture doit être un <strong>nombre</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -390,6 +422,10 @@
                     <mat-error *ngIf="form.get('outsideSpace').dirty && form.get('outsideSpace').hasError('required')">
                         Surface total est <strong>requise</strong>
                     </mat-error>
+                    <mat-error
+                            *ngIf="form.get('outsideSpace').hasError('pattern')">
+                        Surface total doit être un <strong>nombre</strong>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="centerElement">
@@ -401,6 +437,11 @@
                             *ngIf="form.get('surfaceExterieurAvant').dirty && form.get('surfaceExterieurAvant').hasError('required')">
                         Surface à l’avant est <strong>requise</strong>
                     </mat-error>
+                    <mat-error
+                            *ngIf="form.get('surfaceExterieurAvant').hasError('pattern')">
+                        Surface à l’avant doit être un <strong>nombre</strong>
+                    </mat-error>
+
                 </mat-form-field>
             </div>
             <div class="centerElement">
@@ -411,6 +452,10 @@
                     <mat-error
                             *ngIf="form.get('surfaceExterieurDroit').dirty && form.get('surfaceExterieurDroit').hasError('required')">
                         Surface côté droit est <strong>requise</strong>
+                    </mat-error>
+                    <mat-error
+                            *ngIf="form.get('surfaceExterieurDroit').hasError('pattern')">
+                        Surface côté droit doit être un <strong>nombre</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -424,6 +469,10 @@
                             *ngIf="form.get('surfaceExterieurGauche').dirty && form.get('surfaceExterieurGauche').hasError('required')">
                         Surface côté gauche est <strong>requise</strong>
                     </mat-error>
+                    <mat-error
+                            *ngIf="form.get('surfaceExterieurGauche').hasError('pattern')">
+                        Surface côté gauche doit être un <strong>nombre</strong>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="centerElement">
@@ -434,6 +483,10 @@
                     <mat-error
                             *ngIf="form.get('surfaceExterieurArriere').dirty && form.get('surfaceExterieurArriere').hasError('required')">
                         Surface à l’arrière est <strong>requise</strong>
+                    </mat-error>
+                    <mat-error
+                            *ngIf="form.get('surfaceExterieurArriere').hasError('pattern')">
+                        Surface à l’arrière doit être un <strong>nombre</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -465,8 +518,13 @@
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
                 <!--button mat-button color="primary" type="submit" (click)="submit(form.value)">Save</button-->
-                <button mat-button color="primary" type="submit" (click)="submit(form.value)" [disabled]="form.invalid">
-                    Save
+                <button *ngIf="isUpdateMode === false" mat-button color="primary" type="submit"
+                        (click)="submit(form.value)" [disabled]="form.invalid">
+                    Enregistrer
+                </button>
+                <button *ngIf="isUpdateMode === true" mat-button color="primary" type="submit"
+                        (click)="modifier(form.value)" [disabled]="form.invalid">
+                    Modifier
                 </button>
             </mat-action-row>
         </mat-expansion-panel>
