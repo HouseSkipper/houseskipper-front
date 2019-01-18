@@ -25,3 +25,13 @@ mat-cell{
 mat-header-cell{
     position: relative;
 }
+
+.content-page {
+    display:flex;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    height:calc(100vh - 130px);
+    top:130px;
+}

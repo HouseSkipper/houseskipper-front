@@ -1,38 +1,6 @@
-<mat-toolbar class="extend-toolbar" color="primary">
-  <mat-icon svgIcon="icon-menu"></mat-icon>
-  <span>{{title}}</span>
-  <span class="fill"></span>
-
-  <div *ngIf="currentUser">
-    <span>Hi {{currentUser.username}}</span>
-  </div>
-  <button  mat-button [routerLink]="['/']">
-    <span>Home</span>
-  </button>
-  <div *ngIf="currentUser">
-    <button mat-button [routerLink]="['/skills']">
-      <span>Account </span>
-    </button>
-    <button  mat-button [routerLink]="['/users/dashboard']">
-      <span>Dashboard</span>
-    </button>
-    <button mat-button [routerLink]="['/users/houses']">
-      <span>Houses</span>
-    </button>
-    <button mat-button (click)="logout()">
-      <span>Logout</span>
-    </button>
-  </div>
-  <div *ngIf="!currentUser">
-    <button  mat-button [routerLink]="['/signup']">
-      <span>Sign up</span>
-    </button>
-    <button  mat-button [routerLink]="['/login']">
-      <span>Login</span>
-    </button>
-  </div>
-</mat-toolbar>
-
 <div class="main-content">
   <router-outlet></router-outlet>
+</div>
+<div class="footer">
+
 </div>

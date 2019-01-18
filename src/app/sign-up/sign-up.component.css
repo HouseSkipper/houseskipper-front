@@ -1,7 +1,18 @@
-.form-container {
+.signup-form-container {
     display: flex;
     flex-direction: column;
-    padding:10px;
+    margin-right:10px;
+    margin-left:30px;
+}
+
+span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+mat-icon {
 }
 
 .name {
@@ -12,6 +23,7 @@
 }
 
 mat-form-field, button {
+    width:inherit;
     display:block;
     margin-right:20px;
 }
@@ -30,7 +42,7 @@ mat-form-field, button {
     margin-bottom: 15px;
 }
 
-button, mat-error, h1 {
+button, mat-error, h1, a {
     margin-left: auto;
     margin-right: auto;
     text-align:center;
@@ -46,13 +58,44 @@ h1 {
     width: 70%;
 }*/
 
-#submitButton, a {
-    height:15%;
-    width: 50%;
+#continueButton{
+    margin-left: 30px !important;
+    width:200px;
+    height:50px;
+    background: #c5f135;;
     text-align: center;
     text-decoration: none;
+    margin:inherit;
 }
 
 *, :after, :before {
     box-sizing: border-box;
+}
+
+#buttonMenu {
+    min-width: 200px;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#buttonMenu button {
+    margin-top:10px;
+}
+
+#signup-container {
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+mat-sidenav-container {
+    height: calc(100vh - 80px);
+}
+
+.titleField {
+    font-weight: bold;
+    font-size:1.2em;
 }

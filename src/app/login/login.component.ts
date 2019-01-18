@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../interfaces/user';
 import {AuthenticationService} from '../services/authentication.service';
@@ -8,7 +8,8 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
 
@@ -50,12 +51,8 @@ export class LoginComponent implements OnInit {
 
     private _buildForm(): FormGroup {
         return new FormGroup({
-            username: new FormControl('', Validators.compose([
-                Validators.required
-            ])),
-            password: new FormControl('', Validators.compose([
-                Validators.required
-            ]))
+            username: new FormControl(),
+            password: new FormControl()
         });
     }
 
@@ -64,6 +61,9 @@ export class LoginComponent implements OnInit {
     }
 
     get errorMsg(): string {
+        if (this._errorMsg === 'Unknown Error') {
+            this._errorMsg = 'Server unreachable';
+        }
         return this._errorMsg;
     }
 }

@@ -25,7 +25,7 @@ export class AuthenticationService {
         if (environment.backend.port) {
             baseUrl += `:${environment.backend.port}`;
         }
-
+        console.log('environment :' + baseUrl);
         // build all backend urls
         Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[ k ] = `${baseUrl}${environment.backend.endpoints[ k ]}`);
     }
@@ -46,6 +46,13 @@ export class AuthenticationService {
                     return user;
                 })
             );
+    }
+
+    loginAfterValidationAccount(user: User) {
+        if (user && user.token) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this._currentUserSubject.next(user);
+        }
     }
 
     logout() {

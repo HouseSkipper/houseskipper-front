@@ -1,0 +1,21 @@
+#logo {
+    margin-left:auto;
+    justify-self: flex-start;
+    width:50px;
+    height:50px;
+}
+
+.mat-toolbar {
+    display:inline-flex;
+    justify-content: flex-end;
+    background: none;
+    box-shadow: 0 1px 1px lightgrey;
+}
+
+.fill {
+    flex: 1 1 auto;
+}
+
+.menu-button {
+    width: inherit;
+}

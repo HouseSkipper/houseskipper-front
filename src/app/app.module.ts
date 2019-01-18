@@ -25,7 +25,10 @@ import {HouseComponent} from './houses/house/house.component';
 import {DataService} from './services/task.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {SkillsComponent} from './skills/skills.component';
-import {FileUploadModule} from 'ng2-file-upload';
+import { MainNavBarComponent } from './shared/main-nav-bar/main-nav-bar.component';
+import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
+import {DirectiveType} from '@angular/core/src/render3';
+import {ValidateAccountComponent} from './validate-account/validate-account.component';
 
 
 @NgModule({
@@ -37,7 +40,10 @@ import {FileUploadModule} from 'ng2-file-upload';
         SignUpComponent,
         DashboardComponent,
         TaskDialogComponent,
-        SkillsComponent
+        SkillsComponent,
+        MainNavBarComponent,
+        SkillsComponent,
+        ValidateAccountComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -62,7 +68,7 @@ import {FileUploadModule} from 'ng2-file-upload';
         FormsModule,
         MatSliderModule,
         FileUploadModule,
-
+        MatSidenavModule,
         APP_ROUTES
     ],
     providers: [
