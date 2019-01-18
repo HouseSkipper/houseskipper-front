@@ -99,6 +99,7 @@ export class SignUpComponent implements OnInit {
             password: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
             ])),
+            confirmPassword: new FormControl('', Validators.required),
             username: new FormControl('', Validators.compose([
                 Validators.required,
                 Validators.pattern(
@@ -106,9 +107,9 @@ export class SignUpComponent implements OnInit {
                     '\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')
             ])),
             telephone: new FormControl('', Validators.compose([
-                Validators.required,
                 Validators.pattern('\\d{10}')
             ])),
+            // validator: MustMatch('password', 'confirmPassword'),
             role: new FormControl('', Validators.required)
         });
     }

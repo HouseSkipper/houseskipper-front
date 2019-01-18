@@ -46,6 +46,8 @@ import {DirectiveType} from '@angular/core/src/render3';
         MainNavBarComponent,
         CustomSideFormComponent,
         SignupSideFormComponent
+        SkillsComponent,
+        ValidateAccountComponent
     ],
     imports: [
         ReactiveFormsModule,

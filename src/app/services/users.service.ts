@@ -47,6 +47,10 @@ export class UsersService {
         return this._http.post<User>(this._backendURL.signup, user, this._options());
     }
 
+    checkEmailToken(emailToken: string) {
+        return this._http.get<User>(this._backendURL.validateAccount.replace(':emailToken', emailToken));
+    }
+
     /*update(user: User): Observable<any> {
         const id = user.id;
         delete user.id;
@@ -60,4 +64,6 @@ export class UsersService {
     private _options(headerList: Object = {}): any {
         return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
     }
+
+
 }
