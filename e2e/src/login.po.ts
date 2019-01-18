@@ -10,19 +10,19 @@ export class LoginPage
 
 
 	getLoginUsername() {
-		return element(by.id('mat-input-0'));
+		return element(by.css('input[formcontrolname="username"]'));
 	}
 
 	getLoginPassword() {
-		return element(by.id('mat-input-1'));
+		return element(by.css('input[formcontrolname="password"]'));
 	}
 
 	getLoginButton() {
 		return element(by.id('submitButton'));
 	}
 
-	getRegisterButton() {
-		return element(by.id('createButton'));
+	getLogoutButton() {
+		return element(by.id('logout'));
 	}
 
 
