@@ -44,7 +44,6 @@ import {ValidateAccountComponent} from './validate-account/validate-account.comp
         TaskDialogComponent,
         SkillsComponent,
         MainNavBarComponent,
-        CustomSideFormComponent,
         SignupSideFormComponent,
         SkillsComponent,
         ValidateAccountComponent
