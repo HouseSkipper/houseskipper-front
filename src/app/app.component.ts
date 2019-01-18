@@ -44,10 +44,6 @@ export class AppComponent implements OnInit {
         this._matIconRegistry.addSvgIcon('icon-bricolage', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/toolbox.svg'));
         this._matIconRegistry.addSvgIcon('icon-jardinage', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/watering-can.svg'));
         this._matIconRegistry.addSvgIcon('icon-paysage', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/forest.svg'));
-
-
-
-
-
+        this._matIconRegistry.addSvgIcon('icon-edit', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/edit.svg'));
     }
 }

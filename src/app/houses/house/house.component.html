@@ -44,6 +44,9 @@
                                         <a type="button" (click)="delete(element.id)">
                                             <mat-icon svgIcon="icon-delete">delete</mat-icon>
                                         </a>
+                                        <a type="button" [routerLink]="['/users/houses/' + element.id]">
+                                            <mat-icon svgIcon="icon-edit">edit</mat-icon>
+                                        </a>
                                     </mat-cell>
                                 </ng-container>
                                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
