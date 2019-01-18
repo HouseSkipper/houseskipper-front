@@ -44,7 +44,7 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Extérieur</mat-label>
-                    <mat-select placeholder="Extérieur" formControlName="exterieur" required name="exterieur">
+                    <mat-select placeholder="Extérieur" formControlName="exterieur" name="exterieur">
                         <mat-option value="1">Oui</mat-option>
                         <mat-option value="0">Non</mat-option>
                     </mat-select>
@@ -53,12 +53,8 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Année de construction</mat-label>
-                    <input matInput placeholder="Année de construction" formControlName="constructionYear" required
+                    <input matInput placeholder="Année de construction" formControlName="constructionYear"
                            name="constructionYear"/>
-                    <mat-error
-                            *ngIf="form.get('constructionYear').dirty && form.get('constructionYear').hasError('required')">
-                        Année de construction est <strong>requise</strong>
-                    </mat-error>
                     <mat-error
                             *ngIf="form.get('constructionYear').hasError('pattern')">
                         Année de construction doit être un <strong>nombre de 4 chiffres</strong>
@@ -193,7 +189,7 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Classe Énergétique</mat-label>
-                    <mat-select placeholder="Classe Énergétique" formControlName="classeEnergetique" required
+                    <mat-select placeholder="Classe Énergétique" formControlName="classeEnergetique"
                                 name="classeEnergetique">
                         <mat-option *ngFor="let p of classEnergetique" [value]="p">
                             {{p}}
@@ -204,7 +200,7 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Gaz</mat-label>
-                    <mat-select placeholder="Gaz" formControlName="gaz" required name="gaz">
+                    <mat-select placeholder="Gaz" formControlName="gaz"  name="gaz">
                         <mat-option value="1">Oui</mat-option>
                         <mat-option value="0">Non</mat-option>
                     </mat-select>
@@ -213,7 +209,7 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Électricité</mat-label>
-                    <mat-select placeholder="Électricité" formControlName="electricite" required name="electricite">
+                    <mat-select placeholder="Électricité" formControlName="electricite"  name="electricite">
                         <mat-option value="1">Oui</mat-option>
                         <mat-option value="0">Non</mat-option>
                     </mat-select>
@@ -222,7 +218,7 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Panneaux photovoltaïques</mat-label>
-                    <mat-select placeholder="Panneaux photovoltaïques" formControlName="panneauxPhoto" required
+                    <mat-select placeholder="Panneaux photovoltaïques" formControlName="panneauxPhoto"
                                 name="panneauxPhoto">
                         <mat-option value="1">Oui</mat-option>
                         <mat-option value="0">Non</mat-option>
@@ -232,7 +228,7 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Éolienne</mat-label>
-                    <mat-select placeholder="Éolienne" formControlName="eolienne" required name="eolienne">
+                    <mat-select placeholder="Éolienne" formControlName="eolienne"  name="eolienne">
                         <mat-option value="1">Oui</mat-option>
                         <mat-option value="0">Non</mat-option>
                     </mat-select>
@@ -287,12 +283,8 @@
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline">
                         <mat-label>Nombre de fenêtres</mat-label>
-                        <input matInput placeholder="Nombre de fenêtres" formControlName="nbFenetre" required
+                        <input matInput placeholder="Nombre de fenêtres" formControlName="nbFenetre"
                                name="nbFenetre{{piece.id}}"/>
-                        <mat-error
-                                *ngIf="form.get('rooms').controls[i].get('nbFenetre').dirty && form.get('rooms').controls[i].get('nbFenetre').hasError('required')">
-                            Le nombre de fenêtres est <strong>requis</strong>
-                        </mat-error>
                         <mat-error
                                 *ngIf="form.get('rooms').controls[i].get('nbFenetre').hasError('pattern')">
                             Le nombre de fenêtres doit être un <strong>nombre</strong>
@@ -301,12 +293,7 @@
                     <mat-form-field class="margin" appearance="outline">
                         <mat-label>Nombre de portes fenêtres</mat-label>
                         <input matInput placeholder="Nombre de portes fenêtres" formControlName="nbPorteFenetre"
-                               required
                                name="nbPorteFenetre{{piece.id}}"/>
-                        <mat-error
-                                *ngIf="form.get('rooms').controls[i].get('nbPorteFenetre').dirty && form.get('rooms').controls[i].get('nbPorteFenetre').hasError('required')">
-                            Le nombre de portes fenêtres est <strong>requis</strong>
-                        </mat-error>
                         <mat-error
                                 *ngIf="form.get('rooms').controls[i].get('nbPorteFenetre').hasError('pattern')">
                             Le nombre de portes fenêtres doit être un <strong>nombre</strong>
@@ -314,7 +301,7 @@
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline">
                         <mat-label>Type de chauffage</mat-label>
-                        <mat-select placeholder="Type de chauffage" formControlName="typeChauffage" required>
+                        <mat-select placeholder="Type de chauffage" formControlName="typeChauffage" >
                             <mat-option value="radiateur">Radiateur</mat-option>
                             <mat-option value="sol">Sol</mat-option>
                         </mat-select>
@@ -323,12 +310,7 @@
                                     *ngIf="form.get('rooms').controls[i].get('typeChauffage').value === 'radiateur'">
                         <mat-label>Nombre de radiateurs</mat-label>
                         <input matInput placeholder="Nombre de radiateurs" formControlName="nbRadiateur"
-                               required
                                name="nbRadiateur{{piece.id}}"/>
-                        <mat-error
-                                *ngIf="form.get('rooms').controls[i].get('nbRadiateur').dirty && form.get('rooms').controls[i].get('nbRadiateur').hasError('required')">
-                            Le nombre de radiateurs est <strong>requis</strong>
-                        </mat-error>
                         <mat-error
                                 *ngIf="form.get('rooms').controls[i].get('nbRadiateur').hasError('pattern')">
                             Le nombre de radiateurs doit être un <strong>nombre</strong>
@@ -336,7 +318,7 @@
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline">
                         <mat-label>Volet</mat-label>
-                        <mat-select placeholder="Volet" formControlName="volet" required>
+                        <mat-select placeholder="Volet" formControlName="volet" >
                             <mat-option value="1">Oui</mat-option>
                             <mat-option value="0">Non</mat-option>
                         </mat-select>
@@ -345,12 +327,7 @@
                                     *ngIf="form.get('rooms').controls[i].get('volet').value === '1'">
                         <mat-label>Nombre de volets</mat-label>
                         <input matInput placeholder="Nombre de volets" formControlName="nbVolet"
-                               required
                                name="nbVolet{{piece.id}}"/>
-                        <mat-error
-                                *ngIf="form.get('rooms').controls[i].get('nbVolet').dirty && form.get('rooms').controls[i].get('nbVolet').hasError('required')">
-                            Le nombre de volets est <strong>requis</strong>
-                        </mat-error>
                         <mat-error
                                 *ngIf="form.get('rooms').controls[i].get('nbVolet').hasError('pattern')">
                             Le nombre de volets doit être un <strong>nombre</strong>
@@ -361,23 +338,15 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Revêtement extérieur</mat-label>
-                    <input matInput placeholder="Revêtement extérieur" formControlName="revetementExterieur" required
+                    <input matInput placeholder="Revêtement extérieur" formControlName="revetementExterieur"
                            name="revetementExterieur"/>
-                    <mat-error
-                            *ngIf="form.get('revetementExterieur').dirty && form.get('revetementExterieur').hasError('required')">
-                        Revêtement extérieur est <strong>requis</strong>
-                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Surface Toiture</mat-label>
-                    <input matInput placeholder="Surface Toiture" formControlName="surfaceToiture" required
+                    <input matInput placeholder="Surface Toiture" formControlName="surfaceToiture"
                            name="surfaceToiture"/>
-                    <mat-error
-                            *ngIf="form.get('surfaceToiture').dirty && form.get('surfaceToiture').hasError('required')">
-                        Surface toiture est <strong>requise</strong>
-                    </mat-error>
                     <mat-error
                             *ngIf="form.get('surfaceToiture').hasError('pattern')">
                         Surface toiture doit être un <strong>nombre</strong>
@@ -387,12 +356,8 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Revêtement toiture</mat-label>
-                    <input matInput placeholder="Revêtement toiture" formControlName="revetementToiture" required
+                    <input matInput placeholder="Revêtement toiture" formControlName="revetementToiture"
                            name="revetementToiture"/>
-                    <mat-error
-                            *ngIf="form.get('revetementToiture').dirty && form.get('revetementToiture').hasError('required')">
-                        Revêtement toiture est <strong>requis</strong>
-                    </mat-error>
                 </mat-form-field>
             </div>
 
@@ -417,11 +382,8 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Surface total</mat-label>
-                    <input matInput placeholder="Surface total" formControlName="outsideSpace" required
+                    <input matInput placeholder="Surface total" formControlName="outsideSpace"
                            name="outsideSpace"/>
-                    <mat-error *ngIf="form.get('outsideSpace').dirty && form.get('outsideSpace').hasError('required')">
-                        Surface total est <strong>requise</strong>
-                    </mat-error>
                     <mat-error
                             *ngIf="form.get('outsideSpace').hasError('pattern')">
                         Surface total doit être un <strong>nombre</strong>
@@ -431,12 +393,8 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Surface à l’avant</mat-label>
-                    <input matInput placeholder="Surface à l’avant" formControlName="surfaceExterieurAvant" required
+                    <input matInput placeholder="Surface à l’avant" formControlName="surfaceExterieurAvant"
                            name="surfaceExterieurAvant"/>
-                    <mat-error
-                            *ngIf="form.get('surfaceExterieurAvant').dirty && form.get('surfaceExterieurAvant').hasError('required')">
-                        Surface à l’avant est <strong>requise</strong>
-                    </mat-error>
                     <mat-error
                             *ngIf="form.get('surfaceExterieurAvant').hasError('pattern')">
                         Surface à l’avant doit être un <strong>nombre</strong>
@@ -447,12 +405,8 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Surface côté droit</mat-label>
-                    <input matInput placeholder="Surface côté droit" formControlName="surfaceExterieurDroit" required
+                    <input matInput placeholder="Surface côté droit" formControlName="surfaceExterieurDroit"
                            name="surfaceExterieurDroit"/>
-                    <mat-error
-                            *ngIf="form.get('surfaceExterieurDroit').dirty && form.get('surfaceExterieurDroit').hasError('required')">
-                        Surface côté droit est <strong>requise</strong>
-                    </mat-error>
                     <mat-error
                             *ngIf="form.get('surfaceExterieurDroit').hasError('pattern')">
                         Surface côté droit doit être un <strong>nombre</strong>
@@ -463,12 +417,7 @@
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Surface côté gauche</mat-label>
                     <input matInput placeholder="Surface côté gauche" formControlName="surfaceExterieurGauche"
-                           required
                            name="surfaceExterieurGauche"/>
-                    <mat-error
-                            *ngIf="form.get('surfaceExterieurGauche').dirty && form.get('surfaceExterieurGauche').hasError('required')">
-                        Surface côté gauche est <strong>requise</strong>
-                    </mat-error>
                     <mat-error
                             *ngIf="form.get('surfaceExterieurGauche').hasError('pattern')">
                         Surface côté gauche doit être un <strong>nombre</strong>
@@ -478,12 +427,8 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Surface à l’arrière</mat-label>
-                    <input matInput placeholder="Revêtement toiture" formControlName="surfaceExterieurArriere" required
+                    <input matInput placeholder="Revêtement toiture" formControlName="surfaceExterieurArriere"
                            name="surfaceExterieurArriere"/>
-                    <mat-error
-                            *ngIf="form.get('surfaceExterieurArriere').dirty && form.get('surfaceExterieurArriere').hasError('required')">
-                        Surface à l’arrière est <strong>requise</strong>
-                    </mat-error>
                     <mat-error
                             *ngIf="form.get('surfaceExterieurArriere').hasError('pattern')">
                         Surface à l’arrière doit être un <strong>nombre</strong>

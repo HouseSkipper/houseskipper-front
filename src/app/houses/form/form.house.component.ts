@@ -44,6 +44,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
         this.addItem('Salle de bain');
         this._pays = ['France', 'Luxembourg', 'Allemagne', 'Belgique', 'Suisse'];
         this._classeEnergetique = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+        this._isUpdateMode = false;
 
     }
 
@@ -117,18 +118,18 @@ export class FormHouseComponent implements OnInit, OnChanges {
                     Validators.required, Validators.pattern('\\d*')
                 ])),
             nbFenetre: new FormControl('0', Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             nbPorteFenetre: new FormControl('0', Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             typeChauffage: new FormControl('radiateur'),
             nbRadiateur: new FormControl('0', Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             volet: new FormControl('0'),
             nbVolet: new FormControl('0', Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ]))
         });
     }
@@ -142,18 +143,18 @@ export class FormHouseComponent implements OnInit, OnChanges {
                 Validators.required, Validators.pattern('\\d*')
             ])),
             nbFenetre: new FormControl(nbFenetre, Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             nbPorteFenetre: new FormControl(nbPorteFenetre, Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             typeChauffage: new FormControl(typeChauffage),
             nbRadiateur: new FormControl(nbRadiateur, Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+               Validators.pattern('\\d*')
             ])),
             volet: new FormControl(volet),
             nbVolet: new FormControl(nbVolet, Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ]))
         });
     }
@@ -241,7 +242,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
             ])),
             houseType: new FormControl('', Validators.required),
             residence: new FormControl('', Validators.required),
-            exterieur: new FormControl('0', Validators.required),
+            exterieur: new FormControl('0'),
             address: new FormControl('', Validators.required),
             postalCode: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern('\\d{5}')
@@ -249,36 +250,36 @@ export class FormHouseComponent implements OnInit, OnChanges {
             city: new FormControl('', Validators.required),
             pays: new FormControl('', Validators.required),
             outsideSpace: new FormControl('0', Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             constructionYear: new FormControl('', Validators.compose([
-                Validators.required, Validators.pattern('\\d{4}')
+                Validators.pattern('\\d{4}')
             ])),
             standardType: new FormControl('', Validators.required),
             // rooms: new FormArray([this.createItem(0)]),
             // rooms: new FormArray([this.createItem(0, 'Cuisine' )]),
             rooms: new FormArray([this.createItem(0, 'Cuisine')]),
-            revetementExterieur: new FormControl('', Validators.required),
+            revetementExterieur: new FormControl(''),
             surfaceToiture: new FormControl('', Validators.compose([
-                    Validators.required, Validators.pattern('\\d*')
+                    Validators.pattern('\\d*')
                 ])),
-            revetementToiture: new FormControl('', Validators.required),
-            classeEnergetique: new FormControl('', Validators.required),
-            gaz: new FormControl('', Validators.required),
-            electricite: new FormControl('', Validators.required),
-            panneauxPhoto: new FormControl('', Validators.required),
-            eolienne: new FormControl('', Validators.required),
+            revetementToiture: new FormControl(''),
+            classeEnergetique: new FormControl(''),
+            gaz: new FormControl(''),
+            electricite: new FormControl(''),
+            panneauxPhoto: new FormControl(''),
+            eolienne: new FormControl(''),
             surfaceExterieurAvant: new FormControl('0', Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             surfaceExterieurDroit: new FormControl('0', Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+               Validators.pattern('\\d*')
             ])),
             surfaceExterieurGauche: new FormControl('0', Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             surfaceExterieurArriere: new FormControl('0', Validators.compose([
-                Validators.required, Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             comment: new FormControl(''),
         });
