@@ -9,11 +9,18 @@
             <mat-card *ngFor="let skill of skills">
                 <mat-card-header>
                     <mat-card-title>{{ skill.type }} :</mat-card-title>
-                    <mat-card-subtitle *ngIf="skill.nb_works < 3">Débutant</mat-card-subtitle>
+                    <br>
+                    <mat-icon *ngIf="skill.type == 'Gros Oeuvres'" class="icon-skill" svgIcon="icon-gros-oeuvres"></mat-icon>
+                    <mat-icon *ngIf="skill.type == 'Seconds Oeuvres'" class="icon-skill" svgIcon="icon-seconds-oeuvres"></mat-icon>
+                    <mat-icon *ngIf="skill.type == 'Petits travaux de bricolage'" class="icon-skill" svgIcon="icon-bricolage"></mat-icon>
+                    <mat-icon *ngIf="skill.type == 'Petits travaux de jardinage'" class="icon-skill" svgIcon="icon-jardinage"></mat-icon>
+                    <mat-icon *ngIf="skill.type == 'Aménagement paysager'" class="icon-skill" svgIcon="icon-paysage"></mat-icon>
+
+                    <mat-card-subtitle *ngIf="skill.nb_works == 0 ">Non défini</mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="skill.nb_works > 0 && skill.nb_works < 3">Débutant</mat-card-subtitle>
                     <mat-card-subtitle *ngIf="skill.nb_works >= 3 && skill.nb_works < 5">Intermédaire</mat-card-subtitle>
                     <mat-card-subtitle *ngIf="skill.nb_works == 5">Avancé</mat-card-subtitle>
                 </mat-card-header>
-                <img src="http://jonkie.ch/img/thumb/tb-tux_progress.png" alt="bricolage">
                 <mat-card-content>
                     <section>
                         <mat-slider
@@ -22,6 +29,7 @@
                                 step="1"
                                 [(ngModel)]="skill.nb_works"
                         ></mat-slider>
+                        <br>
                         <mat-form-field>
                             <input matInput type="number" min="0" disabled="true" placeholder="Travaux effectuées"
                                    [(ngModel)]="skill.nb_works"> <!-- [(ngModel)]="value" -->

@@ -26,6 +26,7 @@ import {DataService} from './services/task.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {SkillsComponent} from './skills/skills.component';
 import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
+import {DirectiveType} from '@angular/core/src/render3';
 
 
 @NgModule({
