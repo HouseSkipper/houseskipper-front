@@ -29,6 +29,8 @@ import { MainNavBarComponent } from './shared/main-nav-bar/main-nav-bar.componen
 import { CustomSideFormComponent } from './shared/custom-side-form/custom-side-form.component';
 import { SignupSideFormComponent } from './signup-side-form/signup-side-form.component';
 import { SideFormDirective } from './side-form.directive';
+import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
+import {DirectiveType} from '@angular/core/src/render3';
 
 
 @NgModule({
@@ -67,6 +69,7 @@ import { SideFormDirective } from './side-form.directive';
         MaterialModule,
         FormsModule,
         MatSliderModule,
+        FileUploadModule,
         MatSidenavModule,
         APP_ROUTES
     ],

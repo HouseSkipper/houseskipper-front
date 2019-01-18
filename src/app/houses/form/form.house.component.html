@@ -1,15 +1,33 @@
 <mat-accordion class="example-headers-align">
     <form novalidate [formGroup]="form">
-        <!-- Type Logement -->
+        <!-- Caractéristiques générales -->
         <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
             <mat-expansion-panel-header class="right-aligned-header">
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-houses"></mat-icon>
                 </mat-panel-title>
                 <mat-panel-description>
-                    Votre logement
+                    Caractéristiques générales
                 </mat-panel-description>
             </mat-expansion-panel-header>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Type de logement</mat-label>
+                    <mat-select placeholder="Type de logement" formControlName="houseType" required name="houseType">
+                        <mat-option value="maison">Maison</mat-option>
+                        <mat-option value="appartement">Appartement</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Résidence</mat-label>
+                    <mat-select placeholder="Résidence" formControlName="residence" required name="residence">
+                        <mat-option value="principale">Principale</mat-option>
+                        <mat-option value="secondaire">Secondaire</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Nom du logement</mat-label>
@@ -22,19 +40,44 @@
                         Nom du logement requière <strong>5 caractères minimum</strong>
                     </mat-error>
                 </mat-form-field>
-                <section class="sectionTypeLogement">
-                    <mat-radio-group required name="houseType" formControlName="houseType">
-                        <mat-radio-button class="margin" value="maison">Maison</mat-radio-button>
-                        <mat-radio-button class="margin" value="appartement">Appartement</mat-radio-button>
-                    </mat-radio-group>
-                </section>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Extérieur</mat-label>
+                    <mat-select placeholder="Extérieur" formControlName="exterieur" name="exterieur">
+                        <mat-option value="1">Oui</mat-option>
+                        <mat-option value="0">Non</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Année de construction</mat-label>
+                    <input matInput placeholder="Année de construction" formControlName="constructionYear"
+                           name="constructionYear"/>
+                    <mat-error
+                            *ngIf="form.get('constructionYear').hasError('pattern')">
+                        Année de construction doit être un <strong>nombre de 4 chiffres</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Type</mat-label>
+                    <mat-select placeholder="Type" formControlName="standardType" required name="standardType"
+                                (selectionChange)="changeType()">
+                        <mat-option *ngFor="let type of types" [value]="type.value">
+                            {{type.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <mat-action-row>
                 <button mat-button color="primary" (click)="nextStep()">Next</button>
             </mat-action-row>
         </mat-expansion-panel>
 
-        <!-- Adresse Logement -->
+        <!-- Adresse -->
         <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -44,6 +87,17 @@
                     Adresse du logement
                 </mat-panel-description>
             </mat-expansion-panel-header>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Pays</mat-label>
+                    <mat-select placeholder="Pays" formControlName="pays" required name="pays"
+                                (selectionChange)="changeType()">
+                        <mat-option *ngFor="let p of pays" [value]="p">
+                            {{p}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Adresse postal</mat-label>
@@ -61,6 +115,10 @@
                            name="postalCode"/>
                     <mat-error *ngIf="form.get('postalCode').dirty && form.get('postalCode').hasError('required')">
                         Code postal est <strong>requis</strong>
+                    </mat-error>
+                    <mat-error
+                            *ngIf="form.get('postalCode').hasError('pattern')">
+                        Code postal doit être un <strong>nombre de 5 chiffres</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -80,76 +138,103 @@
             </mat-action-row>
         </mat-expansion-panel>
 
-        <!-- Information Logement -->
+        <!-- Confirmation Adresse -->
         <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <mat-icon svgIcon="icon-info"></mat-icon>
+                    <mat-icon svgIcon="icon-maps"></mat-icon>
                 </mat-panel-title>
                 <mat-panel-description>
-                    Information supplémentaire
+                    Confirmation Adresse du logement
                 </mat-panel-description>
             </mat-expansion-panel-header>
+
+            <mat-card class="mat-whiteframe-2dp">
+                <mat-card-title-group>
+                    <mat-card-title>
+                        <span>{{form.get('houseName').value}}</span>
+                    </mat-card-title>
+
+                </mat-card-title-group>
+                <mat-card-content>
+                    <div>
+                        {{form.get('address').value}}
+                    </div>
+                    <div>
+                        {{form.get('postalCode').value}} {{form.get('city').value}}
+                    </div>
+                    <div>
+                        {{form.get('pays').value}}
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Modifier l'adresse</button>
+                <button mat-button color="primary" (click)="nextStep()">Continuer</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+
+        <!-- Énergie -->
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-energy"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Énergie
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
-                    <mat-label>Surface habitable</mat-label>
-                    <input matInput placeholder="Surface habitable" formControlName="livingSpace" required
-                           name="livingSpace"/>
-                    <mat-error *ngIf="form.get('livingSpace').dirty && form.get('livingSpace').hasError('required')">
-                        Surface habitable est <strong>requise</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
-                    <mat-label>Surface extérieur</mat-label>
-                    <input matInput placeholder="Surface extérieur" formControlName="outsideSpace" required
-                           name="outsideSpace"/>
-                    <mat-error *ngIf="form.get('outsideSpace').dirty && form.get('outsideSpace').hasError('required')">
-                        Surface extérieur est <strong>requise</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
-                    <mat-label>Nombre de pièces</mat-label>
-                    <input matInput placeholder="Nombre de pièces" formControlName="numberPieces" required
-                           name="numberPieces"/>
-                    <mat-error *ngIf="form.get('numberPieces').dirty && form.get('numberPieces').hasError('required')">
-                        Nombre de pièces est <strong>requis</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
-                    <mat-label>Année de construction</mat-label>
-                    <input matInput placeholder="Année de construction" formControlName="constructionYear" required
-                           name="constructionYear"/>
-                    <mat-error
-                            *ngIf="form.get('constructionYear').dirty && form.get('constructionYear').hasError('required')">
-                        Année de construction est <strong>requise</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
-                    <mat-select placeholder="Type" formControlName="standardType" required name="standardType"
-                                (selectionChange)="changeType()">
-                        <mat-option *ngFor="let type of types" [value]="type.value">
-                            {{type.value}}
+                    <mat-label>Classe Énergétique</mat-label>
+                    <mat-select placeholder="Classe Énergétique" formControlName="classeEnergetique"
+                                name="classeEnergetique">
+                        <mat-option *ngFor="let p of classEnergetique" [value]="p">
+                            {{p}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field class="margin" *ngIf="!!studio" appearance="outline">
-                    <mat-label>Numéro associé</mat-label>
-                    <input matInput placeholder="Numéro associé au type" formControlName="standardTypeNumber"
-                           name="standardTypeNumber"/>
-                    <mat-error
-                            *ngIf="form.get('standardTypeNumber').dirty && form.get('standardTypeNumber').hasError('required')">
-                        Numéro est <strong>requis</strong>
-                    </mat-error>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Gaz</mat-label>
+                    <mat-select placeholder="Gaz" formControlName="gaz"  name="gaz">
+                        <mat-option value="1">Oui</mat-option>
+                        <mat-option value="0">Non</mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Électricité</mat-label>
+                    <mat-select placeholder="Électricité" formControlName="electricite"  name="electricite">
+                        <mat-option value="1">Oui</mat-option>
+                        <mat-option value="0">Non</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Panneaux photovoltaïques</mat-label>
+                    <mat-select placeholder="Panneaux photovoltaïques" formControlName="panneauxPhoto"
+                                name="panneauxPhoto">
+                        <mat-option value="1">Oui</mat-option>
+                        <mat-option value="0">Non</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Éolienne</mat-label>
+                    <mat-select placeholder="Éolienne" formControlName="eolienne"  name="eolienne">
+                        <mat-option value="1">Oui</mat-option>
+                        <mat-option value="0">Non</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
                 <button mat-button color="primary" (click)="nextStep()">Next</button>
@@ -157,7 +242,7 @@
         </mat-expansion-panel>
 
         <!-- Pièces -->
-        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-door"></mat-icon>
@@ -169,9 +254,9 @@
             <button mat-button="add" (click)="addItem()">
                 <mat-icon svgIcon="icon-add"></mat-icon>
             </button>
-            <div formArrayName="rooms" *ngFor="let piece of form.get('rooms')['controls']; let i = index;">
+            <div formArrayName="rooms" *ngFor="let piece of form.get('rooms').controls; let i = index;">
                 <div [formGroupName]="i">
-                    <button mat-button (click)="deletePiece(piece.id)">
+                    <button mat-button (click)="deletePiece(form.get('rooms').controls[i].get('id').value)">
                         <mat-icon svgIcon="icon-delete"></mat-icon>
                     </button>
                     <mat-form-field class="margin" appearance="outline">
@@ -191,63 +276,175 @@
                                 *ngIf="form.get('rooms').controls[i].get('space').dirty && form.get('rooms').controls[i].get('space').hasError('required')">
                             La surface de la pièce est <strong>requise</strong>
                         </mat-error>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('space').hasError('pattern')">
+                            La surface de la pièce doit être un <strong>nombre</strong>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline">
-                        <mat-label>Description</mat-label>
-                        <textarea matInput placeholder="Description" formControlName="description" required
-                                  name="description{{piece.id}}"></textarea>
+                        <mat-label>Nombre de fenêtres</mat-label>
+                        <input matInput placeholder="Nombre de fenêtres" formControlName="nbFenetre"
+                               name="nbFenetre{{piece.id}}"/>
                         <mat-error
-                                *ngIf="form.get('rooms').controls[i].get('description').dirty && form.get('rooms').controls[i].get('description').hasError('required')">
-                            La description de la pièce est <strong>requise</strong>
+                                *ngIf="form.get('rooms').controls[i].get('nbFenetre').hasError('pattern')">
+                            Le nombre de fenêtres doit être un <strong>nombre</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="margin" appearance="outline">
+                        <mat-label>Nombre de portes fenêtres</mat-label>
+                        <input matInput placeholder="Nombre de portes fenêtres" formControlName="nbPorteFenetre"
+                               name="nbPorteFenetre{{piece.id}}"/>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('nbPorteFenetre').hasError('pattern')">
+                            Le nombre de portes fenêtres doit être un <strong>nombre</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="margin" appearance="outline">
+                        <mat-label>Type de chauffage</mat-label>
+                        <mat-select placeholder="Type de chauffage" formControlName="typeChauffage" >
+                            <mat-option value="radiateur">Radiateur</mat-option>
+                            <mat-option value="sol">Sol</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="margin" appearance="outline"
+                                    *ngIf="form.get('rooms').controls[i].get('typeChauffage').value === 'radiateur'">
+                        <mat-label>Nombre de radiateurs</mat-label>
+                        <input matInput placeholder="Nombre de radiateurs" formControlName="nbRadiateur"
+                               name="nbRadiateur{{piece.id}}"/>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('nbRadiateur').hasError('pattern')">
+                            Le nombre de radiateurs doit être un <strong>nombre</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="margin" appearance="outline">
+                        <mat-label>Volet</mat-label>
+                        <mat-select placeholder="Volet" formControlName="volet" >
+                            <mat-option value="1">Oui</mat-option>
+                            <mat-option value="0">Non</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="margin" appearance="outline"
+                                    *ngIf="form.get('rooms').controls[i].get('volet').value === '1'">
+                        <mat-label>Nombre de volets</mat-label>
+                        <input matInput placeholder="Nombre de volets" formControlName="nbVolet"
+                               name="nbVolet{{piece.id}}"/>
+                        <mat-error
+                                *ngIf="form.get('rooms').controls[i].get('nbVolet').hasError('pattern')">
+                            Le nombre de volets doit être un <strong>nombre</strong>
                         </mat-error>
                     </mat-form-field>
                 </div>
             </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Revêtement extérieur</mat-label>
+                    <input matInput placeholder="Revêtement extérieur" formControlName="revetementExterieur"
+                           name="revetementExterieur"/>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Surface Toiture</mat-label>
+                    <input matInput placeholder="Surface Toiture" formControlName="surfaceToiture"
+                           name="surfaceToiture"/>
+                    <mat-error
+                            *ngIf="form.get('surfaceToiture').hasError('pattern')">
+                        Surface toiture doit être un <strong>nombre</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Revêtement toiture</mat-label>
+                    <input matInput placeholder="Revêtement toiture" formControlName="revetementToiture"
+                           name="revetementToiture"/>
+                </mat-form-field>
+            </div>
+
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
                 <button mat-button color="primary" (click)="nextStep()">Next</button>
             </mat-action-row>
         </mat-expansion-panel>
 
-        <!-- Énergie -->
-        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+        <!-- Extérieur -->
+        <mat-expansion-panel *ngIf="form.get('exterieur').value === '1'" [expanded]="step === 5" (opened)="setStep(5)"
+                             hideToggle>
             <mat-expansion-panel-header>
-                <mat-panel-title >
-                    <mat-icon svgIcon="icon-energy"></mat-icon>
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-tree"></mat-icon>
                 </mat-panel-title>
                 <mat-panel-description>
-                    Énergie
+                    Extérieur
                 </mat-panel-description>
             </mat-expansion-panel-header>
+
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
-                    <mat-label>Chauffage</mat-label>
-                    <input matInput placeholder="Votre type de chauffage" formControlName="heatingType" required
-                           name="heatingType"/>
-                    <mat-error *ngIf="form.get('heatingType').dirty && form.get('heatingType').hasError('required')">
-                        Type de chauffage est <strong>requis</strong>
+                    <mat-label>Surface total</mat-label>
+                    <input matInput placeholder="Surface total" formControlName="outsideSpace"
+                           name="outsideSpace"/>
+                    <mat-error
+                            *ngIf="form.get('outsideSpace').hasError('pattern')">
+                        Surface total doit être un <strong>nombre</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
-                    <mat-label>Ampérage de l'habitation</mat-label>
-                    <input matInput placeholder="Ampérage électrique de votre habitation" formControlName="amperage"
-                           required
-                           name="amperage"/>
-                    <mat-error *ngIf="form.get('amperage').dirty && form.get('amperage').hasError('required')">
-                        Ampérage électrique de votre habitation est <strong>requis</strong>
+                    <mat-label>Surface à l’avant</mat-label>
+                    <input matInput placeholder="Surface à l’avant" formControlName="surfaceExterieurAvant"
+                           name="surfaceExterieurAvant"/>
+                    <mat-error
+                            *ngIf="form.get('surfaceExterieurAvant').hasError('pattern')">
+                        Surface à l’avant doit être un <strong>nombre</strong>
+                    </mat-error>
+
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Surface côté droit</mat-label>
+                    <input matInput placeholder="Surface côté droit" formControlName="surfaceExterieurDroit"
+                           name="surfaceExterieurDroit"/>
+                    <mat-error
+                            *ngIf="form.get('surfaceExterieurDroit').hasError('pattern')">
+                        Surface côté droit doit être un <strong>nombre</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Surface côté gauche</mat-label>
+                    <input matInput placeholder="Surface côté gauche" formControlName="surfaceExterieurGauche"
+                           name="surfaceExterieurGauche"/>
+                    <mat-error
+                            *ngIf="form.get('surfaceExterieurGauche').hasError('pattern')">
+                        Surface côté gauche doit être un <strong>nombre</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Surface à l’arrière</mat-label>
+                    <input matInput placeholder="Revêtement toiture" formControlName="surfaceExterieurArriere"
+                           name="surfaceExterieurArriere"/>
+                    <mat-error
+                            *ngIf="form.get('surfaceExterieurArriere').hasError('pattern')">
+                        Surface à l’arrière doit être un <strong>nombre</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
                 <button mat-button color="primary" (click)="nextStep()">Next</button>
             </mat-action-row>
         </mat-expansion-panel>
 
+
         <!-- Commentaire -->
-        <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-message"></mat-icon>
@@ -266,7 +463,14 @@
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
                 <!--button mat-button color="primary" type="submit" (click)="submit(form.value)">Save</button-->
-                <button mat-button color="primary" type="submit" (click)="submit(form.value)" [disabled]="form.invalid">Save</button>
+                <button *ngIf="isUpdateMode === false" mat-button color="primary" type="submit"
+                        (click)="submit(form.value)" [disabled]="form.invalid">
+                    Enregistrer
+                </button>
+                <button *ngIf="isUpdateMode === true" mat-button color="primary" type="submit"
+                        (click)="modifier(form.value)" [disabled]="form.invalid">
+                    Modifier
+                </button>
             </mat-action-row>
         </mat-expansion-panel>
     </form>

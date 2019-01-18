@@ -46,10 +46,18 @@ export class HouseService {
             );
     }
 
+    fetchHouse(id: string): Observable<any> {
+        return this._httpClient.get<House>(this._backendURL.removeHouse.replace(':houseId', id));
+    }
+
     remove(id: string): Observable<any> {
         return this._httpClient.delete(this._backendURL.removeHouse.replace(':houseId', id)).pipe(
             map(_ => id)
         );
+    }
+
+    modifier(house: House): Observable<any> {
+        return this._httpClient.put<House>(this._backendURL.removeHouse.replace(':houseId', house.id), house, this._options());
     }
 
 }

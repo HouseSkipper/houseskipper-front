@@ -13,6 +13,7 @@ const ROUTES: Routes = [
     {path: 'signup', component: SignUpComponent},
     {path: 'login', component: LoginComponent},
     {path: 'users/houses/addhouse', component: FormHouseComponent, canActivate: [AuthGuardService]},
+    {path: 'users/houses/:id', component: FormHouseComponent, canActivate: [AuthGuardService]},
     {path: 'users/houses', component: HouseComponent, canActivate: [AuthGuardService]},
     { path: 'users/dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
     { path: 'skills', component: SkillsComponent, canActivate: [AuthGuardService]},

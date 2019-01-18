@@ -18,7 +18,16 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-raised-button type="submit" color="primary">Save</button>
+    <div>
+      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+      <!--<button type="button" class="btn btn-success btn-s"
+              (click)="uploader.uploadAll()"
+              [disabled]="!uploader.getNotUploadedItems().length" >
+        Upload an Image
+      </button> -->
+
+    </div><br />
+    <button mat-raised-button type="submit" [disabled]="!uploader.getNotUploadedItems().length"  color="primary">Save</button>
   </form>
 </div>
 <div mat-dialog-actions>

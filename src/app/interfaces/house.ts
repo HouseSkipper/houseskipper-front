@@ -2,24 +2,39 @@ export interface House {
     id?: string;
     houseName: string;
     houseType: string;
+    residence: string;
+    exterieur: number;
     address: string;
     posatlCode: number;
     city: string;
-    livingSpace: number;
+    pays: string;
     outsideSpace: number;
-    numberPieces: number;
     constructionYear: number;
     standardType: string;
-    standardTypeNumber: number;
     rooms: Room[];
-    heatingType: string;
-    amperage: number;
+    revetementExterieur: string;
+    surfaceToiture: number;
+    revetementToiture: string;
+    classeEnergetique: string;
+    gaz: number;
+    electricite: number;
+    panneauxPhoto: number;
+    eolienne: number;
+    surfaceExterieurAvant: number;
+    surfaceExterieurDroit: number;
+    surfaceExterieurGauche: number;
+    surfaceExterieurArriere: number;
     comment: string;
 }
 
 export interface Room {
     id?: string;
     roomName: string;
-    space: string;
-    description: string;
+    space: number;
+    nbFenetre: number;
+    nbPorteFenetre: number;
+    typeChauffage: string;
+    nbRadiateur: number;
+    volet: number;
+    nbVolet: number;
 }
