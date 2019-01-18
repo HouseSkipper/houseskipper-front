@@ -26,7 +26,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
 })
 export class SignUpComponent implements OnInit {
 
-    private _fields: string[string[]];
+    private _fields;
     private _form: FormGroup;
     private _step: string;
     private _stepNum: number;
@@ -170,7 +170,6 @@ export class SignUpComponent implements OnInit {
         return this._form;
     }
 
-    @Input()
     set form(value: FormGroup) {
         this._form = value;
     }
@@ -180,7 +179,7 @@ export class SignUpComponent implements OnInit {
         return this._step;
     }
 
-    @Input()
+
     set step(value: string) {
         this._step = value;
     }
@@ -195,5 +194,7 @@ export class SignUpComponent implements OnInit {
     }
 
 
-
+    get errorMsg(): string {
+        return this._errorMsg;
+    }
 }

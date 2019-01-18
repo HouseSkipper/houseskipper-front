@@ -11,22 +11,11 @@ import {DomSanitizer} from '@angular/platform-browser';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    title = 'HouseSkipper';
-
-    currentUser: User;
 
     constructor(private _matIconRegistry: MatIconRegistry, private _domSanitizer: DomSanitizer,
-                private _routerService: Router, private _authService: AuthenticationService) {
-        this._authService.currentUser.subscribe(u => this.currentUser = u);
+                private _authService: AuthenticationService) {
     }
 
-    logout() {
-        this._authService.logout();
-        this._routerService.navigate(['/login']);
-    }
-    update() {
-        this._routerService.navigate(['/update']);
-    }
 
     ngOnInit() {
         this._matIconRegistry.addSvgIcon('icon-logo', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/Logo-House-skipper-TEXT.svg'));
