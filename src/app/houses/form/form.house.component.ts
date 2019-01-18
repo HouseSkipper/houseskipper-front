@@ -81,7 +81,6 @@ export class FormHouseComponent implements OnInit, OnChanges {
                     house.rooms[i].volet = '1';
                 }
             }
-            console.log(house.rooms);
             this._model = house;
             this._isUpdateMode = true;
             this._form.get('rooms').reset();
@@ -93,11 +92,10 @@ export class FormHouseComponent implements OnInit, OnChanges {
             }
             taille = house.rooms.length;
             for (let i = 0; i < taille ; i++) {
-                console.log('entre');
                 this.rooms.push(this.createRoom(house.rooms[i].id, house.rooms[i].roomName, house.rooms[i].space, house.rooms[i].nbFenetre,
-                    house.rooms[i].nbPorteFenetre, house.rooms[i].typeChauffage, house.rooms[i].nbRadiateur, house.rooms[i].volet, house.rooms[i].nbVolet));
+                    house.rooms[i].nbPorteFenetre, house.rooms[i].typeChauffage, house.rooms[i].nbRadiateur, house.rooms[i].volet,
+                    house.rooms[i].nbVolet));
             }
-            console.log(this._form);
 
         } else {
             this._isUpdateMode = false;
@@ -309,6 +307,13 @@ export class FormHouseComponent implements OnInit, OnChanges {
     }
 
     private verifier(house: House): House {
+        if (house.exterieur == 0) {
+            house.outsideSpace = 0;
+            house.surfaceExterieurArriere = 0;
+            house.surfaceExterieurAvant = 0;
+            house.surfaceExterieurDroit = 0;
+            house.surfaceExterieurGauche = 0;
+        }
         for (let i = 0; i < house.rooms.length ; i++) {
             if (house.rooms[i].volet === 0) {
                 house.rooms[i].nbVolet = 0;
