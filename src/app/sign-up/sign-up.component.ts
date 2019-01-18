@@ -2,7 +2,6 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../interfaces/user';
 import {first, flatMap, map} from 'rxjs/operators';
-import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
 import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';
@@ -15,7 +14,7 @@ import {UsersService} from '../services/users.service';
 export class SignUpComponent implements OnInit {
 
 
-    private _roles: string[] = ['Particulier-propriétaire'];
+    private _roles: string[] = ['Particulier-propriétaire', 'Prestataire'];
 
     get roles(): string[] {
         return this._roles;
@@ -47,7 +46,8 @@ export class SignUpComponent implements OnInit {
         of(user)
             .pipe(
                 map(_ => {
-                    return {'firstname' : _.firstname, 'lastname': _.firstname, 'password' : _.password, 'username' : _.username, 'telephone' : _.telephone, 'role': _.role};
+                    return {'firstname' : _.firstname, 'lastname': _.firstname, 'password' : _.password, 'username' : _.username,
+                        'telephone' : _.telephone, 'role': _.role};
                 }),
                 flatMap(_ => this._userService.create(_))
             ).subscribe(
@@ -79,6 +79,7 @@ export class SignUpComponent implements OnInit {
             password: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
             ])),
+            confirmPassword: new FormControl('', Validators.required),
             username: new FormControl('', Validators.compose([
                 Validators.required,
                 Validators.pattern(
@@ -86,15 +87,18 @@ export class SignUpComponent implements OnInit {
                     '\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')
             ])),
             telephone: new FormControl('', Validators.compose([
-                Validators.required,
                 Validators.pattern('\\d{10}')
             ])),
+            // validator: MustMatch('password', 'confirmPassword'),
             role: new FormControl('', Validators.required)
         });
     }
 
 
     get errorMsg(): string {
+        if (this._errorMsg === 'Unknown Error') {
+            this._errorMsg = 'Server unreachable';
+        }
         return this._errorMsg;
     }
 
