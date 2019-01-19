@@ -9,6 +9,7 @@ import {HttpHeaders} from '@angular/common/http';
 import {AuthGuardService} from '../guards/auth-guard.service';
 import {AuthenticationService} from '../services/authentication.service';
 
+const URL = 'http://localhost:8080/uploadFile/:id/1';
 @Component({
   selector: 'app-task-dialog',
   templateUrl: './task-dialog.component.html',
@@ -16,8 +17,10 @@ import {AuthenticationService} from '../services/authentication.service';
 })
 export class TaskDialogComponent implements OnInit {
 
+    public uploader: FileUploader = new FileUploader({authToken: 'Bearer ' + this.authService.currentUserValue.token});
     data: string;
     blogTask = {
+        name: '',
         room: '',
         description: '',
         budget: '',
@@ -34,7 +37,8 @@ export class TaskDialogComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<TaskDialogComponent>,
         public dataService: DataService,
-        @Inject(MAT_DIALOG_DATA) public blog: Task
+        @Inject(MAT_DIALOG_DATA) public blog: Task,
+        public authService: AuthenticationService
     ) {
         if (!!blog) {
             this.blogTask = blog;
@@ -55,8 +59,22 @@ export class TaskDialogComponent implements OnInit {
         this.dialogRef.close();
     }
 
+    onSaveFile(name): void {
+        console.log(name );
+        this.uploader.setOptions({url: URL.replace(':id', name), headers: this._options()});
+        this.uploader.uploadAll();
+    }
+
+    private _options(headerList: Object = {}): any {
+        return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
+    }
 
 
     ngOnInit(): void {
+        this.uploader.onAfterAddingFile = (file) => { file.withCredentials = true; };
+        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+            console.log('ImageUpload:uploaded:', item, status, response);
+            console.log('File uploaded successfully');
+        };
     }
 }

@@ -10,7 +10,6 @@ import {FileUploader} from 'ng2-file-upload';
 import {AuthenticationService} from '../services/authentication.service';
 import {HttpHeaders} from '@angular/common/http';
 
-const URL = 'http://localhost:8080/uploadFile/:id';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -20,26 +19,19 @@ export class DashboardComponent implements OnInit {
 
 
 
-    public uploader: FileUploader = new FileUploader({authToken: 'Bearer ' + this.authService.currentUserValue.token});
-    displayedColumns = ['start_date', 'room', 'description', 'budget', 'status', 'file', 'PJ', 'delete'];
+    displayedColumns = ['start_date', 'name', 'room', 'description', 'budget', 'status', 'file', 'delete'];
     dataSource = new TaskDataSource(this._dataService);
     private _files: string[];
     blogFile = { filename: ''};
     fileURL;
     constructor(private _dataService: DataaService, public dialog: MatDialog,
-                public authService: AuthenticationService) {
+                ) {
     }
 
     get files(): string[] {
         return this._files;
     }
     ngOnInit() {
-
-        this.uploader.onAfterAddingFile = (file) => { file.withCredentials = true; };
-        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-            console.log('ImageUpload:uploaded:', item, status, response);
-            console.log('File uploaded successfully');
-        };
     }
 
     deleteTask(id) {
@@ -98,22 +90,19 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    onSaveFile(id): void {
-        console.log(id);
-        this.uploader.setOptions({url: URL.replace(':id', id), headers: this._options()});
-        this.uploader.uploadAll();
-    }
-
-    private _options(headerList: Object = {}): any {
-        return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
-    }
 
     private downloadFileAs(data: any, type: string) {
+        let a = document.createElement('a');
+        document.body.appendChild(a);
         const blob = new Blob([data], {type: type});
         const url = window.URL.createObjectURL(blob);
         const pwa = window.open(url);
         if (!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
             alert('Disable Pop-up');
+        } else {
+            a.href = url;
+            a.download = 'image.png';
+            a.click();
         }
     }
 }
