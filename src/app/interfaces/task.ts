@@ -1,5 +1,6 @@
 export interface Task {
     id?: string;
+    name: string;
     username: string;
     room: string;
     description: string;

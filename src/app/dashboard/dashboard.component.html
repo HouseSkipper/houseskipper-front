@@ -25,6 +25,10 @@
                   <mat-header-cell *matHeaderCellDef> Start Date </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.start_date  | date: 'dd/MM/y'}} </mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef> Task Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="room">
                   <mat-header-cell *matHeaderCellDef> Room </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.room}} </mat-cell>
@@ -51,22 +55,9 @@
                      </mat-select>
                    </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="PJ">
-                  <mat-header-cell *matHeaderCellDef>Ajoutert PJ</mat-header-cell>
-                  <mat-cell *matCellDef="let element" >
-                    <p>
-                    <input type="file" name="file" ng2FileSelect [uploader]="uploader" /> <br />
-                    <button type="button" class="btn btn-success btn-s"
-                            (click)="onSaveFile(element.id)"
-                            [disabled]="!uploader.getNotUploadedItems().length" >
-                      Upload an Image
-                    </button>
-                    </p>
-                  </mat-cell>
-                </ng-container>
 
                 <ng-container matColumnDef="delete">
-                  <mat-header-cell *matHeaderCellDef>del</mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
                   <mat-cell *matCellDef="let element">
                     <a (click)="deleteTask(element.id)"
                        type="button">

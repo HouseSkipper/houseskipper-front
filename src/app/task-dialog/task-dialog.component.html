@@ -2,6 +2,10 @@
 <div mat-dialog-content>
   <form class="example-form" (ngSubmit)="onSubmit()">
     <mat-form-field>
+      <input matInput placeholder="Task" required [(ngModel)]="blogTask.name" name="name"/>
+
+    </mat-form-field>
+    <mat-form-field>
       <mat-select matInput placeholder="Choose a Room" required [(ngModel)]="blogTask.room" name="room">
         <mat-option *ngFor="let room of rooms" [value]="room.roomName">
           {{ room.roomName }}
@@ -18,8 +22,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-
-    <button mat-raised-button type="submit" color="primary">Save</button>
+    <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+  <br/>
+    <button mat-raised-button type="submit" (click)="onSaveFile(blogTask.name)" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Save</button>
   </form>
 </div>
 <div mat-dialog-actions>
