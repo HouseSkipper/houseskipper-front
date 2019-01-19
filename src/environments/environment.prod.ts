@@ -22,7 +22,10 @@ export const environment = {
             tasks: {
                 allTasks: '/tasks',
                 oneTask: '/tasks/:id',
-                allTasksForUser: 'tasks'
+                allTasksForUser: '/tasks',
+                upload : '/uploadFile/:id',
+                dowload : '/downloadFile/:fileName',
+                fileNames : '/fileNames/:id'
             },
             allSkills: '/skills',
             oneSkill: '/skills/:idSkill'
