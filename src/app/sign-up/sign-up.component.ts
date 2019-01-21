@@ -33,7 +33,7 @@ export class SignUpComponent implements OnInit {
     private _fieldsFlatten: string[];
     private _errorMsg: string;
     private _invalid: boolean;
-    private _roles: string[] = ['Particulier-propriétaire'];
+    private _roles: string[] = ['Particulier-propriétaire', 'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
 
 
