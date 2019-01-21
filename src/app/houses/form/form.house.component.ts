@@ -241,7 +241,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
             outsideSpace: new FormControl('0', Validators.compose([
                 Validators.pattern('\\d*')
             ])),
-            constructionYear: new FormControl('', Validators.compose([
+            constructionYear: new FormControl('0000', Validators.compose([
                 Validators.pattern('\\d{4}')
             ])),
             standardType: new FormControl('', Validators.required),
