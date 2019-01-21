@@ -1,29 +1,30 @@
 language: node_js
 node_js:
-  - "10.11"
-
+- '10.11'
 sudo: required
-
 addons:
   chrome: stable
-
+  ssh_known_hosts: 92.222.9.74
 branches:
   only:
-    - master
-
+  - master
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_5493d0b4ffcc_key -iv $encrypted_5493d0b4ffcc_iv
+  -in deploy_rsa.enc -out deploy_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 deploy_rsa
+- ssh-add deploy_rsa
 before_install:
-  - npm install -g @angular/cli
-  - npm install enhanced-resolve@3.3.0 --save-dev
-  - npm install express path --save
-
+- npm install -g @angular/cli
+- npm install enhanced-resolve@3.3.0 --save-dev
+- npm install express path --save
 install:
-  - yarn install
-
+- yarn install
 notifications:
-    slack: houseskipper:smfTiIqJXd6xCpCqeMBCqXeY
-
+  slack: houseskipper:smfTiIqJXd6xCpCqeMBCqXeY
 deploy:
-  provider: heroku
-  api_key:
-    secure: "io46BEqzqHxXfbPK57fYNWD2epiDHk2lMx0xwzivxHbKPbLV7ZLv7SjS+qBylleaTQBLTPbeLDj2P/HQZMrItXxEyB1c0aQ9XgyKpM8Pgf7tqHzaKMFm+q8eFyC48EMXfzbPw2rBGZhTWQuxysncCMGrtvdzzoTHqSk4R9+3TjxFffGb4jfugEaZP4KghvFSVTk031HPrUZulXrBhTKMLOYDVt4in0RwzU17f0f5BB5rymfzHWwd9dF6vnhe6eMgrN1NnsfXlHyeK1xKXDeBXmhB/IqkBUrx1SFBh9eTuhcQU2Jet/O2TwoXmSAFvQTR3uZhCi5matiEME+GhubsqfiKUxVhSBpgXPuGpG+BzZPINdX8+PtPCzCT1RSqaGimk0TaKbyJVt0PymcC+tKRQsPEW26Im6h/aul5cSUxrdZ7iddLsbuaKPzUa4mNyFGVyzcPygZ3OIkuMnaLngzwjzI8482anekj0CO3GXlOmicAYPaJFvgiRcrUd2uNFPXrtAYvf0JFCCRvr6hE7Fg5gV9mwog1b0x+gWxXev1GWXN6zNv14p30mtza6719QlLcGCfIlZHtcVN1VPxVs7vA25UuNViyBnsSlXr4Gk3BnyCadeu2YHwuTFytlvwkuxevymrWykMmRsTpRq0X9TE2XCe2XwkmOenp4mlzYedXP+g="
-  app: houseskipper
+  provider: script
+  skip_cleanup: true
+  script: rsync -r --delete-after --quiet /deploy root@92.222.9.74:/deploy/houseskipper-front
+  on:
+    branch: master
