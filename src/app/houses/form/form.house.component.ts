@@ -20,7 +20,6 @@ export class FormHouseComponent implements OnInit, OnChanges {
     private readonly _form: FormGroup;
     private _step: number;
     private _types: Type[];
-    private _studio: boolean;
     rooms: FormArray;
     private  _pays: string[];
     private  _classeEnergetique: string[];
@@ -40,7 +39,6 @@ export class FormHouseComponent implements OnInit, OnChanges {
             {value: 'T6'},
             {value: 'T7'},
         ];
-        this._studio = false;
         this.addItem('Salle de bain');
         this._pays = ['France', 'Luxembourg', 'Allemagne', 'Belgique', 'Suisse'];
         this._classeEnergetique = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
@@ -168,10 +166,6 @@ export class FormHouseComponent implements OnInit, OnChanges {
         return this._types;
     }
 
-    get studio(): boolean {
-        return this._studio;
-    }
-
     deletePiece(p: number) {
         this.rooms = this._form.get('rooms') as FormArray;
         this.rooms.removeAt(p);
@@ -179,11 +173,6 @@ export class FormHouseComponent implements OnInit, OnChanges {
 
 
     changeType() {
-        if ( this._form.value.standardType === 'Studio') {
-            this._studio = false;
-        } else {
-            this._studio = true;
-        }
         let type = this._form.value.standardType;
         if (type !== 'Studio') {
             type = type.charAt(1);
