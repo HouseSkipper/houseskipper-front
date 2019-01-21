@@ -1,4 +1,5 @@
-<div>
+<app-main-nav-bar></app-main-nav-bar>
+<div class="content-page">
   <br>
   <div class="container">
     <div class="container">
@@ -24,6 +25,10 @@
                   <mat-header-cell *matHeaderCellDef> Start Date </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.start_date  | date: 'dd/MM/y'}} </mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef> Task Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="room">
                   <mat-header-cell *matHeaderCellDef> Room </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.room}} </mat-cell>
@@ -40,6 +45,17 @@
                   <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
                 </ng-container>
+                 <ng-container matColumnDef="file">
+                  <mat-header-cell *matHeaderCellDef> Piece jointe </mat-header-cell>
+                   <mat-cell *matCellDef="let element">
+                     <mat-select matInput placeholder="choose File to Download" (click)="filesNames(element.id)" (change)="downloadFile()"  [(ngModel)]="blogFile.filename" name="fileToDownload">
+                       <mat-option *ngFor="let file of files" [value]="file">
+                         {{ file }}
+                       </mat-option>
+                     </mat-select>
+                   </mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="delete">
                   <mat-header-cell *matHeaderCellDef></mat-header-cell>
                   <mat-cell *matCellDef="let element">
@@ -47,17 +63,17 @@
                        type="button">
                       <mat-icon class="icon">delete</mat-icon>
                     </a>
-                  </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="edit">
-                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                  <mat-cell *matCellDef="let element">
                     <a (click)="editTask(element)"
                        type="button">
                       <mat-icon class="icon">edit</mat-icon>
                     </a>
+                    <a (click)="downloadFile()"
+                       type="button">
+                      <mat-icon class="icon">add</mat-icon>
+                    </a>
                   </mat-cell>
                 </ng-container>
+
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>

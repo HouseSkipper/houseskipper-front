@@ -26,14 +26,14 @@ import {animate, style, transition, trigger} from '@angular/animations';
 })
 export class SignUpComponent implements OnInit {
 
-    private _fields: string[string[]];
+    private _fields;
     private _form: FormGroup;
     private _step: string;
     private _stepNum: number;
     private _fieldsFlatten: string[];
     private _errorMsg: string;
     private _invalid: boolean;
-    private _roles: string[] = ['Particulier-propriétaire'];
+    private _roles: string[] = ['Particulier-propriétaire', 'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
 
 
@@ -51,12 +51,13 @@ export class SignUpComponent implements OnInit {
         this._fields.push({title: 'Contact', values: ['username', 'telephone']});
         this._fields.push({title: 'Account', values: ['password', 'role']});
         let i = 0;
-        this._fields.forEach(key => {
-            for (const subfield of key.values) {
+        this._fields.forEach(value => {
+            for (const subfield of value.values) {
                 this._fieldsFlatten[i] = subfield;
                 i++;
             }
         });
+        console.log(this._fieldsFlatten);
         this._step = this._fieldsFlatten[0];
     }
 
@@ -74,14 +75,12 @@ export class SignUpComponent implements OnInit {
     }
 
     setStep(value: string): void {
-        const index = this._fieldsFlatten.indexOf(value);
-        if (this._form.get(this._fieldsFlatten[index - 1]).valid) {
-            this._step = value;
-        }
-        if (value === this.fields[0][0]) {
+        console.log(value);
+        if (value === this._fieldsFlatten[0]) {
             this._step = value;
         } else {
-            if (this._form.get('firstname').valid) {
+            const index = this._fieldsFlatten.indexOf(value);
+            if (this._form.get(this._fieldsFlatten[index - 1]).valid) {
                 this._step = value;
             }
         }
@@ -99,6 +98,7 @@ export class SignUpComponent implements OnInit {
             password: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
             ])),
+            confirmPassword: new FormControl('', Validators.required),
             username: new FormControl('', Validators.compose([
                 Validators.required,
                 Validators.pattern(
@@ -106,9 +106,9 @@ export class SignUpComponent implements OnInit {
                     '\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')
             ])),
             telephone: new FormControl('', Validators.compose([
-                Validators.required,
                 Validators.pattern('\\d{10}')
             ])),
+            // validator: MustMatch('password', 'confirmPassword'),
             role: new FormControl('', Validators.required)
         });
     }
@@ -119,7 +119,7 @@ export class SignUpComponent implements OnInit {
                 map(_ => {
                         return {
                             'firstname': _.firstname,
-                            'lastname': _.firstname,
+                            'lastname': _.lastname,
                             'password': _.password,
                             'username': _.username,
                             'telephone': _.telephone,
@@ -169,7 +169,6 @@ export class SignUpComponent implements OnInit {
         return this._form;
     }
 
-    @Input()
     set form(value: FormGroup) {
         this._form = value;
     }
@@ -179,7 +178,7 @@ export class SignUpComponent implements OnInit {
         return this._step;
     }
 
-    @Input()
+
     set step(value: string) {
         this._step = value;
     }
@@ -194,5 +193,7 @@ export class SignUpComponent implements OnInit {
     }
 
 
-
+    get errorMsg(): string {
+        return this._errorMsg;
+    }
 }

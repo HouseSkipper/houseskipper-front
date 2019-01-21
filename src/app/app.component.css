@@ -21,3 +21,13 @@ mat-icon {
     background-position: center;
     background-attachment: fixed;
 }
+
+.content-page {
+    display:flex;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    height:calc(100vh - 130px);
+    top:130px;
+}

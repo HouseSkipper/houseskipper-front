@@ -15,6 +15,7 @@ export const environment = {
             allUsers: '/api/users',
             authenticate: '/login',
             signup: '/users/sign-up',
+            validateAccount: '/users/validateAccount/:emailToken',
             allHouses: '/houses/house',
             addHouse: '/add/house',
             removeHouse: '/houses/:houseId',
@@ -22,7 +23,10 @@ export const environment = {
             tasks: {
               allTasks: '/tasks',
               oneTask: '/tasks/:id',
-              allTasksForUser: 'tasks'
+              allTasksForUser: '/tasks',
+              upload : '/uploadFile/:id',
+              dowload : '/downloadFile/:fileName',
+              fileNames : '/fileNames/:id'
             },
             allSkills: '/skills',
             oneSkill: '/skills/:idSkill'

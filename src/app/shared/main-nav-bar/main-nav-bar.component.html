@@ -5,9 +5,11 @@
     <div *ngIf="currentUser">
       <span>Hi {{currentUser.username}}</span>
     </div>
-    <button mat-button [routerLink]="['/']">
-      <span>Home</span>
-    </button>
+    <div>
+        <button class="menu-button" mat-button [routerLink]="['/']">
+          <span>Home</span>
+        </button>
+    </div>
     <div *ngIf="currentUser">
       <button mat-button class="menu-button" [routerLink]="['/skills']">
         <span>Account</span>

@@ -10,27 +10,28 @@ import {Router} from '@angular/router';
 })
 export class HouseComponent implements OnInit {
 
-  private _dataSource: House[];
-  private _displayedColumns = ['House_Name', 'Type', 'Address', 'numberPieces', 'Delete'];
+    private _dataSource: House[];
+    private _displayedColumns = ['House_Name', 'Type', 'Address', 'numberPieces', 'Delete'];
 
-  constructor(private _houseService: HouseService, private _router: Router) { }
+    constructor(private _houseService: HouseService, private _router: Router) {
+    }
 
-  ngOnInit() {
-    this._houseService.fecthAllHouse().subscribe((_) => this._dataSource = _);
-  }
+    ngOnInit() {
+        this._houseService.fecthAllHouse().subscribe((_) => this._dataSource = _);
+    }
 
-  get dataSource(): House[] {
-    return this._dataSource;
-  }
+    get dataSource(): House[] {
+        return this._dataSource;
+    }
 
-  get displayedColumns(): any {
-    return this._displayedColumns;
-  }
+    get displayedColumns(): any {
+        return this._displayedColumns;
+    }
 
-  delete(id: string) {
-    this._houseService.remove(id).subscribe(null, null, () => this.ngOnInit());
-  }
-
-
-
+    delete(id: string) {
+        this._houseService.remove(id).subscribe(null, null, () => this.ngOnInit());
+    }
 }
+
+
+

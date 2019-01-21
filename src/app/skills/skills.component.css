@@ -1,0 +1,24 @@
+.icon-skill{
+    height: 100px;
+    width: 100px;
+}
+
+.content-page {
+    display:flex;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    height:calc(100vh - 130px);
+    top:130px;
+}
+
+mat-card {
+    max-height: 300px;
+    max-width: 300px;
+    margin:10px;
+}
+
+button {
+    width: inherit;
+}
