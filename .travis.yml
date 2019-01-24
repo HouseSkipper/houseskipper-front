@@ -28,4 +28,4 @@ deploy:
   on:
     branch: master
 after_deploy:
-  - npm start
+  - npm start&
