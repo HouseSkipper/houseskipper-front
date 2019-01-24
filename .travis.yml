@@ -13,6 +13,7 @@ before_deploy:
 - eval "$(ssh-agent -s)"
 - chmod 600 deploy_rsa
 - ssh-add deploy_rsa
+- ssh -i ./deploy_key root@92.222.9.74 pwd
 before_install:
 - npm install -g @angular/cli
 - npm install enhanced-resolve@3.3.0 --save-dev
