@@ -28,4 +28,4 @@ deploy:
   on:
     branch: master
 after_deploy:
-  - PORT=8000 node server.js&
+  - npm start&
