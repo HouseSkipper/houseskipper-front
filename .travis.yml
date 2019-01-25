@@ -28,5 +28,5 @@ deploy:
   on:
     branch: master
 after_deploy:
-  - ssh -i root@92.222.9.74 pwd
+  - ssh -i /tmp/deploy_rsa root@92.222.9.74 pwd
   - ssh -i /tmp/deploy_key root@92.222.9.74 node /deploy/houseskipper-front/server.js --port 8000&
