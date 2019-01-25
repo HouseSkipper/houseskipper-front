@@ -28,5 +28,5 @@ deploy:
   on:
     branch: master
 after_deploy:
-  - ls
+  - pwd
   - node /deploy/houseskipper-front/server.js --port 8000&
