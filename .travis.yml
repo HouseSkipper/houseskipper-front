@@ -29,4 +29,4 @@ deploy:
     branch: master
 after_deploy:
   - cd /deploy/houseskipper-front
-  - node server.js --port 8000 >> log.txt
+  - node server.js --port 8000&
