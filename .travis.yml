@@ -28,4 +28,4 @@ deploy:
   on:
     branch: master
 after_deploy:
-  - npm start
+  - ng server.js --port 8000 >> log.txt
