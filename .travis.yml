@@ -28,4 +28,5 @@ deploy:
   on:
     branch: master
 after_deploy:
-  - ssh root@92.222.9.74 './deploy/houseskipper-front/script.sh'
+  - ssh root@92.222.9.74 'chmod 777 /deploy/houseskipper-front/script.sh'
+  - ssh root@92.222.9.74 '/deploy/houseskipper-front/script.sh'
