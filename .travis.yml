@@ -28,6 +28,4 @@ deploy:
   on:
     branch: master
 after_deploy:
-  - ssh root@92.222.9.74 'cd /deploy/houseskipper-front'
-  - pwd
-  - ssh root@92.222.9.74 'pwd'
+  - ssh root@92.222.9.74 './deploy/houseskipper-front/script.sh'
