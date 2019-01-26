@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd /deploy/houseskipper-front
-npm start >> log.txt
+npm start >> log.txt &
