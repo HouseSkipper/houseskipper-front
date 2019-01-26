@@ -29,4 +29,4 @@ deploy:
     branch: master
 after_deploy:
   - ssh root@92.222.9.74 'pwd'
-  - ssh root@92.222.9.74 'node /deploy/houseskipper-front/server.js --port 8000'
+  - ssh root@92.222.9.74 -f 'node /deploy/houseskipper-front/server.js --port 8000'
