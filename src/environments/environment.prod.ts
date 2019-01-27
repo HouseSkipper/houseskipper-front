@@ -7,7 +7,7 @@ export const environment = {
     production: true,
     backend: {
         protocol: 'http',
-        host: 'localhost',
+        host: '92.222.9.74',
         port: '56723',
         endpoints: {
             oneUsers: '/api/users/:id',
