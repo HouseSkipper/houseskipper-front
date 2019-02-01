@@ -23,12 +23,13 @@ import {DataaService} from './services/dataa.service';
 import {FormHouseComponent} from './houses/form/form.house.component';
 import {HouseComponent} from './houses/house/house.component';
 import {DataService} from './services/task.service';
-import {DashboardComponent} from './dashboard/dashboard.component';
+import {TaskComponent} from './task/task.component';
 import {SkillsComponent} from './skills/skills.component';
 import { MainNavBarComponent } from './shared/main-nav-bar/main-nav-bar.component';
 import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
 import {DirectiveType} from '@angular/core/src/render3';
 import {ValidateAccountComponent} from './validate-account/validate-account.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -38,12 +39,13 @@ import {ValidateAccountComponent} from './validate-account/validate-account.comp
         FormHouseComponent,
         LoginComponent,
         SignUpComponent,
-        DashboardComponent,
+        TaskComponent,
         TaskDialogComponent,
         SkillsComponent,
         MainNavBarComponent,
         SkillsComponent,
-        ValidateAccountComponent
+        ValidateAccountComponent,
+        DashboardComponent
     ],
     imports: [
         ReactiveFormsModule,

@@ -1,22 +1,19 @@
 <mat-toolbar class="extend-toolbar">
-  <mat-icon id="logo" svgIcon="icon-logo-wtext"></mat-icon>
-  <span>{{title}}</span>
+  <a id="logoA" [routerLink]="['/']"><mat-icon id="logo" svgIcon="icon-logo"></mat-icon></a>
   <span class="fill"></span>
     <div *ngIf="currentUser">
-      <span>Bonjour {{currentUser.username}}</span>
-    </div>
-    <div>
-        <button class="menu-button" mat-button [routerLink]="['/']">
-          <span>Accueil</span>
-        </button>
+      <span>Hi {{currentUser.firstname}}</span>
     </div>
     <div *ngIf="currentUser">
       <button mat-button class="menu-button" [routerLink]="['/skills']">
         <span>Compte</span>
       </button>
-      <button  mat-button class="menu-button" [routerLink]="['/users/dashboard']">
+      <button  mat-button class="menu-button" [routerLink]="['/']">
         <span>Tableau de bord</span>
       </button>
+        <button  mat-button class="menu-button" [routerLink]="['/users/tasks']">
+            <span>Travaux</span>
+        </button>
       <button mat-button class="menu-button" [routerLink]="['/users/houses']">
         <span>Maisons</span>
       </button>
