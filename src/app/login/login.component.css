@@ -81,7 +81,20 @@ mat-form-field, button, a {
 }
 
 #langSelect {
-    position:absolute;
-    float:right;
+    width: 50px;
+    margin-top:40px;
+    margin-right:50px;
 }
 
+#navbar {
+    position: absolute;
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right:20px;
+}
+
+.dropdown {
+    margin-left: -30px;
+    margin-top: 40px;
+}
