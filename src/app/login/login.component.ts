@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-
     private _errorMsg = '';
     private _form: FormGroup;
     private readonly _submit$: EventEmitter<User>;
