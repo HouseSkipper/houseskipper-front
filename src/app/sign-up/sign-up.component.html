@@ -19,17 +19,17 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Prénom</mat-label>
                         <input matInput placeholder="Prénom" formControlName="firstname">
-                        <mat-error *ngIf="form.invalid && form.get('firstname').hasError('required')" class="alert alert-danger">Firstname is required</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('firstname').hasError('minlength')" class="alert alert-danger">Firstname is min length 3</mat-error>
+                        <mat-error class="alert alert-danger">Prénom requis</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('firstname').hasError('minlength')" class="alert alert-danger">Le prénom doit avoir au moins 3 lettres</mat-error>
                     </mat-form-field>
                 </div>
                 <div id="lastname" *ngIf="step == 'lastname'" [@slideInOut]>
                     <h2 class="mat-headline">Quel est votre nom?</h2>
                     <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('lastname').invalid">
+                        <mat-error class="alert alert-danger">Nom requis</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('lastname').hasError('minlength')" class="alert alert-danger">Le nom doit avoir au moins 3 lettres</mat-error>
                         <mat-label>Nom</mat-label>
                         <input matInput placeholder="Nom" formControlName="lastname">
-                        <mat-error *ngIf="form.invalid && form.get('lastname').hasError('required')" class="alert alert-danger">Lastname is required</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('lastname').hasError('minlength')" class="alert alert-danger">Lastname is min length 3</mat-error>
                     </mat-form-field>
                 </div>
                 <div id="email" *ngIf="step == 'username'" [@slideInOut]>
@@ -37,17 +37,17 @@
                     <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('username').invalid">
                         <mat-label>Adresse Email</mat-label>
                         <input matInput placeholder="Adresse Email" formControlName="username">
-                        <mat-error *ngIf="form.invalid && form.get('username').hasError('required')" class="alert alert-danger">Email is required</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('username').hasError('pattern')" class="alert alert-danger">Email is not valid</mat-error>
+                        <mat-error class="alert alert-danger">Email requis</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('username').hasError('pattern')" class="alert alert-danger">Email non valide</mat-error>
                     </mat-form-field>
                 </div>
                 <div id="password" *ngIf="step == 'password'" [@slideInOut]>
                     <h2 class="mat-headline">Quel est votre mot de passe?</h2>
                     <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('password').invalid">
+                        <mat-error class="alert alert-danger">Mot de passe requis</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('password').hasError('pattern')" class="alert alert-danger">Le mot de passe doit contenir 8 caractères avec au moins une majuscule, une minuscule et un caractère spécial</mat-error>
                         <mat-label>Mot de passe</mat-label>
                         <input matInput placeholder="Mot de passe" type="password" formControlName="password">
-                        <mat-error *ngIf="form.invalid && form.get('password').hasError('required')" class="alert alert-danger">Password is required</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('password').hasError('pattern')" class="alert alert-danger">Password is 8 chars with uppercase, lowercase and special</mat-error>
                     </mat-form-field>
                 </div>
                 <div id="telephone" *ngIf="step == 'telephone'" [@slideInOut]>
@@ -55,8 +55,7 @@
                     <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('telephone').invalid">
                         <mat-label>Téléphone</mat-label>
                         <input matInput placeholder="Téléphone" formControlName="telephone">
-                        <mat-error *ngIf="form.invalid && form.get('telephone').hasError('required')" class="alert alert-danger">Telephone is required</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('telephone').hasError('pattern')" class="alert alert-danger">Telephone number is invalid</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('telephone').hasError('pattern')" class="alert alert-danger">Numéro de téléphone invalide</mat-error>
                     </mat-form-field>
                 </div>
                 <div id="role" *ngIf="step == 'role'" [@slideInOut]>
@@ -69,7 +68,7 @@
                                 {{role}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="form.get('role').hasError('required')">Please choose a role</mat-error>
+                        <mat-error >S'il vous plaît, choisissez votre rôle</mat-error>
                     </mat-form-field>
                 </div>
 
