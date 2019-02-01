@@ -23,3 +23,8 @@
 #logoA {
     text-align: left !important;
 }
+
+#hello {
+    color: darkgray;
+    font-size:14px;
+}
