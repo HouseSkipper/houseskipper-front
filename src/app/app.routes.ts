@@ -18,7 +18,7 @@ const ROUTES: Routes = [
     {path: 'users/houses/addhouse', component: FormHouseComponent, canActivate: [AuthGuardService]},
     {path: 'users/houses/:id', component: FormHouseComponent, canActivate: [AuthGuardService]},
     {path: 'users/houses', component: HouseComponent, canActivate: [AuthGuardService]},
-    { path: 'users/dashboard', component: TaskComponent, canActivate: [AuthGuardService]},
+    { path: 'users/tasks', component: TaskComponent, canActivate: [AuthGuardService]},
     { path: 'skills', component: SkillsComponent, canActivate: [AuthGuardService]},
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
     {path: '**', redirectTo: ''}
