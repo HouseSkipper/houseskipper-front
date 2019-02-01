@@ -68,38 +68,41 @@ $md-secondary: (
         )
 );
 /* For use in src/lib/core/theming/_palette.scss */
+/* For use in src/lib/core/theming/_palette.scss */
 $md-accent: (
-        50 : #fbfeec,
-        100 : #f5fdd0,
-        200 : #eefbb1,
-        300 : #e7f992,
-        400 : #e1f87a,
-        500 : #dcf763,
-        600 : #d8f65b,
-        700 : #d3f551,
-        800 : #cef347,
-        900 : #c5f135,
-        A100 : #ffffff,
-        A200 : #ffffff,
-        A400 : #f4ffd2,
-        A700 : #edffb8,
+        50 : #f8e2e2,
+        100 : #eeb7b7,
+        200 : #e38888,
+        300 : #d85858,
+        400 : #cf3434,
+        500 : #c71010,
+        600 : #c10e0e,
+        700 : #ba0c0c,
+        800 : #b30909,
+        900 : #a60505,
+        A100 : #ffd1d1,
+        A200 : #ff9e9e,
+        A400 : #ff6b6b,
+        A700 : #ff5252,
         contrast: (
                 50 : #000000,
                 100 : #000000,
                 200 : #000000,
-                300 : #000000,
-                400 : #000000,
-                500 : #000000,
-                600 : #000000,
-                700 : #000000,
-                800 : #000000,
-                900 : #000000,
+                300 : #ffffff,
+                400 : #ffffff,
+                500 : #ffffff,
+                600 : #ffffff,
+                700 : #ffffff,
+                800 : #ffffff,
+                900 : #ffffff,
                 A100 : #000000,
                 A200 : #000000,
                 A400 : #000000,
                 A700 : #000000,
         )
 );
+
+
 
 
 
