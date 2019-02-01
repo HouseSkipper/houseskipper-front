@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
 
     get errorMsg(): string {
         if (this._errorMsg === 'Unknown Error') {
-            this._errorMsg = 'Server unreachable';
+            this._errorMsg = 'Le serveur n\'est pas up';
         }
         return this._errorMsg;
     }
