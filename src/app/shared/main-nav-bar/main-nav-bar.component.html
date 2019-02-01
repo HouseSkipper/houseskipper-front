@@ -2,7 +2,7 @@
   <a id="logoA" [routerLink]="['/']"><mat-icon id="logo" svgIcon="icon-logo"></mat-icon></a>
   <span class="fill"></span>
     <div *ngIf="currentUser">
-      <span>Hi {{currentUser.firstname}}</span>
+      <span id="hello">Bonjour, {{currentUser.firstname}}</span>
     </div>
     <div *ngIf="currentUser">
       <button mat-button class="menu-button" [routerLink]="['/skills']">
