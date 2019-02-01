@@ -2,18 +2,18 @@
     <div id="login-container">
         <form class="form-container" novalidate [formGroup]="form">
             <mat-icon id="logo" svgIcon="icon-logo"></mat-icon>
-            <h1 class="mat-headline">User Login</h1>
+            <h1 class="mat-headline">Connexion utilisateur</h1>
             <mat-form-field appearance="fill">
-                <mat-label>Email Address</mat-label>
-                <input matInput placeholder="Email Address" formControlName="username">
+                <mat-label>Adresse Email</mat-label>
+                <input matInput placeholder="Adresse Email" formControlName="username">
             </mat-form-field>
             <mat-form-field appearance="fill">
-                <mat-label>Password</mat-label>
-                <input matInput placeholder="Password" type="password" formControlName="password">
+                <mat-label>Mot de passe</mat-label>
+                <input matInput placeholder="Mot de passe" type="password" formControlName="password">
             </mat-form-field>
             <mat-error *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
-            <button id="submitButton" color="accent" mat-button type="submit"  (click)="submit(form.value)">Log in</button>
-            <button id="createButton" mat-button class="md-accent" [routerLink]="['/signup']">Create an account</button>
+            <button id="submitButton" color="accent" mat-button type="submit"  (click)="submit(form.value)">Se connecter</button>
+            <button id="createButton" mat-button class="md-accent" [routerLink]="['/signup']">Créer un compte</button>
         </form>
     </div>
 </div>

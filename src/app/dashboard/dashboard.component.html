@@ -6,7 +6,7 @@
       <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
         <div class="blocks">
           <button button="submit" mat-raised-button color="primary" (click)="openDialog()">
-            <mat-icon>add</mat-icon> Add Task
+            <mat-icon>add</mat-icon> Ajouter tâche
           </button>
         </div>
       </div>
@@ -16,21 +16,21 @@
       <div layout="row" Align="center center" class="content">
         <mat-card class="card" >
           <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-            <h3>Recent Tasks</h3>
+            <h3>Tâches récentes</h3>
           </mat-card-title>
           <mat-card-content>
             <div class="example-container mat-elevation-z8 ">
               <mat-table #table [dataSource]="dataSource" >
                 <ng-container matColumnDef="start_date">
-                  <mat-header-cell *matHeaderCellDef> Start Date </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef> Date de départ </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.start_date  | date: 'dd/MM/y'}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="name">
-                  <mat-header-cell *matHeaderCellDef> Task Name </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef> Nom de tâche </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="room">
-                  <mat-header-cell *matHeaderCellDef> Room </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef> Pièce </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.room}} </mat-cell>
                 </ng-container>
                 <ng-container  matColumnDef="description">
