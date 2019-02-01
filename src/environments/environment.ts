@@ -23,8 +23,8 @@ export const environment = {
             tasks: {
               allTasks: '/tasks',
               oneTask: '/tasks/:id',
-              allTasksForUser: '/tasks',
-              upload : '/uploadFile/:id',
+                allTasksForUser: '/tasks',
+                upload : '/uploadFile/:id/1',
               dowload : '/downloadFile/:fileName',
               fileNames : '/fileNames/:id'
             },

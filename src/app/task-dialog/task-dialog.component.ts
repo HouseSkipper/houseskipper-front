@@ -8,8 +8,8 @@ import {FileUploader} from 'ng2-file-upload';
 import {HttpHeaders} from '@angular/common/http';
 import {AuthGuardService} from '../guards/auth-guard.service';
 import {AuthenticationService} from '../services/authentication.service';
+import {environment} from '../../environments/environment';
 
-const URL = 'http://localhost:8080/uploadFile/:id/1';
 @Component({
   selector: 'app-task-dialog',
   templateUrl: './task-dialog.component.html',
@@ -17,6 +17,7 @@ const URL = 'http://localhost:8080/uploadFile/:id/1';
 })
 export class TaskDialogComponent implements OnInit {
 
+    private readonly _backendURL: any;
     public uploader: FileUploader = new FileUploader({authToken: 'Bearer ' + this.authService.currentUserValue.token});
     data: string;
     blogTask = {
@@ -40,6 +41,17 @@ export class TaskDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public blog: Task,
         public authService: AuthenticationService
     ) {
+        this._backendURL = {};
+
+        // build backend base url
+        let baseUrl = `${environment.backend.protocol}://${environment.backend.host}`;
+        if (environment.backend.port) {
+            baseUrl += `:${environment.backend.port}`;
+        }
+
+        // build all backend urls
+        Object.keys(environment.backend.endpoints.tasks).forEach(k => this._backendURL[ k ] =
+            `${baseUrl}${environment.backend.endpoints.tasks[ k ]}`);
         if (!!blog) {
             this.blogTask = blog;
             this.data = 'Edit Task';
@@ -61,7 +73,7 @@ export class TaskDialogComponent implements OnInit {
 
     onSaveFile(name): void {
         console.log(name );
-        this.uploader.setOptions({url: URL.replace(':id', name), headers: this._options()});
+        this.uploader.setOptions({url: this._backendURL.upload.replace(':id', name), headers: this._options()});
         this.uploader.uploadAll();
     }
 
