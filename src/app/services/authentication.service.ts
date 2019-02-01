@@ -39,6 +39,7 @@ export class AuthenticationService {
         return this._http.post<any>(this._backendURL.authenticate, {username: username, password: password})
             .pipe(
                 map(user => {
+                    console.log(user);
                     if (user && user.token) {
                         localStorage.setItem('currentUser', JSON.stringify(user));
                         this._currentUserSubject.next(user);

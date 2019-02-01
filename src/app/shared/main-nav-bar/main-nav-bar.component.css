@@ -19,3 +19,7 @@
 .menu-button {
     width: inherit;
 }
+
+#logoA {
+    text-align: left !important;
+}
