@@ -7,7 +7,7 @@
                 <div class="blocks">
                     <button button="submit" mat-raised-button color="primary" [routerLink]="['/users/houses/addhouse']">
                         <mat-icon>add</mat-icon>
-                        Add House
+                        Ajouter maison
                     </button>
                 </div>
             </div>
@@ -17,13 +17,13 @@
             <div layout="row" Align="center center" class="content">
                 <mat-card class="card">
                     <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-                        <h3>Houses</h3>
+                        <h3>Maisons</h3>
                     </mat-card-title>
                     <mat-card-content>
                         <div class="example-container mat-elevation-z8">
                             <mat-table #table [dataSource]="dataSource">
                                 <ng-container matColumnDef="House_Name">
-                                    <mat-header-cell *matHeaderCellDef> House Name</mat-header-cell>
+                                    <mat-header-cell *matHeaderCellDef> Nom de la maison</mat-header-cell>
                                     <mat-cell *matCellDef="let element"> {{element.houseName}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Type">
@@ -31,22 +31,22 @@
                                     <mat-cell *matCellDef="let element"> {{element.houseType}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Address">
-                                    <mat-header-cell *matHeaderCellDef> Address</mat-header-cell>
+                                    <mat-header-cell *matHeaderCellDef> Adresse</mat-header-cell>
                                     <mat-cell
                                             *matCellDef="let element"> {{element.address}} {{element.city}} {{element.postalCode}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="numberPieces">
-                                    <mat-header-cell *matHeaderCellDef> Number Pieces</mat-header-cell>
+                                    <mat-header-cell *matHeaderCellDef> Nombre de pièces</mat-header-cell>
                                     <mat-cell *matCellDef="let element"> {{element.numberPieces}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Delete">
                                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                                     <mat-cell *matCellDef="let element">
                                         <a type="button" (click)="delete(element.id)">
-                                            <mat-icon svgIcon="icon-delete">delete</mat-icon>
+                                            <mat-icon svgIcon="icon-delete">supprimer</mat-icon>
                                         </a>
                                         <a type="button" [routerLink]="['/users/houses/' + element.id]">
-                                            <mat-icon svgIcon="icon-edit">edit</mat-icon>
+                                            <mat-icon svgIcon="icon-edit">modifier</mat-icon>
                                         </a>
                                     </mat-cell>
                                 </ng-container>
