@@ -6,9 +6,9 @@
 export const environment = {
     production: true,
     backend: {
-        protocol: 'https',
-        host: 'houseskipper-back.herokuapp.com',
-        port: '',
+        protocol: 'http',
+        host: '92.222.9.74',
+        port: '56723',
         endpoints: {
             oneUsers: '/api/users/:id',
             allUsers: '/api/users',

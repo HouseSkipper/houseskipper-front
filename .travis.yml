@@ -9,11 +9,10 @@ branches:
   only:
   - master
 before_deploy:
-- openssl aes-256-cbc -K $encrypted_5493d0b4ffcc_key -iv $encrypted_5493d0b4ffcc_iv -in deploy_rsa.enc -out deploy_rsa -d
+- openssl aes-256-cbc -K $encrypted_5493d0b4ffcc_key -iv $encrypted_5493d0b4ffcc_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
 - eval "$(ssh-agent -s)"
-- chmod 600 deploy_rsa
-- ssh-add deploy_rsa
-- ssh -i ./deploy_rsa root@92.222.9.74 pwd
+- chmod 600 /tmp/deploy_rsa
+- ssh-add /tmp/deploy_rsa
 before_install:
 - npm install -g @angular/cli
 - npm install enhanced-resolve@3.3.0 --save-dev
@@ -25,6 +24,9 @@ notifications:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet /deploy root@92.222.9.74:/deploy/houseskipper-front
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/ root@92.222.9.74:/deploy/houseskipper-front
   on:
     branch: master
+after_deploy:
+  - ssh root@92.222.9.74 'chmod 777 /deploy/houseskipper-front/script.sh'
+  - ssh root@92.222.9.74 '/deploy/houseskipper-front/script.sh'
