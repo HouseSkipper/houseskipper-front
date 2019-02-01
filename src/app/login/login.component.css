@@ -80,3 +80,8 @@ mat-form-field, button, a {
     background-attachment: fixed;
 }
 
+#langSelect {
+    position:absolute;
+    float:right;
+}
+

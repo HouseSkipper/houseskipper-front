@@ -1,8 +1,7 @@
 <div class="login">
 
     <div id="login-container">
-        <mat-form-field style="display:flex">
-            <mat-select value="fr">
+            <mat-select id="langSelect" value="fr">
                 <mat-select-trigger>
                     <mat-icon  svgIcon="icon-fr"></mat-icon>
                 </mat-select-trigger>
@@ -14,7 +13,6 @@
                     Anglais
                 </mat-option>
             </mat-select>
-        </mat-form-field>
         <form class="form-container" novalidate [formGroup]="form">
             <mat-icon id="logo" svgIcon="icon-logo"></mat-icon>
             <h1 class="mat-headline">La plateforme pour vos travaux d’habitation</h1>
