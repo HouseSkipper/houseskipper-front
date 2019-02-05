@@ -80,11 +80,6 @@ mat-form-field, button, a {
     background-attachment: fixed;
 }
 
-#langSelect {
-    width: 50px;
-    margin-top:40px;
-    margin-right:50px;
-}
 
 #navbar {
     position: absolute;
@@ -92,6 +87,8 @@ mat-form-field, button, a {
     display: flex;
     justify-content: flex-end;
     margin-right:20px;
+    padding-top:40px;
+    padding-right:50px;
 }
 
 .dropdown {
