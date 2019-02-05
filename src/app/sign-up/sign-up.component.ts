@@ -49,9 +49,9 @@ export class SignUpComponent implements OnInit {
 
     ngOnInit() {
         this._fields = [];
-        this._fields.push({title: 'Entity', values: ['firstname', 'lastname']});
-        this._fields.push({title: 'Contact', values: ['username', 'telephone']});
-        this._fields.push({title: 'Account', values: ['password', 'role']});
+        this._fields.push({title: 'Entity', values: ['Firstname', 'Lastname']});
+        this._fields.push({title: 'Contact', values: ['Username', 'Telephone']});
+        this._fields.push({title: 'Account', values: ['Password', 'Role']});
         this._fields.push({title: 'Valider', values: ['Code']});
         let i = 0;
         this._fields.forEach(value => {

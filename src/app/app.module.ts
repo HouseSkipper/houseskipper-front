@@ -31,7 +31,9 @@ import {DirectiveType} from '@angular/core/src/render3';
 import {ValidateAccountComponent} from './validate-account/validate-account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LangSelectorComponent } from './shared/lang-selector/lang-selector.component';
-import { LegalBarComponent } from './shared/legal-bar/legal-bar.component';
+import { SideMenuComponent } from './shared/side-menu/side-menu.component';
+import { MainSideMenuComponent } from './main-side-menu/main-side-menu.component';
+import {LegalBarComponent} from './shared/legal-bar/legal-bar.component';
 import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 
 
@@ -51,6 +53,8 @@ import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
         DashboardComponent,
         LangSelectorComponent,
         LegalBarComponent,
+        SideMenuComponent,
+        MainSideMenuComponent,
         CheckBrowserComponent
     ],
     imports: [
