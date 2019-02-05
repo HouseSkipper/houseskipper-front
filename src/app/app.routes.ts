@@ -9,6 +9,7 @@ import {HouseComponent} from './houses/house/house.component';
 import { SkillsComponent} from './skills/skills.component';
 import {ValidateAccountComponent} from './validate-account/validate-account.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 import {AppLayoutComponent} from './_layout/app-layout/app-layout.component';
 
 const ROUTES: Routes = [
@@ -24,7 +25,8 @@ const ROUTES: Routes = [
             {path: 'users/houses', component: HouseComponent, canActivate: [AuthGuardService]},
             {path: 'users/tasks', component: TaskComponent, canActivate: [AuthGuardService]},
             {path: 'skills', component: SkillsComponent, canActivate: [AuthGuardService]},
-            {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]}
+            {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
+            {path: 'validateAccountBrowser', component: CheckBrowserComponent},
         ]
     },
 

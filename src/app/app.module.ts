@@ -34,6 +34,7 @@ import { LangSelectorComponent } from './shared/lang-selector/lang-selector.comp
 import { SideMenuComponent } from './shared/side-menu/side-menu.component';
 import { MainSideMenuComponent } from './main-side-menu/main-side-menu.component';
 import {LegalBarComponent} from './shared/legal-bar/legal-bar.component';
+import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 
 
@@ -56,6 +57,7 @@ import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
         LangSelectorComponent,
         SideMenuComponent,
         MainSideMenuComponent,
+        CheckBrowserComponent,
         AppLayoutComponent
     ],
     imports: [
