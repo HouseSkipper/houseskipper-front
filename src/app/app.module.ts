@@ -31,6 +31,7 @@ import {DirectiveType} from '@angular/core/src/render3';
 import {ValidateAccountComponent} from './validate-account/validate-account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LangSelectorComponent } from './shared/lang-selector/lang-selector.component';
+import { LegalBarComponent } from './shared/legal-bar/legal-bar.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { LangSelectorComponent } from './shared/lang-selector/lang-selector.comp
         SkillsComponent,
         ValidateAccountComponent,
         DashboardComponent,
-        LangSelectorComponent
+        LangSelectorComponent,
+        LegalBarComponent
     ],
     imports: [
         ReactiveFormsModule,
