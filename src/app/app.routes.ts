@@ -9,12 +9,14 @@ import {HouseComponent} from './houses/house/house.component';
 import { SkillsComponent} from './skills/skills.component';
 import {ValidateAccountComponent} from './validate-account/validate-account.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 
 const ROUTES: Routes = [
     {path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuardService]},
     {path: 'signup', component: SignUpComponent},
     {path: 'login', component: LoginComponent},
     {path: 'validateAccount/:emailToken', component: ValidateAccountComponent},
+    {path: 'validateAccountBrowser', component: CheckBrowserComponent},
     {path: 'users/houses/addhouse', component: FormHouseComponent, canActivate: [AuthGuardService]},
     {path: 'users/houses/:id', component: FormHouseComponent, canActivate: [AuthGuardService]},
     {path: 'users/houses', component: HouseComponent, canActivate: [AuthGuardService]},

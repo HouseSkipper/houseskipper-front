@@ -32,6 +32,7 @@ import {ValidateAccountComponent} from './validate-account/validate-account.comp
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LangSelectorComponent } from './shared/lang-selector/lang-selector.component';
 import { LegalBarComponent } from './shared/legal-bar/legal-bar.component';
+import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { LegalBarComponent } from './shared/legal-bar/legal-bar.component';
         ValidateAccountComponent,
         DashboardComponent,
         LangSelectorComponent,
-        LegalBarComponent
+        LegalBarComponent,
+        CheckBrowserComponent
     ],
     imports: [
         ReactiveFormsModule,
