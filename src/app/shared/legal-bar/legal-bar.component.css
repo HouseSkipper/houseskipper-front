@@ -1,0 +1,17 @@
+
+.mat-body
+{
+    text-align: right;
+}
+
+p
+{
+    display: inline-block;
+}
+
+a
+{
+    text-decoration: none;
+    display: inline-block;
+    width: 8vh;
+}
