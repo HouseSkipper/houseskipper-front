@@ -1,14 +1,1 @@
-
-<app-main-nav-bar></app-main-nav-bar>
-<mat-sidenav-container>
-    <mat-sidenav id="sideMenu" mode="side" opened>
-        <app-main-side-menu (setStep)="routerStep($event)">
-        </app-main-side-menu>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <div id="contentContainer">
-            <router-outlet></router-outlet>
-        </div>
-    </mat-sidenav-content>
-</mat-sidenav-container>
-<app-legal-bar></app-legal-bar>
+<router-outlet (setStep)="routerStep($event)"></router-outlet>

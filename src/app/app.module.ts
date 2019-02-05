@@ -34,6 +34,7 @@ import { LangSelectorComponent } from './shared/lang-selector/lang-selector.comp
 import { SideMenuComponent } from './shared/side-menu/side-menu.component';
 import { MainSideMenuComponent } from './main-side-menu/main-side-menu.component';
 import {LegalBarComponent} from './shared/legal-bar/legal-bar.component';
+import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import {LegalBarComponent} from './shared/legal-bar/legal-bar.component';
         LegalBarComponent,
         LangSelectorComponent,
         SideMenuComponent,
-        MainSideMenuComponent
+        MainSideMenuComponent,
+        AppLayoutComponent
     ],
     imports: [
         ReactiveFormsModule,

@@ -1,12 +1,13 @@
+/*
 mat-icon {
     margin-right:10px;
 }
 
 .main-content {
-    /*display:flex;*/
+    /*display:flex;
     justify-content: center;
     align-items: center;
-    //padding:20px;
+//padding:20px;
     min-height: calc(100vh - 130px);
 }
 
@@ -31,4 +32,4 @@ mat-icon {
 
 mat-sidenav {
     border-right: none;
-}
+}*/
