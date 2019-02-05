@@ -35,14 +35,16 @@ export class SignUpComponent implements OnInit {
     private _invalid: boolean;
     private _roles: string[] = ['Particulier-propriétaire', 'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
+    private  _formCodeEmail: FormGroup;
 
 
 
-    constructor(private _userService: UsersService, private _router: Router) {
+    constructor(private _userService: UsersService, private _router: Router, private _authService: AuthenticationService) {
         this._fieldsFlatten = [];
         this._stepNum = 0;
         this._submit$ = new EventEmitter<any>();
         this._form = this._buildForm();
+        this._formCodeEmail = this._buildFormCodeEmail();
     }
 
     ngOnInit() {
@@ -50,6 +52,7 @@ export class SignUpComponent implements OnInit {
         this._fields.push({title: 'Entity', values: ['Firstname', 'Lastname']});
         this._fields.push({title: 'Contact', values: ['Username', 'Telephone']});
         this._fields.push({title: 'Account', values: ['Password', 'Role']});
+        this._fields.push({title: 'Valider', values: ['Code']});
         let i = 0;
         this._fields.forEach(value => {
             for (const subfield of value.values) {
@@ -61,17 +64,29 @@ export class SignUpComponent implements OnInit {
         this._step = this._fieldsFlatten[0];
     }
 
-    continue(data: any) {
-        if (this._form.get(this._step).valid) {
-            const index = this._fieldsFlatten.indexOf(this._step);
-            console.log('index:' + index);
-            if (index < this._fieldsFlatten.length - 1) {
-                console.log('on est dans la même categorie');
-                this._step = this._fieldsFlatten[index + 1];
-            } else {
-                this.saveUser(data as User);
+    continue(data: any, codeEmail: any) {
+        const index = this._fieldsFlatten.indexOf(this._step);
+        if (index <= 5) {
+            if (this._form.get(this._step).valid) {
+                console.log('index:' + index);
+                if (index < 5) {
+                    console.log('on est dans la même categorie');
+                    this._step = this._fieldsFlatten[index + 1];
+                } else {
+                    this._step = this._fieldsFlatten[index + 1];
+                    this.saveUser(data as User);
+                }
+            }
+        } else {
+            if (this._formCodeEmail.get(this._step).valid) {
+                console.log('Code vérif : ' + codeEmail.Code);
+                this._userService.checkEmailToken(codeEmail.Code).subscribe((_) => {
+                    this._authService.loginAfterValidationAccount(_);
+                    this._router.navigate(['/']);
+                });
             }
         }
+
     }
 
     setStep(value: string): void {
@@ -113,6 +128,12 @@ export class SignUpComponent implements OnInit {
         });
     }
 
+    private _buildFormCodeEmail(): FormGroup {
+        return new FormGroup({
+            Code: new FormControl('', Validators.required)
+        });
+    }
+
     saveUser(user: User) {
         of(user)
             .pipe(
@@ -131,7 +152,7 @@ export class SignUpComponent implements OnInit {
             ).subscribe(
             data => {
                 console.log(data);
-                this._router.navigate(['/']);
+                // this._router.navigate(['/']);
             },
             error => {
                 console.log(error);
@@ -171,6 +192,11 @@ export class SignUpComponent implements OnInit {
 
     set form(value: FormGroup) {
         this._form = value;
+    }
+
+    @Output()
+    get formCodeEmail(): FormGroup {
+        return this._formCodeEmail;
     }
 
     @Output()

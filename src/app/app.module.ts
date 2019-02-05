@@ -33,6 +33,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LangSelectorComponent } from './shared/lang-selector/lang-selector.component';
 import { SideMenuComponent } from './shared/side-menu/side-menu.component';
 import { MainSideMenuComponent } from './main-side-menu/main-side-menu.component';
+import {LegalBarComponent} from './shared/legal-bar/legal-bar.component';
 
 
 @NgModule({
@@ -49,6 +50,8 @@ import { MainSideMenuComponent } from './main-side-menu/main-side-menu.component
         SkillsComponent,
         ValidateAccountComponent,
         DashboardComponent,
+        LangSelectorComponent,
+        LegalBarComponent,
         LangSelectorComponent,
         SideMenuComponent,
         MainSideMenuComponent
