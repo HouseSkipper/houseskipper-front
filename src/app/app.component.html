@@ -1,6 +1,18 @@
-<div class="main-content">
+<!--<div class="main-content">
   <router-outlet></router-outlet>
-</div>
+</div>-->
+<app-main-nav-bar></app-main-nav-bar>
+<mat-sidenav-container>
+    <mat-sidenav id="sideMenu" mode="side" opened>
+        <app-main-side-menu (setStep)="routerStep($event)">
+        </app-main-side-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div id="contentContainer">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
 <div class="footer">
     <div style="text-align: right" class="mat-body">
         <p style="display: inline-block">© HouseSkipper 2019</p>

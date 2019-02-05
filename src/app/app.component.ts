@@ -13,9 +13,30 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class AppComponent implements OnInit {
 
     constructor(private _matIconRegistry: MatIconRegistry, private _domSanitizer: DomSanitizer,
-                private _authService: AuthenticationService) {
+                private _authService: AuthenticationService,
+                private router: Router) {
     }
 
+    routerStep(step: string) {
+        console.log(step);
+        switch (step) {
+            case 'Tableau de bord':
+                this.router.navigate(['/']);
+                break;
+            case 'Travaux':
+                this.router.navigate(['/users/tasks']);
+                break;
+            case 'Résidence':
+                this.router.navigate(['/users/houses']);
+                break;
+            case 'Contact':
+                this.router.navigate(['/']);
+                break;
+            case 'Compte':
+                this.router.navigate(['/skills']);
+                break;
+        }
+    }
 
     ngOnInit() {
         this._matIconRegistry.addSvgIcon('icon-logo', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/Logo-House-skipper-TEXT.svg'));

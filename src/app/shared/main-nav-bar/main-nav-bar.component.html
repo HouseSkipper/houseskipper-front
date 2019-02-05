@@ -5,6 +5,7 @@
       <span id="hello">Bonjour, {{currentUser.firstname}}</span>
     </div>
     <div *ngIf="currentUser">
+        <!--
       <button mat-button class="menu-button" [routerLink]="['/skills']">
         <span>Compte</span>
       </button>
@@ -17,6 +18,7 @@
       <button mat-button class="menu-button" [routerLink]="['/users/houses']">
         <span>Maisons</span>
       </button>
+      -->
       <button mat-button class="menu-button" (click)="logout()">
         <span>Déconnexion</span>
       </button>
