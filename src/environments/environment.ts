@@ -29,7 +29,8 @@ export const environment = {
               fileNames : '/fileNames/:id'
             },
             allSkills: '/skills',
-            oneSkill: '/skills/:idSkill'
+            oneSkill: '/skills/:idSkill',
+            onePrestataire: '/add/prestataire'
         }
     }
 };

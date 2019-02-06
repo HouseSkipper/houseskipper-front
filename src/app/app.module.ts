@@ -36,6 +36,7 @@ import { MainSideMenuComponent } from './main-side-menu/main-side-menu.component
 import {LegalBarComponent} from './shared/legal-bar/legal-bar.component';
 import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
+import { PrestataireComponent } from './prestataire/prestataire.component';
 
 
 @NgModule({
@@ -47,9 +48,8 @@ import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
         SignUpComponent,
         TaskComponent,
         TaskDialogComponent,
-        SkillsComponent,
+        SkillsComponent, // --- Dupliquer
         MainNavBarComponent,
-        SkillsComponent,
         ValidateAccountComponent,
         DashboardComponent,
         LangSelectorComponent,
@@ -59,9 +59,9 @@ import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
         MainSideMenuComponent,
         CheckBrowserComponent,
         AppLayoutComponent
+        PrestataireComponent
     ],
     imports: [
-        ReactiveFormsModule,
         BrowserModule,
         HttpClientModule,
         MatIconModule,
@@ -69,21 +69,19 @@ import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
         MatButtonModule,
         MatSelectModule,
         MatExpansionModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule, // --- Dupliquer
         MatCheckboxModule,
         MatRadioModule,
         MatDialogModule,
-        MatInputModule,
         MatCardModule,
         MatFormFieldModule,
-        MatInputModule,
+        MatInputModule, // --- Dupliquer
         BrowserAnimationsModule,
-        MatSidenavModule,
+        MatSidenavModule, // --- Dupliquer
         MaterialModule,
         FormsModule,
         MatSliderModule,
         FileUploadModule,
-        MatSidenavModule,
         APP_ROUTES
     ],
     providers: [

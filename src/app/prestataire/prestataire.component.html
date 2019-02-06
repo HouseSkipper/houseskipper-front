@@ -1,0 +1,41 @@
+<app-main-nav-bar></app-main-nav-bar>
+<div class="page">
+
+  <div id="prestataire-signup-container">
+    <form class="form-container" novalidate [formGroup]="form">
+      <mat-icon id="logo" svgIcon="icon-logo"></mat-icon>
+      <mat-card class="align-center" style="opacity: 0.9;">
+        <h1 class="mat-headline">Optimisez votre activité et développez votre clientèle</h1>
+          <mat-form-field class="margin" appearance="outline">
+            <mat-select matInput placeholder="Profession" formControlName="profession">
+              <mat-option *ngFor="let profession of professions" [value]="profession">
+                {{ profession }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field >
+          <mat-label>Nom</mat-label>
+          <input matInput placeholder="Nom" formControlName="nom">
+        </mat-form-field>
+        <mat-form-field >
+          <mat-label>Nom de la Société</mat-label>
+          <input matInput placeholder="Nom de la Société" formControlName="nomSociete">
+        </mat-form-field>
+        <mat-form-field >
+          <mat-label>Zip Code de la Société</mat-label>
+          <input matInput placeholder="Nom de la Société" formControlName="zip">
+        </mat-form-field>
+        <mat-form-field >
+          <mat-label>Adresse email</mat-label>
+          <input matInput placeholder="Adresse email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Laisser un commentaire si besoin</mat-label>
+          <textarea matInput placeholder="Commentaire" formControlName="commentaire"></textarea>
+        </mat-form-field>
+        <mat-error *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
+        <button id="submitButton" color="accent" mat-button type="submit"  (click)="submit(form.value)">Enoyer Votre Demande</button>
+      </mat-card>
+    </form>
+  </div>
+</div>
