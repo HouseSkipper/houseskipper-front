@@ -8,14 +8,15 @@
             <mat-icon id="logo" svgIcon="icon-logo"></mat-icon>
             <h1 class="mat-headline">La plateforme pour vos travaux d’habitation</h1>
             <mat-card class="align-center" style="opacity: 0.9;">
-                <h1 class="mat-body-2">Connexion à partir d'un nouvel endroit, veuillez vérifier votre boite mail.</h1>
+                <h1 class="mat-body-2">Connexion à partir d'un nouveau navigateur, veuillez vérifier votre boite mail.</h1>
                     <mat-form-field appearance="fill">
                         <mat-label>Code de vérification</mat-label>
-                        <input matInput placeholder="Code" formControlName="Code">
+                        <input matInput placeholder="Code" formControlName="Code" required>
                     </mat-form-field>
                     <mat-error *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
-                    <button id="submitButton" color="accent" mat-button type="submit"  (click)="submit(form.value)">Valider</button>
+                    <button id="submitButton" color="accent" mat-button type="submit" [disabled]="form.invalid" (click)="submit(form.value)">Valider</button>
             </mat-card>
         </form>
     </div>
 </div>
+<app-legal-bar></app-legal-bar>

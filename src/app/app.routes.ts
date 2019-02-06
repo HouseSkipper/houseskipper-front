@@ -27,7 +27,6 @@ const ROUTES: Routes = [
             {path: 'users/tasks', component: TaskComponent, canActivate: [AuthGuardService]},
             {path: 'skills', component: SkillsComponent, canActivate: [AuthGuardService]},
             {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
-            {path: 'validateAccountBrowser', component: CheckBrowserComponent},
         ]
     },
 
@@ -35,6 +34,7 @@ const ROUTES: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'signup', component: SignUpComponent },
     { path: 'prestataireSignup', component: PrestataireComponent},
+    {path: 'validateAccountBrowser', component: CheckBrowserComponent},
     {path: '**', redirectTo: ''}
 ];
 
