@@ -9,7 +9,7 @@
     padding:20px;
 }
 
-#login-container {
+#prestataire-signup-container {
     display:flex;
     justify-content: center;
     align-content: center;
@@ -40,9 +40,9 @@ mat-form-field, button, a {
 }
 
 #submitButton {
-     color: black;
-     background: #8689f1;
- }
+    color: black;
+    background: #8689f1;
+}
 
 #createButton {
     margin-top:10px;
@@ -69,7 +69,7 @@ mat-form-field, button, a {
     background-color: rgba(255, 253, 253, 0.84) !important;
 }
 
-.login {
+.page {
     height: 100vh;
     min-width: 100vh;
     background-image: url("../../assets/images/background_image.jpg");
@@ -91,26 +91,6 @@ mat-form-field, button, a {
     padding-right:50px;
 }
 
-.dropdown {
-    margin-left: -30px;
-    margin-top: 40px;
-}
-
-.b2b-cta-btn-icon {
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    fill: currentColor;
-    margin-right: 7px;
-}
-
-.Q {
-    width:16px;
-    height:16px;
-    display: block;
-    float: left;
+.margin {
+    margin: 0 10px;
 }

@@ -31,6 +31,7 @@ import {DirectiveType} from '@angular/core/src/render3';
 import {ValidateAccountComponent} from './validate-account/validate-account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LangSelectorComponent } from './shared/lang-selector/lang-selector.component';
+import { PrestataireComponent } from './prestataire/prestataire.component';
 
 
 @NgModule({
@@ -42,15 +43,14 @@ import { LangSelectorComponent } from './shared/lang-selector/lang-selector.comp
         SignUpComponent,
         TaskComponent,
         TaskDialogComponent,
-        SkillsComponent,
+        SkillsComponent, // --- Dupliquer
         MainNavBarComponent,
-        SkillsComponent,
         ValidateAccountComponent,
         DashboardComponent,
-        LangSelectorComponent
+        LangSelectorComponent,
+        PrestataireComponent
     ],
     imports: [
-        ReactiveFormsModule,
         BrowserModule,
         HttpClientModule,
         MatIconModule,
@@ -58,21 +58,19 @@ import { LangSelectorComponent } from './shared/lang-selector/lang-selector.comp
         MatButtonModule,
         MatSelectModule,
         MatExpansionModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule, // --- Dupliquer
         MatCheckboxModule,
         MatRadioModule,
         MatDialogModule,
-        MatInputModule,
         MatCardModule,
         MatFormFieldModule,
-        MatInputModule,
+        MatInputModule, // --- Dupliquer
         BrowserAnimationsModule,
-        MatSidenavModule,
+        MatSidenavModule, // --- Dupliquer
         MaterialModule,
         FormsModule,
         MatSliderModule,
         FileUploadModule,
-        MatSidenavModule,
         APP_ROUTES
     ],
     providers: [
