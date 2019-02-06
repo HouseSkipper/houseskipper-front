@@ -78,7 +78,7 @@
                     <h2 class="mat-headline">Code de vérification envoyé à votre adresse mail</h2>
                     <mat-form-field appearance="outline">
                         <mat-label>Code de vérification</mat-label>
-                        <input matInput placeholder="Code Email" formControlName="code">
+                        <input matInput placeholder="Code Email" formControlName="code" required>
                         <mat-error class="alert alert-danger" *ngIf="formCodeEmail.invalid">Code requis</mat-error>
                     </mat-form-field>
                 </div>

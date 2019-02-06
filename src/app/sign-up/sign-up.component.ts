@@ -83,7 +83,8 @@ export class SignUpComponent implements OnInit {
                 this._userService.checkEmailToken(codeEmail.code).subscribe((_) => {
                     this._authService.loginAfterValidationAccount(_);
                     this._router.navigate(['/']);
-                });
+                },
+                    (_) =>  this._errorMsg = _);
             }
         }
 
