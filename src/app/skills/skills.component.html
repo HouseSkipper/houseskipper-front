@@ -15,24 +15,21 @@
                         <mat-icon *ngIf="skill.type == 'Petits travaux de jardinage'" class="icon-skill" svgIcon="icon-jardinage"></mat-icon>
                         <mat-icon *ngIf="skill.type == 'Aménagement paysager'" class="icon-skill" svgIcon="icon-paysage"></mat-icon>
 
-                        <mat-card-subtitle *ngIf="skill.nb_works == 0 ">Non défini</mat-card-subtitle>
-                        <mat-card-subtitle *ngIf="skill.nb_works > 0 && skill.nb_works < 3">Débutant</mat-card-subtitle>
-                        <mat-card-subtitle *ngIf="skill.nb_works >= 3 && skill.nb_works < 5">Intermédaire</mat-card-subtitle>
-                        <mat-card-subtitle *ngIf="skill.nb_works == 5">Avancé</mat-card-subtitle>
+                        <mat-card-subtitle *ngIf="skill.nb_works == 1 ">Novice</mat-card-subtitle>
+                        <mat-card-subtitle *ngIf="skill.nb_works == 2">Débutant avancé</mat-card-subtitle>
+                        <mat-card-subtitle *ngIf="skill.nb_works == 3">Compétent</mat-card-subtitle>
+                        <mat-card-subtitle *ngIf="skill.nb_works == 4">Efficace</mat-card-subtitle>
+                        <mat-card-subtitle *ngIf="skill.nb_works == 5">Expert</mat-card-subtitle>
                     </mat-card-header>
                     <mat-card-content>
                         <section>
                             <mat-slider
-                                    min="0"
+                                    min="1"
                                     max="5"
                                     step="1"
                                     [(ngModel)]="skill.nb_works"
                             ></mat-slider>
                             <br>
-                            <mat-form-field>
-                                <input matInput type="number" min="0" disabled="true" placeholder="Travaux effectuées"
-                                       [(ngModel)]="skill.nb_works"> <!-- [(ngModel)]="value" -->
-                            </mat-form-field>
                         </section>
                     </mat-card-content>
                     <mat-dialog-actions align="end">
