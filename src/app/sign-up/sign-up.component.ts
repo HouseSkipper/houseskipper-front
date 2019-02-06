@@ -79,8 +79,8 @@ export class SignUpComponent implements OnInit {
             }
         } else {
             if (this._formCodeEmail.get(this._step).valid) {
-                console.log('Code vérif : ' + codeEmail.Code);
-                this._userService.checkEmailToken(codeEmail.Code).subscribe((_) => {
+                console.log('Code vérif : ' + codeEmail.code);
+                this._userService.checkEmailToken(codeEmail.code).subscribe((_) => {
                     this._authService.loginAfterValidationAccount(_);
                     this._router.navigate(['/']);
                 });
@@ -130,7 +130,7 @@ export class SignUpComponent implements OnInit {
 
     private _buildFormCodeEmail(): FormGroup {
         return new FormGroup({
-            Code: new FormControl('', Validators.required)
+            code: new FormControl('', Validators.required)
         });
     }
 
