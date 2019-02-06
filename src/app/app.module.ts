@@ -58,7 +58,7 @@ import { PrestataireComponent } from './prestataire/prestataire.component';
         SideMenuComponent,
         MainSideMenuComponent,
         CheckBrowserComponent,
-        AppLayoutComponent
+        AppLayoutComponent,
         PrestataireComponent
     ],
     imports: [
