@@ -62,6 +62,8 @@ export class LoginComponent implements OnInit {
     get errorMsg(): string {
         if (this._errorMsg === 'Unknown Error') {
             this._errorMsg = 'Le serveur n\'est pas up';
+        } else if (this._errorMsg === 'Nouvel endroit') {
+            this._router.navigate(['/validateAccountBrowser']);
         }
         return this._errorMsg;
     }

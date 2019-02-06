@@ -9,19 +9,31 @@ import {HouseComponent} from './houses/house/house.component';
 import { SkillsComponent} from './skills/skills.component';
 import {ValidateAccountComponent} from './validate-account/validate-account.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
+import {AppLayoutComponent} from './_layout/app-layout/app-layout.component';
 import {PrestataireComponent} from './prestataire/prestataire.component';
 
 const ROUTES: Routes = [
-    {path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuardService]},
-    {path: 'signup', component: SignUpComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'validateAccount/:emailToken', component: ValidateAccountComponent},
-    {path: 'users/houses/addhouse', component: FormHouseComponent, canActivate: [AuthGuardService]},
-    {path: 'users/houses/:id', component: FormHouseComponent, canActivate: [AuthGuardService]},
-    {path: 'users/houses', component: HouseComponent, canActivate: [AuthGuardService]},
-    { path: 'users/tasks', component: TaskComponent, canActivate: [AuthGuardService]},
-    { path: 'skills', component: SkillsComponent, canActivate: [AuthGuardService]},
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
+    // App routes goes here
+    {
+        path: '',
+        component: AppLayoutComponent,
+        children: [
+            {path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuardService]},
+            {path: 'validateAccount/:emailToken', component: ValidateAccountComponent},
+            {path: 'users/houses/addhouse', component: FormHouseComponent, canActivate: [AuthGuardService]},
+            {path: 'users/houses/:id', component: FormHouseComponent, canActivate: [AuthGuardService]},
+            {path: 'users/houses', component: HouseComponent, canActivate: [AuthGuardService]},
+            {path: 'users/tasks', component: TaskComponent, canActivate: [AuthGuardService]},
+            {path: 'skills', component: SkillsComponent, canActivate: [AuthGuardService]},
+            {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
+            {path: 'validateAccountBrowser', component: CheckBrowserComponent},
+        ]
+    },
+
+    // no layout routes
+    { path: 'login', component: LoginComponent},
+    { path: 'signup', component: SignUpComponent },
     { path: 'prestataireSignup', component: PrestataireComponent},
     {path: '**', redirectTo: ''}
 ];

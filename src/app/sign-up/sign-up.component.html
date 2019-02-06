@@ -73,8 +73,18 @@
                 </div>
 
             </form>
+            <form class="signup-form-container" novalidate [formGroup]="formCodeEmail">
+                <div id="code" *ngIf="step === 'Code'" [@slideInOut]>
+                    <h2 class="mat-headline">Code de vérification envoyé à votre adresse mail</h2>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Code de vérification</mat-label>
+                        <input matInput placeholder="Code Email" formControlName="Code">
+                        <mat-error class="alert alert-danger">Code requis</mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
             <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
-            <button id="continueButton" mat-button type="submit" (click)="continue(form.value)">
+            <button id="continueButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)">
                 Continuer
             </button>
 
@@ -82,3 +92,4 @@
 
     </mat-sidenav-content>
 </mat-sidenav-container>
+<app-legal-bar></app-legal-bar>

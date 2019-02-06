@@ -16,20 +16,28 @@
     height:100vh;
 }
 
-#errorMessage {
+button, mat-error, h1, a, mat-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*width:100%;*/
     margin-top:10px;
-    margin-bottom:20px;
+    margin-bottom:10px;
 }
 
-#slogan {
+h1 {
     text-align: center;
 }
 
 
-.fixedWidth {
+mat-form-field, button, a {
     width:300px;
 }
 
+#submitButton, span, a {
+    /*height:15%;*/
+    /*width: 100%;*/
+}
 
 #submitButton {
      color: black;
@@ -86,23 +94,4 @@
 .dropdown {
     margin-left: -30px;
     margin-top: 40px;
-}
-
-.b2b-cta-btn-icon {
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    fill: currentColor;
-    margin-right: 7px;
-}
-
-.Q {
-    width:16px;
-    height:16px;
-    display: block;
-    float: left;
 }

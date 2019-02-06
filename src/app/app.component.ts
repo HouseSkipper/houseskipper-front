@@ -12,8 +12,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private _matIconRegistry: MatIconRegistry, private _domSanitizer: DomSanitizer,
-                private _authService: AuthenticationService) {
+    constructor(private _matIconRegistry: MatIconRegistry, private _domSanitizer: DomSanitizer) {
     }
 
 
