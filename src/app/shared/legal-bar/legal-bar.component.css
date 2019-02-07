@@ -1,5 +1,5 @@
 
-.mat-body
+footer
 {
     text-align: right;
 }
@@ -7,11 +7,37 @@
 p
 {
     display: inline-block;
+    margin: 5px 20px;
 }
 
 a
 {
     text-decoration: none;
     display: inline-block;
-    width: 8vh;
+}
+
+.cookiesconsent
+{
+    position: fixed;
+    bottom: 5%;
+    left: 5%;
+
+    max-width: 300px;
+
+    padding: 10px 25px;
+
+    background-color: rgba(230, 230, 230, 0.7);
+    border-radius: 20px;
+}
+
+button
+{
+    border-radius: 10px;
+    font-size: 200%;
+
+    margin: 20px;
+    padding: 5px 10px;
+
+    background-color: rgb(72, 172, 152);
+    color:black;
 }
