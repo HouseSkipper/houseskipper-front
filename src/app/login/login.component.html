@@ -2,7 +2,7 @@
     <button  mat-button class="menu-button" [routerLink]="['/prestataireSignup']">
         <span class="b2b-cta-btn-icon">
             <img src="../../assets/images/prestataire.png" class="Q" />
-        </span> <span>Vous êtes un prestataire ?</span>
+        </span> <span>Vous êtes un partenaire?</span>
     </button>
         <app-lang-selector></app-lang-selector>
 </div>
@@ -22,6 +22,11 @@
                         <mat-label>Mot de passe</mat-label>
                         <input matInput placeholder="Mot de passe" type="password" formControlName="password">
                     </mat-form-field>
+
+                        <mat-radio-group>
+                            <mat-radio-button (click)="changelogin()" value="0">Êtes-vous un partenaire?</mat-radio-button>
+                        </mat-radio-group>
+                    <br/><br/>
                     <mat-error id="errorMessage" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
                     <button class="fixedWidth" id="submitButton" color="accent" mat-button type="submit"  (click)="submit(form.value)">Connexion</button>
                     <button class="fixedWidth" id="createButton" mat-button class="md-accent" [routerLink]="['/signup']">Créer un compte</button>

@@ -22,10 +22,16 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
-  <br/>
-    <button mat-raised-button type="submit" (click)="onSaveFile(blogTask.name)" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Sauvegarder</button>
-  </form>
+    <div *ngIf="uploadFile" mat-dialog-content class="example-form">
+      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+      <br/>
+      <button mat-raised-button type="submit" (click)="onSaveFile(blogTask.name)" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Sauvegarder et charger le fichier</button>
+    </div>
+    <div *ngIf="!uploadFile" mat-dialog-content class="example-form">
+
+      <button mat-raised-button type="submit"                      color="primary">Sauvegarder</button>
+    </div>
+    </form>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button class="close" (click)="onNoClick()" color="warn">Annulez</button>

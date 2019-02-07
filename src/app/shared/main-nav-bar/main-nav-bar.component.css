@@ -1,8 +1,8 @@
 #logo {
-    margin-left:auto;
+    margin-left:-5px;
     justify-self: flex-start;
-    width:50px;
-    height:50px;
+    width:65%;
+    height: 65%;
 }
 
 .mat-toolbar {

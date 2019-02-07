@@ -23,7 +23,7 @@
         </mat-form-field>
         <mat-form-field >
           <mat-label>Zip Code de la Société</mat-label>
-          <input matInput placeholder="Nom de la Société" formControlName="zip">
+          <input matInput placeholder="Nom de la Société" formControlName="zipCode">
         </mat-form-field>
         <mat-form-field >
           <mat-label>Adresse email</mat-label>
@@ -34,6 +34,7 @@
           <textarea matInput placeholder="Commentaire" formControlName="commentaire"></textarea>
         </mat-form-field>
         <mat-error *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
+        <mat-error *ngIf="confirmMsg" style="color: green">{{confirmMsg}}</mat-error>
         <button id="submitButton" color="accent" mat-button type="submit"  (click)="submit(form.value)">Enoyer Votre Demande</button>
       </mat-card>
     </form>

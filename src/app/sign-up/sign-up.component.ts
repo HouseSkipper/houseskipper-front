@@ -67,9 +67,11 @@ export class SignUpComponent implements OnInit {
 
     continue(data: any, codeEmail: any) {
         const index = this._fieldsFlatten.indexOf(this._step);
-        if (index < this._fieldsFlatten.length) {
+        if (index <= 5) {
             if (this._form.get(this._step).valid) {
-                if (index < (this._fieldsFlatten.length - 1)) {
+                console.log('index:' + index);
+                if (index < 5) {
+                    console.log('on est dans la même categorie');
                     this._step = this._fieldsFlatten[index + 1];
                 } else {
                     this._step = this._fieldsFlatten[index + 1];
@@ -219,6 +221,9 @@ export class SignUpComponent implements OnInit {
 
 
     get errorMsg(): string {
+        if (this._errorMsg === 'Unknown Error') {
+            this._errorMsg = 'Le serveur n\'est pas up';
+        }
         return this._errorMsg;
     }
 
@@ -229,5 +234,6 @@ export class SignUpComponent implements OnInit {
     set cgu (value: boolean) {
         this._cgu = value;
     }
+
 
 }

@@ -28,6 +28,8 @@ a
 
     background-color: rgba(230, 230, 230, 0.7);
     border-radius: 20px;
+
+    z-index: 10;
 }
 
 button

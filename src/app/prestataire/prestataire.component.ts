@@ -13,6 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class PrestataireComponent implements OnInit {
 
     private _errorMsg = '';
+    private _confirmMsg = '';
     private _form: FormGroup;
     private _professions: string [];
   constructor(private _prestataireService: PrestataireService, private _router: Router, private _route: ActivatedRoute) {
@@ -36,7 +37,7 @@ export class PrestataireComponent implements OnInit {
             nomSociete: new FormControl('', Validators.compose([
                 Validators.required, Validators.minLength(3)
             ])),
-            zip: new FormControl('0000', Validators.compose([
+            zipCode: new FormControl('00000', Validators.compose([
                 Validators.pattern('\\d{5}')
             ])),
             email: new FormControl('', Validators.compose([
@@ -61,17 +62,23 @@ export class PrestataireComponent implements OnInit {
         return this._errorMsg;
     }
 
+    get confirmMsg(): string {
+        return this._confirmMsg;
+    }
+
     submit (prestataire: Prestataire) {
       console.log(prestataire);
-      if (this.verifieEmail(prestataire.email) === '') {
-          this._prestataireService.create(prestataire).subscribe( (_) => this._router.navigate([ 'login']));
+      if (this.verifieEmail(prestataire.email) === 'Votre demande e été bien envoyé.') {
+          this._prestataireService.create(prestataire).subscribe( (_) => this._router.navigate([ '/login']));
       }
     }
 
     private verifieEmail(email: string): string {
-        if (email.includes('gmail') || email.includes('outlook') || email.includes('yahoo')) {
+        this._errorMsg = '';
+        this._confirmMsg = '';
+        if (email.includes('outlook') || email.includes('yahoo')) {
             return this._errorMsg = 'Email incorrect ! Veuillez saisir l\'email de l\'entreprise.';
         }
-        return '';
+        return this._confirmMsg = 'Votre demande e été bien envoyé.';
     }
 }
