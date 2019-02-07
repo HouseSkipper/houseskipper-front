@@ -33,10 +33,10 @@ export class SignUpComponent implements OnInit {
     private _fieldsFlatten: string[];
     private _errorMsg: string;
     private _invalid: boolean;
-    private _roles: string[] = ['Particulier-propriétaire']; //, 'Prestataire de services'];
+    private _roles: string[] = ['Particulier-propriétaire']; //  'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
     private  _formCodeEmail: FormGroup;
-    private _cgu :boolean;
+    private _cgu: boolean;
 
 
 
@@ -61,7 +61,6 @@ export class SignUpComponent implements OnInit {
                 i++;
             }
         });
-        console.log(this._fieldsFlatten);
         this._step = this._fieldsFlatten[0];
         this._cgu = false;
     }
@@ -70,9 +69,7 @@ export class SignUpComponent implements OnInit {
         const index = this._fieldsFlatten.indexOf(this._step);
         if (index < this._fieldsFlatten.length) {
             if (this._form.get(this._step).valid) {
-                console.log('index:' + index);
                 if (index < (this._fieldsFlatten.length - 1)) {
-                    console.log('on est dans la même categorie');
                     this._step = this._fieldsFlatten[index + 1];
                 } else {
                     this._step = this._fieldsFlatten[index + 1];
@@ -81,7 +78,6 @@ export class SignUpComponent implements OnInit {
             }
         } else {
             if (this._formCodeEmail.get(this._step).valid) {
-                console.log('Code vérif : ' + codeEmail.code);
                 this._userService.checkEmailToken(codeEmail.code).subscribe((_) => {
                     this._authService.loginAfterValidationAccount(_);
                     this._router.navigate(['/']);
@@ -226,11 +222,11 @@ export class SignUpComponent implements OnInit {
         return this._errorMsg;
     }
 
-    get cgu () :boolean {
+    get cgu (): boolean {
         return this._cgu;
     }
 
-    set cgu (value :boolean) {
+    set cgu (value: boolean) {
         this._cgu = value;
     }
 

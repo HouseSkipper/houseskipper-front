@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MenuListService} from '../../services/menu/menu-list.service';
-import {User} from '../../interfaces/user';
 
 @Component({
     selector: 'app-side-menu',
@@ -30,7 +28,6 @@ export class SideMenuComponent implements OnInit {
         let res = false;
         this._fields.forEach(_ => {
             if (_.title === this._step) {
-                console.log(_.title);
                 if (_.values.indexOf(element) > -1) {
                     res = true;
                 }

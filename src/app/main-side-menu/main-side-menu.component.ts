@@ -1,6 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {MenuListService} from '../services/menu/menu-list.service';
 import {MainMenuListService} from '../services/menu/main-menu-list.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-main-side-menu',
@@ -45,4 +46,6 @@ export class MainSideMenuComponent implements OnInit {
     get step() {
         return this._step;
     }
+
+
 }
