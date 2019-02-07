@@ -33,10 +33,10 @@ export class SignUpComponent implements OnInit {
     private _fieldsFlatten: string[];
     private _errorMsg: string;
     private _invalid: boolean;
-    private _roles: string[] = ['Particulier-propriétaire']; //, 'Prestataire de services'];
+    private _roles: string[] = ['Particulier-propriétaire']; // , 'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
     private  _formCodeEmail: FormGroup;
-    private _cgu :boolean;
+    private _cgu: boolean;
 
 
 
@@ -229,12 +229,26 @@ export class SignUpComponent implements OnInit {
         return this._errorMsg;
     }
 
-    get cgu () :boolean {
+    get cgu (): boolean {
         return this._cgu;
     }
 
-    set cgu (value :boolean) {
+    set cgu (value: boolean) {
         this._cgu = value;
+    }
+
+    check(f: any): boolean {
+        let counter  = 0;
+        const length = f.value.values.length;
+        for (let i = 0; i < length ; i++) {
+           // console.log(f.value.values[i]);
+            if (f.value.values[i] !== 'code') {
+                if (this._form.get(f.value.values[i]).valid) {
+                    counter = counter + 1;
+                }
+            }
+        }
+        return length === counter;
     }
 
 
