@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PrestataireComponent } from './prestataire.component';
+import { ShortcutAreaComponent } from './shortcut-area.component';
 
-describe('PrestataireComponent', () => {
-  let component: PrestataireComponent;
-  let fixture: ComponentFixture<PrestataireComponent>;
+describe('ShortcutAreaComponent', () => {
+  let component: ShortcutAreaComponent;
+  let fixture: ComponentFixture<ShortcutAreaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PrestataireComponent ]
+      declarations: [ ShortcutAreaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PrestataireComponent);
+    fixture = TestBed.createComponent(ShortcutAreaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
