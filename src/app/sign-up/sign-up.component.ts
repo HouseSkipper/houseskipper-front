@@ -33,9 +33,10 @@ export class SignUpComponent implements OnInit {
     private _fieldsFlatten: string[];
     private _errorMsg: string;
     private _invalid: boolean;
-    private _roles: string[] = ['Particulier-propriétaire', 'Prestataire de services'];
+    private _roles: string[] = ['Particulier-propriétaire']; //, 'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
     private  _formCodeEmail: FormGroup;
+    private _cgu :boolean;
 
 
 
@@ -62,14 +63,15 @@ export class SignUpComponent implements OnInit {
         });
         console.log(this._fieldsFlatten);
         this._step = this._fieldsFlatten[0];
+        this._cgu = false;
     }
 
     continue(data: any, codeEmail: any) {
         const index = this._fieldsFlatten.indexOf(this._step);
-        if (index <= 5) {
+        if (index < this._fieldsFlatten.length) {
             if (this._form.get(this._step).valid) {
                 console.log('index:' + index);
-                if (index < 5) {
+                if (index < (this._fieldsFlatten.length - 1)) {
                     console.log('on est dans la même categorie');
                     this._step = this._fieldsFlatten[index + 1];
                 } else {
@@ -223,4 +225,13 @@ export class SignUpComponent implements OnInit {
     get errorMsg(): string {
         return this._errorMsg;
     }
+
+    get cgu () :boolean {
+        return this._cgu;
+    }
+
+    set cgu (value :boolean) {
+        this._cgu = value;
+    }
+
 }
