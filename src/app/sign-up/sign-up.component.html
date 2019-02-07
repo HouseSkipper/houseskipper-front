@@ -81,9 +81,9 @@
                         <input matInput placeholder="Code Email" formControlName="code" required>
                         <mat-error class="alert alert-danger" *ngIf="formCodeEmail.invalid">Code requis</mat-error>
                     </mat-form-field>
-                    <mat-form-field>
-                        <input type="checkbox" [(ngModel)]="cgu" /> J'accepte les conditions générales d'utilisations.
-                    </mat-form-field>
+                    <div class="margin">
+                        <input class="mat-body" type="checkbox" [(ngModel)]="cgu" [ngModelOptions]="{standalone: true}"> J'accepte les conditions générales d'utilisations.
+                    </div>
                 </div>
             </form>
             <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
