@@ -9,10 +9,22 @@ import {Component, OnInit} from '@angular/core';
 export class LegalBarComponent implements OnInit
 {
 
+
+    cookies_consent :boolean;
+
     constructor ()
     {}
 
     ngOnInit ()
-    {}
+    {
+        this.cookies_consent = false;
+    }
+
+
+
+    accept ()
+    {
+        this.cookies_consent = true;
+    }
 
 }
