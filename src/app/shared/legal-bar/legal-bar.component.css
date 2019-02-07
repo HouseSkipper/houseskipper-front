@@ -18,6 +18,7 @@ a
 
 .cookiesconsent
 {
+    display:flex;
     position: fixed;
     bottom: 5%;
     left: 5%;
@@ -42,4 +43,29 @@ button
 
     background-color: rgb(72, 172, 152);
     color:black;
+}
+
+.footerText {
+    align-self: center;
+    margin-right: 15px;
+    font-size:12px;
+}
+
+#footerId {
+    bottom:0;
+    display:flex;
+    align-content: center;
+    justify-content: flex-end;
+    height:60px;
+}
+
+#footerBody {
+    bottom:0;
+    display:flex;
+    justify-content: flex-end;
+    align-content: center;
+}
+
+#more {
+    margin-top:10px;
 }
