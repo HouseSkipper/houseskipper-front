@@ -3,7 +3,8 @@ export interface Prestataire {
     profession: string;
     nom: string;
     nomSociete: string;
-    zip: string;
+    zipCode: string;
     email: string;
     commentaire: string;
+    password?: string;
 }

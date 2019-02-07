@@ -20,6 +20,7 @@ export class TaskDialogComponent implements OnInit {
     private readonly _backendURL: any;
     public uploader: FileUploader = new FileUploader({authToken: 'Bearer ' + this.authService.currentUserValue.token});
     data: string;
+    uploadFile: boolean;
     blogTask = {
         name: '',
         room: '',
@@ -55,7 +56,9 @@ export class TaskDialogComponent implements OnInit {
         if (!!blog) {
             this.blogTask = blog;
             this.data = 'Edit Task';
+            this.uploadFile = true;
         } else {
+            this.uploadFile = false;
             this.data = 'Add Task';
         }
         this.dataService.getAll().subscribe((_) => this._rooms = _);
@@ -70,9 +73,8 @@ export class TaskDialogComponent implements OnInit {
         this.event.emit({data: this.blogTask});
         this.dialogRef.close();
     }
-
     onSaveFile(name): void {
-        console.log(name );
+        console.log(name);
         this.uploader.setOptions({url: this._backendURL.upload.replace(':id', name), headers: this._options()});
         this.uploader.uploadAll();
     }

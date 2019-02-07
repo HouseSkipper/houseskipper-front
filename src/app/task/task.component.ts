@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {DataService} from '../services/task.service';
 import {DataSource} from '@angular/cdk/table';
-import {Task} from '../interfaces/task';
+import { Task} from '../interfaces/task';
 import {MatDialog} from '@angular/material';
 import {TaskDialogComponent} from '../task-dialog/task-dialog.component';
 import {DataaService} from '../services/dataa.service';
@@ -22,7 +22,7 @@ export class TaskComponent implements OnInit {
     displayedColumns = ['start_date', 'name', 'room', 'description', 'budget', 'status', 'file', 'delete'];
     dataSource = new TaskDataSource(this._dataService);
     private _files: string[];
-    blogFile = { filename: ''};
+    blogFile = { filename: '', file: ''};
     fileURL;
     constructor(private _dataService: DataaService, public dialog: MatDialog,
                 ) {
@@ -57,11 +57,15 @@ export class TaskComponent implements OnInit {
     }
 
     filesNames(id): void {
-        this._dataService.getFiles(id).subscribe((_) => this._files = _, null, null);
+
+        this._dataService.getFiles(id).subscribe((_) => this._files = _, () => this._files = [], () => {
+            setTimeout(() => { console.log(''); }, 4000);
+        });
     }
 
-    downloadFile() {
-        this._dataService.downloadFileNow(this.blogFile.filename).subscribe(
+    downloadFile(file, id) {
+        console.log(file + ', ' + id);
+        this._dataService.downloadFileNow(file, id).subscribe(
             response => this.downloadFileAs(response, 'image/png')
         );
         /*
@@ -92,7 +96,7 @@ export class TaskComponent implements OnInit {
 
 
     private downloadFileAs(data: any, type: string) {
-        let a = document.createElement('a');
+        const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: type});
         const url = window.URL.createObjectURL(blob);
