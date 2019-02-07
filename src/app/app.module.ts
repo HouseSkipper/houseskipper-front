@@ -38,6 +38,7 @@ import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { PrestataireComponent } from './prestataire/prestataire.component';
 import { ShortcutAreaComponent } from './shared/shortcut-area/shortcut-area.component';
+import {CookieService} from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -89,7 +90,7 @@ import { ShortcutAreaComponent } from './shared/shortcut-area/shortcut-area.comp
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
-        DataService, DataaService
+        DataService, DataaService, CookieService
     ],
     entryComponents: [
         TaskDialogComponent

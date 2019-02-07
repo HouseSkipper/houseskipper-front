@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {CookieService} from 'ngx-cookie-service';
 
 
 @Component({
@@ -12,12 +13,21 @@ export class LegalBarComponent implements OnInit
 
     cookies_consent :boolean;
 
-    constructor ()
-    {}
+
+    constructor (private cookieService :CookieService)
+    {
+        this.cookies_consent = false;
+    }
+
+
 
     ngOnInit ()
     {
-        this.cookies_consent = false;
+        if (this.cookieService.check('cookieConsent')) {
+            if (this.cookieService.get('cookieConsent') == 'YES') {
+                this.cookies_consent = true;
+            }
+        }
     }
 
 
@@ -25,6 +35,7 @@ export class LegalBarComponent implements OnInit
     accept ()
     {
         this.cookies_consent = true;
+        this.cookieService.set('cookieConsent', 'YES');
     }
 
 }
