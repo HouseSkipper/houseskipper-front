@@ -82,7 +82,7 @@
                         <mat-error class="alert alert-danger" *ngIf="formCodeEmail.invalid">Code requis</mat-error>
                     </mat-form-field>
                     <mat-form-field>
-                        <input type="checkbox" formControlName="cgu" [(checked)]="cgu" /> J'accepte les conditions générales d'utilisations.
+                        <input type="checkbox" [(ngModel)]="cgu" /> J'accepte les conditions générales d'utilisations.
                     </mat-form-field>
                 </div>
             </form>
