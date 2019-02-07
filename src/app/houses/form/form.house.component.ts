@@ -203,14 +203,18 @@ export class FormHouseComponent implements OnInit, OnChanges {
     }
 
     prevStep() {
-        this._step--;
+        if (this._form.get('exterieur').value === '0' && this._step === 6) {
+            this._step = this._step - 2;
+        } else {
+            this._step--;
+        }
     }
 
     ngOnInit() {
         this._route.params
             .pipe(
                 map((params: any) => params.id),
-                flatMap((id: string) => this._houseService.fetchHouse(id))
+                flatMap((id: string) => id === undefined ? undefined : this._houseService.fetchHouse(id))
             )
             .subscribe((house: House) => house === undefined ? undefined : this.ngOnChanges(house));
             // .subscribe((house: House) => console.log(house));

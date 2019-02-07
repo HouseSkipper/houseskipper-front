@@ -10,7 +10,7 @@ import {
     MatIconModule,
     MatInputModule, MatRadioModule,
     MatSelectModule, MatSidenavModule, MatSliderModule,
-    MatToolbarModule
+    MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
@@ -82,6 +82,7 @@ import { PrestataireComponent } from './prestataire/prestataire.component';
         FormsModule,
         MatSliderModule,
         FileUploadModule,
+        MatTooltipModule,
         APP_ROUTES
     ],
     providers: [

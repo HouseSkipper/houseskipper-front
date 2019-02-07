@@ -1,7 +1,15 @@
 
-<div class="footer">
+<div class="cookiesconsent" *ngIf="!cookies_consent">
+    <p>
+        Nous utilisons les cookies pour vous fournir la meilleure expérience possible. <br/>
+        <a href="../assets/documents/CGU.pdf">-> En savoir plus</a>
+    </p>
+    <button (click)="accept()">OK</button>
+</div>
+
+<footer>
     <div class="mat-body">
         <p>© HouseSkipper 2019</p>
         <a href="../assets/documents/CGU.pdf">CGU</a>
     </div>
-</div>
+</footer>

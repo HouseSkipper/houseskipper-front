@@ -15,28 +15,39 @@
                         <mat-icon *ngIf="skill.type == 'Petits travaux de jardinage'" class="icon-skill" svgIcon="icon-jardinage"></mat-icon>
                         <mat-icon *ngIf="skill.type == 'Aménagement paysager'" class="icon-skill" svgIcon="icon-paysage"></mat-icon>
 
-                        <mat-card-subtitle *ngIf="skill.nb_works == 0 ">Non défini</mat-card-subtitle>
-                        <mat-card-subtitle *ngIf="skill.nb_works > 0 && skill.nb_works < 3">Débutant</mat-card-subtitle>
-                        <mat-card-subtitle *ngIf="skill.nb_works >= 3 && skill.nb_works < 5">Intermédaire</mat-card-subtitle>
-                        <mat-card-subtitle *ngIf="skill.nb_works == 5">Avancé</mat-card-subtitle>
+                        <mat-card-subtitle *ngIf="skill.nb_works == 1" matTooltip="Personne qui possède peu ou aucune
+                        expérience dans le domaine et a besoin d’un guide pour assurer un suivi des travaux.">Novice</mat-card-subtitle>
+
+                        <mat-card-subtitle *ngIf="skill.nb_works == 2" matTooltip="Personne qui possède un peu d’expérience
+                         dans le domaine mais reste dépendante d’un guide pour assurer
+                          un suivi des travaux.">Débutant avancé</mat-card-subtitle>
+
+                        <mat-card-subtitle *ngIf="skill.nb_works == 3" matTooltip="Personne qui commence à avoir un
+                        nombre suffisant d’expériences dans le domaine pour réaliser
+                        un suivi éclairé des travaux.">Compétent</mat-card-subtitle>
+
+                        <mat-card-subtitle *ngIf="skill.nb_works == 4" matTooltip="Personne qui possède une expérience
+                        suffisante du domaine pour savoir ce qu’il faut faire dans la plupart des cas pour réaliser
+                        un suivi des travaux.">Efficace</mat-card-subtitle>
+
+                        <mat-card-subtitle *ngIf="skill.nb_works == 5" matTooltip="Personne qui possède suffisamment
+                        d’expérience dans le domaine pour savoir précisément ce qu’il faut faire pour réaliser un suivi
+                        des travaux.">Expert</mat-card-subtitle>
+
                     </mat-card-header>
                     <mat-card-content>
                         <section>
                             <mat-slider
-                                    min="0"
+                                    min="1"
                                     max="5"
                                     step="1"
                                     [(ngModel)]="skill.nb_works"
                             ></mat-slider>
                             <br>
-                            <mat-form-field>
-                                <input matInput type="number" min="0" disabled="true" placeholder="Travaux effectuées"
-                                       [(ngModel)]="skill.nb_works"> <!-- [(ngModel)]="value" -->
-                            </mat-form-field>
                         </section>
                     </mat-card-content>
                     <mat-dialog-actions align="end">
-                        <button mat-raised-button color="primary" type="submit" (click)="submit(skill)">Save</button>
+                        <button mat-raised-button color="primary" type="submit" (click)="submit(skill)">Sauvegarder</button>
                     </mat-dialog-actions>
                 </mat-card>
     </div>

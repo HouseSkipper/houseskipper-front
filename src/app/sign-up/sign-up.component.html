@@ -78,13 +78,16 @@
                     <h2 class="mat-headline">Code de vérification envoyé à votre adresse mail</h2>
                     <mat-form-field appearance="outline">
                         <mat-label>Code de vérification</mat-label>
-                        <input matInput placeholder="Code Email" formControlName="code">
+                        <input matInput placeholder="Code Email" formControlName="code" required>
                         <mat-error class="alert alert-danger" *ngIf="formCodeEmail.invalid">Code requis</mat-error>
                     </mat-form-field>
+                    <div class="margin">
+                        <input class="mat-body" type="checkbox" [(ngModel)]="cgu" [ngModelOptions]="{standalone: true}"> J'accepte les conditions générales d'utilisations.
+                    </div>
                 </div>
             </form>
             <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
-            <button id="continueButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)">
+            <button id="continueButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)" [disabled]="step == 'code' && !cgu">
                 Continuer
             </button>
 
