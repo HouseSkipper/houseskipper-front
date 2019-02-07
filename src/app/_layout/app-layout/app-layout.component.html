@@ -4,10 +4,14 @@
     <app-main-side-menu (setStep)="routerStep($event)">
     </app-main-side-menu>
   </mat-sidenav>
+  <mat-sidenav id="sideMenuRight" mode="side" opened position="end">
+    <app-shortcut-area></app-shortcut-area>
+  </mat-sidenav>
   <mat-sidenav-content>
     <div id="contentContainer">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
+
 </mat-sidenav-container>
 <app-legal-bar></app-legal-bar>
