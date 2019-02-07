@@ -1,8 +1,9 @@
 #logo {
     margin-left:-5px;
     justify-self: flex-start;
-    width:65%;
-    height: 65%;
+    width:80px;
+    height:80px;
+    margin-right:10px;
 }
 
 .mat-toolbar {
@@ -21,6 +22,8 @@
 }
 
 #logoA {
+    text-decoration: none;
+    display: flex;
     text-align: left !important;
 }
 
@@ -31,4 +34,20 @@
 
 .extend-toolbar {
     box-shadow: 0 0.2em 0.3em rgba(0, 0, 0, 0.075);
+}
+
+#house {
+    font-weight: 600;
+    align-self: center;
+    text-decoration: none;
+    font-family: 'D-DIN-Bold';
+    color: #8E9DC3;
+}
+
+#skipper {
+    font-weight: 600;
+    align-self: center;
+    text-decoration: none;
+    font-family: 'D-DIN-Bold';
+    color: #3B3967;
 }
