@@ -1,4 +1,3 @@
-<app-main-nav-bar></app-main-nav-bar>
 <mat-accordion class="example-headers-align justify-content">
     <form novalidate [formGroup]="form">
         <!-- Caractéristiques générales -->
@@ -74,7 +73,8 @@
                 </mat-form-field>
             </div>
             <mat-action-row>
-                <button mat-button color="primary" (click)="nextStep()">Next</button>
+                <button mat-button color="primary" [disabled]="form.get('houseType').invalid && form.get('residence').invalid
+                && form.get('houseName').invalid && form.get('standardType').invalid " (click)="nextStep()">Suivant</button>
             </mat-action-row>
         </mat-expansion-panel>
 
@@ -134,8 +134,9 @@
                 </mat-form-field>
             </div>
             <mat-action-row>
-                <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                <button mat-button color="primary" (click)="nextStep()">Next</button>
+                <button mat-button color="warn" (click)="prevStep()">Précédent</button>
+                <button mat-button color="primary" [disabled]="form.get('pays').invalid && form.get('address').invalid
+                 && form.get('postalCode').invalid && form.get('city').invalid"  (click)="nextStep()">Suivant</button>
             </mat-action-row>
         </mat-expansion-panel>
 
@@ -172,7 +173,7 @@
 
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Modifier l'adresse</button>
-                <button mat-button color="primary" (click)="nextStep()">Continuer</button>
+                <button mat-button color="primary" [disabled]="form.get('address').invalid && form.get('postalCode').invalid && form.get('pays').invalid" (click)="nextStep()">Confirmer</button>
             </mat-action-row>
         </mat-expansion-panel>
 
@@ -237,8 +238,8 @@
             </div>
 
             <mat-action-row>
-                <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                <button mat-button color="primary" (click)="nextStep()">Next</button>
+                <button mat-button color="warn" (click)="prevStep()">Précédent</button>
+                <button mat-button color="primary" (click)="nextStep()">Suivant</button>
             </mat-action-row>
         </mat-expansion-panel>
 
@@ -363,8 +364,8 @@
             </div>
 
             <mat-action-row>
-                <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                <button mat-button color="primary" (click)="nextStep()">Next</button>
+                <button mat-button color="warn" (click)="prevStep()">Précédent</button>
+                <button mat-button color="primary" (click)="nextStep()">Suivant</button>
             </mat-action-row>
         </mat-expansion-panel>
 
@@ -438,8 +439,8 @@
             </div>
 
             <mat-action-row>
-                <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                <button mat-button color="primary" (click)="nextStep()">Next</button>
+                <button mat-button color="warn" (click)="prevStep()">Précédent</button>
+                <button mat-button color="primary" (click)="nextStep()">Suivant</button>
             </mat-action-row>
         </mat-expansion-panel>
 
@@ -462,11 +463,11 @@
                 </mat-form-field>
             </div>
             <mat-action-row>
-                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="warn" (click)="prevStep()">Précédent</button>
                 <!--button mat-button color="primary" type="submit" (click)="submit(form.value)">Save</button-->
                 <button *ngIf="isUpdateMode === false" mat-button color="primary" type="submit"
                         (click)="submit(form.value)" [disabled]="form.invalid">
-                    Enregistrer
+                    Ajouter
                 </button>
                 <button *ngIf="isUpdateMode === true" mat-button color="primary" type="submit"
                         (click)="modifier(form.value)" [disabled]="form.invalid">

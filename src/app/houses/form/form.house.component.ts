@@ -203,7 +203,11 @@ export class FormHouseComponent implements OnInit, OnChanges {
     }
 
     prevStep() {
-        this._step--;
+        if (this._form.get('exterieur').value === '0' && this._step === 6) {
+            this._step = this._step - 2;
+        } else {
+            this._step--;
+        }
     }
 
     ngOnInit() {
