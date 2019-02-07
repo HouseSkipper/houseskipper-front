@@ -98,4 +98,12 @@ mat-sidenav-container {
 .titleField {
     font-weight: bold;
     font-size:1.2em;
+    padding-left: 3px;
 }
+
+.iconChecked {
+    width: 20px;
+    height: 20px;
+    padding-top: 3px;
+}
+
