@@ -223,6 +223,9 @@ export class SignUpComponent implements OnInit {
 
 
     get errorMsg(): string {
+        if (this._errorMsg === 'Unknown Error') {
+            this._errorMsg = 'Le serveur n\'est pas up';
+        }
         return this._errorMsg;
     }
 
@@ -233,5 +236,6 @@ export class SignUpComponent implements OnInit {
     set cgu (value :boolean) {
         this._cgu = value;
     }
+
 
 }
