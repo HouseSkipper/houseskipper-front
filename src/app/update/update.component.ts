@@ -18,4 +18,12 @@ export class UpdateComponent implements OnInit {
       this._userService.fetchOne(this._authService.currentUserValue.id).subscribe((user: User) => this._model = user);
   }
 
+  get model(): User {
+    return this._model;
+  }
+
+  openDialog(): any {
+
+  }
+
 }
