@@ -6,7 +6,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
 import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';
-import {animate, style, transition, trigger} from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
     selector: 'app-sign-up',
@@ -14,12 +14,13 @@ import {animate, style, transition, trigger} from '@angular/animations';
     styleUrls: ['./sign-up.component.css'],
     animations: [
         trigger('slideInOut', [
+            state('in', style({opacity: 1})),
             transition(':leave', [
-                animate('400ms ease-in', style({transform: 'translateX(-100%)'}))
+                animate('200ms ease-in', style({transform: 'translateX(+100%)', opacity: 0}))
             ]),
             transition(':enter', [
-                style({transform: 'translateX(-100%)'}),
-                animate('400ms ease-in', style({transform: 'translateX(0%)'}))
+                style({transform: 'translateX(100%)', opacity: 0}),
+                animate('600ms ease-in', style({transform: 'translateX(0%)'}))
             ])
         ])
     ]
@@ -33,10 +34,10 @@ export class SignUpComponent implements OnInit {
     private _fieldsFlatten: string[];
     private _errorMsg: string;
     private _invalid: boolean;
-    private _roles: string[] = ['Particulier-propriétaire']; //, 'Prestataire de services'];
+    private _roles: string[] = ['Particulier-propriétaire']; // 'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
     private  _formCodeEmail: FormGroup;
-    private _cgu :boolean;
+    private _cgu: boolean;
 
 
 
@@ -61,7 +62,6 @@ export class SignUpComponent implements OnInit {
                 i++;
             }
         });
-        console.log(this._fieldsFlatten);
         this._step = this._fieldsFlatten[0];
         this._cgu = false;
     }
@@ -81,7 +81,6 @@ export class SignUpComponent implements OnInit {
             }
         } else {
             if (this._formCodeEmail.get(this._step).valid) {
-                console.log('Code vérif : ' + codeEmail.code);
                 this._userService.checkEmailToken(codeEmail.code).subscribe((_) => {
                     this._authService.loginAfterValidationAccount(_);
                     this._router.navigate(['/']);
@@ -223,15 +222,33 @@ export class SignUpComponent implements OnInit {
 
 
     get errorMsg(): string {
+        if (this._errorMsg === 'Unknown Error') {
+            this._errorMsg = 'Le serveur n\'est pas up';
+        }
         return this._errorMsg;
     }
 
-    get cgu () :boolean {
+    get cgu (): boolean {
         return this._cgu;
     }
 
-    set cgu (value :boolean) {
+    set cgu (value: boolean) {
         this._cgu = value;
     }
+
+    check(f: any): boolean {
+        let counter  = 0;
+        const length = f.value.values.length;
+        for (let i = 0; i < length ; i++) {
+           // console.log(f.value.values[i]);
+            if (f.value.values[i] !== 'code') {
+                if (this._form.get(f.value.values[i]).valid) {
+                    counter = counter + 1;
+                }
+            }
+        }
+        return length === counter;
+    }
+
 
 }

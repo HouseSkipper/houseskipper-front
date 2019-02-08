@@ -37,6 +37,8 @@ import {LegalBarComponent} from './shared/legal-bar/legal-bar.component';
 import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { PrestataireComponent } from './prestataire/prestataire.component';
+import { ShortcutAreaComponent } from './shared/shortcut-area/shortcut-area.component';
+import {CookieService} from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -59,7 +61,8 @@ import { PrestataireComponent } from './prestataire/prestataire.component';
         MainSideMenuComponent,
         CheckBrowserComponent,
         AppLayoutComponent,
-        PrestataireComponent
+        PrestataireComponent,
+        ShortcutAreaComponent
     ],
     imports: [
         BrowserModule,
@@ -88,6 +91,7 @@ import { PrestataireComponent } from './prestataire/prestataire.component';
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
         DataService, TasksService
+        DataService, DataaService, CookieService
     ],
     entryComponents: [
         TaskDialogComponent

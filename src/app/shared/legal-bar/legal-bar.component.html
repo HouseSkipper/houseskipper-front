@@ -1,15 +1,17 @@
 
-<div class="cookiesconsent" *ngIf="!cookies_consent">
-    <p>
+<div class="cookiesconsent body-1" *ngIf="!cookies_consent">
+    <p class="mat-body-1">
         Nous utilisons les cookies pour vous fournir la meilleure expérience possible. <br/>
-        <a href="../assets/documents/CGU.pdf">-> En savoir plus</a>
+        <a id="more" href="../assets/documents/CGU.pdf">En savoir plus</a>
     </p>
     <button (click)="accept()">OK</button>
 </div>
 
-<footer>
-    <div class="mat-body">
-        <p>© HouseSkipper 2019</p>
-        <a href="../assets/documents/CGU.pdf">CGU</a>
+<footer id="footerId">
+    <div id="footerBody" class="mat-body">
+        <p class="body-1 footerText">© HouseSkipper 2019</p>
+        <a class="footerText" href="" (click)="cookies_consent = false">Actualiser les paramètres des cookies</a>
+        <a class="footerText" href="../assets/documents/CGU.pdf">Politique de confidentialité</a> <mat-icon svgIcon="call_made"></mat-icon>
+        <a class="footerText" href="../assets/documents/CGU.pdf">CGU</a> <mat-icon svgIcon="call-made"></mat-icon>
     </div>
 </footer>
