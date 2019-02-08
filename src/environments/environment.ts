@@ -30,7 +30,9 @@ export const environment = {
             },
             allSkills: '/skills',
             oneSkill: '/skills/:idSkill',
-            onePrestataire: '/add/prestataire'
+            onePrestataire: '/add/prestataire',
+            allShortcuts: '/shortcuts',
+            oneShortcut: '/shortcut/:id'
         }
     }
 };
