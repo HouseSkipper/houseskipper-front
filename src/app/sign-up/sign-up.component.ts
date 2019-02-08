@@ -7,11 +7,13 @@ import {Router} from '@angular/router';
 import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';
 import {animate, style, transition, trigger} from '@angular/animations';
+import * as $ from 'jquery';
+
 
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
-    styleUrls: ['./sign-up.component.css'],
+    styleUrls: ['./sign-up.component.scss'],
     animations: [
         trigger('slideInOut', [
             transition(':leave', [
@@ -59,19 +61,52 @@ export class SignUpComponent implements OnInit {
         });
         console.log(this._fieldsFlatten);
         this._step = this._fieldsFlatten[0];
+        console.log('stepNum : ' + this.stepNum);
+
     }
 
     continue(data: any) {
         if (this._form.get(this._step).valid) {
             const index = this._fieldsFlatten.indexOf(this._step);
             console.log('index:' + index);
-            if (index < this._fieldsFlatten.length - 1) {
+             if (index < this._fieldsFlatten.length - 1) {
+                 if(this.stepNum % 2 === 1) {
+                     const $bar = $('.ProgressBar');
+                     if ($bar.children('.is-current').length > 0) {
+                         $bar.children('.is-current').removeClass('is-current').addClass('is-complete').next().addClass('is-current');
+                     } else {
+                         $bar.children().first().addClass('is-current');
+                     }
+                 }
                 console.log('on est dans la même categorie');
                 this._step = this._fieldsFlatten[index + 1];
+                this._stepNum++;
+                console.log('stepNum:' + this.stepNum);
             } else {
                 this.saveUser(data as User);
             }
         }
+    }
+
+    previous(data: any) {
+            const index = this._fieldsFlatten.indexOf(this._step);
+            console.log('index:' + index);
+            if (index > 0) {
+                if(this.stepNum % 2 === 0) {
+
+                    const $bar = $('.ProgressBar');
+                    if ($bar.children('.is-current').length > 0) {
+                        $bar.children('.is-current').removeClass('is-current').prev().removeClass('is-complete').addClass('is-current');
+                    } else {
+                        $bar.children('.is-complete').last().removeClass('is-complete').addClass('is-current');
+                    }
+                }
+                console.log('on est dans la même categorie');
+                this._step = this._fieldsFlatten[index - 1];
+                this._stepNum--;
+                console.log('stepNum:' + this.stepNum);
+            }
+
     }
 
     setStep(value: string): void {
@@ -195,5 +230,9 @@ export class SignUpComponent implements OnInit {
 
     get errorMsg(): string {
         return this._errorMsg;
+    }
+
+    get stepNum(): number {
+        return this._stepNum;
     }
 }
