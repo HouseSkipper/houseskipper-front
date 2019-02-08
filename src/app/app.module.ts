@@ -19,10 +19,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
 import {TaskDialogComponent} from './task-dialog/task-dialog.component';
-import {DataaService} from './services/dataa.service';
+import {TasksService} from './services/tasks.service';
 import {FormHouseComponent} from './houses/form/form.house.component';
 import {HouseComponent} from './houses/house/house.component';
-import {DataService} from './services/task.service';
+import {DataService} from './services/budget.service';
 import {TaskComponent} from './task/task.component';
 import {SkillsComponent} from './skills/skills.component';
 import { MainNavBarComponent } from './shared/main-nav-bar/main-nav-bar.component';
@@ -93,7 +93,7 @@ import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.compo
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
-        DataService, DataaService, CookieService
+        DataService, TasksService, CookieService
     ],
     entryComponents: [
         TaskDialogComponent, ShortcutDialogComponent

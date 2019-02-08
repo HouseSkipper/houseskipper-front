@@ -9,7 +9,7 @@ import {AuthenticationService} from './authentication.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DataaService {
+export class TasksService {
   // private property to store all backend URLs
   private readonly _backendURL: any;
 

@@ -75,7 +75,13 @@ export class LoginComponent implements OnInit {
     }
 
     changelogin() {
-        this._isPrestataire = true;
-        console.log(this._isPrestataire);
+        if (this._isPrestataire) {
+            this._isPrestataire = false;
+
+        } else {
+
+            this._isPrestataire = true;
+        }
+        console.log(this._isPrestataire );
     }
 }

@@ -68,8 +68,14 @@ export class PrestataireComponent implements OnInit {
 
     submit (prestataire: Prestataire) {
       console.log(prestataire);
-      if (this.verifieEmail(prestataire.email) === 'Votre demande e été bien envoyé.') {
-          this._prestataireService.create(prestataire).subscribe( (_) => this._router.navigate([ '/login']));
+        if (this.verifieEmail(prestataire.email) === 'passe') {
+            this._prestataireService.create(prestataire).subscribe( (_) => this._confirmMsg = 'Votre demande e été bien envoyé.',
+                _ => this._errorMsg = 'Un partenaire est déjà inscrit avec cette email.',
+                () =>
+                    this._router.navigate([ '/login'])
+                );
+        } else {
+          this._errorMsg = 'Email incorrect ! Veuillez s\'inscrir avec l\'email de l\'entreprise.';
       }
     }
 
@@ -77,8 +83,8 @@ export class PrestataireComponent implements OnInit {
         this._errorMsg = '';
         this._confirmMsg = '';
         if (email.includes('outlook') || email.includes('yahoo')) {
-            return this._errorMsg = 'Email incorrect ! Veuillez saisir l\'email de l\'entreprise.';
+            return '';
         }
-        return this._confirmMsg = 'Votre demande e été bien envoyé.';
+        return 'passe';
     }
 }

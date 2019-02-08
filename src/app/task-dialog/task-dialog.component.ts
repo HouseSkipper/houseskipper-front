@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {DataService} from '../services/task.service';
+import {DataService} from '../services/budget.service';
 import {Task} from '../interfaces/task';
 import {Room} from '../interfaces/house';
 import {forEach} from '@angular/router/src/utils/collection';

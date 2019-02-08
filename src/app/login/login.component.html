@@ -23,9 +23,7 @@
                         <input matInput placeholder="Mot de passe" type="password" formControlName="password">
                     </mat-form-field>
 
-                        <mat-radio-group>
-                            <mat-radio-button (click)="changelogin()" value="0">Êtes-vous un partenaire?</mat-radio-button>
-                        </mat-radio-group>
+                    <mat-checkbox (click)="changelogin()">Êtes-vous un partenaire ?</mat-checkbox>
                     <br/><br/>
                     <mat-error id="errorMessage" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
                     <button class="fixedWidth" id="submitButton" color="accent" mat-button type="submit"  (click)="submit(form.value)">Connexion</button>
