@@ -31,4 +31,12 @@ export class UpdateComponent implements OnInit {
 
   }
 
+  get model(): User {
+    return this._model;
+  }
+
+  openDialog(): any {
+
+  }
+
 }

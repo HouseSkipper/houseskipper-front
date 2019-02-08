@@ -14,9 +14,41 @@
             </div>
         </div>
     </mat-sidenav>
-    <mat-sidenav-content>
-        <div id="signup-container">
 
+
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <symbol id="checkmark-bold" viewBox="0 0 24 24">
+            <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+        </symbol>
+    </svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <symbol id="checkmark-bold" viewBox="0 0 24 24">
+            <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+        </symbol>
+    </svg>
+    <mat-sidenav-content>
+        <div class="wrapper">
+            <ol class="ProgressBar">
+                <li class="ProgressBar-step is-current" >
+                    <svg class="ProgressBar-icon"><use xlink:href="#checkmark-bold"/></svg>
+                    <h2 class="ProgressBar-stepLabel mat-headline">Entity</h2>
+                </li>
+                <li class="ProgressBar-step" >
+                    <svg class="ProgressBar-icon"><use xlink:href="#checkmark-bold"/></svg>
+                    <h2 class="ProgressBar-stepLabel mat-headline">Contact</h2>
+                </li>
+                <li class="ProgressBar-step" >
+                    <svg class="ProgressBar-icon"><use xlink:href="#checkmark-bold"/></svg>
+                    <h2 class="ProgressBar-stepLabel mat-headline">Account</h2>
+                </li>
+                <li class="ProgressBar-step" >
+                    <svg class="ProgressBar-icon"><use xlink:href="#checkmark-bold"/></svg>
+                    <h2 class="ProgressBar-stepLabel mat-headline">Validation</h2>
+                </li>
+            </ol>
+        </div>
+        <div id="signup-container">
             <form class="signup-form-container" novalidate [formGroup]="form">
                 <div id="name" *ngIf="step === 'firstname'" [@slideInOut]>
                     <h2 class="mat-headline">Quel est votre prénom?</h2>
@@ -96,12 +128,15 @@
                 </div>
             </form>
             <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
-            <button id="continueButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)" [disabled]="step == 'code' && !cgu">
-                Continuer
-            </button>
-
+            <div>
+                <button *ngIf="stepNum > 0" id="previousButton" mat-button (click)="previous(form.value)">
+                    Précédent
+                </button>
+                <button id="continueButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)" [disabled]="step == 'code' && !cgu">
+                    Continuer
+                </button>
+            </div>
         </div>
-
     </mat-sidenav-content>
 </mat-sidenav-container>
 <app-legal-bar></app-legal-bar>
