@@ -14,7 +14,7 @@ export class MainMenuListService implements MenuListService {
         fields.push({title: 'Travaux', values: ['Demande', 'En cours', 'Finalisé']});
         fields.push({title: 'Résidence', values: []});
         fields.push({title: 'Contact', values: []});
-        fields.push({title: 'Compte', values: []});
+        fields.push({title: 'Compte', values: ['Compétences', 'Modifier mes informations']});
         return fields;
     }
 }

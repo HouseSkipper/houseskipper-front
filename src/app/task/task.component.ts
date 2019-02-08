@@ -11,7 +11,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import {HttpHeaders} from '@angular/common/http';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })

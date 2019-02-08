@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShortcutAreaComponent } from './shortcut-area.component';
+import { ShortcutDialogComponent } from './shortcut-dialog.component';
 
-describe('ShortcutAreaComponent', () => {
-  let component: ShortcutAreaComponent;
-  let fixture: ComponentFixture<ShortcutAreaComponent>;
+describe('ShortcutDialogComponent', () => {
+  let component: ShortcutDialogComponent;
+  let fixture: ComponentFixture<ShortcutDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShortcutAreaComponent ]
+      declarations: [ ShortcutDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShortcutAreaComponent);
+    fixture = TestBed.createComponent(ShortcutDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

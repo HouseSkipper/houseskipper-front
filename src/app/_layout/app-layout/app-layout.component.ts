@@ -30,6 +30,12 @@ export class AppLayoutComponent implements OnInit {
             case 'Compte':
                 this.router.navigate(['/skills']);
                 break;
+            case 'Compétences':
+                this.router.navigate(['/skills']);
+                break;
+            case 'Modifier mes informations':
+                this.router.navigate(['/update']);
+                break;
         }
     }
 

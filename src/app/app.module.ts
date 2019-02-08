@@ -27,7 +27,6 @@ import {TaskComponent} from './task/task.component';
 import {SkillsComponent} from './skills/skills.component';
 import { MainNavBarComponent } from './shared/main-nav-bar/main-nav-bar.component';
 import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
-import {DirectiveType} from '@angular/core/src/render3';
 import {ValidateAccountComponent} from './validate-account/validate-account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LangSelectorComponent } from './shared/lang-selector/lang-selector.component';
@@ -39,6 +38,9 @@ import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { PrestataireComponent } from './prestataire/prestataire.component';
 import { ShortcutAreaComponent } from './shared/shortcut-area/shortcut-area.component';
 import {CookieService} from 'ngx-cookie-service';
+import { ShortcutComponent } from './shortcut/shortcut.component';
+import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.component';
+import {UpdateComponent} from './update/update.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
 
@@ -63,7 +65,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         CheckBrowserComponent,
         AppLayoutComponent,
         PrestataireComponent,
-        ShortcutAreaComponent
+        ShortcutAreaComponent,
+        UpdateComponent,
+        ShortcutDialogComponent,
+        ShortcutComponent
     ],
     imports: [
         BrowserModule,
@@ -95,7 +100,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         DataService, TasksService, CookieService
     ],
     entryComponents: [
-        TaskDialogComponent
+        TaskDialogComponent, ShortcutDialogComponent
     ],
     bootstrap: [AppComponent],
 })

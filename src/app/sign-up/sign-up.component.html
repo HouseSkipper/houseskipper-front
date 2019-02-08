@@ -1,6 +1,6 @@
 <app-main-nav-bar></app-main-nav-bar>
 <mat-sidenav-container>
-    <mat-sidenav id="sideMenu" mode="side" opened>
+    <mat-sidenav id="sideMenu" mode="side" opened style="margin-left: 10px">
         <div id="buttonMenu">
             <div *ngFor="let field of fields | keyvalue; let i = index">
                 <mat-icon class="iconChecked" [style.visibility]="check(field) ? 'visible' : 'hidden'" svgIcon="icon-checked"></mat-icon>
@@ -49,9 +49,15 @@
                     <h2 class="mat-headline">Quel est votre mot de passe?</h2>
                     <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('password').invalid">
                         <mat-error class="alert alert-danger">Mot de passe requis</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('password').hasError('pattern')" class="alert alert-danger">Le mot de passe doit contenir 8 caractères avec au moins une majuscule, une minuscule et un caractère spécial</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('password').hasError('pattern')" class="alert alert-danger">Le mot de passe doit contenir 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial</mat-error>
                         <mat-label>Mot de passe</mat-label>
                         <input matInput placeholder="Mot de passe" type="password" formControlName="password">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('confirmPassword').invalid">
+                        <mat-error class="alert alert-danger">Mot de passe requis</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('confirmPassword').hasError('pattern')" class="alert alert-danger">Le mot de passe ne correspond pas</mat-error>
+                        <mat-label>Confirmez votre mot de passe</mat-label>
+                        <input matInput placeholder="Confirmez votre mot de passe" type="password" formControlName="confirmPassword">
                     </mat-form-field>
                 </div>
                 <div id="telephone" *ngIf="step == 'telephone'" [@slideInOut]>
@@ -66,8 +72,7 @@
                     <h2 class="mat-headline">Quel sera votre rôle dans HouseKeeper?</h2>
                     <mat-form-field appearance="outline">
                         <mat-label>S'enregistrer en tant que</mat-label>
-                        <mat-select placeholder="Choisissez votre rôle" formControlName="role">
-                            <mat-option>--</mat-option>
+                        <mat-select formControlName="role">
                             <mat-option *ngFor="let role of roles" [value]="role">
                                 {{role}}
                             </mat-option>
