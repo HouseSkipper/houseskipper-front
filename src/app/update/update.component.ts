@@ -4,7 +4,6 @@ import {UsersService} from '../services/users.service';
 import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import * as $ from 'jquery';
 import {of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {flatMap} from 'rxjs/internal/operators';
@@ -83,7 +82,6 @@ export class UpdateComponent implements OnInit, OnChanges {
     }
 
     terminer(data: any): any {
-        //this.saveUser(data as User);
         this.modifInfo();
     }
 
