@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../interfaces/user';
 import {filter, first, flatMap, map, tap} from 'rxjs/operators';
 import {AuthenticationService} from '../services/authentication.service';
@@ -35,9 +35,8 @@ export class SignUpComponent implements OnInit {
     private _invalid: boolean;
     private _roles: string[] = ['Particulier-propriétaire']; // 'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
-    private  _formCodeEmail: FormGroup;
+    private _formCodeEmail: FormGroup;
     private _cgu: boolean;
-
 
 
     constructor(private _userService: UsersService, private _router: Router, private _authService: AuthenticationService) {
@@ -47,6 +46,7 @@ export class SignUpComponent implements OnInit {
         this._form = this._buildForm();
         this._formCodeEmail = this._buildFormCodeEmail();
     }
+
 
     ngOnInit() {
         this._fields = [];
@@ -67,27 +67,38 @@ export class SignUpComponent implements OnInit {
 
     continue(data: any, codeEmail: any) {
         const index = this._fieldsFlatten.indexOf(this._step);
+        this._errorMsg = '';
         if (index <= 5) {
             if (this._form.get(this._step).valid) {
-                console.log('index:' + index);
-                if (index < 5) {
-                    console.log('on est dans la même categorie');
-                    this._step = this._fieldsFlatten[index + 1];
+                if (this._step === 'password') {
+                    if (this._form.get('confirmPassword').value === this._form.get('password').value) {
+                        console.log('index:' + index);
+                        this._step = this._fieldsFlatten[index + 1];
+                    } else {
+                        this._errorMsg = 'Votre mot de passe ne correspond pas';
+                    }
                 } else {
-                    this._step = this._fieldsFlatten[index + 1];
-                    this.saveUser(data as User);
+                    console.log('index:' + index);
+                    if (index < 5) {
+                        console.log('on est dans la même categorie');
+                        this._step = this._fieldsFlatten[index + 1];
+                    } else if (this._form.valid) {
+                        this._step = this._fieldsFlatten[index + 1];
+                        this.saveUser(data as User);
+                    } else {
+                        this._errorMsg = 'Des champs sont manquants';
+                    }
                 }
             }
         } else {
             if (this._formCodeEmail.get(this._step).valid) {
                 this._userService.checkEmailToken(codeEmail.code).subscribe((_) => {
-                    this._authService.loginAfterValidationAccount(_);
-                    this._router.navigate(['/']);
-                },
-                    (_) =>  this._errorMsg = _);
+                        this._authService.loginAfterValidationAccount(_);
+                        this._router.navigate(['/']);
+                    },
+                    (_) => this._errorMsg = _);
             }
         }
-
     }
 
     setStep(value: string): void {
@@ -114,7 +125,7 @@ export class SignUpComponent implements OnInit {
             password: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
             ])),
-            confirmPassword: new FormControl('', Validators.required),
+            confirmPassword: new FormControl('', Validators.compose([Validators.required])),
             username: new FormControl('', Validators.compose([
                 Validators.required,
                 Validators.pattern(
@@ -125,7 +136,7 @@ export class SignUpComponent implements OnInit {
                 Validators.pattern('\\d{10}')
             ])),
             // validator: MustMatch('password', 'confirmPassword'),
-            role: new FormControl('', Validators.required)
+            role: new FormControl('Particulier-propriétaire', Validators.required)
         });
     }
 
@@ -227,27 +238,32 @@ export class SignUpComponent implements OnInit {
         return this._errorMsg;
     }
 
-    get cgu (): boolean {
+    get cgu(): boolean {
         return this._cgu;
     }
 
-    set cgu (value: boolean) {
+    set cgu(value: boolean) {
         this._cgu = value;
     }
 
     check(f: any): boolean {
-        let counter  = 0;
-        const length = f.value.values.length;
-        for (let i = 0; i < length ; i++) {
-           // console.log(f.value.values[i]);
-            if (f.value.values[i] !== 'code') {
-                if (this._form.get(f.value.values[i]).valid) {
-                    counter = counter + 1;
+        if (f.value.title === 'Account') {
+            if (this._form.get('confirmPassword').value === this._form.get('password').value && this._form.get('password').valid) {
+                return true;
+            }
+        } else {
+            let counter = 0;
+            const length = f.value.values.length;
+            for (let i = 0; i < length; i++) {
+                // console.log(f.value.values[i]);
+                if (f.value.values[i] !== 'code') {
+                    if (this._form.get(f.value.values[i]).valid) {
+                        counter = counter + 1;
+                    }
                 }
             }
+            return length === counter;
         }
-        return length === counter;
     }
-
-
 }
+
