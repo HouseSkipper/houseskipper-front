@@ -90,8 +90,7 @@ import {CookieService} from 'ngx-cookie-service';
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
-        DataService, TasksService
-        DataService, DataaService, CookieService
+        DataService, TasksService, CookieService
     ],
     entryComponents: [
         TaskDialogComponent
