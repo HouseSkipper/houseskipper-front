@@ -14,7 +14,7 @@ export class ShortcutComponent implements OnInit {
   }
 
   get shortcut(): Shortcut {
-    console.log(this._shortcut);
+    // console.log(this._shortcut);
     return this._shortcut;
   }
 

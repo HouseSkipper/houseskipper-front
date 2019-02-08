@@ -41,7 +41,7 @@ export class ShortcutsService {
      * Function to create a new shortcut
      */
     create(shortcut: Shortcut): Observable<any> {
-        return this._http.post<Shortcut>(this._backendURL.oneShortcut, shortcut, this._options());
+        return this._http.post<Shortcut>(this._backendURL.addShortcut, shortcut, this._options());
     }
 
     /**
