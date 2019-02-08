@@ -42,6 +42,10 @@
                     <svg class="ProgressBar-icon"><use xlink:href="#checkmark-bold"/></svg>
                     <h2 class="ProgressBar-stepLabel mat-headline">Account</h2>
                 </li>
+                <li class="ProgressBar-step" >
+                    <svg class="ProgressBar-icon"><use xlink:href="#checkmark-bold"/></svg>
+                    <h2 class="ProgressBar-stepLabel mat-headline">Validation</h2>
+                </li>
             </ol>
         </div>
         <div id="signup-container">
@@ -124,15 +128,13 @@
                 </div>
             </form>
             <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
-            <div id="buttonContainer">
-            <button id="continueButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)" [disabled]="step == 'code' && !cgu">
-                Continuer
-            </button>
-            <div *ngIf="stepNum > 0">
-                <button id="previousButton" mat-button (click)="previous(form.value)">
-                Précédent
+            <div>
+                <button *ngIf="stepNum > 0" id="previousButton" mat-button (click)="previous(form.value)">
+                    Précédent
                 </button>
-            </div>
+                <button id="continueButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)" [disabled]="step == 'code' && !cgu">
+                    Continuer
+                </button>
             </div>
         </div>
     </mat-sidenav-content>

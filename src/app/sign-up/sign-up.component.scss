@@ -66,6 +66,7 @@ h1 {
   text-align: center;
   text-decoration: none;
   margin:inherit;
+  display: inline-block
 }
 
 #previousButton{
@@ -76,10 +77,8 @@ h1 {
   text-align: center;
   text-decoration: none;
   margin:inherit;
-}
+  display: inline-block
 
-#buttonContainer{
-  text-align: right;
 }
 
 *, :after, :before {
@@ -116,7 +115,7 @@ mat-sidenav-container {
 
 //Variables
 $gray: #9F9FA3;
-$blue: #00637C;
+$blue: #2e2c53;
 $white: #DBF1FF;
 
 .ProgressBar {
