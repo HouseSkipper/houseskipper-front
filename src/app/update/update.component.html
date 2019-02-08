@@ -1,8 +1,8 @@
 <div class="content-page">
     <br>
-    <div class="container">
+    <div class="container" [style.visibility]="!modif ? 'visible' : 'hidden'">
         <div class="container">
-            <mat-card>
+            <mat-card >
                 <mat-card-title-group>
                     <mat-card-title><span>Informations personnelles</span></mat-card-title>
                 </mat-card-title-group>
@@ -33,8 +33,88 @@
                     <br>
                 </mat-card-footer>
             </mat-card>
-
         </div>
+    </div>
+
+    <div id="signup-container" [style.visibility]="modif ? 'visible' : 'hidden'">
+        <mat-sidenav id="sideMenu" mode="side"  style="margin-left: 10px">
+            <div id="buttonMenu">
+                <div *ngFor="let field of fields | keyvalue; let i = index">
+                    <mat-icon class="iconChecked" [style.visibility]="check(field) && modif ? 'visible' : 'hidden'" svgIcon="icon-checked"></mat-icon>
+                    <a mat-button (click)="setStep(field.value.values[0])" class="titleField">{{field.value.title}}</a>
+                    <div *ngIf="field.value.values.indexOf(step) > -1">
+                    <span *ngFor="let subfield of field.value.values">
+                        <mat-icon [style.visibility]="step === subfield && modif ? 'visible' : 'hidden'">arrow_forward</mat-icon>
+                        <a mat-button (click)="setStep(subfield)" class="capitalize">{{subfield}}</a>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <form class="signup-form-container" novalidate [formGroup]="form">
+                <div id="name" *ngIf="step === 'firstname'" [@slideInOut]>
+                    <h2 class="mat-headline">Quel est votre prénom?</h2>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Prénom</mat-label>
+                        <input matInput placeholder="Prénom" formControlName="firstname">
+                        <mat-error class="alert alert-danger">Prénom requis</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('firstname').hasError('minlength')" class="alert alert-danger">Le prénom doit avoir au moins 3 lettres</mat-error>
+                    </mat-form-field>
+                </div>
+                <div id="lastname" *ngIf="step == 'lastname'" [@slideInOut]>
+                    <h2 class="mat-headline">Quel est votre nom?</h2>
+                    <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('lastname').invalid">
+                        <mat-error class="alert alert-danger">Nom requis</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('lastname').hasError('minlength')" class="alert alert-danger">Le nom doit avoir au moins 3 lettres</mat-error>
+                        <mat-label>Nom</mat-label>
+                        <input matInput placeholder="Nom" formControlName="lastname">
+                    </mat-form-field>
+                </div>
+                <div id="email" *ngIf="step == 'username'" [@slideInOut]>
+                    <h2 class="mat-headline">Quel est votre email?</h2>
+                    <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('username').invalid">
+                        <mat-label>Adresse Email</mat-label>
+                        <input matInput placeholder="Adresse Email" formControlName="username">
+                        <mat-error class="alert alert-danger">Email requis</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('username').hasError('pattern')" class="alert alert-danger">Email non valide</mat-error>
+                    </mat-form-field>
+                </div>
+                <div id="telephone" *ngIf="step == 'telephone'" [@slideInOut]>
+                    <h2 class="mat-headline">Quel est votre numéro de téléphone?</h2>
+                    <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('telephone').invalid">
+                        <mat-label>Téléphone</mat-label>
+                        <input matInput placeholder="Téléphone" formControlName="telephone">
+                        <mat-error *ngIf="form.invalid && form.get('telephone').hasError('pattern')" class="alert alert-danger">Numéro de téléphone invalide</mat-error>
+                    </mat-form-field>
+                </div>
+                <div id="role" *ngIf="step == 'role'" [@slideInOut]>
+                    <h2 class="mat-headline">Quel sera votre rôle dans HouseKeeper?</h2>
+                    <mat-form-field appearance="outline">
+                        <mat-label>S'enregistrer en tant que</mat-label>
+                        <mat-select formControlName="role">
+                            <mat-option *ngFor="let role of roles" [value]="role">
+                                {{role}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error >S'il vous plaît, choisissez votre rôle</mat-error>
+                    </mat-form-field>
+                </div>
+
+            </form>
+            <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
+            <div>
+                <button *ngIf="stepNum > 0" id="previousButton" mat-button (click)="previous(form.value)">
+                    Précédent
+                </button>
+                <button id="continueButton" mat-button type="submit" (click)="continue(form.value)" [disabled]="step == 'code' && !cgu">
+                    Continuer
+                </button>
+                <button id="terminerButton" mat-button type="submit" (click)="terminer(form.value)" [disabled]="step == 'code' && !cgu">
+                    Terminer
+                </button>
+            </div>
+        </mat-sidenav-content>
     </div>
 
 </div>
