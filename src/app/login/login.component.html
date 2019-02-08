@@ -1,37 +1,35 @@
 <div id="navbar">
-        <mat-select id="langSelect" value="fr" panelClass="dropdown">
-            <mat-select-trigger>
-                <mat-icon  svgIcon="icon-fr"></mat-icon>
-            </mat-select-trigger>
-            <mat-option value="fr">
-                <mat-icon  svgIcon="icon-fr"></mat-icon>Français
-            </mat-option>
-            <mat-option value="en" disabled="disabled">
-                <mat-icon  svgIcon="icon-en"></mat-icon>
-                Anglais
-            </mat-option>
-        </mat-select>
+    <button  mat-button class="menu-button" [routerLink]="['/prestataireSignup']">
+        <span class="b2b-cta-btn-icon">
+            <img src="../../assets/images/prestataire.png" class="Q" />
+        </span> <span>Vous êtes un partenaire?</span>
+    </button>
+        <app-lang-selector></app-lang-selector>
 </div>
 <div class="login">
 
     <div id="login-container">
         <form class="form-container" novalidate [formGroup]="form">
             <mat-icon id="logo" svgIcon="icon-logo"></mat-icon>
-            <h1 class="mat-headline">La plateforme pour vos travaux d’habitation</h1>
-            <mat-card class="align-center" style="opacity: 0.9;">
+            <h1 id="slogan" class="mat-headline">La plateforme pour vos travaux d’habitation</h1>
+            <mat-card class="align-center" style="opacity: 0.9;width:350px">
                 <h1 class="mat-headline">Se connecter</h1>
-                    <mat-form-field appearance="fill">
+                    <mat-form-field class="fixedWidth" appearance="fill">
                         <mat-label>Adresse email</mat-label>
                         <input matInput placeholder="Adresse email" formControlName="username">
                     </mat-form-field>
-                    <mat-form-field appearance="fill">
+                    <mat-form-field class="fixedWidth" appearance="fill">
                         <mat-label>Mot de passe</mat-label>
                         <input matInput placeholder="Mot de passe" type="password" formControlName="password">
                     </mat-form-field>
-                    <mat-error *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
-                    <button id="submitButton" color="accent" mat-button type="submit"  (click)="submit(form.value)">Connexion</button>
-                    <button id="createButton" mat-button class="md-accent" [routerLink]="['/signup']">Créer un compte</button>
+
+                    <mat-checkbox (click)="changelogin()">Êtes-vous un partenaire ?</mat-checkbox>
+                    <br/><br/>
+                    <mat-error id="errorMessage" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
+                    <button class="fixedWidth" id="submitButton" color="accent" mat-button type="submit"  (click)="submit(form.value)">Connexion</button>
+                    <button class="fixedWidth" id="createButton" mat-button class="md-accent" [routerLink]="['/signup']">Créer un compte</button>
             </mat-card>
         </form>
     </div>
 </div>
+<app-legal-bar></app-legal-bar>

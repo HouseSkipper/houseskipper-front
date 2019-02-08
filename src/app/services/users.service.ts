@@ -51,12 +51,9 @@ export class UsersService {
         return this._http.get<User>(this._backendURL.validateAccount.replace(':emailToken', emailToken));
     }
 
-    /*update(user: User): Observable<any> {
-        const id = user.id;
-        delete user.id;
-        console.log(this._backendURL.oneUsers.replace(':id', id));
-        return this._http.put<User>(this._backendURL.oneUsers.replace(':id', id), user, this._options());
-    }*/
+    update(user: User): Observable<any> {
+        return this._http.put<User>(this._backendURL.updateUsers.replace(), user, this._options());
+    }
 
     /**
      * Function to return request options

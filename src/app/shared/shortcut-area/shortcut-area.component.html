@@ -1,0 +1,13 @@
+<div class="container">
+  <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
+    <div class="blocks">
+      <button button="submit" mat-raised-button color="primary" (click)="openDialog()">
+        Ajouter un raccourci
+      </button>
+    </div>
+  </div>
+</div>
+<div id="buttonMenu">
+  <h3 id="menuTitle" class="mat-h3">Raccourcis</h3>
+  <app-shortcut id="shortcut" [shortcut]="shortcut" *ngFor="let shortcut of shortcuts"></app-shortcut>
+</div>

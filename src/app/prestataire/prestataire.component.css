@@ -1,0 +1,96 @@
+.form-container {
+    display:flex;
+    flex-basis:468px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding:20px;
+}
+
+#prestataire-signup-container {
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    height:100vh;
+}
+
+button, mat-error, h1, a, mat-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*width:100%;*/
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+
+mat-form-field, button, a {
+    width:300px;
+}
+
+#submitButton, span, a {
+    /*height:15%;*/
+    /*width: 100%;*/
+}
+
+#submitButton {
+    color: black;
+    background: #8689f1;
+}
+
+#createButton {
+    margin-top:10px;
+    color: #9c9df1;
+    background: white;
+}
+
+.align-center, a {
+    text-align: center;
+    text-decoration: none;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+#logo {
+    width:120px;
+    height:100px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background: rgba(255, 253, 253, 0.84) !important;
+    background-color: rgba(255, 253, 253, 0.84) !important;
+}
+
+.page {
+    height: 100vh;
+    min-width: 100vh;
+    background-image: url("../../assets/images/background_image.jpg");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size:cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+
+#navbar {
+    position: absolute;
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right:20px;
+    padding-top:40px;
+    padding-right:50px;
+}
+
+.margin {
+    margin: 0 10px;
+}

@@ -9,7 +9,7 @@ import {AuthenticationService} from './authentication.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DataaService {
+export class TasksService {
   // private property to store all backend URLs
   private readonly _backendURL: any;
 
@@ -79,9 +79,11 @@ export class DataaService {
             );
     }
 
-    downloadFileNow(fileName): Observable<any> {
+    downloadFileNow(fileName, id): Observable<any> {
         return this._http.get(this._backendURL.dowload.replace(':fileName', fileName)
-            .replace(':username', this._authentication.currentUserValue.username), { responseType : 'arraybuffer'});
+            .replace(':username', this._authentication.currentUserValue.username)
+                .replace(':id', id)
+            , { responseType : 'arraybuffer'});
     }
 
   private _options(headerList: Object = {}): any {

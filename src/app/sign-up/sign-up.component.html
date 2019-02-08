@@ -1,18 +1,54 @@
 <app-main-nav-bar></app-main-nav-bar>
 <mat-sidenav-container>
-    <mat-sidenav id="sideMenu" mode="side" opened>
+    <mat-sidenav id="sideMenu" mode="side" opened style="margin-left: 10px">
         <div id="buttonMenu">
             <div *ngFor="let field of fields | keyvalue; let i = index">
+                <mat-icon class="iconChecked" [style.visibility]="check(field) ? 'visible' : 'hidden'" svgIcon="icon-checked"></mat-icon>
                 <a mat-button (click)="setStep(field.value.values[0])" class="titleField">{{field.value.title}}</a>
                 <div *ngIf="field.value.values.indexOf(step) > -1">
-                    <span *ngFor="let subfield of field.value.values"><mat-icon *ngIf="step === subfield">arrow_forward</mat-icon><a mat-button (click)="setStep(subfield)" class="capitalize">{{subfield}}</a></span>
+                    <span *ngFor="let subfield of field.value.values">
+                        <mat-icon [style.visibility]="step === subfield ? 'visible' : 'hidden'">arrow_forward</mat-icon>
+                        <a mat-button (click)="setStep(subfield)" class="capitalize">{{subfield}}</a>
+                    </span>
                 </div>
             </div>
         </div>
     </mat-sidenav>
-    <mat-sidenav-content>
-        <div id="signup-container">
 
+
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <symbol id="checkmark-bold" viewBox="0 0 24 24">
+            <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+        </symbol>
+    </svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <symbol id="checkmark-bold" viewBox="0 0 24 24">
+            <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+        </symbol>
+    </svg>
+    <mat-sidenav-content>
+        <div class="wrapper">
+            <ol class="ProgressBar">
+                <li class="ProgressBar-step is-current" >
+                    <svg class="ProgressBar-icon"><use xlink:href="#checkmark-bold"/></svg>
+                    <h2 class="ProgressBar-stepLabel mat-headline">Entity</h2>
+                </li>
+                <li class="ProgressBar-step" >
+                    <svg class="ProgressBar-icon"><use xlink:href="#checkmark-bold"/></svg>
+                    <h2 class="ProgressBar-stepLabel mat-headline">Contact</h2>
+                </li>
+                <li class="ProgressBar-step" >
+                    <svg class="ProgressBar-icon"><use xlink:href="#checkmark-bold"/></svg>
+                    <h2 class="ProgressBar-stepLabel mat-headline">Account</h2>
+                </li>
+                <li class="ProgressBar-step" >
+                    <svg class="ProgressBar-icon"><use xlink:href="#checkmark-bold"/></svg>
+                    <h2 class="ProgressBar-stepLabel mat-headline">Validation</h2>
+                </li>
+            </ol>
+        </div>
+        <div id="signup-container">
             <form class="signup-form-container" novalidate [formGroup]="form">
                 <div id="name" *ngIf="step === 'firstname'" [@slideInOut]>
                     <h2 class="mat-headline">Quel est votre prénom?</h2>
@@ -45,9 +81,15 @@
                     <h2 class="mat-headline">Quel est votre mot de passe?</h2>
                     <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('password').invalid">
                         <mat-error class="alert alert-danger">Mot de passe requis</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('password').hasError('pattern')" class="alert alert-danger">Le mot de passe doit contenir 8 caractères avec au moins une majuscule, une minuscule et un caractère spécial</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('password').hasError('pattern')" class="alert alert-danger">Le mot de passe doit contenir 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial</mat-error>
                         <mat-label>Mot de passe</mat-label>
                         <input matInput placeholder="Mot de passe" type="password" formControlName="password">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('confirmPassword').invalid">
+                        <mat-error class="alert alert-danger">Mot de passe requis</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('confirmPassword').hasError('pattern')" class="alert alert-danger">Le mot de passe ne correspond pas</mat-error>
+                        <mat-label>Confirmez votre mot de passe</mat-label>
+                        <input matInput placeholder="Confirmez votre mot de passe" type="password" formControlName="confirmPassword">
                     </mat-form-field>
                 </div>
                 <div id="telephone" *ngIf="step == 'telephone'" [@slideInOut]>
@@ -62,8 +104,7 @@
                     <h2 class="mat-headline">Quel sera votre rôle dans HouseKeeper?</h2>
                     <mat-form-field appearance="outline">
                         <mat-label>S'enregistrer en tant que</mat-label>
-                        <mat-select placeholder="Choisissez votre rôle" formControlName="role">
-                            <mat-option>--</mat-option>
+                        <mat-select formControlName="role">
                             <mat-option *ngFor="let role of roles" [value]="role">
                                 {{role}}
                             </mat-option>
@@ -73,12 +114,29 @@
                 </div>
 
             </form>
+            <form class="signup-form-container" novalidate [formGroup]="formCodeEmail">
+                <div id="code" *ngIf="step === 'code'" [@slideInOut]>
+                    <h2 class="mat-headline">Code de vérification envoyé à votre adresse mail</h2>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Code de vérification</mat-label>
+                        <input matInput placeholder="Code Email" formControlName="code" required>
+                        <mat-error class="alert alert-danger" *ngIf="formCodeEmail.invalid">Code requis</mat-error>
+                    </mat-form-field>
+                    <div class="margin">
+                        <input class="mat-body" type="checkbox" [(ngModel)]="cgu" [ngModelOptions]="{standalone: true}"> J'accepte les conditions générales d'utilisations.
+                    </div>
+                </div>
+            </form>
             <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
-            <button id="continueButton" mat-button type="submit" (click)="continue(form.value)">
-                Continuer
-            </button>
-
+            <div>
+                <button *ngIf="stepNum > 0" id="previousButton" mat-button (click)="previous(form.value)">
+                    Précédent
+                </button>
+                <button id="continueButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)" [disabled]="step == 'code' && !cgu">
+                    Continuer
+                </button>
+            </div>
         </div>
-
     </mat-sidenav-content>
 </mat-sidenav-container>
+<app-legal-bar></app-legal-bar>

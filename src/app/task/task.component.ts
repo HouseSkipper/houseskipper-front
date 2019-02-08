@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
-import {DataService} from '../services/task.service';
+import {DataService} from '../services/budget.service';
 import {DataSource} from '@angular/cdk/table';
-import {Task} from '../interfaces/task';
+import { Task} from '../interfaces/task';
 import {MatDialog} from '@angular/material';
 import {TaskDialogComponent} from '../task-dialog/task-dialog.component';
-import {DataaService} from '../services/dataa.service';
+import {TasksService} from '../services/tasks.service';
 import {FileUploader} from 'ng2-file-upload';
 import {AuthenticationService} from '../services/authentication.service';
 import {HttpHeaders} from '@angular/common/http';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
@@ -22,10 +22,12 @@ export class TaskComponent implements OnInit {
     displayedColumns = ['start_date', 'name', 'room', 'description', 'budget', 'status', 'file', 'delete'];
     dataSource = new TaskDataSource(this._dataService);
     private _files: string[];
-    blogFile = { filename: ''};
-    fileURL;
-    constructor(private _dataService: DataaService, public dialog: MatDialog,
+    blogFile = { filename: '', file: ''};
+    hasFile: boolean;
+    private _errorMsg = '';
+    constructor(private _dataService: TasksService, public dialog: MatDialog,
                 ) {
+        this.hasFile = false;
     }
 
     get files(): string[] {
@@ -34,6 +36,9 @@ export class TaskComponent implements OnInit {
     ngOnInit() {
     }
 
+    get errorMsg(): string {
+        return this._errorMsg;
+    }
     deleteTask(id) {
         this._dataService.remove(id).subscribe(
             null,
@@ -57,25 +62,27 @@ export class TaskComponent implements OnInit {
     }
 
     filesNames(id): void {
-        this._dataService.getFiles(id).subscribe((_) => this._files = _, null, null);
+        this._errorMsg = '';
+        this._dataService.getFiles(id).subscribe((_) => {
+            this._files = _;
+            this.hasFile = true;
+        }, () => this._files = [], () => {
+            setTimeout(() => { console.log(''); }, 4000);
+        });
     }
 
-    downloadFile() {
-        this._dataService.downloadFileNow(this.blogFile.filename).subscribe(
-            response => this.downloadFileAs(response, 'image/png')
+    downloadFile(file, id) {
+        console.log(file + ', ' + id);
+        this._dataService.downloadFileNow(file, id).subscribe(
+            response => this.downloadFileAs(response, 'image/png'),
+            () => this._errorMsg = 'Veuillez choisir une image à télécharger.'
         );
-        /*
-
-        this._dataService.downloadFileNow(this.blogFile.filename).subscribe(
-            _ => this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(_)),
-            _ => console.log(_),
-            null
-        );
-         */
 
     }
+
 
     openDialog(): void {
+        this._errorMsg = '';
         const dialogRef = this.dialog.open(TaskDialogComponent, {
             width: '600px',
             data: ''
@@ -92,7 +99,7 @@ export class TaskComponent implements OnInit {
 
 
     private downloadFileAs(data: any, type: string) {
-        let a = document.createElement('a');
+        const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: type});
         const url = window.URL.createObjectURL(blob);
@@ -110,7 +117,7 @@ export class TaskComponent implements OnInit {
 
 
 export class TaskDataSource extends DataSource<any> {
-    constructor(private _dataService: DataaService) {
+    constructor(private _dataService: TasksService) {
         super();
     }
 
