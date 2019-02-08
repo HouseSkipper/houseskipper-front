@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
-import {DataService} from '../services/task.service';
+import {DataService} from '../services/budget.service';
 import {DataSource} from '@angular/cdk/table';
 import { Task} from '../interfaces/task';
 import {MatDialog} from '@angular/material';
 import {TaskDialogComponent} from '../task-dialog/task-dialog.component';
-import {DataaService} from '../services/dataa.service';
+import {TasksService} from '../services/tasks.service';
 import {FileUploader} from 'ng2-file-upload';
 import {AuthenticationService} from '../services/authentication.service';
 import {HttpHeaders} from '@angular/common/http';
@@ -24,7 +24,7 @@ export class TaskComponent implements OnInit {
     private _files: string[];
     blogFile = { filename: '', file: ''};
     fileURL;
-    constructor(private _dataService: DataaService, public dialog: MatDialog,
+    constructor(private _dataService: TasksService, public dialog: MatDialog,
                 ) {
     }
 
@@ -114,7 +114,7 @@ export class TaskComponent implements OnInit {
 
 
 export class TaskDataSource extends DataSource<any> {
-    constructor(private _dataService: DataaService) {
+    constructor(private _dataService: TasksService) {
         super();
     }
 
