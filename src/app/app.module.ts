@@ -40,6 +40,8 @@ import { ShortcutAreaComponent } from './shared/shortcut-area/shortcut-area.comp
 import {CookieService} from 'ngx-cookie-service';
 import { ShortcutComponent } from './shortcut/shortcut.component';
 import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.component';
+import {UpdateComponent} from './update/update.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -64,8 +66,9 @@ import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.compo
         AppLayoutComponent,
         PrestataireComponent,
         ShortcutAreaComponent,
-        ShortcutComponent,
-        ShortcutDialogComponent
+        UpdateComponent,
+        ShortcutDialogComponent,
+        ShortcutComponent
     ],
     imports: [
         BrowserModule,
@@ -89,6 +92,7 @@ import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.compo
         MatSliderModule,
         FileUploadModule,
         MatTooltipModule,
+        MatPaginatorModule,
         APP_ROUTES
     ],
     providers: [

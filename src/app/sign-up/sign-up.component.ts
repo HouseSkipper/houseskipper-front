@@ -7,11 +7,13 @@ import {Router} from '@angular/router';
 import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import * as $ from 'jquery';
+
 
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
-    styleUrls: ['./sign-up.component.css'],
+    styleUrls: ['./sign-up.component.scss'],
     animations: [
         trigger('slideInOut', [
             state('in', style({opacity: 1})),
@@ -90,6 +92,15 @@ export class SignUpComponent implements OnInit {
                         this._errorMsg = 'Des champs sont manquants';
                     }
                 }
+                 if(this.stepNum % 2 === 1) {
+                     const $bar = $('.ProgressBar');
+                     if ($bar.children('.is-current').length > 0) {
+                         $bar.children('.is-current').removeClass('is-current').addClass('is-complete').next().addClass('is-current');
+                     } else {
+                         $bar.children().first().addClass('is-current');
+                     }
+                 }
+                this._stepNum++;
             }
         } else {
             if (this._formCodeEmail.get(this._step).valid) {
@@ -100,6 +111,27 @@ export class SignUpComponent implements OnInit {
                     (_) => this._errorMsg = _);
             }
         }
+    }
+
+    previous(data: any) {
+            const index = this._fieldsFlatten.indexOf(this._step);
+            console.log('index:' + index);
+            if (index > 0) {
+                if(this.stepNum % 2 === 0) {
+
+                    const $bar = $('.ProgressBar');
+                    if ($bar.children('.is-current').length > 0) {
+                        $bar.children('.is-current').removeClass('is-current').prev().removeClass('is-complete').addClass('is-current');
+                    } else {
+                        $bar.children('.is-complete').last().removeClass('is-complete').addClass('is-current');
+                    }
+                }
+                console.log('on est dans la même categorie');
+                this._step = this._fieldsFlatten[index - 1];
+                this._stepNum--;
+                console.log('stepNum:' + this.stepNum);
+            }
+
     }
 
     setStep(value: string): void {
@@ -237,6 +269,10 @@ export class SignUpComponent implements OnInit {
             this._errorMsg = 'Le serveur n\'est pas up';
         }
         return this._errorMsg;
+    }
+
+    get stepNum(): number {
+        return this._stepNum;
     }
 
     get cgu(): boolean {

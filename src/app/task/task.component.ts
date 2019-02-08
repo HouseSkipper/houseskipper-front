@@ -11,7 +11,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import {HttpHeaders} from '@angular/common/http';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
@@ -23,9 +23,11 @@ export class TaskComponent implements OnInit {
     dataSource = new TaskDataSource(this._dataService);
     private _files: string[];
     blogFile = { filename: '', file: ''};
-    fileURL;
+    hasFile: boolean;
+    private _errorMsg = '';
     constructor(private _dataService: TasksService, public dialog: MatDialog,
                 ) {
+        this.hasFile = false;
     }
 
     get files(): string[] {
@@ -34,6 +36,9 @@ export class TaskComponent implements OnInit {
     ngOnInit() {
     }
 
+    get errorMsg(): string {
+        return this._errorMsg;
+    }
     deleteTask(id) {
         this._dataService.remove(id).subscribe(
             null,
@@ -57,8 +62,11 @@ export class TaskComponent implements OnInit {
     }
 
     filesNames(id): void {
-
-        this._dataService.getFiles(id).subscribe((_) => this._files = _, () => this._files = [], () => {
+        this._errorMsg = '';
+        this._dataService.getFiles(id).subscribe((_) => {
+            this._files = _;
+            this.hasFile = true;
+        }, () => this._files = [], () => {
             setTimeout(() => { console.log(''); }, 4000);
         });
     }
@@ -66,20 +74,15 @@ export class TaskComponent implements OnInit {
     downloadFile(file, id) {
         console.log(file + ', ' + id);
         this._dataService.downloadFileNow(file, id).subscribe(
-            response => this.downloadFileAs(response, 'image/png')
+            response => this.downloadFileAs(response, 'image/png'),
+            () => this._errorMsg = 'Veuillez choisir une image à télécharger.'
         );
-        /*
-
-        this._dataService.downloadFileNow(this.blogFile.filename).subscribe(
-            _ => this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(_)),
-            _ => console.log(_),
-            null
-        );
-         */
 
     }
 
+
     openDialog(): void {
+        this._errorMsg = '';
         const dialogRef = this.dialog.open(TaskDialogComponent, {
             width: '600px',
             data: ''

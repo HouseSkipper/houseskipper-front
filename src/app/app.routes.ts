@@ -12,6 +12,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 import {AppLayoutComponent} from './_layout/app-layout/app-layout.component';
 import {PrestataireComponent} from './prestataire/prestataire.component';
+import {UpdateComponent} from './update/update.component';
 
 const ROUTES: Routes = [
     // App routes goes here
@@ -27,6 +28,7 @@ const ROUTES: Routes = [
             {path: 'users/tasks', component: TaskComponent, canActivate: [AuthGuardService]},
             {path: 'skills', component: SkillsComponent, canActivate: [AuthGuardService]},
             {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
+            {path: 'update', component: UpdateComponent, canActivate: [AuthGuardService]},
         ]
     },
 
