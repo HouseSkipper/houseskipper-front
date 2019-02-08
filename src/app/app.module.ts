@@ -63,7 +63,11 @@ import {UpdateComponent} from './update/update.component';
         MainSideMenuComponent,
         CheckBrowserComponent,
         AppLayoutComponent,
-        PrestataireComponent
+        PrestataireComponent,
+        ShortcutAreaComponent,
+        UpdateComponent,
+        ShortcutDialogComponent,
+        ShortcutComponent
     ],
     imports: [
         BrowserModule,
