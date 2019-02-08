@@ -41,6 +41,7 @@ import {CookieService} from 'ngx-cookie-service';
 import { ShortcutComponent } from './shortcut/shortcut.component';
 import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.component';
 import {UpdateComponent} from './update/update.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -91,6 +92,7 @@ import {UpdateComponent} from './update/update.component';
         MatSliderModule,
         FileUploadModule,
         MatTooltipModule,
+        MatPaginatorModule,
         APP_ROUTES
     ],
     providers: [
