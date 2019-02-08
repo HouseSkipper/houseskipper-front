@@ -6,7 +6,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
 import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';
-import {animate, style, transition, trigger} from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
     selector: 'app-sign-up',
@@ -14,12 +14,13 @@ import {animate, style, transition, trigger} from '@angular/animations';
     styleUrls: ['./sign-up.component.css'],
     animations: [
         trigger('slideInOut', [
+            state('in', style({opacity: 1})),
             transition(':leave', [
-                animate('400ms ease-in', style({transform: 'translateX(-100%)'}))
+                animate('200ms ease-in', style({transform: 'translateX(+100%)', opacity: 0}))
             ]),
             transition(':enter', [
-                style({transform: 'translateX(-100%)'}),
-                animate('400ms ease-in', style({transform: 'translateX(0%)'}))
+                style({transform: 'translateX(100%)', opacity: 0}),
+                animate('600ms ease-in', style({transform: 'translateX(0%)'}))
             ])
         ])
     ]
