@@ -1,28 +1,24 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../interfaces/user';
 import {filter, first, flatMap, map, tap} from 'rxjs/operators';
 import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
 import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import * as $ from 'jquery';
-
-
+import {animate, style, transition, trigger} from '@angular/animations';
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
-    styleUrls: ['./sign-up.component.scss'],
+    styleUrls: ['./sign-up.component.css'],
     animations: [
         trigger('slideInOut', [
-            state('in', style({opacity: 1})),
             transition(':leave', [
-                animate('200ms ease-in', style({transform: 'translateX(+100%)', opacity: 0}))
+                animate('400ms ease-in', style({transform: 'translateX(-100%)'}))
             ]),
             transition(':enter', [
-                style({transform: 'translateX(100%)', opacity: 0}),
-                animate('600ms ease-in', style({transform: 'translateX(0%)'}))
+                style({transform: 'translateX(-100%)'}),
+                animate('400ms ease-in', style({transform: 'translateX(0%)'}))
             ])
         ])
     ]
@@ -36,27 +32,23 @@ export class SignUpComponent implements OnInit {
     private _fieldsFlatten: string[];
     private _errorMsg: string;
     private _invalid: boolean;
-    private _roles: string[] = ['Particulier-propriétaire']; // 'Prestataire de services'];
+    private _roles: string[] = ['Particulier-propriétaire', 'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
-    private _formCodeEmail: FormGroup;
-    private _cgu: boolean;
 
 
-    constructor(private _userService: UsersService, private _router: Router, private _authService: AuthenticationService) {
+
+    constructor(private _userService: UsersService, private _router: Router) {
         this._fieldsFlatten = [];
         this._stepNum = 0;
         this._submit$ = new EventEmitter<any>();
         this._form = this._buildForm();
-        this._formCodeEmail = this._buildFormCodeEmail();
     }
-
 
     ngOnInit() {
         this._fields = [];
         this._fields.push({title: 'Entity', values: ['firstname', 'lastname']});
         this._fields.push({title: 'Contact', values: ['username', 'telephone']});
         this._fields.push({title: 'Account', values: ['password', 'role']});
-        this._fields.push({title: 'Valider', values: ['code']});
         let i = 0;
         this._fields.forEach(value => {
             for (const subfield of value.values) {
@@ -64,74 +56,21 @@ export class SignUpComponent implements OnInit {
                 i++;
             }
         });
+        console.log(this._fieldsFlatten);
         this._step = this._fieldsFlatten[0];
-        this._cgu = false;
     }
 
-    continue(data: any, codeEmail: any) {
-        const index = this._fieldsFlatten.indexOf(this._step);
-        this._errorMsg = '';
-        if (index <= 5) {
-            if (this._form.get(this._step).valid) {
-                if (this._step === 'password') {
-                    if (this._form.get('confirmPassword').value === this._form.get('password').value) {
-                        console.log('index:' + index);
-                        this._step = this._fieldsFlatten[index + 1];
-                    } else {
-                        this._errorMsg = 'Votre mot de passe ne correspond pas';
-                    }
-                } else {
-                    console.log('index:' + index);
-                    if (index < 5) {
-                        console.log('on est dans la même categorie');
-                        this._step = this._fieldsFlatten[index + 1];
-                    } else if (this._form.valid) {
-                        this._step = this._fieldsFlatten[index + 1];
-                        this.saveUser(data as User);
-                    } else {
-                        this._errorMsg = 'Des champs sont manquants';
-                    }
-                }
-                 if(this.stepNum % 2 === 1) {
-                     const $bar = $('.ProgressBar');
-                     if ($bar.children('.is-current').length > 0) {
-                         $bar.children('.is-current').removeClass('is-current').addClass('is-complete').next().addClass('is-current');
-                     } else {
-                         $bar.children().first().addClass('is-current');
-                     }
-                 }
-                this._stepNum++;
-            }
-        } else {
-            if (this._formCodeEmail.get(this._step).valid) {
-                this._userService.checkEmailToken(codeEmail.code).subscribe((_) => {
-                        this._authService.loginAfterValidationAccount(_);
-                        this._router.navigate(['/']);
-                    },
-                    (_) => this._errorMsg = _);
-            }
-        }
-    }
-
-    previous(data: any) {
+    continue(data: any) {
+        if (this._form.get(this._step).valid) {
             const index = this._fieldsFlatten.indexOf(this._step);
             console.log('index:' + index);
-            if (index > 0) {
-                if(this.stepNum % 2 === 0) {
-
-                    const $bar = $('.ProgressBar');
-                    if ($bar.children('.is-current').length > 0) {
-                        $bar.children('.is-current').removeClass('is-current').prev().removeClass('is-complete').addClass('is-current');
-                    } else {
-                        $bar.children('.is-complete').last().removeClass('is-complete').addClass('is-current');
-                    }
-                }
+            if (index < this._fieldsFlatten.length - 1) {
                 console.log('on est dans la même categorie');
-                this._step = this._fieldsFlatten[index - 1];
-                this._stepNum--;
-                console.log('stepNum:' + this.stepNum);
+                this._step = this._fieldsFlatten[index + 1];
+            } else {
+                this.saveUser(data as User);
             }
-
+        }
     }
 
     setStep(value: string): void {
@@ -158,7 +97,7 @@ export class SignUpComponent implements OnInit {
             password: new FormControl('', Validators.compose([
                 Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
             ])),
-            confirmPassword: new FormControl('', Validators.compose([Validators.required])),
+            confirmPassword: new FormControl('', Validators.required),
             username: new FormControl('', Validators.compose([
                 Validators.required,
                 Validators.pattern(
@@ -169,13 +108,7 @@ export class SignUpComponent implements OnInit {
                 Validators.pattern('\\d{10}')
             ])),
             // validator: MustMatch('password', 'confirmPassword'),
-            role: new FormControl('Particulier-propriétaire', Validators.required)
-        });
-    }
-
-    private _buildFormCodeEmail(): FormGroup {
-        return new FormGroup({
-            code: new FormControl('', Validators.required)
+            role: new FormControl('', Validators.required)
         });
     }
 
@@ -197,7 +130,7 @@ export class SignUpComponent implements OnInit {
             ).subscribe(
             data => {
                 console.log(data);
-                // this._router.navigate(['/']);
+                this._router.navigate(['/']);
             },
             error => {
                 console.log(error);
@@ -240,11 +173,6 @@ export class SignUpComponent implements OnInit {
     }
 
     @Output()
-    get formCodeEmail(): FormGroup {
-        return this._formCodeEmail;
-    }
-
-    @Output()
     get step(): string {
         return this._step;
     }
@@ -265,42 +193,6 @@ export class SignUpComponent implements OnInit {
 
 
     get errorMsg(): string {
-        if (this._errorMsg === 'Unknown Error') {
-            this._errorMsg = 'Le serveur n\'est pas up';
-        }
         return this._errorMsg;
     }
-
-    get stepNum(): number {
-        return this._stepNum;
-    }
-
-    get cgu(): boolean {
-        return this._cgu;
-    }
-
-    set cgu(value: boolean) {
-        this._cgu = value;
-    }
-
-    check(f: any): boolean {
-        if (f.value.title === 'Account') {
-            if (this._form.get('confirmPassword').value === this._form.get('password').value && this._form.get('password').valid) {
-                return true;
-            }
-        } else {
-            let counter = 0;
-            const length = f.value.values.length;
-            for (let i = 0; i < length; i++) {
-                // console.log(f.value.values[i]);
-                if (f.value.values[i] !== 'code') {
-                    if (this._form.get(f.value.values[i]).valid) {
-                        counter = counter + 1;
-                    }
-                }
-            }
-            return length === counter;
-        }
-    }
 }
-
