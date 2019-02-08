@@ -20,3 +20,131 @@ button {
 p {
     font-size: 1em;
 }
+
+
+.signup-form-container {
+    display: flex;
+    flex-direction: column;
+    margin-right:10px;
+    margin-left:30px;
+}
+
+span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+mat-icon {
+}
+
+.name {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+mat-form-field, button {
+    width:inherit;
+    display:block;
+    margin-right:20px;
+}
+
+#login-container {
+    /*flex-basis:468px;
+    /* display:flex;
+     flex-basis:468px;
+     align-content:center;
+     align-items: center;
+     height:100vh;
+     flex-direction: column;*/
+}
+
+.mgb15{
+    margin-bottom: 15px;
+}
+
+button, mat-error, h1, a {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+h1 {
+    text-align: center;
+}
+
+
+/*
+.form-container > * {
+    width: 70%;
+}*/
+
+#continueButton{
+    margin-left: 30px !important;
+    width:200px;
+    height:50px;
+    background: #c5f135;;
+    text-align: center;
+    text-decoration: none;
+    margin:inherit;
+}
+
+#terminerButton{
+    margin-left: 30px !important;
+    width:200px;
+    height:50px;
+    background: #0066ff;;
+    text-align: center;
+    text-decoration: none;
+    margin:inherit;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+#buttonMenu {
+    min-width: 200px;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding:40px;
+}
+
+#buttonMenu button {
+    margin-top:10px;
+}
+
+#signup-container {
+    /*height:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;*/
+}
+
+mat-sidenav-container {
+    height: calc(100vh - 80px);
+}
+
+.titleField {
+    font-weight: bold;
+    font-size:1.2em;
+    padding-left: 3px;
+    margin-bottom:10px;
+}
+
+.iconChecked {
+    width: 20px;
+    height: 20px;
+    padding-top: 3px;
+    margin-left:-10px;
+    margin-right:10px;
+}
+
+.capitalize {
+    margin-left: 3px;
+}

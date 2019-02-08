@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {User} from '../interfaces/user';
 import {UsersService} from '../services/users.service';
 import {AuthenticationService} from '../services/authentication.service';
@@ -14,7 +14,7 @@ import {flatMap} from 'rxjs/internal/operators';
   templateUrl: './update.component.html',
   styleUrls: ['./update.component.css']
 })
-export class UpdateComponent implements OnInit {
+export class UpdateComponent implements OnInit, OnChanges {
 
     private _model: User;
     private _modif: boolean;
@@ -55,6 +55,11 @@ export class UpdateComponent implements OnInit {
         this._modif = false;
     }
 
+    ngOnChanges(record) {
+        console.log("ngOnChange");
+        this._form.patchValue(record.model.currentValue);
+    }
+
     modifInfo(): any {
         // this._router.navigate(['/signup']);
         this._modif = !this._modif;
@@ -65,7 +70,7 @@ export class UpdateComponent implements OnInit {
     }
 
     terminer(data: any): any {
-        this.saveUser(data as User);
+        //this.saveUser(data as User);
         this.modifInfo();
     }
 
@@ -145,7 +150,7 @@ export class UpdateComponent implements OnInit {
                         };
                     }
                 ),
-                flatMap(_ => this._userService.create(_))
+                flatMap(_ => this._userService.update(_))
             ).subscribe(
             data => {
                 console.log(data);
@@ -158,7 +163,7 @@ export class UpdateComponent implements OnInit {
             });
     }
 
-    check(f: any): boolean{
+    check(f: any): boolean {
         let counter = 0;
         const length = f.value.values.length;
         for (let i = 0; i < length; i++) {
