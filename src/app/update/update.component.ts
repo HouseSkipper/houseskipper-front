@@ -8,11 +8,24 @@ import * as $ from 'jquery';
 import {of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {flatMap} from 'rxjs/internal/operators';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
-  selector: 'app-update',
-  templateUrl: './update.component.html',
-  styleUrls: ['./update.component.css']
+    selector: 'app-update',
+    templateUrl: './update.component.html',
+    styleUrls: ['./update.component.css'],
+    animations: [
+        trigger('slideInOut', [
+            state('in', style({opacity: 1})),
+            transition(':leave', [
+                animate('200ms ease-in', style({transform: 'translateX(+100%)', opacity: 0}))
+            ]),
+            transition(':enter', [
+                style({transform: 'translateX(100%)', opacity: 0}),
+                animate('600ms ease-in', style({transform: 'translateX(0%)'}))
+            ])
+        ])
+    ]
 })
 export class UpdateComponent implements OnInit, OnChanges {
 
@@ -56,7 +69,7 @@ export class UpdateComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(record) {
-        console.log("ngOnChange");
+        console.log('ngOnChange');
         this._form.patchValue(record.model.currentValue);
     }
 
