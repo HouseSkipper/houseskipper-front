@@ -10,7 +10,7 @@ import {
     MatIconModule,
     MatInputModule, MatRadioModule,
     MatSelectModule, MatSidenavModule, MatSliderModule,
-    MatToolbarModule
+    MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
@@ -19,19 +19,28 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
 import {TaskDialogComponent} from './task-dialog/task-dialog.component';
-import {DataaService} from './services/dataa.service';
+import {TasksService} from './services/tasks.service';
 import {FormHouseComponent} from './houses/form/form.house.component';
 import {HouseComponent} from './houses/house/house.component';
-import {DataService} from './services/task.service';
+import {DataService} from './services/budget.service';
 import {TaskComponent} from './task/task.component';
 import {SkillsComponent} from './skills/skills.component';
 import { MainNavBarComponent } from './shared/main-nav-bar/main-nav-bar.component';
 import {FileSelectDirective, FileUploadModule} from 'ng2-file-upload';
-import {DirectiveType} from '@angular/core/src/render3';
 import {ValidateAccountComponent} from './validate-account/validate-account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LangSelectorComponent } from './shared/lang-selector/lang-selector.component';
-import { LegalBarComponent } from './shared/legal-bar/legal-bar.component';
+import { SideMenuComponent } from './shared/side-menu/side-menu.component';
+import { MainSideMenuComponent } from './main-side-menu/main-side-menu.component';
+import {LegalBarComponent} from './shared/legal-bar/legal-bar.component';
+import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
+import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
+import { PrestataireComponent } from './prestataire/prestataire.component';
+import { ShortcutAreaComponent } from './shared/shortcut-area/shortcut-area.component';
+import {CookieService} from 'ngx-cookie-service';
+import { ShortcutComponent } from './shortcut/shortcut.component';
+import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.component';
+import {UpdateComponent} from './update/update.component';
 
 
 @NgModule({
@@ -43,16 +52,20 @@ import { LegalBarComponent } from './shared/legal-bar/legal-bar.component';
         SignUpComponent,
         TaskComponent,
         TaskDialogComponent,
-        SkillsComponent,
+        SkillsComponent, // --- Dupliquer
         MainNavBarComponent,
-        SkillsComponent,
         ValidateAccountComponent,
         DashboardComponent,
         LangSelectorComponent,
-        LegalBarComponent
+        LegalBarComponent,
+        LangSelectorComponent,
+        SideMenuComponent,
+        MainSideMenuComponent,
+        CheckBrowserComponent,
+        AppLayoutComponent,
+        PrestataireComponent
     ],
     imports: [
-        ReactiveFormsModule,
         BrowserModule,
         HttpClientModule,
         MatIconModule,
@@ -60,29 +73,28 @@ import { LegalBarComponent } from './shared/legal-bar/legal-bar.component';
         MatButtonModule,
         MatSelectModule,
         MatExpansionModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule, // --- Dupliquer
         MatCheckboxModule,
         MatRadioModule,
         MatDialogModule,
-        MatInputModule,
         MatCardModule,
         MatFormFieldModule,
-        MatInputModule,
+        MatInputModule, // --- Dupliquer
         BrowserAnimationsModule,
-        MatSidenavModule,
+        MatSidenavModule, // --- Dupliquer
         MaterialModule,
         FormsModule,
         MatSliderModule,
         FileUploadModule,
-        MatSidenavModule,
+        MatTooltipModule,
         APP_ROUTES
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
-        DataService, DataaService
+        DataService, TasksService, CookieService
     ],
     entryComponents: [
-        TaskDialogComponent
+        TaskDialogComponent, ShortcutDialogComponent
     ],
     bootstrap: [AppComponent],
 })

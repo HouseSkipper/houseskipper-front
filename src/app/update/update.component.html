@@ -1,0 +1,40 @@
+<div class="content-page">
+    <br>
+    <div class="container">
+        <div class="container">
+            <mat-card>
+                <mat-card-title-group>
+                    <mat-card-title><span>Informations personnelles</span></mat-card-title>
+                </mat-card-title-group>
+                <mat-card-content>
+                    <p>Photo : {{model.photo}}</p>
+                    <p>Nom d'utilisateur : {{model.username}}</p>
+                    <p>Nom : {{model.lastname}}</p>
+                    <p>Prénom : {{model.firstname}}</p>
+                    <p>Téléphone : {{model.telephone}}</p>
+                    <p>Rôle : {{model.role}}</p>
+                </mat-card-content>
+                <mat-card-footer>
+                    <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
+                        <div class="blocks">
+                            <button button="submit" mat-raised-button color="primary" (click)="openDialog()">
+                                <mat-icon>create</mat-icon> Modifier mes informations
+                            </button>
+                        </div>
+                    </div>
+                    <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
+                        <div class="blocks">
+                            <button button="submit" mat-raised-button color="primary" (click)="openDialog()">
+                                <mat-icon>create</mat-icon> Modifier mon mot de passe
+                            </button>
+                        </div>
+                    </div>
+
+                </mat-card-footer>
+            </mat-card>
+
+        </div>
+    </div>
+
+</div>
+

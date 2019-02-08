@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from './interfaces/user';
 import {AuthenticationService} from './services/authentication.service';
-import {Router} from '@angular/router';
+import {NavigationStart, Router} from '@angular/router';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -12,8 +13,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private _matIconRegistry: MatIconRegistry, private _domSanitizer: DomSanitizer,
-                private _authService: AuthenticationService) {
+
+    constructor(private _matIconRegistry: MatIconRegistry, private _domSanitizer: DomSanitizer, private router: Router) {
     }
 
 
@@ -38,5 +39,8 @@ export class AppComponent implements OnInit {
         this._matIconRegistry.addSvgIcon('icon-edit', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/edit.svg'));
         this._matIconRegistry.addSvgIcon('icon-en', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/en.svg'));
         this._matIconRegistry.addSvgIcon('icon-fr', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/fr.svg'));
+        this._matIconRegistry.addSvgIcon('icon-logo-plat', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/Logo-House-Skipper-long.svg'));
+        this._matIconRegistry.addSvgIcon('icon-checked', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/checked.svg'));
     }
+
 }
