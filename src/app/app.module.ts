@@ -40,6 +40,7 @@ import { ShortcutAreaComponent } from './shared/shortcut-area/shortcut-area.comp
 import {CookieService} from 'ngx-cookie-service';
 import { ShortcutComponent } from './shortcut/shortcut.component';
 import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.component';
+import {UpdateComponent} from './update/update.component';
 
 
 @NgModule({
@@ -62,10 +63,7 @@ import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.compo
         MainSideMenuComponent,
         CheckBrowserComponent,
         AppLayoutComponent,
-        PrestataireComponent,
-        ShortcutAreaComponent,
-        ShortcutComponent,
-        ShortcutDialogComponent
+        PrestataireComponent
     ],
     imports: [
         BrowserModule,
