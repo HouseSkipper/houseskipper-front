@@ -39,6 +39,7 @@ import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { PrestataireComponent } from './prestataire/prestataire.component';
 import { ShortcutAreaComponent } from './shared/shortcut-area/shortcut-area.component';
 import {CookieService} from 'ngx-cookie-service';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import {CookieService} from 'ngx-cookie-service';
         MatSliderModule,
         FileUploadModule,
         MatTooltipModule,
+        MatPaginatorModule,
         APP_ROUTES
     ],
     providers: [
