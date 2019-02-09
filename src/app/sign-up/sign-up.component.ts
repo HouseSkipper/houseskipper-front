@@ -92,14 +92,14 @@ export class SignUpComponent implements OnInit {
                         this._errorMsg = 'Des champs sont manquants';
                     }
                 }
-                 if(this.stepNum % 2 === 1) {
-                     const $bar = $('.ProgressBar');
-                     if ($bar.children('.is-current').length > 0) {
-                         $bar.children('.is-current').removeClass('is-current').addClass('is-complete').next().addClass('is-current');
-                     } else {
-                         $bar.children().first().addClass('is-current');
-                     }
-                 }
+                if(this.stepNum % 2 === 1) {
+                    const $bar = $('.ProgressBar');
+                    if ($bar.children('.is-current').length > 0) {
+                        $bar.children('.is-current').removeClass('is-current').addClass('is-complete').next().addClass('is-current');
+                    } else {
+                        $bar.children().first().addClass('is-current');
+                    }
+                }
                 this._stepNum++;
             }
         } else {
@@ -114,23 +114,23 @@ export class SignUpComponent implements OnInit {
     }
 
     previous(data: any) {
-            const index = this._fieldsFlatten.indexOf(this._step);
-            console.log('index:' + index);
-            if (index > 0) {
-                if(this.stepNum % 2 === 0) {
+        const index = this._fieldsFlatten.indexOf(this._step);
+        console.log('index:' + index);
+        if (index > 0) {
+            if(this.stepNum % 2 === 0) {
 
-                    const $bar = $('.ProgressBar');
-                    if ($bar.children('.is-current').length > 0) {
-                        $bar.children('.is-current').removeClass('is-current').prev().removeClass('is-complete').addClass('is-current');
-                    } else {
-                        $bar.children('.is-complete').last().removeClass('is-complete').addClass('is-current');
-                    }
+                const $bar = $('.ProgressBar');
+                if ($bar.children('.is-current').length > 0) {
+                    $bar.children('.is-current').removeClass('is-current').prev().removeClass('is-complete').addClass('is-current');
+                } else {
+                    $bar.children('.is-complete').last().removeClass('is-complete').addClass('is-current');
                 }
-                console.log('on est dans la même categorie');
-                this._step = this._fieldsFlatten[index - 1];
-                this._stepNum--;
-                console.log('stepNum:' + this.stepNum);
             }
+            console.log('on est dans la même categorie');
+            this._step = this._fieldsFlatten[index - 1];
+            this._stepNum--;
+            console.log('stepNum:' + this.stepNum);
+        }
 
     }
 
@@ -303,4 +303,3 @@ export class SignUpComponent implements OnInit {
         }
     }
 }
-
