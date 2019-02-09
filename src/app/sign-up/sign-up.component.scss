@@ -30,12 +30,6 @@ mat-form-field, button {
 
 #login-container {
   flex-basis:468px;
-  /* display:flex;
-   flex-basis:468px;
-   align-content:center;
-   align-items: center;
-   height:100vh;
-   flex-direction: column;*/
 }
 
 .mgb15{
@@ -58,27 +52,15 @@ h1 {
     width: 70%;
 }*/
 
-#continueButton{
+.actionButton {
   margin-left: 30px !important;
   width:200px;
   height:50px;
-  background: #c5f135;;
+  background: #c5f135;
   text-align: center;
   text-decoration: none;
   margin:inherit;
   display: inline-block
-}
-
-#previousButton{
-  margin-left: 30px !important;
-  width:200px;
-  height:50px;
-  background: #c5f135;;
-  text-align: center;
-  text-decoration: none;
-  margin:inherit;
-  display: inline-block
-
 }
 
 *, :after, :before {
@@ -91,6 +73,7 @@ h1 {
   display:flex;
   flex-direction: column;
   justify-content: center;
+  padding:40px;
 }
 
 #buttonMenu button {
@@ -98,7 +81,7 @@ h1 {
 }
 
 #signup-container {
- // height:100%;
+  //height:100%;
   display:flex;
   flex-direction: column;
   justify-content: center;
@@ -111,6 +94,20 @@ mat-sidenav-container {
 .titleField {
   font-weight: bold;
   font-size:1.2em;
+  padding-left: 3px;
+  margin-bottom:10px;
+}
+
+.iconChecked {
+  width: 20px;
+  height: 20px;
+  padding-top: 3px;
+  margin-left:-10px;
+  margin-right:10px;
+}
+
+.capitalize {
+  margin-left: 3px;
 }
 
 //Variables
