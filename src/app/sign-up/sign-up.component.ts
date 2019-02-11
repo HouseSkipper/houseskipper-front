@@ -92,7 +92,7 @@ export class SignUpComponent implements OnInit {
                         this._errorMsg = 'Des champs sont manquants';
                     }
                 }
-                if(this.stepNum % 2 === 1) {
+                if (this.stepNum % 2 === 1) {
                     const $bar = $('.ProgressBar');
                     if ($bar.children('.is-current').length > 0) {
                         $bar.children('.is-current').removeClass('is-current').addClass('is-complete').next().addClass('is-current');
@@ -117,7 +117,7 @@ export class SignUpComponent implements OnInit {
         const index = this._fieldsFlatten.indexOf(this._step);
         console.log('index:' + index);
         if (index > 0) {
-            if(this.stepNum % 2 === 0) {
+            if (this.stepNum % 2 === 0) {
 
                 const $bar = $('.ProgressBar');
                 if ($bar.children('.is-current').length > 0) {
