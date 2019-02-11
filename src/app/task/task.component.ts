@@ -25,7 +25,7 @@ export class TaskComponent implements OnInit {
     blogFile = { filename: '', file: ''};
     hasFile: boolean;
     private _errorMsg = '';
-    constructor(private _dataService: TasksService, public dialog: MatDialog,
+    constructor(private _dataService: TasksService, public dialog: MatDialog
                 ) {
         this.hasFile = false;
     }

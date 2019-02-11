@@ -9,11 +9,24 @@ import {HttpHeaders} from '@angular/common/http';
 import {AuthGuardService} from '../guards/auth-guard.service';
 import {AuthenticationService} from '../services/authentication.service';
 import {environment} from '../../environments/environment';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-task-dialog',
   templateUrl: './task-dialog.component.html',
-  styleUrls: ['./task-dialog.component.css']
+  styleUrls: ['./task-dialog.component.css'],
+    animations: [
+        trigger('slideInOut', [
+            state('in', style({opacity: 1})),
+            transition(':leave', [
+                animate('200ms ease-in', style({transform: 'translateX(+100%)', opacity: 0}))
+            ]),
+            transition(':enter', [
+                style({transform: 'translateX(100%)', opacity: 0}),
+                animate('600ms ease-in', style({transform: 'translateX(0%)'}))
+            ])
+        ])
+    ]
 })
 export class TaskDialogComponent implements OnInit {
 
@@ -21,6 +34,7 @@ export class TaskDialogComponent implements OnInit {
     public uploader: FileUploader = new FileUploader({authToken: 'Bearer ' + this.authService.currentUserValue.token});
     data: string;
     uploadFile: boolean;
+    private _step: string;
     blogTask = {
         name: '',
         room: '',
@@ -36,12 +50,18 @@ export class TaskDialogComponent implements OnInit {
     get rooms(): Room[] {
         return this._rooms;
     }
+
+    get step(): string {
+        return this._step;
+    }
+
     constructor(
         public dialogRef: MatDialogRef<TaskDialogComponent>,
         public dataService: DataService,
         @Inject(MAT_DIALOG_DATA) public blog: Task,
         public authService: AuthenticationService
     ) {
+        this._step = 'tache';
         this._backendURL = {};
 
         // build backend base url
@@ -55,14 +75,19 @@ export class TaskDialogComponent implements OnInit {
             `${baseUrl}${environment.backend.endpoints.tasks[ k ]}`);
         if (!!blog) {
             this.blogTask = blog;
-            this.data = 'Edit Task';
+            this.data = 'Modifier votre demande de travaux';
             this.uploadFile = true;
         } else {
             this.uploadFile = false;
-            this.data = 'Add Task';
+            this.data = 'Ajouter une demande de travaux';
         }
         this.dataService.getAll().subscribe((_) => this._rooms = _);
 
+    }
+
+    toFile() {
+        this.event.emit({data: this.blogTask});
+        this._step = 'file';
     }
 
     onNoClick(): void {
@@ -70,13 +95,14 @@ export class TaskDialogComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.event.emit({data: this.blogTask});
+        // this.event.emit({data: this.blogTask});
         this.dialogRef.close();
     }
     onSaveFile(name): void {
         console.log(name);
         this.uploader.setOptions({url: this._backendURL.upload.replace(':id', name), headers: this._options()});
         this.uploader.uploadAll();
+        this.onSubmit();
     }
 
     private _options(headerList: Object = {}): any {

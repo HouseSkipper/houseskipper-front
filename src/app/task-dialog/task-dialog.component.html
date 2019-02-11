@@ -1,6 +1,7 @@
 <h1 mat-dialog-title>{{data}}</h1>
 <div mat-dialog-content>
-  <form class="example-form" (ngSubmit)="onSubmit()">
+  <div *ngIf="step === 'tache'" [@slideInOut]>
+  <form class="example-form" (ngSubmit)="toFile()">
     <mat-form-field>
       <input matInput placeholder="Tâche" required [(ngModel)]="blogTask.name" name="name"/>
 
@@ -22,16 +23,15 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <div *ngIf="uploadFile" mat-dialog-content class="example-form">
-      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
-      <br/>
-      <button mat-raised-button type="submit" (click)="onSaveFile(blogTask.name)" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Sauvegarder et charger le fichier</button>
-    </div>
-    <div *ngIf="!uploadFile" mat-dialog-content class="example-form">
-
-      <button mat-raised-button type="submit"                      color="primary">Sauvegarder</button>
-    </div>
+      <button mat-raised-button type="submit" color="primary">Suivant</button>
     </form>
+  </div>
+  <div *ngIf="step === 'file'" mat-dialog-content class="example-form" [@slideInOut]>
+    <h4 mat-dialog-content>Charger vos fichiers pour la demande : {{blogTask.name}}</h4><br/>
+    <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+    <br/>
+    <button mat-raised-button type="submit" (click)="onSaveFile(blogTask.name)" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Sauvegarder et charger le fichier</button>
+  </div>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button class="close" (click)="onNoClick()" color="warn">Annuler</button>
