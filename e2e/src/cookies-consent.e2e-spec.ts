@@ -23,4 +23,11 @@ describe('HouseSkipper cookies consent test', () => {
     expect(page.getCookiesConsent().isPresent()).toBe(false);
 	});
 
+  it('popup should not be present after refreshing also', () => {
+  		page.navigateTo();
+  		browser.waitForAngular();
+
+      expect(page.getCookiesConsent().isPresent()).toBe(false);
+  	});
+
 });
