@@ -44,6 +44,9 @@ export class TaskDialogComponent implements OnInit {
         start_date: new Date()
     };
     private _rooms: Room[];
+    private _addMode: boolean;
+    private _errorMsg: string;
+    private _option: string;
     budgets = this.dataService.getBudgets();
     public event: EventEmitter<any> = new EventEmitter();
 
@@ -55,12 +58,24 @@ export class TaskDialogComponent implements OnInit {
         return this._step;
     }
 
+    get addMode(): boolean {
+        return this._addMode;
+    }
+
+    get errorMsg(): string {
+        return this._errorMsg;
+    }
+
+    get option(): string {
+        return this._option;
+    }
     constructor(
         public dialogRef: MatDialogRef<TaskDialogComponent>,
         public dataService: DataService,
         @Inject(MAT_DIALOG_DATA) public blog: Task,
         public authService: AuthenticationService
     ) {
+        this._option = 'non';
         this._step = 'tache';
         this._backendURL = {};
 
@@ -79,6 +94,7 @@ export class TaskDialogComponent implements OnInit {
             this.uploadFile = true;
         } else {
             this.uploadFile = false;
+            this._addMode = true;
             this.data = 'Ajouter une demande de travaux';
         }
         this.dataService.getAll().subscribe((_) => this._rooms = _);
@@ -86,8 +102,20 @@ export class TaskDialogComponent implements OnInit {
     }
 
     toFile() {
-        this.event.emit({data: this.blogTask});
-        this._step = 'file';
+        if (this.blogTask.name === '' || this.blogTask.budget === '' || this.blogTask.room === '' || this.blogTask.description === '') {
+            this._errorMsg = 'Veuillez remplir tout les champs.';
+        } else {
+            this.event.emit({data: this.blogTask});
+            this._step = 'file';
+        }
+    }
+
+    setOption() {
+        if (this._option === 'non') {
+            this._option = 'oui';
+        } else {
+            this._option = 'non';
+        }
     }
 
     onNoClick(): void {
