@@ -16,6 +16,9 @@
     height:100vh;
 }
 
+.cur {
+    cursor: pointer;
+}
 button, mat-error, h1, a, mat-icon {
     display: block;
     margin-left: auto;

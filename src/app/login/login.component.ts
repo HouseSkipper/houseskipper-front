@@ -4,6 +4,9 @@ import {User} from '../interfaces/user';
 import {AuthenticationService} from '../services/authentication.service';
 import {first} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material';
+import {TaskDialogComponent} from '../task-dialog/task-dialog.component';
+import {BeforeLoginDialogComponent} from '../before-login-dialog/before-login-dialog.component';
 
 @Component({
     selector: 'app-login',
@@ -41,17 +44,21 @@ export class LoginComponent implements OnInit {
                     error => {
                         this._errorMsg = error;
                     }
-                )
+                );
             this._submit$.emit(user);
         } else if (this._isPrestataire) {
 
         }
     }
 
-    constructor(private _authService: AuthenticationService, private _router: Router) {
+    constructor(private _authService: AuthenticationService, private _router: Router, private _dialog: MatDialog) {
         this._submit$ = new EventEmitter<User>();
         this._form = this._buildForm();
         this._isPrestataire = false;
+    }
+
+    openChoiceModal() {
+        const dialogRef = this._dialog.open(BeforeLoginDialogComponent);
     }
 
     private _buildForm(): FormGroup {

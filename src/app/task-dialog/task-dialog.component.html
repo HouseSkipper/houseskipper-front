@@ -16,14 +16,28 @@
     <mat-form-field>
       <textarea matInput placeholder="Description de la tâche" required [(ngModel)]="blogTask.description" name="description"></textarea>
     </mat-form-field>
-    <mat-form-field>
-      <mat-select matInput placeholder="Budget" required [(ngModel)]="blogTask.budget" name="budget">
+    <div *ngIf="addMode">
+      Voulez-vous une estimation pour votre demande ? <br/>
+      <mat-radio-group>
+        <mat-radio-button (click)="setOption()" value="1" class="radio">Oui</mat-radio-button>
+        <mat-radio-button (click)="setOption()" value="2" class="radio">Non</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <mat-form-field *ngIf="option === 'oui'" >
+      <mat-select matInput placeholder="Budget" required [(ngModel)]="blogTask.budget" name="budgets">
         <mat-option *ngFor="let budget of budgets" [value]="budget.value">
           {{ budget.viewValue }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-      <button mat-raised-button type="submit" color="primary">Suivant</button>
+
+    <mat-form-field *ngIf="option === 'non'">
+      <input matInput placeholder="Budget" required [(ngModel)]="blogTask.budget" name="budget"/>
+    </mat-form-field>
+
+    <mat-error id="errorMessage" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error><br/>
+
+    <button mat-raised-button type="submit" color="primary">Suivant</button>
     </form>
   </div>
   <div *ngIf="step === 'file'" mat-dialog-content class="example-form" [@slideInOut]>
