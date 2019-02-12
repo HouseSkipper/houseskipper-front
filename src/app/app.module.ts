@@ -42,6 +42,7 @@ import { ShortcutComponent } from './shortcut/shortcut.component';
 import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.component';
 import {UpdateComponent} from './update/update.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-dialog.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         ShortcutAreaComponent,
         UpdateComponent,
         ShortcutDialogComponent,
-        ShortcutComponent
+        ShortcutComponent,
+        BeforeLoginDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -100,7 +102,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         DataService, TasksService, CookieService
     ],
     entryComponents: [
-        TaskDialogComponent, ShortcutDialogComponent
+        TaskDialogComponent, ShortcutDialogComponent, BeforeLoginDialogComponent
     ],
     bootstrap: [AppComponent],
 })

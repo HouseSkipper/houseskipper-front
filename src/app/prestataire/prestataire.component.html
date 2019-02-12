@@ -2,7 +2,7 @@
 
   <div id="prestataire-signup-container">
     <form class="form-container" novalidate [formGroup]="form">
-      <mat-icon id="logo" svgIcon="icon-logo"></mat-icon>
+      <mat-icon class="cur" id="logo" svgIcon="icon-logo" (click)="openChoiceModal()"></mat-icon>
       <mat-card class="align-center" style="opacity: 0.9;">
         <h1 class="mat-headline">Optimisez votre activité et développez votre clientèle</h1>
           <mat-form-field class="margin" appearance="outline">

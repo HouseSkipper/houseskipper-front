@@ -4,6 +4,8 @@ import {Prestataire} from '../interfaces/Prestataire';
 import {PrestataireService} from '../services/prestataire.service';
 import {HouseService} from '../services/house.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material';
+import {BeforeLoginDialogComponent} from '../before-login-dialog/before-login-dialog.component';
 
 @Component({
   selector: 'app-prestataire',
@@ -16,7 +18,7 @@ export class PrestataireComponent implements OnInit {
     private _confirmMsg = '';
     private _form: FormGroup;
     private _professions: string [];
-  constructor(private _prestataireService: PrestataireService, private _router: Router, private _route: ActivatedRoute) {
+  constructor(private _prestataireService: PrestataireService, private _router: Router, private _route: ActivatedRoute, private _dialog: MatDialog) {
       this._form = this._buildForm();
       this._professions = [
           'Conducteur de Travaux (CdT)',
@@ -27,6 +29,10 @@ export class PrestataireComponent implements OnInit {
           'Juriste (Jur)',
       ];
   }
+
+    openChoiceModal() {
+        const dialogRef = this._dialog.open(BeforeLoginDialogComponent);
+    }
 
     private _buildForm(): FormGroup {
         return new FormGroup({

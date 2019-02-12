@@ -1,16 +1,11 @@
 <div id="navbar">
-    <button  mat-button class="menu-button" [routerLink]="['/prestataireSignup']">
-        <span class="b2b-cta-btn-icon">
-            <img src="../../assets/images/prestataire.png" class="Q" />
-        </span> <span>Vous êtes un partenaire?</span>
-    </button>
         <app-lang-selector></app-lang-selector>
 </div>
 <div class="login">
 
     <div id="login-container">
         <form class="form-container" novalidate [formGroup]="form">
-            <mat-icon id="logo" svgIcon="icon-logo"></mat-icon>
+            <mat-icon class="cur" (click)="openChoiceModal()" id="logo" svgIcon="icon-logo"></mat-icon>
             <h1 id="slogan" class="mat-headline">La plateforme pour vos travaux d’habitation</h1>
             <mat-card class="align-center" style="opacity: 0.9;width:350px">
                 <h1 class="mat-headline">Se connecter</h1>

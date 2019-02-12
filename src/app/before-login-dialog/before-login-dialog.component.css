@@ -1,0 +1,22 @@
+.card {
+    cursor: pointer;
+    display: inline-block;
+    margin: 6vh;
+    text-align: center;
+    max-width: 50vh;
+    max-height: 50vh;
+}
+
+img {
+    border-radius: 50%;
+}
+
+.mat-dialog-container{
+    background: transparent;
+}
+
+.font-roboto {
+    font-family: 'roboto condensed';
+    font-size: large;
+    padding: 2vh;
+}
