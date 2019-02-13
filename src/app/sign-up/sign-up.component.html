@@ -75,6 +75,7 @@
                         <input matInput placeholder="Adresse Email" formControlName="username">
                         <mat-error class="alert alert-danger">Email requis</mat-error>
                         <mat-error *ngIf="form.invalid && form.get('username').hasError('pattern')" class="alert alert-danger">Email non valide</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('username').hasError('emailExists')" class="alert alert-danger">Email déjà utilisé</mat-error>
                     </mat-form-field>
                 </div>
                 <div id="password" *ngIf="step == 'password'" [@slideInOut]>
@@ -125,7 +126,7 @@
                     <span id="cguCheck"><mat-checkbox [(ngModel)]="cgu" [ngModelOptions]="{standalone: true}">J'accepte les conditions générales d'utilisations.</mat-checkbox></span>
                 </div>
             </form>
-            <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
+            <mat-error class="body-1" *ngIf="errorMsg">{{errorMsg}}</mat-error>
             <div>
                 <button *ngIf="stepNum > 0" class="actionButton" mat-button (click)="previous(form.value)">
                     Précédent

@@ -40,10 +40,12 @@ export class SignUpComponent implements OnInit {
     private readonly _submit$: EventEmitter<any>;
     private _formCodeEmail: FormGroup;
     private _cgu: boolean;
+    private _fieldChecked: Map<string, boolean>;
 
 
     constructor(private _userService: UsersService, private _router: Router, private _authService: AuthenticationService) {
         this._fieldsFlatten = [];
+        this._fieldChecked = new Map();
         this._stepNum = 0;
         this._submit$ = new EventEmitter<any>();
         this._form = this._buildForm();
@@ -63,6 +65,7 @@ export class SignUpComponent implements OnInit {
                 this._fieldsFlatten[i] = subfield;
                 i++;
             }
+            this._fieldChecked.set(value.title, false);
         });
         this._step = this._fieldsFlatten[0];
         this._cgu = false;
@@ -73,17 +76,26 @@ export class SignUpComponent implements OnInit {
         this._errorMsg = '';
         if (index <= 5) {
             if (this._form.get(this._step).valid) {
+                console.log(this._step + ' a true');
+                this._fieldChecked.set(this._step, true);
                 if (this._step === 'password') {
                     if (this._form.get('confirmPassword').value === this._form.get('password').value) {
-                        console.log('index:' + index);
                         this._step = this._fieldsFlatten[index + 1];
                     } else {
                         this._errorMsg = 'Votre mot de passe ne correspond pas';
                     }
+                } else if (this._step === 'username') {
+                    this._userService.checkExists(this._form.get(this._step).value).subscribe(data => {
+                        if (data) {
+                            this._errorMsg = 'Cet email est déjà utilisé';
+                        } else {
+                            this._errorMsg = '';
+                            this._step = this._fieldsFlatten[index + 1];
+                        }
+                    });
                 } else {
                     console.log('index:' + index);
                     if (index < 5) {
-                        console.log('on est dans la même categorie');
                         this._step = this._fieldsFlatten[index + 1];
                     } else if (this._form.valid) {
                         this._step = this._fieldsFlatten[index + 1];
@@ -292,9 +304,8 @@ export class SignUpComponent implements OnInit {
             let counter = 0;
             const length = f.value.values.length;
             for (let i = 0; i < length; i++) {
-                // console.log(f.value.values[i]);
                 if (f.value.values[i] !== 'code') {
-                    if (this._form.get(f.value.values[i]).valid) {
+                    if (this._form.get(f.value.values[i]).valid && this._fieldChecked.get(f.value.values[i])) {
                         counter = counter + 1;
                     }
                 }

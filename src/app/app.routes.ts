@@ -13,6 +13,7 @@ import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 import {AppLayoutComponent} from './_layout/app-layout/app-layout.component';
 import {PrestataireComponent} from './prestataire/prestataire.component';
 import {UpdateComponent} from './update/update.component';
+import {BeforeLoginDialogComponent} from './before-login-dialog/before-login-dialog.component';
 
 const ROUTES: Routes = [
     // App routes goes here
@@ -31,8 +32,8 @@ const ROUTES: Routes = [
             {path: 'update', component: UpdateComponent, canActivate: [AuthGuardService]},
         ]
     },
-
     // no layout routes
+    { path: 'home', component: BeforeLoginDialogComponent},
     { path: 'login', component: LoginComponent},
     { path: 'signup', component: SignUpComponent },
     { path: 'prestataireSignup', component: PrestataireComponent},

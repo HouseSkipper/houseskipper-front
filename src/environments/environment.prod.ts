@@ -12,6 +12,7 @@ export const environment = {
         endpoints: {
             oneUsers: '/api/users/:id',
             allUsers: '/api/users',
+            exists: '/users/exists',
             updateUsers: '/users/update',
             authenticate: '/login',
             signup: '/users/sign-up',

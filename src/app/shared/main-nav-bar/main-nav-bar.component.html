@@ -23,13 +23,5 @@
         <span>Déconnexion</span>
       </button>
     </div>
-    <div *ngIf="!currentUser">
-      <button  mat-button class="menu-button" [routerLink]="['/signup']">
-        <span>Inscription</span>
-      </button>
-      <button  mat-button class="menu-button" [routerLink]="['/login']">
-        <span>Connexion</span>
-      </button>
-    </div>
     <app-lang-selector></app-lang-selector>
 </mat-toolbar>
