@@ -1,7 +1,7 @@
 <mat-accordion class="example-headers-align justify-content">
     <form novalidate [formGroup]="form">
         <!-- Caractéristiques générales -->
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"  hideToggle>
             <mat-expansion-panel-header class="right-aligned-header">
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-houses"></mat-icon>
@@ -11,7 +11,7 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Type de logement</mat-label>
                     <mat-select placeholder="Type de logement" formControlName="houseType" required name="houseType">
                         <mat-option value="maison">Maison</mat-option>
@@ -20,7 +20,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Résidence</mat-label>
                     <mat-select placeholder="Résidence" formControlName="residence" required name="residence">
                         <mat-option value="principale">Principale</mat-option>
@@ -29,7 +29,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Nom du logement</mat-label>
                     <input matInput placeholder="Nom du logement" formControlName="houseName" minlength="5" required
                            name="houseName"/>
@@ -62,7 +62,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Type</mat-label>
                     <mat-select placeholder="Type" formControlName="standardType" required name="standardType"
                                 (selectionChange)="changeType()">
@@ -70,6 +70,31 @@
                             {{type.value}}
                         </mat-option>
                     </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Revêtement extérieur</mat-label>
+                    <input matInput placeholder="Revêtement extérieur" formControlName="revetementExterieur"
+                           name="revetementExterieur"/>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Surface Toiture</mat-label>
+                    <input matInput placeholder="Surface Toiture" formControlName="surfaceToiture"
+                           name="surfaceToiture"/>
+                    <mat-error
+                            *ngIf="form.get('surfaceToiture').hasError('pattern')">
+                        Surface toiture doit être un <strong>nombre</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Revêtement toiture</mat-label>
+                    <input matInput placeholder="Revêtement toiture" formControlName="revetementToiture"
+                           name="revetementToiture"/>
                 </mat-form-field>
             </div>
             <mat-action-row>
@@ -89,7 +114,7 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Pays</mat-label>
                     <mat-select placeholder="Pays" formControlName="pays" required name="pays"
                                 (selectionChange)="changeType()">
@@ -100,7 +125,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Adresse postale</mat-label>
                     <input matInput placeholder="Adresse postale" formControlName="address" required
                            name="address"/>
@@ -110,7 +135,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Code postal</mat-label>
                     <input matInput placeholder="Code postal" formControlName="postalCode" required
                            name="postalCode"/>
@@ -124,7 +149,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Ville</mat-label>
                     <input matInput placeholder="Ville" formControlName="city" required
                            name="city"/>
@@ -244,24 +269,21 @@
         </mat-expansion-panel>
 
         <!-- Pièces -->
-        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+        <mat-expansion-panel *ngFor="let piece of form.get('rooms')['controls']; let i = index;" [expanded]="step === 4+i" (opened)="setStep(4+i)" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-door"></mat-icon>
                 </mat-panel-title>
-                <mat-panel-description>
-                    Vos pièces
+                <mat-panel-description *ngIf="form.get('rooms').controls[i].get('roomName').value == undefined">
+                    Pièce {{i-1}}
+                </mat-panel-description>
+                <mat-panel-description *ngIf="form.get('rooms').controls[i].get('roomName').value != undefined">
+                    {{form.get('rooms').controls[i].get('roomName').value}}
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <button mat-button="add" (click)="addItem(undefined)">
-                <mat-icon svgIcon="icon-add"></mat-icon>
-            </button>
-            <div formArrayName="rooms" *ngFor="let piece of form.get('rooms')['controls']; let i = index;">
+            <div formArrayName="rooms">
                 <div [formGroupName]="i">
-                    <button mat-button (click)="deletePiece(form.get('rooms').controls[i].get('id').value)">
-                        <mat-icon svgIcon="icon-delete"></mat-icon>
-                    </button>
-                    <mat-form-field class="margin" appearance="outline">
+                    <mat-form-field class="margin importantField" appearance="outline">
                         <mat-label>Nom de la pièce</mat-label>
                         <input matInput placeholder="Nom de la pièce" formControlName="roomName" required
                                name="piece{{piece.id}}"/>
@@ -270,7 +292,7 @@
                             Le nom de la pièce est <strong>requis</strong>
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="margin" appearance="outline">
+                    <mat-form-field class="margin importantField" appearance="outline">
                         <mat-label>Surface</mat-label>
                         <input matInput placeholder="Surface" formControlName="space" required
                                name="space{{piece.id}}"/>
@@ -337,40 +359,14 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
-                    <mat-label>Revêtement extérieur</mat-label>
-                    <input matInput placeholder="Revêtement extérieur" formControlName="revetementExterieur"
-                           name="revetementExterieur"/>
-                </mat-form-field>
-            </div>
-            <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
-                    <mat-label>Surface Toiture</mat-label>
-                    <input matInput placeholder="Surface Toiture" formControlName="surfaceToiture"
-                           name="surfaceToiture"/>
-                    <mat-error
-                            *ngIf="form.get('surfaceToiture').hasError('pattern')">
-                        Surface toiture doit être un <strong>nombre</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
-                    <mat-label>Revêtement toiture</mat-label>
-                    <input matInput placeholder="Revêtement toiture" formControlName="revetementToiture"
-                           name="revetementToiture"/>
-                </mat-form-field>
-            </div>
-
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-                <button mat-button color="primary" (click)="nextStep()">Suivant</button>
+                <button mat-button color="primary" (click)="nextStep()" [disabled]="form.get('rooms').controls[i].invalid">Suivant</button>
             </mat-action-row>
         </mat-expansion-panel>
 
         <!-- Extérieur -->
-        <mat-expansion-panel *ngIf="form.get('exterieur').value === '1'" [expanded]="step === 5" (opened)="setStep(5)"
+        <mat-expansion-panel *ngIf="form.get('exterieur').value === '1'" [expanded]="step === 4+lengthRoom()" (opened)="setStep(4+lengthRoom())"
                              hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -429,7 +425,7 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Surface à l’arrière</mat-label>
-                    <input matInput placeholder="Revêtement toiture" formControlName="surfaceExterieurArriere"
+                    <input matInput placeholder="Surface arrière" formControlName="surfaceExterieurArriere"
                            name="surfaceExterieurArriere"/>
                     <mat-error
                             *ngIf="form.get('surfaceExterieurArriere').hasError('pattern')">
@@ -446,7 +442,7 @@
 
 
         <!-- Commentaire -->
-        <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 4+lengthRoom()+exterieur()" (opened)="setStep(4+lengthRoom()+exterieur())" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-message"></mat-icon>

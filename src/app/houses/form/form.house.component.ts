@@ -29,7 +29,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
 
     constructor(private _houseService: HouseService, private _router: Router, private _route: ActivatedRoute) {
         this._form = this._buildForm();
-        this._step = 0;
+        this._step = -1;
         this._types = [
             {value: 'Studio'},
             {value: 'T1'},
@@ -44,7 +44,16 @@ export class FormHouseComponent implements OnInit, OnChanges {
         this._pays = ['France', 'Luxembourg', 'Allemagne', 'Belgique', 'Suisse'];
         this._classeEnergetique = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
         this._isUpdateMode = false;
+        this.nextStep();
 
+    }
+
+    lengthRoom(): number {
+        return this.rooms.length;
+    }
+
+    exterieur(): number {
+        return parseInt(this.form.get('exterieur').value, 10);
     }
 
     ngOnChanges(house) {
@@ -73,6 +82,9 @@ export class FormHouseComponent implements OnInit, OnChanges {
                 house.eolienne = '0';
             } else {
                 house.eolienne = '1';
+            }
+            if (house.constructionYear === 0) {
+                house.constructionYear = '0000';
             }
             for (let i = 0; i < house.rooms.length ; i++) {
                 if (house.rooms[i].volet === 0) {
@@ -192,23 +204,16 @@ export class FormHouseComponent implements OnInit, OnChanges {
     }
 
     setStep(index: number) {
+        console.log('set ' + index);
         this._step = index;
     }
 
     nextStep() {
-        if (this._form.get('exterieur').value === '0' && this._step === 4) {
-            this._step = this._step + 2;
-        } else {
-            this._step++;
-        }
+        this._step++;
     }
 
     prevStep() {
-        if (this._form.get('exterieur').value === '0' && this._step === 6) {
-            this._step = this._step - 2;
-        } else {
-            this._step--;
-        }
+        this._step--;
     }
 
     ngOnInit() {

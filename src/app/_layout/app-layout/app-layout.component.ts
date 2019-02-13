@@ -36,6 +36,9 @@ export class AppLayoutComponent implements OnInit {
             case 'Modifier mes informations':
                 this.router.navigate(['/update']);
                 break;
+            case 'Ajouter un logement':
+                this.router.navigate(['/users/houses/addhouse']);
+                break;
         }
     }
 
