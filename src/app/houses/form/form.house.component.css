@@ -64,3 +64,7 @@ mat-panel-description {
 .mat-content > mat-panel-title, .mat-content > mat-panel-description {
     flex: 0 0 auto;
 }
+
+::ng-deep .importantField.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: red;
+}

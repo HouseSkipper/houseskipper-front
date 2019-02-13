@@ -83,6 +83,9 @@ export class FormHouseComponent implements OnInit, OnChanges {
             } else {
                 house.eolienne = '1';
             }
+            if (house.constructionYear === 0) {
+                house.constructionYear = '0000';
+            }
             for (let i = 0; i < house.rooms.length ; i++) {
                 if (house.rooms[i].volet === 0) {
                     house.rooms[i].volet = '0';

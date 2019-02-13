@@ -11,7 +11,7 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Type de logement</mat-label>
                     <mat-select placeholder="Type de logement" formControlName="houseType" required name="houseType">
                         <mat-option value="maison">Maison</mat-option>
@@ -20,7 +20,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Résidence</mat-label>
                     <mat-select placeholder="Résidence" formControlName="residence" required name="residence">
                         <mat-option value="principale">Principale</mat-option>
@@ -29,7 +29,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Nom du logement</mat-label>
                     <input matInput placeholder="Nom du logement" formControlName="houseName" minlength="5" required
                            name="houseName"/>
@@ -62,7 +62,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Type</mat-label>
                     <mat-select placeholder="Type" formControlName="standardType" required name="standardType"
                                 (selectionChange)="changeType()">
@@ -114,7 +114,7 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Pays</mat-label>
                     <mat-select placeholder="Pays" formControlName="pays" required name="pays"
                                 (selectionChange)="changeType()">
@@ -125,7 +125,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Adresse postale</mat-label>
                     <input matInput placeholder="Adresse postale" formControlName="address" required
                            name="address"/>
@@ -135,7 +135,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Code postal</mat-label>
                     <input matInput placeholder="Code postal" formControlName="postalCode" required
                            name="postalCode"/>
@@ -149,7 +149,7 @@
                 </mat-form-field>
             </div>
             <div class="centerElement">
-                <mat-form-field class="margin" appearance="outline">
+                <mat-form-field class="margin importantField" appearance="outline">
                     <mat-label>Ville</mat-label>
                     <input matInput placeholder="Ville" formControlName="city" required
                            name="city"/>
@@ -283,7 +283,7 @@
             </mat-expansion-panel-header>
             <div formArrayName="rooms">
                 <div [formGroupName]="i">
-                    <mat-form-field class="margin" appearance="outline">
+                    <mat-form-field class="margin importantField" appearance="outline">
                         <mat-label>Nom de la pièce</mat-label>
                         <input matInput placeholder="Nom de la pièce" formControlName="roomName" required
                                name="piece{{piece.id}}"/>
@@ -292,7 +292,7 @@
                             Le nom de la pièce est <strong>requis</strong>
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="margin" appearance="outline">
+                    <mat-form-field class="margin importantField" appearance="outline">
                         <mat-label>Surface</mat-label>
                         <input matInput placeholder="Surface" formControlName="space" required
                                name="space{{piece.id}}"/>
@@ -361,7 +361,7 @@
             </div>
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-                <button mat-button color="primary" (click)="nextStep()">Suivant</button>
+                <button mat-button color="primary" (click)="nextStep()" [disabled]="form.get('rooms').controls[i].invalid">Suivant</button>
             </mat-action-row>
         </mat-expansion-panel>
 
