@@ -2,7 +2,7 @@ export interface Task {
     id?: string;
     name: string;
     username: string;
-    room: string;
+    room: string[];
     description: string;
     budget: string;
     file: FilePayload[];

@@ -19,8 +19,8 @@
     <div *ngIf="addMode">
       <span class="mat-body">Voulez-vous une estimation pour votre demande ?</span> <br/>
       <mat-radio-group>
-        <mat-radio-button (click)="setOption()" value="1" class="radio">Oui</mat-radio-button>
-        <mat-radio-button (click)="setOption()" value="2" class="radio">Non</mat-radio-button>
+        <mat-radio-button (click)="setOptionO()" value="1" class="radio">Oui</mat-radio-button>
+        <mat-radio-button (click)="setOptionN()" value="2" class="radio">Non</mat-radio-button>
       </mat-radio-group>
     </div>
     <mat-form-field *ngIf="option === 'oui'" [@slideUpDown]>
@@ -31,7 +31,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field *ngIf="option === 'non'">
+    <mat-form-field *ngIf="option === 'non'" [@slideUpDown]>
       <input matInput placeholder="Budget" required [(ngModel)]="blogTask.budget" name="budget"/>
     </mat-form-field>
 
@@ -41,8 +41,9 @@
     </form>
   </div>
   <div *ngIf="step === 'file'" mat-dialog-content class="example-form" [@slideInOut]>
-    <h4 class="mat-body">Charger vos fichiers pour la demande : {{blogTask.name}}.</h4><br/>
-    <h6 class="mat-body">Charger un fichier à la fois.</h6><br/>
+    <span class="mat-body">Ajouter vos fichiers pour la demande : {{blogTask.name}}.
+    <span><br/> Ajoutez une image à la fois(.png)</span>
+    </span><br/>
     <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
     <br/>
     <button mat-raised-button type="submit" (click)="onSaveFile(blogTask.name)" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Sauvegarder et ajouters le(s) fichier(s)</button>

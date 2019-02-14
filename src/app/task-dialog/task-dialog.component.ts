@@ -47,7 +47,7 @@ export class TaskDialogComponent implements OnInit {
     private _step: string;
     blogTask = {
         name: '',
-        room: '',
+        room: [],
         description: '',
         budget: '',
         status: 'En Attente',
@@ -112,7 +112,8 @@ export class TaskDialogComponent implements OnInit {
     }
 
     toFile() {
-        if (this.blogTask.name === '' || this.blogTask.budget === '' || this.blogTask.room === '' || this.blogTask.description === '') {
+        if (this.blogTask.name === '' || this.blogTask.budget === '' ||
+            this.blogTask.room.length === 0 || this.blogTask.description === '') {
             this._errorMsg = 'Veuillez remplir tout les champs.';
         } else {
             this.event.emit({data: this.blogTask});
@@ -120,12 +121,14 @@ export class TaskDialogComponent implements OnInit {
         }
     }
 
-    setOption() {
-        if (this._option === 'non') {
-            this._option = 'oui';
-        } else {
+    setOptionO() {
+        this._option = 'oui';
+        this.blogTask.budget = '';
+    }
+
+    setOptionN() {
             this._option = 'non';
-        }
+            this.blogTask.budget = '';
     }
 
     onNoClick(): void {
@@ -138,9 +141,9 @@ export class TaskDialogComponent implements OnInit {
     }
     onSaveFile(name): void {
         console.log(name);
-        this.uploader.setOptions({url: this._backendURL.upload.replace(':id', name), headers: this._options()});
-        this.uploader.uploadAll();
-        this.onSubmit();
+            this.uploader.setOptions({url: this._backendURL.upload.replace(':id', name), headers: this._options()});
+            this.uploader.uploadAll();
+            this.onSubmit();
     }
 
     private _options(headerList: Object = {}): any {

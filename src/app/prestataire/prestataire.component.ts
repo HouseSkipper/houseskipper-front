@@ -49,7 +49,9 @@ export class PrestataireComponent implements OnInit {
             email: new FormControl('', Validators.compose([
                 Validators.required, Validators.minLength(3)
             ])),
-            commentaire: new FormControl()
+            commentaire: new FormControl('', Validators.compose([
+                Validators.required, Validators.minLength(3)
+            ]))
         });
     }
 
@@ -74,22 +76,31 @@ export class PrestataireComponent implements OnInit {
 
     submit (prestataire: Prestataire) {
       console.log(prestataire);
-        if (this.verifieEmail(prestataire.email) === 'passe') {
-            this._prestataireService.create(prestataire).subscribe( (_) => this._confirmMsg = 'Votre demande e été bien envoyé.',
+      let message = this.verifie(prestataire);
+        if (message === 'passe') {
+            this._prestataireService.create(prestataire).subscribe( null,
                 _ => this._errorMsg = 'Un partenaire est déjà inscrit avec cette email.',
-                () =>
-                    this._router.navigate([ '/login'])
+                () => {
+                    this._router.navigate([ '/login']);
+                    this._confirmMsg = 'Votre demande e été bien envoyé.';
+                }
                 );
-        } else {
+        } else if (message === 'email') {
           this._errorMsg = 'Email incorrect ! Veuillez s\'inscrir avec l\'email de l\'entreprise.';
-      }
+      } else if (message === 'invalide') {
+            this._errorMsg = 'Tous les champs sont obligatoires.';
+        }
     }
 
-    private verifieEmail(email: string): string {
+    private verifie(presetataire: Prestataire): string {
         this._errorMsg = '';
         this._confirmMsg = '';
-        if (email.includes('outlook') || email.includes('yahoo')) {
-            return '';
+        if (presetataire.email.includes('outlook') || presetataire.email.includes('yahoo')) {
+            return 'email';
+        }
+        if (presetataire.commentaire === '' || presetataire.email === '' || presetataire.nom === '' || presetataire.nomSociete === ''
+            || presetataire.profession === '' || presetataire.zipCode === '00000') {
+            return 'invalide';
         }
         return 'passe';
     }
