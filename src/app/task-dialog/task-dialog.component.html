@@ -17,13 +17,13 @@
       <textarea matInput placeholder="Description de la tâche" required [(ngModel)]="blogTask.description" name="description"></textarea>
     </mat-form-field>
     <div *ngIf="addMode">
-      Voulez-vous une estimation pour votre demande ? <br/>
+      <span class="mat-body">Voulez-vous une estimation pour votre demande ?</span> <br/>
       <mat-radio-group>
         <mat-radio-button (click)="setOption()" value="1" class="radio">Oui</mat-radio-button>
         <mat-radio-button (click)="setOption()" value="2" class="radio">Non</mat-radio-button>
       </mat-radio-group>
     </div>
-    <mat-form-field *ngIf="option === 'oui'" >
+    <mat-form-field *ngIf="option === 'oui'" [@slideUpDown]>
       <mat-select matInput placeholder="Budget" required [(ngModel)]="blogTask.budget" name="budgets">
         <mat-option *ngFor="let budget of budgets" [value]="budget.value">
           {{ budget.viewValue }}
@@ -41,12 +41,13 @@
     </form>
   </div>
   <div *ngIf="step === 'file'" mat-dialog-content class="example-form" [@slideInOut]>
-    <h4 mat-dialog-content>Charger vos fichiers pour la demande : {{blogTask.name}}</h4><br/>
+    <h4 class="mat-body">Charger vos fichiers pour la demande : {{blogTask.name}}.</h4><br/>
+    <h6 class="mat-body">Charger un fichier à la fois.</h6><br/>
     <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
     <br/>
-    <button mat-raised-button type="submit" (click)="onSaveFile(blogTask.name)" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Sauvegarder et charger le fichier</button>
+    <button mat-raised-button type="submit" (click)="onSaveFile(blogTask.name)" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Sauvegarder et ajouters le(s) fichier(s)</button>
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button class="close" (click)="onNoClick()" color="warn"><span *ngIf="step === 'tache'">Annuler</span><span *ngIf="step === 'file'">Sauvegarder sans charger de fichier</span></button>
+  <button mat-raised-button class="close" (click)="onNoClick()" color="warn"><span *ngIf="step === 'tache'">Annuler</span><span *ngIf="step === 'file'">Sauvegarder sans ajouter de fichiers</span></button>
 </div>

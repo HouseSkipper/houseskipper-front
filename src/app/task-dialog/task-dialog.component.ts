@@ -25,6 +25,16 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
                 style({transform: 'translateX(100%)', opacity: 0}),
                 animate('600ms ease-in', style({transform: 'translateX(0%)'}))
             ])
+        ]),
+        trigger('slideUpDown', [
+            state('up', style({opacity: 1})),
+            transition(':leave', [
+                animate('200ms ease-in', style({transform: 'translateY(+100%)', opacity: 0}))
+            ]),
+            transition(':enter', [
+                style({transform: 'translateY(100%)', opacity: 0}),
+                animate('600ms ease-in', style({transform: 'translateY(0%)'}))
+            ])
         ])
     ]
 })
