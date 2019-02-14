@@ -27,7 +27,7 @@ export class MainMenuListService implements MenuListService {
         this._houseService.fecthAllHouse().subscribe((houses: House[]) => {
             const tmpHouses = ['Ajouter un logement'];
             for (let i = 0; i < houses.length; i++) {
-                const html = '<a [routerLink]="[\'/users/houses\',\'\']"></a>'
+                // const html = '<a [routerLink]="[\'/users/houses\',\'' + houses[i].id + '\']">' + houses[i].houseName + '</a>';
                 tmpHouses.push(houses[i].houseName);
             }
             fields.push({title: 'Résidence', values: tmpHouses});
