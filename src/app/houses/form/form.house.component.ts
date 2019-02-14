@@ -1,9 +1,10 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, ɵunv} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {House} from '../../interfaces/house';
 import {HouseService} from '../../services/house.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {flatMap, map} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 export interface Type {
     value: string;
@@ -214,7 +215,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
         this._route.params
             .pipe(
                 map((params: any) => params.id),
-                flatMap((id: string) => id === undefined ? undefined : this._houseService.fetchHouse(id))
+                flatMap((id: string) => id === undefined ? of(undefined) : this._houseService.fetchHouse(id))
             )
             .subscribe((house: House) => house === undefined ? undefined : this.ngOnChanges(house));
             // .subscribe((house: House) => console.log(house));

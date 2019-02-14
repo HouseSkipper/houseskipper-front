@@ -2,7 +2,7 @@
 <div mat-dialog-content>
   <form class="example-form" (ngSubmit)="onSubmit()">
     <mat-form-field>
-      <input matInput placeholder="Nom du raccourci" required (ngModel)="shortcut.name" name="name"/>
+      <input matInput placeholder="Nom du raccourci" required [(ngModel)]="shortcut.name" name="name"/>
     </mat-form-field>
     <div mat-dialog-content class="example-form">
       <button mat-raised-button type="submit" color="primary">Sauvegarder</button>

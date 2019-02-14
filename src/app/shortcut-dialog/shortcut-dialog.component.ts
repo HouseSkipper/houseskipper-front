@@ -10,23 +10,25 @@ import {Skill} from '../interfaces/user';
   styleUrls: ['./shortcut-dialog.component.css']
 })
 export class ShortcutDialogComponent implements OnInit {
-  private _shortcut: Shortcut;
+  shortcut = {
+    name: '',
+    link: '',
+  };
+
+  public event: EventEmitter<any> = new EventEmitter();
   constructor(public dialogRef: MatDialogRef<ShortcutDialogComponent>, private _router: Router) { }
 
   ngOnInit() {
-    // this._shortcut.link = this._router.url;
-    // console.log(this._shortcut);
+    this.shortcut.link = this._router.url;
+    console.log(this.shortcut);
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   onSubmit(): void {
-    // this.event.emit({data: this.blogTask});
+    this.event.emit({data: this.shortcut});
     this.dialogRef.close();
   }
 
-  get shortcut(): Shortcut {
-    return this._shortcut;
-  }
 }

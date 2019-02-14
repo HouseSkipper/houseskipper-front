@@ -4,6 +4,7 @@ import {ShortcutsService} from '../../services/shortcuts.service';
 import {Router} from '@angular/router';
 import {ShortcutDialogComponent} from '../../shortcut-dialog/shortcut-dialog.component';
 import {MatDialog} from '@angular/material';
+import {TaskDataSource} from '../../task/task.component';
 
 @Component({
   selector: 'app-shortcut-area',
@@ -27,6 +28,13 @@ export class ShortcutAreaComponent implements OnInit {
     const dialogRef = this.dialog.open(ShortcutDialogComponent, {
       width: '600px',
       data: ''
+    });
+    dialogRef.componentInstance.event.subscribe((result) => {
+      this._shortcutService.create(result.data).subscribe(() => {
+        this._shortcutService.fetchAll().subscribe((shortcuts: Shortcut[]) => {
+          this._model = shortcuts;
+        });
+      });
     });
   }
 
