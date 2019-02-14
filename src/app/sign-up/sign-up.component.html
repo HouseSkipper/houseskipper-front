@@ -128,7 +128,7 @@
             </form>
             <mat-error class="body-1" *ngIf="errorMsg">{{errorMsg}}</mat-error>
             <div>
-                <button id="previousButton" *ngIf="stepNum > 0" class="actionButton" mat-button (click)="previous(form.value)">
+                <button *ngIf="stepNum > 0 && stepNum !== 6" id="previousButton" mat-button (click)="previous(form.value)">
                     Précédent
                 </button>
                 <button id="continueButton" class="actionButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)" [disabled]="step == 'code' && !cgu">
