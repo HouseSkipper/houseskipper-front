@@ -9,16 +9,18 @@ import {Router} from '@angular/router';
 })
 export class BeforeLoginDialogComponent implements OnInit {
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router, public dialogRef: MatDialogRef<BeforeLoginDialogComponent>) { }
 
   ngOnInit() {
   }
 
   partenaire() {
-    this._router.navigate(['/prestataireSignup']);;
+    this._router.navigate(['/prestataireSignup']);
+      this.dialogRef.close();
   }
 
     proprietaire() {
         this._router.navigate(['/login']);
+        this.dialogRef.close();
     }
 }
