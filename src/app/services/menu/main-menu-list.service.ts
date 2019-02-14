@@ -15,7 +15,7 @@ export class MainMenuListService implements MenuListService {
     getFields() {
         const fields = [];
         fields.push({title: 'Tableau de bord', values: []});
-        fields.push({title: 'Travaux', values: ['Demande', 'En cours', 'Finalisé']});
+        fields.push({title: 'Travaux', values: []});
         // fields.push({title: 'Résidence', values: []});
         this.getHouses(fields);
         fields.push({title: 'Contact', values: []});
