@@ -24,7 +24,15 @@ import * as $ from 'jquery';
                 style({transform: 'translateX(100%)', opacity: 0}),
                 animate('600ms ease-in', style({transform: 'translateX(0%)'}))
             ])
-        ])
+        ]),
+        trigger(
+          'fadeInOut', [
+            state('void', style({opacity: 0})),
+            transition(
+              'void <=> *', animate(2000)
+            )
+          ]
+        )
     ]
 })
 export class SignUpComponent implements OnInit {
@@ -71,7 +79,8 @@ export class SignUpComponent implements OnInit {
         this._cgu = false;
     }
 
-    continue(data: any, codeEmail: any) {
+    continue (data: any, codeEmail: any)
+    {
         const index = this._fieldsFlatten.indexOf(this._step);
         this._errorMsg = '';
         if (index <= 5) {
