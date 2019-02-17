@@ -18,8 +18,7 @@
                         <input matInput placeholder="Mot de passe" type="password" formControlName="password">
                     </mat-form-field>
 
-                    <mat-checkbox (click)="changelogin()">Êtes-vous un partenaire ?</mat-checkbox>
-                    <br/><br/>
+                    <br/>
                     <mat-error id="errorMessage" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
                     <button class="fixedWidth" id="submitButton" color="accent" mat-button type="submit"  (click)="submit(form.value)">Connexion</button>
                     <button class="fixedWidth" id="createButton" mat-button class="md-accent" [routerLink]="['/signup']">Créer un compte</button>

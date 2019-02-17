@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnChanges, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {DataService} from '../services/budget.service';
 import {Task} from '../interfaces/task';
-import {Room} from '../interfaces/house';
+import {House, Room} from '../interfaces/house';
 import {forEach} from '@angular/router/src/utils/collection';
 import {FileUploader} from 'ng2-file-upload';
 import {HttpHeaders} from '@angular/common/http';
@@ -10,6 +10,11 @@ import {AuthGuardService} from '../guards/auth-guard.service';
 import {AuthenticationService} from '../services/authentication.service';
 import {environment} from '../../environments/environment';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {flatMap, map} from 'rxjs/operators';
+import {of} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TasksService} from '../services/tasks.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-task-dialog',
@@ -38,7 +43,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         ])
     ]
 })
-export class TaskDialogComponent implements OnInit {
+export class TaskDialogComponent implements OnInit, OnChanges {
 
     private readonly _backendURL: any;
     public uploader: FileUploader = new FileUploader({authToken: 'Bearer ' + this.authService.currentUserValue.token});
@@ -47,18 +52,20 @@ export class TaskDialogComponent implements OnInit {
     private _step: string;
     blogTask = {
         name: '',
-        room: [],
+        room: '',
         description: '',
         budget: '',
         status: 'En Attente',
         start_date: new Date()
     };
+    private _form: FormGroup;
     private _rooms: Room[];
     private _addMode: boolean;
     private _errorMsg: string;
     private _option: string;
+    private _editMode: boolean;
+    private _taskMode: Task;
     budgets = this.dataService.getBudgets();
-    public event: EventEmitter<any> = new EventEmitter();
 
     get rooms(): Room[] {
         return this._rooms;
@@ -66,6 +73,10 @@ export class TaskDialogComponent implements OnInit {
 
     get step(): string {
         return this._step;
+    }
+
+    get editMode(): boolean {
+        return this._editMode;
     }
 
     get addMode(): boolean {
@@ -80,11 +91,14 @@ export class TaskDialogComponent implements OnInit {
         return this._option;
     }
     constructor(
-        public dialogRef: MatDialogRef<TaskDialogComponent>,
         public dataService: DataService,
-        @Inject(MAT_DIALOG_DATA) public blog: Task,
-        public authService: AuthenticationService
+        public _tasksService: TasksService,
+        public authService: AuthenticationService,
+        public _route: ActivatedRoute,
+        public _router: Router,
+        private _fb: FormBuilder
     ) {
+        this._form = this._buildForm();
         this._option = 'non';
         this._step = 'tache';
         this._backendURL = {};
@@ -98,8 +112,7 @@ export class TaskDialogComponent implements OnInit {
         // build all backend urls
         Object.keys(environment.backend.endpoints.tasks).forEach(k => this._backendURL[ k ] =
             `${baseUrl}${environment.backend.endpoints.tasks[ k ]}`);
-        if (!!blog) {
-            this.blogTask = blog;
+        if (this._editMode) {
             this.data = 'Modifier votre demande de travaux';
             this.uploadFile = true;
         } else {
@@ -111,12 +124,34 @@ export class TaskDialogComponent implements OnInit {
 
     }
 
+    private _buildForm(): FormGroup {
+        return new FormGroup({
+            nom: new FormControl('', Validators.compose([
+                Validators.required, Validators.minLength(3)
+            ])),
+            rooms: this._fb.array([]),
+            desciption: new FormControl('', Validators.compose([
+                Validators.required, Validators.minLength(3)
+            ])),
+            budget: new FormControl('', Validators.compose([
+                Validators.required, Validators.minLength(3)
+            ]))
+        });
+    }
+
     toFile() {
         if (this.blogTask.name === '' || this.blogTask.budget === '' ||
             this.blogTask.room.length === 0 || this.blogTask.description === '') {
             this._errorMsg = 'Veuillez remplir tout les champs.';
         } else {
-            this.event.emit({data: this.blogTask});
+            this._taskMode.name = this.blogTask.name;
+            this._taskMode.room = this.blogTask.room;
+            this._taskMode.description = this.blogTask.description;
+            this._taskMode.budget = this.blogTask.budget;
+            this._taskMode.start_date = this.blogTask.start_date;
+            this._taskMode.status = this.blogTask.status;
+            this._tasksService.update(this._taskMode).subscribe(
+            );
             this._step = 'file';
         }
     }
@@ -131,27 +166,31 @@ export class TaskDialogComponent implements OnInit {
             this.blogTask.budget = '';
     }
 
-    onNoClick(): void {
-        this.dialogRef.close();
-    }
-
-    onSubmit(): void {
-        // this.event.emit({data: this.blogTask});
-        this.dialogRef.close();
-    }
     onSaveFile(name): void {
         console.log(name);
             this.uploader.setOptions({url: this._backendURL.upload.replace(':id', name), headers: this._options()});
             this.uploader.uploadAll();
-            this.onSubmit();
+        this._router.navigate(['/users/tasks']);
     }
 
     private _options(headerList: Object = {}): any {
         return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
     }
 
+    ngOnChanges(task) {
+        this._editMode = true;
+        this.blogTask = task;
+    }
 
     ngOnInit(): void {
+        this._editMode = false;
+        this._route.params
+            .pipe(
+                map((params: any) => params.id),
+                flatMap((id: string) => id === undefined ? of(undefined) : this._tasksService.get(id))
+            )
+            .subscribe((task: Task) => task === undefined ? undefined : this.ngOnChanges(task));
+
         this.uploader.onAfterAddingFile = (file) => { file.withCredentials = true; };
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
             console.log('ImageUpload:uploaded:', item, status, response);

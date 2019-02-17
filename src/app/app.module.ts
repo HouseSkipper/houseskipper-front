@@ -102,7 +102,7 @@ import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-d
         DataService, TasksService, CookieService
     ],
     entryComponents: [
-        TaskDialogComponent, ShortcutDialogComponent, BeforeLoginDialogComponent
+       ShortcutDialogComponent, BeforeLoginDialogComponent
     ],
     bootstrap: [AppComponent],
 })

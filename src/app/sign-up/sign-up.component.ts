@@ -209,7 +209,7 @@ export class SignUpComponent implements OnInit {
             ).subscribe(
             data => {
                 console.log(data);
-                // this._router.navigate(['/']);
+                // this._route.navigate(['/']);
             },
             error => {
                 console.log(error);

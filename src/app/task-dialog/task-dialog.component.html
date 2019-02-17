@@ -1,7 +1,8 @@
+<div id="login-container">
 <h1 mat-dialog-title>{{data}}</h1>
 <div mat-dialog-content>
   <div *ngIf="step === 'tache'" [@slideInOut]>
-  <form class="example-form" (ngSubmit)="toFile()">
+  <form class="example-form">
     <mat-form-field>
       <input matInput placeholder="Tâche" required [(ngModel)]="blogTask.name" name="name"/>
 
@@ -37,7 +38,7 @@
 
     <mat-error id="errorMessage" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error><br/>
 
-    <button mat-raised-button type="submit" color="primary">Suivant</button>
+    <button mat-raised-button type="submit" color="primary" (click)="toFile()">Suivant</button>
     </form>
   </div>
   <div *ngIf="step === 'file'" mat-dialog-content class="example-form" [@slideInOut]>
@@ -51,4 +52,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button class="close" (click)="onNoClick()" color="warn"><span *ngIf="step === 'tache'">Annuler</span><span *ngIf="step === 'file'">Sauvegarder sans ajouter de fichiers</span></button>
+</div>
 </div>

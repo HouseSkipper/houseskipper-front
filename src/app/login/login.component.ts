@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
     private _errorMsg = '';
     private _form: FormGroup;
     private readonly _submit$: EventEmitter<User>;
-    private _isPrestataire: boolean;
 
     get form(): FormGroup {
         return this._form;
@@ -34,7 +33,6 @@ export class LoginComponent implements OnInit {
      * Function to emit event to submit form and person
      */
     submit(user: User) {
-        if (!this._isPrestataire) {
             this._authService.login(user.username, user.password)
                 .pipe(first())
                 .subscribe(
@@ -46,15 +44,12 @@ export class LoginComponent implements OnInit {
                     }
                 );
             this._submit$.emit(user);
-        } else if (this._isPrestataire) {
-
-        }
     }
 
     constructor(private _authService: AuthenticationService, private _router: Router, private _dialog: MatDialog) {
         this._submit$ = new EventEmitter<User>();
         this._form = this._buildForm();
-        this._isPrestataire = false;
+        this.openChoiceModal();
     }
 
     openChoiceModal() {
@@ -81,14 +76,4 @@ export class LoginComponent implements OnInit {
         return this._errorMsg;
     }
 
-    changelogin() {
-        if (this._isPrestataire) {
-            this._isPrestataire = false;
-
-        } else {
-
-            this._isPrestataire = true;
-        }
-        console.log(this._isPrestataire );
-    }
 }

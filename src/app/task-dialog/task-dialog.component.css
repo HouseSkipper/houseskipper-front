@@ -14,3 +14,9 @@
 .radio{
     padding: 1vh;
 }
+
+#login-container {
+    padding: 15px;
+    justify-content: inherit;
+    align-content: inherit;
+}

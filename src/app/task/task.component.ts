@@ -47,6 +47,7 @@ export class TaskComponent implements OnInit {
         );
         this.dataSource = new TaskDataSource(this._dataService);
     }
+    /*
     editTask(task): void {
         const dialogRef = this.dialog.open(TaskDialogComponent, {
             width: '600px',
@@ -60,7 +61,7 @@ export class TaskComponent implements OnInit {
             );
         });
     }
-
+*/
     filesNames(id): void {
         this._errorMsg = '';
         this._dataService.getFiles(id).subscribe((_) => {
@@ -80,7 +81,7 @@ export class TaskComponent implements OnInit {
 
     }
 
-
+/*
     openDialog(): void {
         this._errorMsg = '';
         const dialogRef = this.dialog.open(TaskDialogComponent, {
@@ -96,7 +97,7 @@ export class TaskComponent implements OnInit {
             this.dataSource = new TaskDataSource(this._dataService);
         });
     }
-
+*/
 
     private downloadFileAs(data: any, type: string) {
         const a = document.createElement('a');

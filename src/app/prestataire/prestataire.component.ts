@@ -18,7 +18,8 @@ export class PrestataireComponent implements OnInit {
     private _confirmMsg = '';
     private _form: FormGroup;
     private _professions: string [];
-  constructor(private _prestataireService: PrestataireService, private _router: Router, private _route: ActivatedRoute, private _dialog: MatDialog) {
+  constructor(private _prestataireService: PrestataireService, private _router: Router,
+              private _route: ActivatedRoute, private _dialog: MatDialog) {
       this._form = this._buildForm();
       this._professions = [
           'Conducteur de Travaux (CdT)',
@@ -31,7 +32,7 @@ export class PrestataireComponent implements OnInit {
   }
 
     openChoiceModal() {
-        const dialogRef = this._dialog.open(BeforeLoginDialogComponent);
+        this._router.navigate(['/login']);
     }
 
     private _buildForm(): FormGroup {
