@@ -14,6 +14,7 @@ import {AppLayoutComponent} from './_layout/app-layout/app-layout.component';
 import {PrestataireComponent} from './prestataire/prestataire.component';
 import {UpdateComponent} from './update/update.component';
 import {BeforeLoginDialogComponent} from './before-login-dialog/before-login-dialog.component';
+import {SubSkillComponent} from './sub-skill/sub-skill.component';
 
 const ROUTES: Routes = [
     // App routes goes here
@@ -28,6 +29,7 @@ const ROUTES: Routes = [
             {path: 'users/houses', component: HouseComponent, canActivate: [AuthGuardService]},
             {path: 'users/tasks', component: TaskComponent, canActivate: [AuthGuardService]},
             {path: 'skills', component: SkillsComponent, canActivate: [AuthGuardService]},
+            {path: 'skills/:id', component: SubSkillComponent, canActivate: [AuthGuardService]},
             {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
             {path: 'update', component: UpdateComponent, canActivate: [AuthGuardService]},
         ]
