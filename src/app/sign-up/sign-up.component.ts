@@ -124,7 +124,6 @@ export class SignUpComponent implements OnInit
 
                 if (this._step === 'password') {
                     if (this._form.get('confirmPassword').value === this._form.get('password').value) {
-                        this.stepForward();
                     } else {
                         this._errorMsg = 'Votre mot de passe ne correspond pas';
                     }
@@ -134,15 +133,13 @@ export class SignUpComponent implements OnInit
                             this._errorMsg = 'Cet email est déjà utilisé';
                         } else {
                             this._errorMsg = '';
-                            this.stepForward();
                         }
                     });
                 } else {
                     console.log('index:' + this._stepNum);
                     if (this._stepNum < 5) {
-                        this.stepForward();
+                        //this.stepForward();
                     } else if (this._form.valid) {
-                        this.stepForward();
                         this.saveUser(data as User);
                     } else {
                         this._errorMsg = 'Des champs sont manquants';
@@ -160,7 +157,7 @@ export class SignUpComponent implements OnInit
                     }
                 }
 
-                this._stepNum++;
+                if (this.errorMsg === '') this.stepForward();
             }
         }
         else
