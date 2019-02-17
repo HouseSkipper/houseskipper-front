@@ -1,9 +1,11 @@
+
 <app-main-nav-bar></app-main-nav-bar>
+
 <mat-sidenav-container>
     <mat-sidenav id="sideMenu" mode="side" opened style="margin-left: 10px">
         <div id="buttonMenu">
             <div *ngFor="let field of fields | keyvalue; let i = index">
-                <mat-icon class="iconChecked" [style.visibility]="check(field) ? 'visible' : 'hidden'" svgIcon="icon-checked"></mat-icon>
+                <mat-icon class="iconChecked" [style.visibility]="check(field) ? 'visible' : 'hidden'" svgIcon="icon-checked" [@fadeInOut] ></mat-icon>
                 <a mat-button (click)="setStep(field.value.values[0])" class="titleField">{{field.value.title}}</a>
                 <div *ngIf="field.value.values.indexOf(step) > -1">
                     <span *ngFor="let subfield of field.value.values">
@@ -137,5 +139,7 @@
             </div>
         </div>
     </mat-sidenav-content>
+
 </mat-sidenav-container>
+
 <app-legal-bar></app-legal-bar>

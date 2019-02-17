@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {User} from '../interfaces/user';
 import {filter, first, flatMap, map, tap} from 'rxjs/operators';
 import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
@@ -8,6 +7,12 @@ import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import * as $ from 'jquery';
+
+import { User } from '../interfaces/user';
+import { signupStep } from '../interfaces/signupStep';
+
+import { SIGNUP_STEPS } from './signup-steps';
+
 
 
 @Component({
@@ -24,10 +29,17 @@ import * as $ from 'jquery';
                 style({transform: 'translateX(100%)', opacity: 0}),
                 animate('600ms ease-in', style({transform: 'translateX(0%)'}))
             ])
-        ])
+        ]),
+        trigger(
+          'fadeInOut', [
+            state('void', style({opacity: 0})),
+            transition('void <=> *', animate(2000))
+          ]
+        )
     ]
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit
+{
 
     private _fields;
     private _form: FormGroup;
@@ -36,29 +48,39 @@ export class SignUpComponent implements OnInit {
     private _fieldsFlatten: string[];
     private _errorMsg: string;
     private _invalid: boolean;
-    private _roles: string[] = ['Particulier-propriétaire']; // 'Prestataire de services'];
+    private _roles: string[] = ['Particulier-propriétaire']; //, 'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
     private _formCodeEmail: FormGroup;
     private _cgu: boolean;
     private _fieldChecked: Map<string, boolean>;
 
+    private _fieldIndex;
+    private _subFieldIndex;
+    private idOK :boolean;
 
-    constructor(private _userService: UsersService, private _router: Router, private _authService: AuthenticationService) {
+
+    constructor (
+      private _router: Router, private _authService: AuthenticationService,
+      private _userService: UsersService
+    )
+    {
         this._fieldsFlatten = [];
         this._fieldChecked = new Map();
-        this._stepNum = 0;
-        this._submit$ = new EventEmitter<any>();
+        this._submit$ = new EventEmitter<User>();
         this._form = this._buildForm();
         this._formCodeEmail = this._buildFormCodeEmail();
+
+        this._fieldIndex = 0;
+        this._subFieldIndex = 0;
+        this.idOK = false;
     }
 
 
-    ngOnInit() {
+    ngOnInit ()
+    {
         this._fields = [];
-        this._fields.push({title: 'Entity', values: ['firstname', 'lastname']});
-        this._fields.push({title: 'Contact', values: ['username', 'telephone']});
-        this._fields.push({title: 'Account', values: ['password', 'role']});
-        this._fields.push({title: 'Valider', values: ['code']});
+        SIGNUP_STEPS.forEach(_ => this._fields.push(_));
+
         let i = 0;
         this._fields.forEach(value => {
             for (const subfield of value.values) {
@@ -67,68 +89,101 @@ export class SignUpComponent implements OnInit {
             }
             this._fieldChecked.set(value.title, false);
         });
+
         this._step = this._fieldsFlatten[0];
         this._cgu = false;
+
+        this._stepNum = 0;
     }
 
-    continue(data: any, codeEmail: any) {
-        const index = this._fieldsFlatten.indexOf(this._step);
+
+
+    stepForward () {
+      this._stepNum++;
+      this._step = this._fieldsFlatten[this._stepNum];
+    }
+
+    // verify step is not at beginning before using this function
+    stepBackward () {
+      this._stepNum--;
+      this._step = this._fieldsFlatten[this._stepNum];
+    }
+
+
+
+    continue (data: any, codeEmail: any)
+    {
         this._errorMsg = '';
-        if (index <= 5) {
-            if (this._form.get(this._step).valid) {
+
+        if (this._stepNum <= 5)
+        {
+            if (this._form.get(this._step).valid)
+            {
                 console.log(this._step + ' a true');
                 this._fieldChecked.set(this._step, true);
-                if (this._step === 'password') {
-                    if (this._form.get('confirmPassword').value === this._form.get('password').value) {
-                        this._step = this._fieldsFlatten[index + 1];
-                    } else {
-                        this._errorMsg = 'Votre mot de passe ne correspond pas';
+
+                if (this._step === 'password')
+                {
+                    if (!(this._form.get('confirmPassword').value === this._form.get('password').value)) {
+                      this._errorMsg = 'Votre mot de passe ne correspond pas';
                     }
-                } else if (this._step === 'username') {
+                }
+                else if (this._step === 'username')
+                {
                     this._userService.checkExists(this._form.get(this._step).value).subscribe(data => {
                         if (data) {
                             this._errorMsg = 'Cet email est déjà utilisé';
-                        } else {
-                            this._errorMsg = '';
-                            this._step = this._fieldsFlatten[index + 1];
                         }
                     });
-                } else {
-                    console.log('index:' + index);
-                    if (index < 5) {
-                        this._step = this._fieldsFlatten[index + 1];
+                }
+                else
+                {
+                    console.log('index:' + this._stepNum);
+                    if (this._stepNum < 5) {
+                        //
                     } else if (this._form.valid) {
-                        this._step = this._fieldsFlatten[index + 1];
                         this.saveUser(data as User);
                     } else {
                         this._errorMsg = 'Des champs sont manquants';
                     }
                 }
-                if (this.stepNum % 2 === 1) {
+
+                if (this.stepNum % 2 === 1)
+                {
                     const $bar = $('.ProgressBar');
                     if ($bar.children('.is-current').length > 0) {
                         $bar.children('.is-current').removeClass('is-current').addClass('is-complete').next().addClass('is-current');
-                    } else {
+                    }
+                    else {
                         $bar.children().first().addClass('is-current');
                     }
                 }
-                this._stepNum++;
+
+                if (this.errorMsg === '') this.stepForward();
             }
-        } else {
+        }
+        else
+        // index > 5
+        {
             if (this._formCodeEmail.get(this._step).valid) {
                 this._userService.checkEmailToken(codeEmail.code).subscribe((_) => {
                         this._authService.loginAfterValidationAccount(_);
                         this._router.navigate(['/']);
                     },
-                    (_) => this._errorMsg = _);
+                    (_) => this._errorMsg = _
+                );
             }
         }
     }
 
-    previous(data: any) {
+    previous (data: any)
+    {
         const index = this._fieldsFlatten.indexOf(this._step);
+
         console.log('index:' + index);
-        if (index > 0) {
+
+        if (index > 0)
+        {
             if (this.stepNum % 2 === 0) {
 
                 const $bar = $('.ProgressBar');
@@ -139,15 +194,16 @@ export class SignUpComponent implements OnInit {
                 }
             }
             console.log('on est dans la même categorie');
-            this._step = this._fieldsFlatten[index - 1];
-            this._stepNum--;
+
+            this.stepBackward();
             console.log('stepNum:' + this.stepNum);
         }
-
     }
 
-    setStep(value: string): void {
+    setStep (value: string): void
+    {
         console.log(value);
+
         if (value === this._fieldsFlatten[0]) {
             this._step = value;
         } else {
@@ -159,7 +215,7 @@ export class SignUpComponent implements OnInit {
     }
 
 
-    private _buildForm(): FormGroup {
+    private _buildForm (): FormGroup {
         return new FormGroup({
             firstname: new FormControl('', Validators.compose([
                 Validators.required, Validators.minLength(3)
@@ -191,7 +247,10 @@ export class SignUpComponent implements OnInit {
         });
     }
 
-    saveUser(user: User) {
+
+
+    saveUser (user: User)
+    {
         of(user)
             .pipe(
                 map(_ => {
@@ -233,6 +292,7 @@ export class SignUpComponent implements OnInit {
     }*/
 
 
+
     get roles(): string[] {
         return this._roles;
     }
@@ -260,7 +320,6 @@ export class SignUpComponent implements OnInit {
     get step(): string {
         return this._step;
     }
-
 
     set step(value: string) {
         this._step = value;
@@ -295,7 +354,10 @@ export class SignUpComponent implements OnInit {
         this._cgu = value;
     }
 
-    check(f: any): boolean {
+
+
+    check (f: any): boolean
+    {
         if (f.value.title === 'Account') {
             if (this._form.get('confirmPassword').value === this._form.get('password').value && this._form.get('password').valid) {
                 return true;
@@ -313,4 +375,5 @@ export class SignUpComponent implements OnInit {
             return length === counter;
         }
     }
+
 }
