@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {MenuListService} from './menu-list.service';
 import {HouseService} from '../house.service';
 import {House} from '../../interfaces/house';
+import {TasksService} from '../tasks.service';
+import {Task} from '../../interfaces/task';
 
 @Injectable({
     providedIn: 'root'
@@ -9,13 +11,13 @@ import {House} from '../../interfaces/house';
 export class MainMenuListService implements MenuListService {
 
 
-    constructor(private _houseService: HouseService) {
+    constructor(private _houseService: HouseService, private _tasksService: TasksService) {
     }
 
     getFields() {
         const fields = [];
         fields.push({title: 'Tableau de bord', values: []});
-        fields.push({title: 'Travaux', values: []});
+        this.getTasks(fields);
         // fields.push({title: 'Résidence', values: []});
         this.getHouses(fields);
         fields.push({title: 'Contact', values: []});
@@ -32,5 +34,16 @@ export class MainMenuListService implements MenuListService {
             }
             fields.push({title: 'Résidence', values: tmpHouses});
         });
+    }
+
+    private getTasks(fields: any) {
+        this._tasksService.getAll().subscribe((tasks: Task[]) => {
+                const t = ['Ajouter une demande de travaux'];
+                for (let i = 0; i < tasks.length; i++) {
+                    t.push(tasks[i].nom);
+                }
+                fields.push({title: 'Travaux', values: t});
+            }
+        );
     }
 }
