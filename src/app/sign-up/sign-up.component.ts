@@ -122,23 +122,25 @@ export class SignUpComponent implements OnInit
                 console.log(this._step + ' a true');
                 this._fieldChecked.set(this._step, true);
 
-                if (this._step === 'password') {
-                    if (this._form.get('confirmPassword').value === this._form.get('password').value) {
-                    } else {
-                        this._errorMsg = 'Votre mot de passe ne correspond pas';
+                if (this._step === 'password')
+                {
+                    if (!(this._form.get('confirmPassword').value === this._form.get('password').value)) {
+                      this._errorMsg = 'Votre mot de passe ne correspond pas';
                     }
-                } else if (this._step === 'username') {
+                }
+                else if (this._step === 'username')
+                {
                     this._userService.checkExists(this._form.get(this._step).value).subscribe(data => {
                         if (data) {
                             this._errorMsg = 'Cet email est déjà utilisé';
-                        } else {
-                            this._errorMsg = '';
                         }
                     });
-                } else {
+                }
+                else
+                {
                     console.log('index:' + this._stepNum);
                     if (this._stepNum < 5) {
-                        //this.stepForward();
+                        //
                     } else if (this._form.valid) {
                         this.saveUser(data as User);
                     } else {
@@ -192,8 +194,8 @@ export class SignUpComponent implements OnInit
                 }
             }
             console.log('on est dans la même categorie');
-            this._step = this._fieldsFlatten[index - 1];
-            this._stepNum--;
+
+            this.stepBackward();
             console.log('stepNum:' + this.stepNum);
         }
     }
