@@ -17,7 +17,6 @@ export class MainMenuListService implements MenuListService {
     getFields() {
         const fields = [];
         fields.push({title: 'Tableau de bord', values: []});
-        // fields.push({title: 'Travaux', values: []});
         this.getTasks(fields);
         // fields.push({title: 'Résidence', values: []});
         this.getHouses(fields);
@@ -41,7 +40,7 @@ export class MainMenuListService implements MenuListService {
         this._tasksService.getAll().subscribe((tasks: Task[]) => {
                 const t = ['Ajouter une demande de travaux'];
                 for (let i = 0; i < tasks.length; i++) {
-                    t.push(tasks[i].name);
+                    t.push(tasks[i].nom);
                 }
                 fields.push({title: 'Travaux', values: t});
             }

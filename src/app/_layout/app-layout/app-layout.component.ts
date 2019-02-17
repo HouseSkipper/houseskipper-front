@@ -64,13 +64,13 @@ export class AppLayoutComponent implements OnInit {
                     }
                 }
                 for (let i = 0 ; i < this._tasks.length ; i++) {
-                    if (this._tasks[i].name === step) {
+                    if (this._tasks[i].nom === step) {
                         findTask = 1;
-                        this._router.navigate(['/users/tasks/', this._tasks[i].id]);
+                        this._router.navigate(['/users/tasks/' + this._tasks[i].id]);
                         break;
                     }
                 }
-                if ( findHouse === 0) {
+                if ( findHouse === 0 && findTask === 0) {
                     this.router.navigate(['/']);
                     break;
                 }

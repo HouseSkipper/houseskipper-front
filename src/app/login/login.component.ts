@@ -5,7 +5,6 @@ import {AuthenticationService} from '../services/authentication.service';
 import {first} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
-import {TaskDialogComponent} from '../task-dialog/task-dialog.component';
 import {BeforeLoginDialogComponent} from '../before-login-dialog/before-login-dialog.component';
 
 @Component({
