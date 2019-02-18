@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {filter, first, flatMap, map, tap} from 'rxjs/operators';
 import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
@@ -7,8 +7,8 @@ import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import * as $ from 'jquery';
-
-import { User } from '../interfaces/user';
+import {User} from '../interfaces/user';
+import {MatStepper} from '@angular/material';
 import { signupStep } from '../interfaces/signupStep';
 
 import { SIGNUP_STEPS } from './signup-steps';
@@ -23,11 +23,11 @@ import { SIGNUP_STEPS } from './signup-steps';
         trigger('slideInOut', [
             state('in', style({opacity: 1})),
             transition(':leave', [
-                animate('200ms ease-in', style({transform: 'translateX(+100%)', opacity: 0}))
+                animate('200ms ease-in', style({opacity: 0}))
             ]),
             transition(':enter', [
-                style({transform: 'translateX(100%)', opacity: 0}),
-                animate('600ms ease-in', style({transform: 'translateX(0%)'}))
+                style({ opacity: 0}),
+                animate('600ms ease-in', style({opacity: 1}))
             ])
         ]),
         trigger(
@@ -38,8 +38,7 @@ import { SIGNUP_STEPS } from './signup-steps';
         )
     ]
 })
-export class SignUpComponent implements OnInit
-{
+export class SignUpComponent implements OnInit {
 
     private _fields;
     private _form: FormGroup;
@@ -48,22 +47,18 @@ export class SignUpComponent implements OnInit
     private _fieldsFlatten: string[];
     private _errorMsg: string;
     private _invalid: boolean;
-    private _roles: string[] = ['Particulier-propriétaire']; //, 'Prestataire de services'];
+    private _roles: string[] = ['Particulier-propriétaire']; // 'Prestataire de services'];
     private readonly _submit$: EventEmitter<any>;
     private _formCodeEmail: FormGroup;
     private _cgu: boolean;
     private _fieldChecked: Map<string, boolean>;
+    @ViewChild('stepper') stepper: MatStepper;
 
     private _fieldIndex;
     private _subFieldIndex;
-    private idOK :boolean;
+    private idOK: boolean;
 
-
-    constructor (
-      private _router: Router, private _authService: AuthenticationService,
-      private _userService: UsersService
-    )
-    {
+    constructor(private _userService: UsersService, private _router: Router, private _authService: AuthenticationService) {
         this._fieldsFlatten = [];
         this._fieldChecked = new Map();
         this._submit$ = new EventEmitter<User>();
@@ -76,8 +71,7 @@ export class SignUpComponent implements OnInit
     }
 
 
-    ngOnInit ()
-    {
+    ngOnInit() {
         this._fields = [];
         SIGNUP_STEPS.forEach(_ => this._fields.push(_));
 
@@ -94,151 +88,151 @@ export class SignUpComponent implements OnInit
         this._cgu = false;
 
         this._stepNum = 0;
+        this._errorMsg = '';
     }
 
-
+    getIndexGroup(step: string) {
+        let indexGroup = 0;
+        switch (step) {
+            case 'username' :
+            case 'telephone' :
+                indexGroup = 1;
+                break;
+            case 'password':
+            case 'role':
+            case 'confirmPassword':
+                indexGroup = 2;
+                break;
+            case 'code':
+                indexGroup = 3;
+                break;
+        }
+        return indexGroup;
+    }
 
     stepForward () {
-      this._stepNum++;
-      this._step = this._fieldsFlatten[this._stepNum];
+        console.log('step forward');
+        this._stepNum++;
+        this._step = this._fieldsFlatten[this._stepNum];
     }
 
     // verify step is not at beginning before using this function
     stepBackward () {
-      this._stepNum--;
-      this._step = this._fieldsFlatten[this._stepNum];
+        this._stepNum--;
+        this._step = this._fieldsFlatten[this._stepNum];
     }
 
-
-
-    continue (data: any, codeEmail: any)
-    {
+    continue(data: any, codeEmail: any) {
+        const index = this._fieldsFlatten.indexOf(this._step);
+        const indexGroup = this.getIndexGroup(this._step);
         this._errorMsg = '';
-
-        if (this._stepNum <= 5)
-        {
-            if (this._form.get(this._step).valid)
-            {
-                console.log(this._step + ' a true');
+        const formArray = this.form.get('formArray') as FormArray;
+        if (index <= 5) {
+            if (formArray.controls[indexGroup].get(this._step).valid) {
                 this._fieldChecked.set(this._step, true);
-
-                if (this._step === 'password')
-                {
-                    if (!(this._form.get('confirmPassword').value === this._form.get('password').value)) {
-                      this._errorMsg = 'Votre mot de passe ne correspond pas';
+                if (this._step === 'password') {
+                    if (formArray.controls[indexGroup].get('confirmPassword').value === formArray.controls[indexGroup].get('password').value) { // form.get('formArray').controls[0]
+                        this.stepForward();
+                    } else {
+                        this._errorMsg = 'Votre mot de passe ne correspond pas';
                     }
-                }
-                else if (this._step === 'username')
-                {
-                    this._userService.checkExists(this._form.get(this._step).value).subscribe(data => {
+                } else if (this._step === 'username') {
+                    this._userService.checkExists(formArray.controls[indexGroup].get(this._step).value).subscribe(data => { // form.get('formArray').controls[0]
                         if (data) {
                             this._errorMsg = 'Cet email est déjà utilisé';
+                        } else {
+                            this._errorMsg = '';
+                            this.stepForward();
                         }
                     });
-                }
-                else
-                {
-                    console.log('index:' + this._stepNum);
-                    if (this._stepNum < 5) {
-                        //
-                    } else if (this._form.valid) {
-                        this.saveUser(data as User);
+                } else {
+                    if (this._form.valid) {
+                        this.saveUser(data);
                     } else {
                         this._errorMsg = 'Des champs sont manquants';
                     }
                 }
-
-                if (this.stepNum % 2 === 1)
-                {
-                    const $bar = $('.ProgressBar');
-                    if ($bar.children('.is-current').length > 0) {
-                        $bar.children('.is-current').removeClass('is-current').addClass('is-complete').next().addClass('is-current');
-                    }
-                    else {
-                        $bar.children().first().addClass('is-current');
-                    }
+                if (!!this._errorMsg) {
+                    this.stepForward();
                 }
-
-                if (this.errorMsg === '') this.stepForward();
             }
-        }
-        else
-        // index > 5
-        {
-            if (this._formCodeEmail.get(this._step).valid) {
+        } else {
+            if (this._formCodeEmail.get(this._step).valid) { // form.get('formArray').controls[0]
                 this._userService.checkEmailToken(codeEmail.code).subscribe((_) => {
                         this._authService.loginAfterValidationAccount(_);
                         this._router.navigate(['/']);
                     },
-                    (_) => this._errorMsg = _
-                );
+                    (_) => this._errorMsg = _);
             }
         }
+
     }
 
-    previous (data: any)
-    {
+    previous(data: any) {
         const index = this._fieldsFlatten.indexOf(this._step);
-
-        console.log('index:' + index);
-
-        if (index > 0)
-        {
-            if (this.stepNum % 2 === 0) {
-
-                const $bar = $('.ProgressBar');
-                if ($bar.children('.is-current').length > 0) {
-                    $bar.children('.is-current').removeClass('is-current').prev().removeClass('is-complete').addClass('is-current');
-                } else {
-                    $bar.children('.is-complete').last().removeClass('is-complete').addClass('is-current');
-                }
-            }
-            console.log('on est dans la même categorie');
-
+        if (index > 0) {
             this.stepBackward();
-            console.log('stepNum:' + this.stepNum);
         }
     }
 
-    setStep (value: string): void
-    {
-        console.log(value);
-
+    setStep(value: string): void {
+        const indexGroup = this.getIndexGroup(value);
+        this.stepper.selectedIndex = indexGroup;
+        const formArray = this.form.get('formArray') as FormArray;
         if (value === this._fieldsFlatten[0]) {
             this._step = value;
         } else {
             const index = this._fieldsFlatten.indexOf(value);
-            if (this._form.get(this._fieldsFlatten[index - 1]).valid) {
-                this._step = value;
+            // indexGroup - 1 si on accède à un title
+            if (formArray.controls[indexGroup - 1] != null && formArray.controls[indexGroup - 1].get(this._fieldsFlatten[index - 1]) != null) {
+                if (formArray.controls[indexGroup - 1].get(this._fieldsFlatten[index - 1]).valid && this._fieldChecked.get(this._fieldsFlatten[index - 1])) {
+                    this._step = value;
+                }
+            } else {
+                if (formArray.controls[indexGroup].get(this._fieldsFlatten[index - 1]).valid && this._fieldChecked.get(this._fieldsFlatten[index - 1])) {
+                    this._step = value;
+                }
             }
+
         }
     }
 
 
-    private _buildForm (): FormGroup {
+    private _buildForm(): FormGroup {
         return new FormGroup({
-            firstname: new FormControl('', Validators.compose([
-                Validators.required, Validators.minLength(3)
-            ])),
-            lastname: new FormControl('', Validators.compose([
-                Validators.required, Validators.minLength(3)
-            ])),
-            password: new FormControl('', Validators.compose([
-                Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
-            ])),
-            confirmPassword: new FormControl('', Validators.compose([Validators.required])),
-            username: new FormControl('', Validators.compose([
-                Validators.required,
-                Validators.pattern(
-                    '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}' +
-                    '\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')
-            ])),
-            telephone: new FormControl('', Validators.compose([
-                Validators.pattern('\\d{10}')
-            ])),
-            // validator: MustMatch('password', 'confirmPassword'),
-            role: new FormControl('Particulier-propriétaire', Validators.required)
+            formArray: new FormArray([
+                new FormGroup({
+                    firstname: new FormControl('', Validators.compose([
+                        Validators.required, Validators.minLength(3)
+                    ])),
+                    lastname: new FormControl('', Validators.compose([
+                        Validators.required, Validators.minLength(3)
+                    ])),
+                }),
+                new FormGroup({
+                    username: new FormControl('', Validators.compose([
+                        Validators.required,
+                        Validators.pattern(
+                            '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}' +
+                            '\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')
+                    ])),
+                    telephone: new FormControl('', Validators.compose([
+                        Validators.pattern('\\d{10}')
+                    ])),
+                }),
+                new FormGroup({
+                    password: new FormControl('', Validators.compose([
+                        Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
+                    ])),
+                    confirmPassword: new FormControl('', Validators.compose([Validators.required])),
+                    // validator: MustMatch('password', 'confirmPassword'),
+                    role: new FormControl('Particulier-propriétaire', Validators.required)
+                }),
+                this._buildFormCodeEmail()
+            ])
         });
+        const formArray = this.form.get('formArray') as FormArray;
+        this._formCodeEmail = formArray.at(3) as FormGroup;
     }
 
     private _buildFormCodeEmail(): FormGroup {
@@ -247,11 +241,12 @@ export class SignUpComponent implements OnInit
         });
     }
 
-
-
-    saveUser (user: User)
-    {
-        of(user)
+    saveUser(user) {
+        let finalUser = {} as User;
+        Array.from(user.formArray).forEach(function(elt) {
+            finalUser = Object.assign(finalUser, elt);
+        });
+        of(finalUser)
             .pipe(
                 map(_ => {
                         return {
@@ -267,11 +262,9 @@ export class SignUpComponent implements OnInit
                 flatMap(_ => this._userService.create(_))
             ).subscribe(
             data => {
-                console.log(data);
-                // this._route.navigate(['/']);
+                // this._router.navigate(['/']);
             },
             error => {
-                console.log(error);
                 this._errorMsg = error;
                 this._invalid = true;
             });
@@ -290,7 +283,6 @@ export class SignUpComponent implements OnInit
         this._form = config.form;
         console.log(this._fieldsFlatten);
     }*/
-
 
 
     get roles(): string[] {
@@ -354,12 +346,10 @@ export class SignUpComponent implements OnInit
         this._cgu = value;
     }
 
-
-
-    check (f: any): boolean
-    {
+    check(f: any): boolean {
+        const formArray = this.form.get('formArray') as FormArray;
         if (f.value.title === 'Account') {
-            if (this._form.get('confirmPassword').value === this._form.get('password').value && this._form.get('password').valid) {
+            if (formArray.controls[2].get('confirmPassword').value === formArray.controls[2].get('password').value && formArray.controls[2].get('password').valid) {
                 return true;
             }
         } else {
@@ -367,7 +357,8 @@ export class SignUpComponent implements OnInit
             const length = f.value.values.length;
             for (let i = 0; i < length; i++) {
                 if (f.value.values[i] !== 'code') {
-                    if (this._form.get(f.value.values[i]).valid && this._fieldChecked.get(f.value.values[i])) {
+                    const indexGroup = this.getIndexGroup(f.value.values[i]);
+                    if (formArray.controls[indexGroup].get(f.value.values[i]).valid && this._fieldChecked.get(f.value.values[i])) {
                         counter = counter + 1;
                     }
                 }
@@ -375,5 +366,4 @@ export class SignUpComponent implements OnInit
             return length === counter;
         }
     }
-
 }
