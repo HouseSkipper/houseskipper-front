@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {DataService} from '../services/budget.service';
 import {DataSource} from '@angular/cdk/table';
 import { Task} from '../interfaces/task';
-import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {TasksService} from '../services/tasks.service';
 import {FileUploader} from 'ng2-file-upload';
 import {AuthenticationService} from '../services/authentication.service';
@@ -28,21 +28,24 @@ export class TaskComponent implements OnInit {
     private _errorMsg = '';
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
     constructor(private _dataService: TasksService, private _router: Router
                 ) {
         this.hasFile = false;
-        new TaskDataSource(this._dataService).connect().subscribe(_ => {
-            this.dataSource = new MatTableDataSource<Task>(_);
-            this.dataSource.paginator = this.paginator;
-            }
-        );
+
     }
 
     get files(): string[] {
         return this._files;
     }
     ngOnInit() {
+        new TaskDataSource(this._dataService).connect().subscribe(_ => {
+                this.dataSource = new MatTableDataSource<Task>(_);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource.sort = this.sort;
+            }
+        );
     }
 
     get errorMsg(): string {
@@ -56,6 +59,7 @@ export class TaskComponent implements OnInit {
                 new TaskDataSource(this._dataService).connect().subscribe(_ => {
                         this.dataSource = new MatTableDataSource<Task>(_);
                         this.dataSource.paginator = this.paginator;
+                        this.dataSource.sort = this.sort;
                     }
                 );
             }
