@@ -151,20 +151,7 @@
                     </mat-step>
 
                 </mat-horizontal-stepper>
-
-
-                <!--<
-
             </form>
-            <mat-error class="body-1" *ngIf="errorMsg">{{errorMsg}}</mat-error>
-            <div>
-                <button *ngIf="stepNum > 0 && stepNum !== 6" id="previousButton" mat-button (click)="previous(form.value)">
-                    Précédent
-                </button>
-                <button id="continueButton" class="actionButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)" [disabled]="step == 'code' && !cgu">
-                    Continuer
-                </button>
-            </div>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

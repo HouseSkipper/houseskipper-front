@@ -9,8 +9,6 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import * as $ from 'jquery';
 import {User} from '../interfaces/user';
 import {MatStepper} from '@angular/material';
-
-import { User } from '../interfaces/user';
 import { signupStep } from '../interfaces/signupStep';
 
 import { SIGNUP_STEPS } from './signup-steps';
@@ -90,6 +88,7 @@ export class SignUpComponent implements OnInit {
         this._cgu = false;
 
         this._stepNum = 0;
+        this._errorMsg = '';
     }
 
     getIndexGroup(step: string) {
@@ -112,6 +111,7 @@ export class SignUpComponent implements OnInit {
     }
 
     stepForward () {
+        console.log('step forward');
         this._stepNum++;
         this._step = this._fieldsFlatten[this._stepNum];
     }
@@ -128,46 +128,31 @@ export class SignUpComponent implements OnInit {
         this._errorMsg = '';
         const formArray = this.form.get('formArray') as FormArray;
         if (index <= 5) {
-            if (formArray.controls[indexGroup].get(this._step).valid) { // form.get('formArray').controls[0]
+            if (formArray.controls[indexGroup].get(this._step).valid) {
                 this._fieldChecked.set(this._step, true);
                 if (this._step === 'password') {
                     if (formArray.controls[indexGroup].get('confirmPassword').value === formArray.controls[indexGroup].get('password').value) { // form.get('formArray').controls[0]
-                        this._step = this._fieldsFlatten[index + 1];
+                        this.stepForward();
                     } else {
                         this._errorMsg = 'Votre mot de passe ne correspond pas';
                     }
                 } else if (this._step === 'username') {
                     this._userService.checkExists(formArray.controls[indexGroup].get(this._step).value).subscribe(data => { // form.get('formArray').controls[0]
                         if (data) {
-
                             this._errorMsg = 'Cet email est déjà utilisé';
                         } else {
                             this._errorMsg = '';
-                            this._step = this._fieldsFlatten[index + 1];
-                            console.log(this._step);
+                            this.stepForward();
                         }
                     });
                 } else {
-                    console.log('index:' + index);
-
                     if (this._form.valid) {
                         this.saveUser(data);
                     } else {
                         this._errorMsg = 'Des champs sont manquants';
                     }
                 }
-                /**
-                if (this.stepNum % 2 === 1) {
-                    const $bar = $('.ProgressBar');
-                    if ($bar.children('.is-current').length > 0) {
-                        $bar.children('.is-current').removeClass('is-current').addClass('is-complete').next().addClass('is-current');
-                    } else {
-                        $bar.children().first().addClass('is-current');
-                    }
-                }
-                this._stepNum++;**/
-
-                if (this.errorMsg === '') {
+                if (!!this._errorMsg) {
                     this.stepForward();
                 }
             }
@@ -185,27 +170,19 @@ export class SignUpComponent implements OnInit {
 
     previous(data: any) {
         const index = this._fieldsFlatten.indexOf(this._step);
-        console.log('index:' + index);
         if (index > 0) {
-            console.log('on est dans la même categorie');
-
             this.stepBackward();
-            console.log('stepNum:' + this.stepNum);
         }
     }
 
     setStep(value: string): void {
-        console.log(value);
         const indexGroup = this.getIndexGroup(value);
-        console.log('indexGroup : ' + indexGroup);
         this.stepper.selectedIndex = indexGroup;
         const formArray = this.form.get('formArray') as FormArray;
         if (value === this._fieldsFlatten[0]) {
             this._step = value;
         } else {
             const index = this._fieldsFlatten.indexOf(value);
-            console.log(this._fieldsFlatten[index - 1]);
-            console.log(formArray.controls[indexGroup]);
             // indexGroup - 1 si on accède à un title
             if (formArray.controls[indexGroup - 1] != null && formArray.controls[indexGroup - 1].get(this._fieldsFlatten[index - 1]) != null) {
                 if (formArray.controls[indexGroup - 1].get(this._fieldsFlatten[index - 1]).valid && this._fieldChecked.get(this._fieldsFlatten[index - 1])) {
@@ -251,11 +228,11 @@ export class SignUpComponent implements OnInit {
                     // validator: MustMatch('password', 'confirmPassword'),
                     role: new FormControl('Particulier-propriétaire', Validators.required)
                 }),
-                new FormGroup({
-
-                }),
+                this._buildFormCodeEmail()
             ])
         });
+        const formArray = this.form.get('formArray') as FormArray;
+        this._formCodeEmail = formArray.at(3) as FormGroup;
     }
 
     private _buildFormCodeEmail(): FormGroup {
@@ -267,10 +244,8 @@ export class SignUpComponent implements OnInit {
     saveUser(user) {
         let finalUser = {} as User;
         Array.from(user.formArray).forEach(function(elt) {
-            console.log(elt);
             finalUser = Object.assign(finalUser, elt);
         });
-        console.log(finalUser);
         of(finalUser)
             .pipe(
                 map(_ => {
@@ -287,11 +262,9 @@ export class SignUpComponent implements OnInit {
                 flatMap(_ => this._userService.create(_))
             ).subscribe(
             data => {
-                console.log(data);
                 // this._router.navigate(['/']);
             },
             error => {
-                console.log(error);
                 this._errorMsg = error;
                 this._invalid = true;
             });
