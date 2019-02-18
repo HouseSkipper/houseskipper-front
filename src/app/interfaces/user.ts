@@ -15,4 +15,11 @@ export interface Skill {
     userId?: string;
     type: string;
     nb_works?: string;
+    subSkills: SubSkill[];
+}
+
+export interface SubSkill {
+    id?: string;
+    type: string;
+    nb_works?: string;
 }

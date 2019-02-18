@@ -1,9 +1,11 @@
+
 <app-main-nav-bar></app-main-nav-bar>
+
 <mat-sidenav-container>
     <mat-sidenav id="sideMenu" mode="side" opened style="margin-left: 10px">
         <div id="buttonMenu">
             <div *ngFor="let field of fields | keyvalue; let i = index">
-                <mat-icon class="iconChecked" [style.visibility]="check(field) ? 'visible' : 'hidden'" svgIcon="icon-checked"></mat-icon>
+                <mat-icon class="iconChecked" [style.visibility]="check(field) ? 'visible' : 'hidden'" svgIcon="icon-checked" [@fadeInOut] ></mat-icon>
                 <a mat-button (click)="setStep(field.value.values[0])" class="titleField">{{field.value.title}}</a>
                 <div *ngIf="field.value.values.indexOf(step) > -1">
                     <span *ngFor="let subfield of field.value.values">
@@ -72,9 +74,10 @@
                     <h2 class="mat-headline">Quel est votre email?</h2>
                     <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('username').invalid" class="importantField">
                         <mat-label>Adresse Email</mat-label>
-                        <input matInput placeholder="Adresse Email" formControlName="username">
+                        <input matInput placeholder="Adresse Email" formControlName="username" required>
                         <mat-error class="alert alert-danger">Email requis</mat-error>
                         <mat-error *ngIf="form.invalid && form.get('username').hasError('pattern')" class="alert alert-danger">Email non valide</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('username').hasError('emailExists')" class="alert alert-danger">Email déjà utilisé</mat-error>
                     </mat-form-field>
                 </div>
                 <div id="password" *ngIf="step == 'password'" [@slideInOut]>
@@ -83,13 +86,13 @@
                         <mat-error class="alert alert-danger">Mot de passe requis</mat-error>
                         <mat-error *ngIf="form.invalid && form.get('password').hasError('pattern')" class="alert alert-danger">Le mot de passe doit contenir 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial</mat-error>
                         <mat-label>Mot de passe</mat-label>
-                        <input matInput placeholder="Mot de passe" type="password" formControlName="password">
+                        <input matInput placeholder="Mot de passe" type="password" formControlName="password" required>
                     </mat-form-field>
                     <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('confirmPassword').invalid" class="importantField">
                         <mat-error class="alert alert-danger">Mot de passe requis</mat-error>
                         <mat-error *ngIf="form.invalid && form.get('confirmPassword').hasError('pattern')" class="alert alert-danger">Le mot de passe ne correspond pas</mat-error>
                         <mat-label>Confirmez votre mot de passe</mat-label>
-                        <input matInput placeholder="Confirmez votre mot de passe" type="password" formControlName="confirmPassword">
+                        <input matInput placeholder="Confirmez votre mot de passe" type="password" formControlName="confirmPassword" required>
                     </mat-form-field>
                 </div>
                 <div id="telephone" *ngIf="step == 'telephone'" [@slideInOut]>
@@ -104,7 +107,7 @@
                     <h2 class="mat-headline">Quel sera votre rôle dans HouseKeeper?</h2>
                     <mat-form-field appearance="outline" class="importantField">
                         <mat-label>S'enregistrer en tant que</mat-label>
-                        <mat-select formControlName="role">
+                        <mat-select formControlName="role" required>
                             <mat-option *ngFor="let role of roles" [value]="role">
                                 {{role}}
                             </mat-option>
@@ -125,16 +128,18 @@
                     <span id="cguCheck"><mat-checkbox [(ngModel)]="cgu" [ngModelOptions]="{standalone: true}">J'accepte les conditions générales d'utilisations.</mat-checkbox></span>
                 </div>
             </form>
-            <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
+            <mat-error class="body-1" *ngIf="errorMsg">{{errorMsg}}</mat-error>
             <div>
-                <button *ngIf="stepNum > 0" class="actionButton" mat-button (click)="previous(form.value)">
+                <button class="actionButton" *ngIf="stepNum > 0 && stepNum !== 6" id="previousButton" mat-button (click)="previous(form.value)">
                     Précédent
                 </button>
-                <button class="actionButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)" [disabled]="step == 'code' && !cgu">
+                <button id="continueButton" class="actionButton" mat-button type="submit" (click)="continue(form.value, formCodeEmail.value)" [disabled]="step == 'code' && !cgu">
                     Continuer
                 </button>
             </div>
         </div>
     </mat-sidenav-content>
+
 </mat-sidenav-container>
+
 <app-legal-bar></app-legal-bar>

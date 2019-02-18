@@ -9,7 +9,7 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule, MatRadioModule,
-    MatSelectModule, MatSidenavModule, MatSliderModule,
+    MatSelectModule, MatSidenavModule, MatSliderModule, MatSortModule, MatTableModule,
     MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
@@ -18,7 +18,6 @@ import {APP_ROUTES} from './app.routes';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
-import {TaskDialogComponent} from './task-dialog/task-dialog.component';
 import {TasksService} from './services/tasks.service';
 import {FormHouseComponent} from './houses/form/form.house.component';
 import {HouseComponent} from './houses/house/house.component';
@@ -42,6 +41,9 @@ import { ShortcutComponent } from './shortcut/shortcut.component';
 import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.component';
 import {UpdateComponent} from './update/update.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-dialog.component';
+import { FormTaskComponent } from './form-task/form-task.component';
+import { SubSkillComponent } from './sub-skill/sub-skill.component';
 
 
 @NgModule({
@@ -52,7 +54,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         LoginComponent,
         SignUpComponent,
         TaskComponent,
-        TaskDialogComponent,
         SkillsComponent, // --- Dupliquer
         MainNavBarComponent,
         ValidateAccountComponent,
@@ -68,7 +69,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         ShortcutAreaComponent,
         UpdateComponent,
         ShortcutDialogComponent,
-        ShortcutComponent
+        ShortcutComponent,
+        BeforeLoginDialogComponent,
+        FormTaskComponent,
+        SubSkillComponent
     ],
     imports: [
         BrowserModule,
@@ -93,6 +97,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         FileUploadModule,
         MatTooltipModule,
         MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
         APP_ROUTES
     ],
     providers: [
@@ -100,7 +106,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         DataService, TasksService, CookieService
     ],
     entryComponents: [
-        TaskDialogComponent, ShortcutDialogComponent
+       ShortcutDialogComponent, BeforeLoginDialogComponent
     ],
     bootstrap: [AppComponent],
 })

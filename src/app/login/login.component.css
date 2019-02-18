@@ -10,6 +10,10 @@
     padding:20px;
 }
 
+.cur{
+    cursor: pointer;
+}
+
 #login-container {
     display:flex;
     justify-content: center;

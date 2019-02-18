@@ -32,6 +32,10 @@ export class UsersService {
         return this._http.get<User>(this._backendURL.oneUsers.replace(':id', id));
     }
 
+    checkExists(email: string) {
+        return this._http.post<boolean>(this._backendURL.exists, {'username' : email}, this._options());
+    }
+
     /*fetch(): Observable<User[]> {
         return this._http.get<User[]>(this._backendURL.allUsers)
             .pipe(

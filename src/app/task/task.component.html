@@ -4,8 +4,8 @@
     <div class="container">
       <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
         <div class="blocks">
-          <button button="submit" mat-raised-button color="primary" (click)="openDialog()">
-            <mat-icon>add</mat-icon> Ajouter une tâche
+          <button button="submit" mat-raised-button color="primary" (click)="addTask()">
+            <mat-icon>add</mat-icon> Ajouter une demande de travaux
           </button>
         </div>
       </div>
@@ -15,7 +15,7 @@
       <div layout="row" Align="center center" class="content">
         <mat-card class="card" >
           <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-            <h3>Tâches récentes</h3>
+            <h3>Demandes de travaux récentes</h3>
           </mat-card-title>
           <mat-card-content>
             <div class="example-container mat-elevation-z8 ">
@@ -26,19 +26,19 @@
                 </ng-container>
                 <ng-container matColumnDef="name">
                   <mat-header-cell *matHeaderCellDef> Nom de la tâche </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element.nom}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="room">
-                  <mat-header-cell *matHeaderCellDef> Pièce </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.room}} </mat-cell>
+                  <mat-header-cell *matHeaderCellDef> Lieu </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.partieExacte}} </mat-cell>
                 </ng-container>
                 <ng-container  matColumnDef="description">
                   <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
                   <mat-cell  *matCellDef="let element "> {{element.description}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="budget">
-                  <mat-header-cell *matHeaderCellDef> Budget </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.budget}} </mat-cell>
+                  <mat-header-cell *matHeaderCellDef> Partie concérnée </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.partie}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="status">
                   <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>

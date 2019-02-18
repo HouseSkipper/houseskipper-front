@@ -12,6 +12,7 @@ export const environment = {
         endpoints: {
             oneUsers: '/api/users/:id',
             allUsers: '/api/users',
+            exists: '/users/exists',
             updateUsers: '/users/update',
             authenticate: '/login',
             signup: '/users/sign-up',
@@ -30,6 +31,7 @@ export const environment = {
             },
             allSkills: '/skills',
             oneSkill: '/skills/:idSkill',
+            oneSubSkill: '/skill/subskill/:id',
             onePrestataire: '/add/prestataire',
             allShortcuts: '/shortcuts',
             addShortcut: '/add/shortcuts',

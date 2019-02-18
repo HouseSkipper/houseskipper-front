@@ -19,7 +19,7 @@ mat-expansion-panel {
 }
 
 mat-panel-description {
-   /* color: white; */
+    /* color: white; */
     display: flex;
     align-content: center;
     align-items: center;
@@ -51,7 +51,7 @@ mat-panel-description {
 }
 
 .centerElement{
-   display: flex;
+    display: flex;
     flex-direction: column;
     align-content: center;
     align-items: center;
