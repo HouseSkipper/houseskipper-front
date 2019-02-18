@@ -1,19 +1,14 @@
 export interface Task {
     id?: string;
-    name: string;
+    nom: string;
     username: string;
-    room: string[];
+    residence: string;
+    partieExacte: string;
     description: string;
-    budget: string;
-    file: FilePayload[];
+    type: string;
     start_date: Date;
     status: string;
-}
-
-export interface FilePayload {
-    id?: string;
-    fileName: string;
-    fileDownloadUri: string;
-    fileType: string;
-    size: number;
+    resultat: string;
+    connaissance: string;
+    partie: string;
 }

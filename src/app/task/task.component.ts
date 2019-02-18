@@ -4,11 +4,11 @@ import {DataService} from '../services/budget.service';
 import {DataSource} from '@angular/cdk/table';
 import { Task} from '../interfaces/task';
 import {MatDialog} from '@angular/material';
-import {TaskDialogComponent} from '../task-dialog/task-dialog.component';
 import {TasksService} from '../services/tasks.service';
 import {FileUploader} from 'ng2-file-upload';
 import {AuthenticationService} from '../services/authentication.service';
 import {HttpHeaders} from '@angular/common/http';
+import {Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -25,7 +25,7 @@ export class TaskComponent implements OnInit {
     blogFile = { filename: '', file: ''};
     hasFile: boolean;
     private _errorMsg = '';
-    constructor(private _dataService: TasksService, public dialog: MatDialog
+    constructor(private _dataService: TasksService, private _router: Router
                 ) {
         this.hasFile = false;
     }
@@ -47,6 +47,7 @@ export class TaskComponent implements OnInit {
         );
         this.dataSource = new TaskDataSource(this._dataService);
     }
+    /*
     editTask(task): void {
         const dialogRef = this.dialog.open(TaskDialogComponent, {
             width: '600px',
@@ -59,6 +60,11 @@ export class TaskComponent implements OnInit {
                 () => this.dataSource = new TaskDataSource(this._dataService)
             );
         });
+    }
+*/
+
+    editTask(task) {
+        this._router.navigate(['/users/tasks/' + task.id]);
     }
 
     filesNames(id): void {
@@ -74,13 +80,20 @@ export class TaskComponent implements OnInit {
     downloadFile(file, id) {
         console.log(file + ', ' + id);
         this._dataService.downloadFileNow(file, id).subscribe(
-            response => this.downloadFileAs(response, 'image/png'),
+            response => {
+                if (this.blogFile.file.includes('png') || this.blogFile.file.includes('jpg')
+                    || this.blogFile.file.includes('jpeg')) {
+                this.downloadFileAs(response, 'image/jpg');
+                } else if (this.blogFile.file.includes('pdf')) {
+                    this.downloadFileAs(response, 'application/pdf');
+                }
+            },
             () => this._errorMsg = 'Veuillez choisir une image à télécharger.'
         );
 
     }
 
-
+/*
     openDialog(): void {
         this._errorMsg = '';
         const dialogRef = this.dialog.open(TaskDialogComponent, {
@@ -96,7 +109,11 @@ export class TaskComponent implements OnInit {
             this.dataSource = new TaskDataSource(this._dataService);
         });
     }
+*/
 
+    addTask() {
+        this._router.navigate(['/users/tasks/addtask']);
+    }
 
     private downloadFileAs(data: any, type: string) {
         const a = document.createElement('a');
@@ -108,7 +125,7 @@ export class TaskComponent implements OnInit {
             alert('Disable Pop-up');
         } else {
             a.href = url;
-            a.download = 'image.png';
+            a.download = this.blogFile.file;
             a.click();
         }
     }

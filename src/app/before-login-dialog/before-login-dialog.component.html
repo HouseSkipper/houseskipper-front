@@ -1,20 +1,24 @@
-<div mat-dialog-content style="opacity: 0.9;">
+<div class="form-container mat-dialog-container " style="opacity: 0.9;">
+  <mat-icon id="logo" svgIcon="icon-logo" style="align-items: center;"></mat-icon>
+  <h1 id="slogan" class="mat-headline">Garder un oeil sur vos travaux d'habitation</h1>
+  <div>
+    <mat-card class="card" (click)="partenaire()">
+      <img mat-card-image src="../../assets/images/partenaire.jpeg" alt="partenaire" >
+      <mat-card-content>
+        <p class="font-roboto">
+          Je suis un professionnel ou un expert
+        </p>
+      </mat-card-content>
+    </mat-card>
 
-  <mat-card class="card" (click)="partenaire()">
-    <img mat-card-image src="../../assets/images/partenaire.jpeg" alt="partenaire" >
-    <mat-card-content>
-      <p class="font-roboto">
-        je suis partenaire
-      </p>
-    </mat-card-content>
-  </mat-card>
+    <mat-card  class="card" (click)="proprietaire()">
+      <img mat-card-image src="../../assets/images/background_image_old.jpg" alt="proprietaire">
+      <mat-card-content>
+        <p class="font-roboto">
+          Je suis un particulier propriétaire
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-  <mat-card  class="card" (click)="proprietaire()">
-    <img mat-card-image src="../../assets/images/background_image_old.jpg" alt="proprietaire">
-    <mat-card-content>
-      <p class="font-roboto">
-        je suis propriètaire
-      </p>
-    </mat-card-content>
-  </mat-card>
 </div>

@@ -9,7 +9,7 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule, MatRadioModule,
-    MatSelectModule, MatSidenavModule, MatSliderModule, MatStepperModule,
+    MatSelectModule, MatSidenavModule, MatSliderModule, MatStepperModule, MatSortModule, MatTableModule
     MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
@@ -18,7 +18,6 @@ import {APP_ROUTES} from './app.routes';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material.module';
-import {TaskDialogComponent} from './task-dialog/task-dialog.component';
 import {TasksService} from './services/tasks.service';
 import {FormHouseComponent} from './houses/form/form.house.component';
 import {HouseComponent} from './houses/house/house.component';
@@ -43,6 +42,8 @@ import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.compo
 import {UpdateComponent} from './update/update.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-dialog.component';
+import { FormTaskComponent } from './form-task/form-task.component';
+import { SubSkillComponent } from './sub-skill/sub-skill.component';
 
 
 @NgModule({
@@ -53,7 +54,6 @@ import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-d
         LoginComponent,
         SignUpComponent,
         TaskComponent,
-        TaskDialogComponent,
         SkillsComponent, // --- Dupliquer
         MainNavBarComponent,
         ValidateAccountComponent,
@@ -70,7 +70,9 @@ import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-d
         UpdateComponent,
         ShortcutDialogComponent,
         ShortcutComponent,
-        BeforeLoginDialogComponent
+        BeforeLoginDialogComponent,
+        FormTaskComponent,
+        SubSkillComponent
     ],
     imports: [
         BrowserModule,
@@ -96,6 +98,8 @@ import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-d
         MatTooltipModule,
         MatPaginatorModule,
         MatStepperModule,
+        MatSortModule,
+        MatTableModule,
         APP_ROUTES
     ],
     providers: [
@@ -103,7 +107,7 @@ import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-d
         DataService, TasksService, CookieService
     ],
     entryComponents: [
-        TaskDialogComponent, ShortcutDialogComponent, BeforeLoginDialogComponent
+       ShortcutDialogComponent, BeforeLoginDialogComponent
     ],
     bootstrap: [AppComponent],
 })

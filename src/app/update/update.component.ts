@@ -73,7 +73,7 @@ export class UpdateComponent implements OnInit, OnChanges {
     }
 
     modifInfo(): any {
-        // this._router.navigate(['/signup']);
+        // this._route.navigate(['/signup']);
         this._modif = !this._modif;
     }
 
@@ -165,7 +165,7 @@ export class UpdateComponent implements OnInit, OnChanges {
             ).subscribe(
             data => {
                 console.log(data);
-                // this._router.navigate(['/']);
+                // this._route.navigate(['/']);
             },
             error => {
                 console.log(error);

@@ -5,14 +5,13 @@
     </section>
     -->
     <div class="content-page">
-                <mat-card *ngFor="let skill of skills">
+                <mat-card *ngFor="let skill of skills" [routerLink]="['/skills/', skill.id]">
                     <mat-card-header>
                         <mat-card-title>{{ skill.type }} :</mat-card-title>
                         <br>
-                        <mat-icon *ngIf="skill.type == 'Gros Oeuvres'" class="icon-skill" svgIcon="icon-gros-oeuvres"></mat-icon>
-                        <mat-icon *ngIf="skill.type == 'Seconds Oeuvres'" class="icon-skill" svgIcon="icon-seconds-oeuvres"></mat-icon>
-                        <mat-icon *ngIf="skill.type == 'Petits travaux de bricolage'" class="icon-skill" svgIcon="icon-bricolage"></mat-icon>
-                        <mat-icon *ngIf="skill.type == 'Petits travaux de jardinage'" class="icon-skill" svgIcon="icon-jardinage"></mat-icon>
+                        <mat-icon *ngIf="skill.type == 'Gros œuvre'" class="icon-skill" svgIcon="icon-gros-oeuvres"></mat-icon>
+                        <mat-icon *ngIf="skill.type == 'Second œuvre'" class="icon-skill" svgIcon="icon-seconds-oeuvres"></mat-icon>
+                        <mat-icon *ngIf="skill.type == 'Petits travaux'" class="icon-skill" svgIcon="icon-bricolage"></mat-icon>
                         <mat-icon *ngIf="skill.type == 'Aménagement paysager'" class="icon-skill" svgIcon="icon-paysage"></mat-icon>
 
                         <mat-card-subtitle *ngIf="skill.nb_works == 1" matTooltip="Personne qui possède peu ou aucune
@@ -35,7 +34,7 @@
                         des travaux.">Expert</mat-card-subtitle>
 
                     </mat-card-header>
-                    <mat-card-content>
+                   <!-- <mat-card-content>
                         <section>
                             <mat-slider
                                     min="1"
@@ -45,9 +44,9 @@
                             ></mat-slider>
                             <br>
                         </section>
-                    </mat-card-content>
-                    <mat-dialog-actions align="end">
+                    </mat-card-content> -->
+                   <!-- <mat-dialog-actions align="end">
                         <button mat-raised-button color="primary" type="submit" (click)="submit(skill)">Sauvegarder</button>
-                    </mat-dialog-actions>
+                    </mat-dialog-actions> -->
                 </mat-card>
     </div>

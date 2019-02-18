@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {User} from '../interfaces/user';
 import {filter, first, flatMap, map, tap} from 'rxjs/operators';
 import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
@@ -8,7 +7,14 @@ import {of} from 'rxjs';
 import {UsersService} from '../services/users.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import * as $ from 'jquery';
+import {User} from '../interfaces/user';
 import {MatStepper} from '@angular/material';
+
+import { User } from '../interfaces/user';
+import { signupStep } from '../interfaces/signupStep';
+
+import { SIGNUP_STEPS } from './signup-steps';
+
 
 
 @Component({
@@ -25,7 +31,13 @@ import {MatStepper} from '@angular/material';
                 style({ opacity: 0}),
                 animate('600ms ease-in', style({opacity: 1}))
             ])
-        ])
+        ]),
+        trigger(
+          'fadeInOut', [
+            state('void', style({opacity: 0})),
+            transition('void <=> *', animate(2000))
+          ]
+        )
     ]
 })
 export class SignUpComponent implements OnInit {
@@ -44,23 +56,27 @@ export class SignUpComponent implements OnInit {
     private _fieldChecked: Map<string, boolean>;
     @ViewChild('stepper') stepper: MatStepper;
 
+    private _fieldIndex;
+    private _subFieldIndex;
+    private idOK: boolean;
 
     constructor(private _userService: UsersService, private _router: Router, private _authService: AuthenticationService) {
         this._fieldsFlatten = [];
         this._fieldChecked = new Map();
-        this._stepNum = 0;
-        this._submit$ = new EventEmitter<any>();
+        this._submit$ = new EventEmitter<User>();
         this._form = this._buildForm();
         this._formCodeEmail = this._buildFormCodeEmail();
+
+        this._fieldIndex = 0;
+        this._subFieldIndex = 0;
+        this.idOK = false;
     }
 
 
     ngOnInit() {
         this._fields = [];
-        this._fields.push({title: 'Entity', values: ['firstname', 'lastname']});
-        this._fields.push({title: 'Contact', values: ['username', 'telephone']});
-        this._fields.push({title: 'Account', values: ['password', 'role']});
-        this._fields.push({title: 'Valider', values: ['code']});
+        SIGNUP_STEPS.forEach(_ => this._fields.push(_));
+
         let i = 0;
         this._fields.forEach(value => {
             for (const subfield of value.values) {
@@ -69,8 +85,11 @@ export class SignUpComponent implements OnInit {
             }
             this._fieldChecked.set(value.title, false);
         });
+
         this._step = this._fieldsFlatten[0];
         this._cgu = false;
+
+        this._stepNum = 0;
     }
 
     getIndexGroup(step: string) {
@@ -90,6 +109,17 @@ export class SignUpComponent implements OnInit {
                 break;
         }
         return indexGroup;
+    }
+
+    stepForward () {
+        this._stepNum++;
+        this._step = this._fieldsFlatten[this._stepNum];
+    }
+
+    // verify step is not at beginning before using this function
+    stepBackward () {
+        this._stepNum--;
+        this._step = this._fieldsFlatten[this._stepNum];
     }
 
     continue(data: any, codeEmail: any) {
@@ -119,10 +149,8 @@ export class SignUpComponent implements OnInit {
                     });
                 } else {
                     console.log('index:' + index);
-                    if (index < 5) {
-                        this._step = this._fieldsFlatten[index + 1];
-                    } else if (this._form.valid) {
-                        this._step = this._fieldsFlatten[index + 1];
+
+                    if (this._form.valid) {
                         this.saveUser(data);
                     } else {
                         this._errorMsg = 'Des champs sont manquants';
@@ -138,6 +166,10 @@ export class SignUpComponent implements OnInit {
                     }
                 }
                 this._stepNum++;**/
+
+                if (this.errorMsg === '') {
+                    this.stepForward();
+                }
             }
         } else {
             if (this._formCodeEmail.get(this._step).valid) { // form.get('formArray').controls[0]
@@ -155,21 +187,11 @@ export class SignUpComponent implements OnInit {
         const index = this._fieldsFlatten.indexOf(this._step);
         console.log('index:' + index);
         if (index > 0) {
-            if (this.stepNum % 2 === 0) {
-
-                const $bar = $('.ProgressBar');
-                if ($bar.children('.is-current').length > 0) {
-                    $bar.children('.is-current').removeClass('is-current').prev().removeClass('is-complete').addClass('is-current');
-                } else {
-                    $bar.children('.is-complete').last().removeClass('is-complete').addClass('is-current');
-                }
-            }
             console.log('on est dans la même categorie');
-            this._step = this._fieldsFlatten[index - 1];
-            this._stepNum--;
+
+            this.stepBackward();
             console.log('stepNum:' + this.stepNum);
         }
-
     }
 
     setStep(value: string): void {
@@ -317,7 +339,6 @@ export class SignUpComponent implements OnInit {
     get step(): string {
         return this._step;
     }
-
 
     set step(value: string) {
         this._step = value;
