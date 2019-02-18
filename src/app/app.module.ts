@@ -9,7 +9,7 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule, MatRadioModule,
-    MatSelectModule, MatSidenavModule, MatSliderModule,
+    MatSelectModule, MatSidenavModule, MatSliderModule, MatStepperModule,
     MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
@@ -95,6 +95,7 @@ import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-d
         FileUploadModule,
         MatTooltipModule,
         MatPaginatorModule,
+        MatStepperModule,
         APP_ROUTES
     ],
     providers: [
