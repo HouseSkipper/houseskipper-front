@@ -32,7 +32,7 @@ export class AppLayoutComponent implements OnInit {
             case 'Travaux':
                 this.router.navigate(['/users/tasks']);
                 break;
-            case 'Résidence':
+            case 'Habitation':
                 this.router.navigate(['/users/houses']);
                 break;
             case 'Contact':
@@ -47,12 +47,13 @@ export class AppLayoutComponent implements OnInit {
             case 'Modifier mes informations':
                 this.router.navigate(['/update']);
                 break;
-            case 'Ajouter un logement':
+            case 'Ajouter une habitation':
                 this.router.navigate(['/users/houses/addhouse']);
                 break;
             case 'Ajouter une demande de travaux':
                 this.router.navigate(['/users/tasks/addtask']);
                 break;
+                /* Plus besoin
             default :
                 let findHouse = 0;
                 let findTask = 0;
@@ -75,6 +76,7 @@ export class AppLayoutComponent implements OnInit {
                     break;
                 }
                 break;
+                */
         }
     }
 
