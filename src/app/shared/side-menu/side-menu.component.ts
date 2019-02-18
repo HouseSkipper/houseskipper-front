@@ -9,6 +9,7 @@ export class SideMenuComponent implements OnInit {
 
     private _fields;
     private _step;
+    private _field;
     private readonly _setStep$: EventEmitter<string>;
 
     constructor() {
@@ -28,11 +29,13 @@ export class SideMenuComponent implements OnInit {
         let res = false;
         this._fields.forEach(_ => {
             if (_.title === this._step) {
+                this._field = _;
+                console.log(this._field);
                 if (_.values.indexOf(element) > -1) {
                     res = true;
                 }
             } else {
-                if (_.values.indexOf(this._step) > -1) {
+                if (this._field.values.indexOf(element) > -1) {
                     res = true;
                 }
             }

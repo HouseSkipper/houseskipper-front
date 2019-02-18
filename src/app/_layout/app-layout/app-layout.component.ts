@@ -13,14 +13,18 @@ import {Task} from '../../interfaces/task';
 })
 export class AppLayoutComponent implements OnInit {
 
+    /*
     private _houses: House[];
     private _tasks: Task[];
+    */
 
     constructor(private _router: Router, private _houseService: HouseService, private _tasksService: TasksService) {
+       /*
         this._houses = [];
         this._tasks = [];
         this._tasksService.getAll().subscribe((_) => this._tasks = _);
         this._houseService.fecthAllHouse().subscribe((_) => this._houses = _);
+        */
     }
 
     routerStep(step: string) {
