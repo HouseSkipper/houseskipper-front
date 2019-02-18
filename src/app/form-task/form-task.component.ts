@@ -80,7 +80,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
                 private _houseService: HouseService
     ) {
       this._form = this._buildForm();
-        this._addMode = true;
         this._step = 0;
         this._file = false;
         this._backendURL = {};
@@ -94,20 +93,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
         // build all backend urls
         Object.keys(environment.backend.endpoints.tasks).forEach(k => this._backendURL[ k ] =
             `${baseUrl}${environment.backend.endpoints.tasks[ k ]}`);
-        if (this._editMode) {
-            this.uploadFile = true;
-            this._done1 = true;
-            this._done2 = true;
-            this._done3 = true;
-            this._done = true;
-            this._addMode = false;
-        } else if (this._addMode) {
-            this.uploadFile = false;
-            this._done1 = false;
-            this._done2 = false;
-            this._done3 = false;
-            this._done = false;
-        }
         this.dataService.getAll().subscribe((_) => this._rooms = _);
         this._houseService.fecthAllHouse().subscribe((_) => this._data = _);
     }
@@ -143,13 +128,21 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(task) {
+        console.log(task);
         this._editMode = true;
+        this._done1 = true;
+        this._done2 = true;
+        this._done3 = true;
+        this._done = true;
+        this._addMode = false;
         this._taskid = task.id;
         this._form.patchValue(task);
         this.blogTask.partieExacte = task.partieExacte;
     }
 
   ngOnInit() {
+        this._addMode = true;
+        this._editMode = false;
       this._route.params
           .pipe(
               map((params: any) => params.id),
@@ -205,6 +198,10 @@ export class FormTaskComponent implements OnInit, OnChanges {
       return this._file;
     }
 
+    get editMode(): boolean {
+        return this._editMode;
+    }
+
     setStep(index: number) {
         console.log('set ' + index);
         this._step = index;
@@ -243,7 +240,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
 
     edit(task: Task) {
         console.log(this._taskid);
-        task.id = this._taskid
+        task.id = this._taskid;
          this._tasksService.update(task).subscribe((_) => console.log(task), null, () => this._file = true);
     }
 
