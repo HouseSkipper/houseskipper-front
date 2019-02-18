@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
 import {DataService} from '../services/budget.service';
 import {DataSource} from '@angular/cdk/table';
 import { Task} from '../interfaces/task';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {TasksService} from '../services/tasks.service';
 import {FileUploader} from 'ng2-file-upload';
 import {AuthenticationService} from '../services/authentication.service';
@@ -20,14 +20,23 @@ export class TaskComponent implements OnInit {
 
 
     displayedColumns = ['start_date', 'name', 'room', 'description', 'budget', 'status', 'file', 'delete'];
-    dataSource = new TaskDataSource(this._dataService);
+    taskList: Task[];
+    dataSource: MatTableDataSource<Task>;
     private _files: string[];
     blogFile = { filename: '', file: ''};
     hasFile: boolean;
     private _errorMsg = '';
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+
     constructor(private _dataService: TasksService, private _router: Router
                 ) {
         this.hasFile = false;
+        new TaskDataSource(this._dataService).connect().subscribe(_ => {
+            this.dataSource = new MatTableDataSource<Task>(_);
+            this.dataSource.paginator = this.paginator;
+            }
+        );
     }
 
     get files(): string[] {
@@ -43,25 +52,16 @@ export class TaskComponent implements OnInit {
         this._dataService.remove(id).subscribe(
             null,
             null,
-            () => this.dataSource = new TaskDataSource(this._dataService)
+            () => {
+                new TaskDataSource(this._dataService).connect().subscribe(_ => {
+                        this.dataSource = new MatTableDataSource<Task>(_);
+                        this.dataSource.paginator = this.paginator;
+                    }
+                );
+            }
         );
-        this.dataSource = new TaskDataSource(this._dataService);
     }
-    /*
-    editTask(task): void {
-        const dialogRef = this.dialog.open(TaskDialogComponent, {
-            width: '600px',
-            data: task
-        });
-        dialogRef.componentInstance.event.subscribe((result) => {
-            this._dataService.update(result.data).subscribe(
-                null,
-                null,
-                () => this.dataSource = new TaskDataSource(this._dataService)
-            );
-        });
-    }
-*/
+
 
     editTask(task) {
         this._router.navigate(['/users/tasks/' + task.id]);
@@ -93,23 +93,6 @@ export class TaskComponent implements OnInit {
 
     }
 
-/*
-    openDialog(): void {
-        this._errorMsg = '';
-        const dialogRef = this.dialog.open(TaskDialogComponent, {
-            width: '600px',
-            data: ''
-        });
-        dialogRef.componentInstance.event.subscribe((result) => {
-            this._dataService.create(result.data).subscribe(
-                null,
-                null,
-                () => this.dataSource = new TaskDataSource(this._dataService)
-            );
-            this.dataSource = new TaskDataSource(this._dataService);
-        });
-    }
-*/
 
     addTask() {
         this._router.navigate(['/users/tasks/addtask']);
