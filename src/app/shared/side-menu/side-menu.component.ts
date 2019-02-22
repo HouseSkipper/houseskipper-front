@@ -30,7 +30,7 @@ export class SideMenuComponent implements OnInit {
         this._fields.forEach(_ => {
             if (_.title === this._step) {
                 this._field = _;
-                console.log(this._field);
+                // console.log(this._field);
                 if (_.values.indexOf(element) > -1) {
                     res = true;
                 }

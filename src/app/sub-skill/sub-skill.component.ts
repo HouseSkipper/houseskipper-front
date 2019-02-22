@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {flatMap, map} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {Skill, SubSkill} from '../interfaces/user';
-import {MatSort, MatTableDataSource} from '@angular/material';
+import {MatSort, MatTableDataSource, Sort} from '@angular/material';
 
 @Component({
     selector: 'app-sub-skill',
@@ -14,12 +14,16 @@ import {MatSort, MatTableDataSource} from '@angular/material';
 export class SubSkillComponent implements OnInit {
 
     private _skill: Skill;
-    dataSource: MatTableDataSource<SubSkill>;
-    displayedColumns: string[] = ['Nom', 'Niveau', 'Gérer'];
-    @ViewChild(MatSort) sort: MatSort;
+    private _sortedData: SubSkill[];
 
     constructor(private _skillService: SkillsService, private _route: ActivatedRoute) {
         this._skill = {} as Skill;
+        this._sortedData = [];
+    }
+
+
+    get sortedData(): SubSkill[] {
+        return this._sortedData;
     }
 
     ngOnInit() {
@@ -30,8 +34,7 @@ export class SubSkillComponent implements OnInit {
             )
             .subscribe((skill: Skill) => {
                 this._skill = skill;
-                this.dataSource = new MatTableDataSource(this._skill.subSkills);
-                this.dataSource.sort = this.sort;
+                this._sortedData = this._skill.subSkills;
             });
     }
 
@@ -89,5 +92,26 @@ export class SubSkillComponent implements OnInit {
         this._skillService.updateSubSkill(element).subscribe();
     }
 
+    sortData(sort: Sort) {
+        const data = this._sortedData.slice();
+        if (!sort.active || sort.direction === '') {
+            this._sortedData = data;
+            return;
+        }
+
+        this._sortedData = data.sort((a, b) => {
+            const isAsc = sort.direction === 'asc';
+            switch (sort.active) {
+                case 'nom': return compare(a.type, b.type, isAsc);
+                case 'niveau': return compare(a.nb_works, b.nb_works, isAsc);
+                default: return 0;
+            }
+        });
+    }
+
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
 
