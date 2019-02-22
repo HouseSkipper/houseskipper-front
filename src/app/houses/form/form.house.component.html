@@ -1,29 +1,29 @@
 <mat-accordion class="example-headers-align justify-content">
     <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
         <mat-step  [editable]="form.get('houseType').invalid || form.get('residence').invalid
-                || form.get('houseName').invalid || form.get('standardType').invalid ">
+                || form.get('houseName').invalid || form.get('standardType').invalid || 0 === stepMatStepper()">
             <ng-template  matStepLabel>Générale</ng-template>
         </mat-step>
         <mat-step [editable]="form.get('pays').invalid || form.get('address').invalid
-                 || form.get('postalCode').invalid || form.get('city').invalid">
+                 || form.get('postalCode').invalid || form.get('city').invalid || 1 === stepMatStepper()">
             <ng-template matStepLabel>Adresse</ng-template>
         </mat-step>
-        <mat-step [editable]="false">
+        <mat-step [editable]="2 === stepMatStepper()">
             <ng-template matStepLabel>Énergie</ng-template>
         </mat-step>
-        <mat-step [editable]="form.get('rooms').invalid">
+        <mat-step [editable]="form.get('rooms').invalid || 3 === stepMatStepper()">
             <ng-template matStepLabel>Pièces</ng-template>
         </mat-step>
-        <mat-step *ngIf="form.get('exterieur').value === '1'" [editable]="">
+        <mat-step *ngIf="form.get('exterieur').value === '1'" [editable]="4 === stepMatStepper()">
             <ng-template matStepLabel>Extérieur</ng-template>
         </mat-step>
-        <mat-step [editable]="false">
+        <mat-step [editable]="4 === stepMatStepper() || 5 === stepMatStepper()">
             <ng-template matStepLabel>Commentaire</ng-template>
         </mat-step>
     </mat-horizontal-stepper>
     <form novalidate [formGroup]="form">
         <!-- Caractéristiques générales -->
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"  hideToggle>
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header class="right-aligned-header">
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-houses"></mat-icon>
@@ -126,7 +126,7 @@
         </mat-expansion-panel>
 
         <!-- Adresse -->
-        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-maps"></mat-icon>
@@ -188,7 +188,7 @@
         </mat-expansion-panel>
 
         <!-- Confirmation Adresse -->
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-maps"></mat-icon>
@@ -225,7 +225,7 @@
         </mat-expansion-panel>
 
         <!-- Énergie -->
-        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-energy"></mat-icon>
@@ -291,7 +291,7 @@
         </mat-expansion-panel>
 
         <!-- Pièces -->
-        <mat-expansion-panel *ngFor="let piece of form.get('rooms')['controls']; let i = index;" [expanded]="step === 4+i" (opened)="setStep(4+i)" hideToggle>
+        <mat-expansion-panel *ngFor="let piece of form.get('rooms')['controls']; let i = index;" [expanded]="step === 4+i" (opened)="setStep(4+i)" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-door"></mat-icon>
@@ -389,7 +389,7 @@
 
         <!-- Extérieur -->
         <mat-expansion-panel *ngIf="form.get('exterieur').value === '1'" [expanded]="step === 4+lengthRoom()" (opened)="setStep(4+lengthRoom())"
-                             hideToggle>
+                             (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-tree"></mat-icon>
@@ -464,7 +464,7 @@
 
 
         <!-- Commentaire -->
-        <mat-expansion-panel [expanded]="step === 4+lengthRoom()+exterieur()" (opened)="setStep(4+lengthRoom()+exterieur())" hideToggle>
+        <mat-expansion-panel [expanded]="step === 4+lengthRoom()+exterieur()" (opened)="setStep(4+lengthRoom()+exterieur())" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-message"></mat-icon>
