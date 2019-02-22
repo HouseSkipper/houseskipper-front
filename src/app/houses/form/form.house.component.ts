@@ -1,10 +1,11 @@
-import {Component, Input, OnChanges, OnInit, ɵunv} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, ViewChild, ɵunv} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {House} from '../../interfaces/house';
 import {HouseService} from '../../services/house.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {flatMap, map} from 'rxjs/operators';
 import {of} from 'rxjs';
+import {MatStepper} from '@angular/material';
 
 export interface Type {
     value: string;
@@ -27,6 +28,8 @@ export class FormHouseComponent implements OnInit, OnChanges {
     private _isUpdateMode: boolean;
     private _model: House;
 
+    @ViewChild('stepper') stepper: MatStepper;
+
     constructor(private _houseService: HouseService, private _router: Router, private _route: ActivatedRoute) {
         this._form = this._buildForm();
         this._step = -1;
@@ -44,8 +47,6 @@ export class FormHouseComponent implements OnInit, OnChanges {
         this._pays = ['France', 'Luxembourg', 'Allemagne', 'Belgique', 'Suisse'];
         this._classeEnergetique = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
         this._isUpdateMode = false;
-        this.nextStep();
-
     }
 
     lengthRoom(): number {
@@ -206,14 +207,17 @@ export class FormHouseComponent implements OnInit, OnChanges {
     setStep(index: number) {
         console.log('set ' + index);
         this._step = index;
+        this.stepper.selectedIndex = this.stepMatStepper();
     }
 
     nextStep() {
         this._step++;
+        this.stepper.selectedIndex = this.stepMatStepper();
     }
 
     prevStep() {
         this._step--;
+        this.stepper.selectedIndex = this.stepMatStepper();
     }
 
     ngOnInit() {
@@ -224,6 +228,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
             )
             .subscribe((house: House) => house === undefined ? undefined : this.ngOnChanges(house));
             // .subscribe((house: House) => console.log(house));
+        this.nextStep();
     }
 
 
@@ -324,4 +329,23 @@ export class FormHouseComponent implements OnInit, OnChanges {
         }
         return house;
     }
+
+    public stepMatStepper(): number {
+        if (this._step < 2) {
+            return this._step;
+        } else if (this._step === 2) {
+            return 1;
+        }  else if (this._step === 3) {
+            return 2;
+        } else if (this._step >= 4 && this._step < 4 + this.lengthRoom()) {
+            return 3;
+        } else if (this.exterieur() === 1 && this.step === (4 + this.lengthRoom()) ) {
+            return 4;
+        } else if (this.exterieur() === 1 && this.step > (4 + this.lengthRoom()) ) {
+            return 5;
+        } else {
+            return 4;
+        }
+    }
+
 }

@@ -1,4 +1,26 @@
 <mat-accordion class="example-headers-align justify-content">
+    <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
+        <mat-step  [editable]="form.get('houseType').invalid || form.get('residence').invalid
+                || form.get('houseName').invalid || form.get('standardType').invalid ">
+            <ng-template  matStepLabel>Générale</ng-template>
+        </mat-step>
+        <mat-step [editable]="form.get('pays').invalid || form.get('address').invalid
+                 || form.get('postalCode').invalid || form.get('city').invalid">
+            <ng-template matStepLabel>Adresse</ng-template>
+        </mat-step>
+        <mat-step [editable]="false">
+            <ng-template matStepLabel>Énergie</ng-template>
+        </mat-step>
+        <mat-step [editable]="form.get('rooms').invalid">
+            <ng-template matStepLabel>Pièces</ng-template>
+        </mat-step>
+        <mat-step *ngIf="form.get('exterieur').value === '1'" [editable]="">
+            <ng-template matStepLabel>Extérieur</ng-template>
+        </mat-step>
+        <mat-step [editable]="false">
+            <ng-template matStepLabel>Commentaire</ng-template>
+        </mat-step>
+    </mat-horizontal-stepper>
     <form novalidate [formGroup]="form">
         <!-- Caractéristiques générales -->
         <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"  hideToggle>
@@ -98,8 +120,8 @@
                 </mat-form-field>
             </div>
             <mat-action-row>
-                <button mat-button color="primary" [disabled]="form.get('houseType').invalid && form.get('residence').invalid
-                && form.get('houseName').invalid && form.get('standardType').invalid " (click)="nextStep()">Suivant</button>
+                <button mat-button color="primary" [disabled]="form.get('houseType').invalid || form.get('residence').invalid
+                || form.get('houseName').invalid || form.get('standardType').invalid " (click)="nextStep()">Suivant</button>
             </mat-action-row>
         </mat-expansion-panel>
 
@@ -160,8 +182,8 @@
             </div>
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-                <button mat-button color="primary" [disabled]="form.get('pays').invalid && form.get('address').invalid
-                 && form.get('postalCode').invalid && form.get('city').invalid"  (click)="nextStep()">Suivant</button>
+                <button mat-button color="primary" [disabled]="form.get('pays').invalid || form.get('address').invalid
+                 || form.get('postalCode').invalid || form.get('city').invalid"  (click)="nextStep()">Suivant</button>
             </mat-action-row>
         </mat-expansion-panel>
 
@@ -172,7 +194,7 @@
                     <mat-icon svgIcon="icon-maps"></mat-icon>
                 </mat-panel-title>
                 <mat-panel-description>
-                    Confirmation Adresse du logement
+                    Confirmation adresse du logement
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
@@ -198,7 +220,7 @@
 
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Modifier l'adresse</button>
-                <button mat-button color="primary" [disabled]="form.get('address').invalid && form.get('postalCode').invalid && form.get('pays').invalid" (click)="nextStep()">Confirmer</button>
+                <button mat-button color="primary" [disabled]="form.get('address').invalid || form.get('postalCode').invalid || form.get('pays').invalid" (click)="nextStep()">Confirmer</button>
             </mat-action-row>
         </mat-expansion-panel>
 
