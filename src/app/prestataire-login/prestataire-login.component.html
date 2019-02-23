@@ -1,0 +1,29 @@
+<div id="navbar">
+  <app-lang-selector></app-lang-selector>
+</div>
+<div class="login">
+
+  <div id="login-container">
+    <form class="form-container" novalidate [formGroup]="form">
+      <mat-icon class="cur" (click)="openChoiceModal()" id="logo" svgIcon="icon-logo"></mat-icon>
+      <h1 id="slogan" class="mat-headline">La plateforme pour vos travaux d’habitation</h1>
+      <mat-card class="align-center" style="opacity: 0.9;width:350px">
+        <h1 class="mat-headline">Se connecter</h1>
+        <mat-form-field class="fixedWidth" appearance="fill">
+          <mat-label>Adresse email</mat-label>
+          <input matInput placeholder="Adresse email" formControlName="username">
+        </mat-form-field>
+        <mat-form-field class="fixedWidth" appearance="fill">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput placeholder="Mot de passe" type="password" formControlName="password">
+        </mat-form-field>
+
+        <br/>
+        <mat-error id="errorMessage" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
+        <button class="fixedWidth" id="submitButton" color="accent" mat-button type="submit"  (click)="submit()">Connexion</button>
+        <button class="fixedWidth" id="createButton" mat-button class="md-accent" [routerLink]="['/prestataireSignup']">Faire une demande de Partenaria</button>
+      </mat-card>
+    </form>
+  </div>
+</div>
+<app-legal-bar></app-legal-bar>

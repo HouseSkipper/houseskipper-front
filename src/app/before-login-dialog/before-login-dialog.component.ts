@@ -15,7 +15,7 @@ export class BeforeLoginDialogComponent implements OnInit {
   }
 
   partenaire() {
-    this._router.navigate(['/prestataireSignup']);
+    this._router.navigate(['/prestataireLogin']);
       this.dialogRef.close();
   }
 

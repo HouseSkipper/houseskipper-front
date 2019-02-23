@@ -44,6 +44,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-dialog.component';
 import { FormTaskComponent } from './form-task/form-task.component';
 import { SubSkillComponent } from './sub-skill/sub-skill.component';
+import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { SubSkillComponent } from './sub-skill/sub-skill.component';
         ShortcutComponent,
         BeforeLoginDialogComponent,
         FormTaskComponent,
-        SubSkillComponent
+        SubSkillComponent,
+        PrestataireLoginComponent
     ],
     imports: [
         BrowserModule,

@@ -241,11 +241,14 @@ export class FormTaskComponent implements OnInit, OnChanges {
         task.start_date = new Date();
         task.status = 'En attente';
         this._tasksService.create(task).subscribe((_) => console.log(task), null, () => {
+
             this._file = true;
         });
           this.stepper.selectedIndex = this._step + 1;
       }
     }
+
+    addFiled(){}
 
     edit(task: Task) {
         console.log(this._taskid);

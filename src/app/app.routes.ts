@@ -16,6 +16,7 @@ import {UpdateComponent} from './update/update.component';
 import {BeforeLoginDialogComponent} from './before-login-dialog/before-login-dialog.component';
 import {FormTaskComponent} from './form-task/form-task.component';
 import {SubSkillComponent} from './sub-skill/sub-skill.component';
+import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
 
 const ROUTES: Routes = [
     // App routes goes here
@@ -42,6 +43,7 @@ const ROUTES: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'signup', component: SignUpComponent },
     { path: 'prestataireSignup', component: PrestataireComponent},
+    { path: 'prestataireLogin', component: PrestataireLoginComponent},
     {path: 'validateAccountBrowser', component: CheckBrowserComponent},
     {path: '**', redirectTo: ''}
 ];

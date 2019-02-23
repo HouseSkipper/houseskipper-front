@@ -1,4 +1,4 @@
-<mat-accordion class="example-headers-align justify-content">
+<mat-accordion class="example-headers-align justify-content" >
   <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
     <mat-step  [editable]="form.get('nom').invalid || form.get('residence').invalid
                 || form.get('partie').invalid">
@@ -96,7 +96,10 @@
           </mat-select>
         </mat-form-field>
       </div>
-
+      <a (click)="addFiled()"
+         type="button">
+        <mat-icon class="icon">add</mat-icon>
+      </a>
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
         <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
