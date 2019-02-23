@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {FileUploader} from 'ng2-file-upload';
 import {AuthenticationService} from '../services/authentication.service';
@@ -13,6 +13,7 @@ import {Task} from '../interfaces/task';
 import {TasksService} from '../services/tasks.service';
 import {HttpHeaders} from '@angular/common/http';
 import {HouseService} from '../services/house.service';
+import {MatStepper} from '@angular/material';
 
 @Component({
   selector: 'app-form-task',
@@ -70,6 +71,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
         comment: ''
     };
 
+    @ViewChild('stepper') stepper: MatStepper;
     constructor(
                 public dataService: DataService,
                 public authService: AuthenticationService,
@@ -205,6 +207,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     setStep(index: number) {
         console.log('set ' + index);
         this._step = index;
+        this.stepper.selectedIndex = this._step;
     }
 
     nextStep() {
@@ -221,10 +224,13 @@ export class FormTaskComponent implements OnInit, OnChanges {
             this._done = true;
         }
           this._step++;
+        this.stepper.selectedIndex = this._step;
+        console.log(this._step);
     }
 
     prevStep() {
         this._step--;
+        this.stepper.selectedIndex = this._step;
     }
 
     submit(task: Task) {
@@ -234,14 +240,20 @@ export class FormTaskComponent implements OnInit, OnChanges {
       } else {
         task.start_date = new Date();
         task.status = 'En attente';
-        this._tasksService.create(task).subscribe((_) => console.log(task), null, () => this._file = true);
+        this._tasksService.create(task).subscribe((_) => console.log(task), null, () => {
+            this._file = true;
+        });
+          this.stepper.selectedIndex = this._step + 1;
       }
     }
 
     edit(task: Task) {
         console.log(this._taskid);
         task.id = this._taskid;
-         this._tasksService.update(task).subscribe((_) => console.log(task), null, () => this._file = true);
+         this._tasksService.update(task).subscribe((_) => console.log(task), null, () => {
+             this._file = true;
+         });
+        this.stepper.selectedIndex = this._step + 1;
     }
 
     onSaveFile(): void {

@@ -1,4 +1,24 @@
 <mat-accordion class="example-headers-align justify-content">
+  <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
+    <mat-step  [editable]="form.get('nom').invalid || form.get('residence').invalid
+                || form.get('partie').invalid">
+      <ng-template  matStepLabel>Spécification du nom de la demande et la partie concérnée</ng-template>
+    </mat-step>
+    <mat-step [editable]="form.get('partieExacte').invalid">
+      <ng-template matStepLabel>Lieu Concérnée</ng-template>
+    </mat-step>
+    <mat-step [editable]="form.get('type').invalid || form.get('connaissance').invalid">
+      <ng-template matStepLabel>Type de travaux et connaissance</ng-template>
+    </mat-step>
+    <mat-step [editable]="form.get('resultat').invalid || form.get('description').invalid">
+      <ng-template matStepLabel>Description du projet</ng-template>
+    </mat-step>
+    <mat-step [editable]="false">
+      <ng-template matStepLabel>Ajout de(s) fichier(s)</ng-template>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+
   <div *ngIf="!file" [@slideUpDown]>
   <form novalidate [formGroup]="form">
     <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"  hideToggle>
@@ -37,7 +57,7 @@
       </div>
 
       <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Précédent</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
         <button mat-button color="primary" (click)="nextStep()">Suivant</button>
       </mat-action-row>
     </mat-expansion-panel>
@@ -52,6 +72,9 @@
           Lieu concerné
         </mat-panel-description>
       </mat-expansion-panel-header>
+      <div class="centerElement" *ngIf="blogTask.partie === ''">
+        <mat-error class="alert alert-danger">Veuillez sélectionner une Partie pour les travaux.</mat-error>
+      </div>
       <div class="centerElement" *ngIf="blogTask.partie === 'Bâtiment'">
         <mat-form-field class="margin importantField" appearance="outline">
           <mat-label>Pièce</mat-label>
@@ -76,6 +99,7 @@
 
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
         <button mat-button color="primary" (click)="nextStep()">Suivant</button>
       </mat-action-row>
     </mat-expansion-panel>
@@ -115,6 +139,7 @@
 
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
         <button mat-button color="primary" (click)="nextStep()">Suivant</button>
       </mat-action-row>
     </mat-expansion-panel>
