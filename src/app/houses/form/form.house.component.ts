@@ -173,6 +173,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
 
 
     get step(): number {
+        // this.stepper.selectedIndex = this.stepMatStepper();
         return this._step;
     }
 
@@ -205,7 +206,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
     }
 
     setStep(index: number) {
-        console.log('set ' + index);
+        // console.log('set ' + index);
         this._step = index;
         this.stepper.selectedIndex = this.stepMatStepper();
     }
@@ -331,6 +332,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
     }
 
     public stepMatStepper(): number {
+        // console.log('entre dans stepMats');
         if (this._step < 2) {
             return this._step;
         } else if (this._step === 2) {

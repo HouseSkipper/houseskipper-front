@@ -1,5 +1,5 @@
 <app-main-nav-bar></app-main-nav-bar>
-<mat-sidenav-container>
+<mat-sidenav-container autosize>
   <mat-sidenav id="sideMenu" mode="side" opened>
     <app-main-side-menu (setStep)="routerStep($event)">
     </app-main-side-menu>
@@ -7,8 +7,8 @@
   <mat-sidenav id="sideMenuRight" mode="side" opened position="end">
     <app-shortcut-area></app-shortcut-area>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <div id="contentContainer">
+  <mat-sidenav-content >
+    <div>
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
