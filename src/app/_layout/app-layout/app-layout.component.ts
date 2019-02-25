@@ -13,14 +13,18 @@ import {Task} from '../../interfaces/task';
 })
 export class AppLayoutComponent implements OnInit {
 
+    /*
     private _houses: House[];
     private _tasks: Task[];
+    */
 
     constructor(private _router: Router, private _houseService: HouseService, private _tasksService: TasksService) {
+       /*
         this._houses = [];
         this._tasks = [];
         this._tasksService.getAll().subscribe((_) => this._tasks = _);
         this._houseService.fecthAllHouse().subscribe((_) => this._houses = _);
+        */
     }
 
     routerStep(step: string) {
@@ -32,7 +36,7 @@ export class AppLayoutComponent implements OnInit {
             case 'Travaux':
                 this.router.navigate(['/users/tasks']);
                 break;
-            case 'Résidence':
+            case 'Habitation':
                 this.router.navigate(['/users/houses']);
                 break;
             case 'Contact':
@@ -47,12 +51,13 @@ export class AppLayoutComponent implements OnInit {
             case 'Modifier mes informations':
                 this.router.navigate(['/update']);
                 break;
-            case 'Ajouter un logement':
+            case 'Ajouter une habitation':
                 this.router.navigate(['/users/houses/addhouse']);
                 break;
             case 'Ajouter une demande de travaux':
                 this.router.navigate(['/users/tasks/addtask']);
                 break;
+                /* Plus besoin
             default :
                 let findHouse = 0;
                 let findTask = 0;
@@ -75,6 +80,7 @@ export class AppLayoutComponent implements OnInit {
                     break;
                 }
                 break;
+                */
         }
     }
 

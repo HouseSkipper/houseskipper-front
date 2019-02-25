@@ -9,7 +9,7 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule, MatRadioModule,
-    MatSelectModule, MatSidenavModule, MatSliderModule, MatSortModule, MatTableModule,
+    MatSelectModule, MatSidenavModule, MatSliderModule, MatStepperModule, MatSortModule, MatTableModule,
     MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
@@ -44,6 +44,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-dialog.component';
 import { FormTaskComponent } from './form-task/form-task.component';
 import { SubSkillComponent } from './sub-skill/sub-skill.component';
+import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { SubSkillComponent } from './sub-skill/sub-skill.component';
         ShortcutComponent,
         BeforeLoginDialogComponent,
         FormTaskComponent,
-        SubSkillComponent
+        SubSkillComponent,
+        PrestataireLoginComponent
     ],
     imports: [
         BrowserModule,
@@ -97,6 +99,7 @@ import { SubSkillComponent } from './sub-skill/sub-skill.component';
         FileUploadModule,
         MatTooltipModule,
         MatPaginatorModule,
+        MatStepperModule,
         MatSortModule,
         MatTableModule,
         APP_ROUTES

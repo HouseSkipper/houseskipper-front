@@ -1,7 +1,16 @@
 <div id="buttonMenu">
-    <h3 id="menuTitle" class="mat-h3">Menu</h3>
     <div *ngFor="let field of fields | keyvalue; let i = index" class="fieldClass">
-        <span class="centered"><mat-icon [style.visibility]="step === field.value.title ? 'visible' : 'hidden'">arrow_forward</mat-icon><a class="centered" mat-button (click)="setStep(field.value.title)" class="titleField">{{field.value.title}}</a></span>
-        <span class="centered subfieldSpan" *ngFor="let subfield of field.value.values"><span  *ngIf="fieldContains(subfield)"><mat-icon [style.visibility]="step === subfield ? 'visible' : 'hidden'">arrow_forward</mat-icon><a mat-button (click)="setStep(subfield)">{{subfield}}</a></span></span>
+        <span class="centered">
+             <a class="centered" *ngIf="fieldParent(field) === false" mat-button (click)="setStep(field.value.title)"
+                class="titleField">{{field.value.title}}</a>
+            <a class="centered" *ngIf="fieldParent(field) === true" style="color: #5c6d9e" mat-button (click)="setStep(field.value.title)"
+               class="titleField">{{field.value.title}}</a>
+        </span>
+        <span class="centered subfieldSpan" *ngFor="let subfield of field.value.values">
+            <span *ngIf="fieldContains(subfield)">
+                <a *ngIf="step === subfield" style="color: #5c6d9e" mat-button (click)="setStep(subfield)">{{subfield}}</a>
+                <a *ngIf="step !== subfield" mat-button (click)="setStep(subfield)">{{subfield}}</a>
+            </span>
+        </span>
     </div>
 </div>

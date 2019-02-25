@@ -17,14 +17,16 @@ export class MainMenuListService implements MenuListService {
     getFields() {
         const fields = [];
         fields.push({title: 'Tableau de bord', values: []});
-        this.getTasks(fields);
-        // fields.push({title: 'Résidence', values: []});
-        this.getHouses(fields);
+        // this.getTasks(fields);
+        fields.push({title: 'Habitation', values: ['Ajouter une habitation']});
+        fields.push({title: 'Travaux', values: ['Ajouter une demande de travaux']});
+        // this.getHouses(fields);
         fields.push({title: 'Contact', values: []});
         fields.push({title: 'Compte', values: ['Compétences', 'Modifier mes informations']});
         return fields;
     }
 
+    /* Plus besoin
     private getHouses(fields: any) {
         this._houseService.fecthAllHouse().subscribe((houses: House[]) => {
             const tmpHouses = ['Ajouter un logement'];
@@ -46,4 +48,5 @@ export class MainMenuListService implements MenuListService {
             }
         );
     }
+    */
 }

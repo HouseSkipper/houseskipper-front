@@ -68,3 +68,12 @@ mat-panel-description {
 ::ng-deep .importantField.mat-form-field-appearance-outline .mat-form-field-outline {
     color: red;
 }
+
+#stepper {
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    padding: 30px;
+    background-color: initial;
+    pointer-events: none !important;
+}

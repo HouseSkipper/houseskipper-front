@@ -1,29 +1,29 @@
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+<mat-table [dataSource]="dataSource"  class="mat-elevation-z8" (matSortChange)="sortData($event)" matSort>
 
 
   <!-- Name Column -->
   <ng-container matColumnDef="Nom">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-    <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Nom</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
   </ng-container>
 
   <!-- Weight Column -->
   <ng-container matColumnDef="Niveau">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Niveau</th>
-    <td mat-cell *matCellDef="let element" matTooltip="{{tooltip(element.nb_works)}}">{{niveau(element.nb_works)}}</td>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Niveau</mat-header-cell>
+    <mat-cell *matCellDef="let element" matTooltip="{{tooltip(element.nb_works)}}">{{niveau(element.nb_works)}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Gérer">
-    <th mat-header-cell *matHeaderCellDef>Gérer</th>
-    <td mat-cell *matCellDef="let element"> <mat-slider
+    <mat-header-cell *matHeaderCellDef>Gérer</mat-header-cell>
+    <mat-cell *matCellDef="let element"> <mat-slider
             min="1"
             max="5"
             step="1"
             [(ngModel)]="element.nb_works"
             (ngModelChange)="save(element)"
-    ></mat-slider></td>
+    ></mat-slider></mat-cell>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

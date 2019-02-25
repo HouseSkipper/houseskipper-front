@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {SkillsService} from '../services/skills.service';
 import {ActivatedRoute} from '@angular/router';
 import {flatMap, map} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {Skill, SubSkill} from '../interfaces/user';
-import {MatSort, MatTableDataSource} from '@angular/material';
+import {MatSort, MatTableDataSource, Sort} from '@angular/material';
 
 @Component({
     selector: 'app-sub-skill',
@@ -16,6 +16,7 @@ export class SubSkillComponent implements OnInit {
     private _skill: Skill;
     dataSource: MatTableDataSource<SubSkill>;
     displayedColumns: string[] = ['Nom', 'Niveau', 'Gérer'];
+
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(private _skillService: SkillsService, private _route: ActivatedRoute) {
@@ -28,11 +29,28 @@ export class SubSkillComponent implements OnInit {
                 map((params: any) => params.id),
                 flatMap((id: string) => id === undefined ? of(undefined) : this._skillService.fetchOneSkill(id))
             )
-            .subscribe((skill: Skill) => {
-                this._skill = skill;
-                this.dataSource = new MatTableDataSource(this._skill.subSkills);
+            .subscribe(_ => {
+                this._skill = _;
+                this.dataSource = new MatTableDataSource<SubSkill>(_.subSkills);
                 this.dataSource.sort = this.sort;
             });
+    }
+
+    sortData(sort: Sort) {
+        const data = this.dataSource.data.slice();
+        if (!sort.active || sort.direction === '') {
+            this.dataSource.data = data;
+            return;
+        }
+
+        this.dataSource.data = data.sort((a, b) => {
+            const isAsc = sort.direction === 'asc';
+            switch (sort.active) {
+                case 'Nom': return compare(a.type, b.type, isAsc);
+                case 'Niveau': return compare(a.nb_works, b.nb_works, isAsc);
+                default: return 0;
+            }
+        });
     }
 
     niveau(num: number): string {
@@ -91,3 +109,6 @@ export class SubSkillComponent implements OnInit {
 
 }
 
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
