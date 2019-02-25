@@ -24,7 +24,7 @@
     <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"  hideToggle>
       <mat-expansion-panel-header class="right-aligned-header">
         <mat-panel-title>
-          <mat-icon *ngIf="done1">done_all</mat-icon>
+          <mat-icon>location_city</mat-icon>
         </mat-panel-title>
         <mat-panel-description>
           Spécification du nom de la demande et la partie concérnée
@@ -66,7 +66,7 @@
     <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)"  hideToggle>
       <mat-expansion-panel-header class="right-aligned-header">
         <mat-panel-title>
-          <mat-icon *ngIf="done2">done_all</mat-icon>
+          <mat-icon>add_location</mat-icon>
         </mat-panel-title>
         <mat-panel-description>
           Lieu concerné
@@ -107,7 +107,7 @@
     <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)"  hideToggle>
       <mat-expansion-panel-header class="right-aligned-header">
         <mat-panel-title>
-          <mat-icon *ngIf="done3">done_all</mat-icon>
+          <mat-icon>school</mat-icon>
         </mat-panel-title>
         <mat-panel-description>
           Type de travaux et connaissance
@@ -147,7 +147,7 @@
     <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)"  hideToggle>
       <mat-expansion-panel-header class="right-aligned-header">
         <mat-panel-title>
-          <mat-icon *ngIf="done">done_all</mat-icon>
+          <mat-icon>filter_none</mat-icon>
         </mat-panel-title>
         <mat-panel-description>
           Description du projet
@@ -182,7 +182,7 @@
   <mat-expansion-panel *ngIf="file" hideToggle>
     <mat-expansion-panel-header class="right-aligned-header">
       <mat-panel-title>
-        <mat-icon *ngIf="done">done_all</mat-icon>
+        <mat-icon>attachment</mat-icon>
       </mat-panel-title>
       <mat-panel-description>
         Ajout de(s) fichier(s)
