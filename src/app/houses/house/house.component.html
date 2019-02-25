@@ -24,7 +24,7 @@
                                     <mat-cell *matCellDef="let element"> {{element.houseType}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Category">
-                                    <mat-header-cell *matHeaderCellDef> Category</mat-header-cell>
+                                    <mat-header-cell *matHeaderCellDef> Catégorie</mat-header-cell>
                                     <mat-cell
                                             *matCellDef="let element"> {{element.standardType}} </mat-cell>
                                 </ng-container>
@@ -42,6 +42,7 @@
                                         <a type="button" [routerLink]="['/users/houses/' + element.id]">
                                             <mat-icon svgIcon="icon-edit">modifier</mat-icon>
                                         </a>
+                                        <span></span>
                                         <a type="button" (click)="delete(element.id)">
                                             <mat-icon svgIcon="icon-delete">supprimer</mat-icon>
                                         </a>
