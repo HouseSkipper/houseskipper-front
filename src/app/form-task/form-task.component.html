@@ -96,10 +96,6 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <a (click)="addFiled()"
-         type="button">
-        <mat-icon class="icon">add</mat-icon>
-      </a>
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
         <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
