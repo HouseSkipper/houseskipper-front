@@ -127,6 +127,7 @@ export class SignUpComponent implements OnInit {
         const indexGroup = this.getIndexGroup(this._step);
         this._errorMsg = '';
         const formArray = this.form.get('formArray') as FormArray;
+        console.log('index : ' + index);
         if (index <= 5) {
             if (formArray.controls[indexGroup].get(this._step).valid) {
                 this._fieldChecked.set(this._step, true);
@@ -146,8 +147,11 @@ export class SignUpComponent implements OnInit {
                         }
                     });
                 } else {
-                    if (this._form.valid) {
+                    // console.log('entre avant le if form.valid : ' + (this._form.get('formArray').get([0]).valid && this._form.get('formArray').get([1]).valid) && this._form.get('formArray').get([2]).valid);
+                    if (this._form.get('formArray').get([0]).valid && this._form.get('formArray').get([1]).valid && this._form.get('formArray').get([2]).valid && index === 5) {
+                        console.log('entre envoie donner');
                         this.saveUser(data);
+                        this.stepForward();
                     } else {
                         this._errorMsg = 'Des champs sont manquants';
                     }
@@ -157,6 +161,7 @@ export class SignUpComponent implements OnInit {
                 }
             }
         } else {
+            console.log('entre vérifier mail');
             if (this._formCodeEmail.get(this._step).valid) { // form.get('formArray').controls[0]
                 this._userService.checkEmailToken(codeEmail.code).subscribe((_) => {
                         this._authService.loginAfterValidationAccount(_);
