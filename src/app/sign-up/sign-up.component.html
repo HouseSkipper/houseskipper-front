@@ -53,6 +53,9 @@
         <div id="signup-container">
             <form class="signup-form-container" novalidate [formGroup]="form">
                 <mat-horizontal-stepper id="stepper" #stepper formArrayName="formArray" labelPosition="bottom" [linear]="true">
+                    <ng-template matStepperIcon="edit">
+                        <mat-icon class="greenIcon">done</mat-icon>
+                    </ng-template>
                     <mat-step label="Entity" formGroupName="0" [stepControl]="form.get('formArray')?.get([0])">
                         <div id="name" *ngIf="step === 'firstname'" [@slideInOut]>
                             <h2 class="mat-headline">Quel est votre prénom?</h2>
