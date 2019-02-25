@@ -55,10 +55,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
     private _editMode: boolean;
     private _file: boolean;
     private _errorMsg: string;
-    private _done1: boolean;
-    private _done2: boolean;
-    private _done3: boolean;
-    private _done: boolean;
     private _taskid: string;
     public blogTask = {
         taskName: '',
@@ -132,10 +128,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
     ngOnChanges(task) {
         console.log(task);
         this._editMode = true;
-        this._done1 = true;
-        this._done2 = true;
-        this._done3 = true;
-        this._done = true;
         this._addMode = false;
         this._taskid = task.id;
         this._form.patchValue(task);
@@ -175,19 +167,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
         return this._addMode;
     }
 
-    get done1(): boolean {
-        return this._done1;
-    }
-    get done2(): boolean {
-        return this._done2;
-    }
-    get done3(): boolean {
-        return this._done3;
-    }
-    get done(): boolean {
-        return this._done;
-    }
-
     get errorMsg(): string {
         return this._errorMsg;
     }
@@ -211,21 +190,8 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     nextStep() {
-          if (this.blogTask.taskName !== '' && this.blogTask.residence !== '' && this.blogTask.partie !== '') {
-            this._done1 = true;
-          }
-        if (this.blogTask.partieExacte !== '') {
-            this._done2 = true;
-        }
-        if (this.blogTask.type !== '' && this.blogTask.connaissance !== '' ) {
-            this._done3 = true;
-        }
-        if (this.blogTask.resultat !== '' && this.blogTask.comment !== '' ) {
-            this._done = true;
-        }
           this._step++;
         this.stepper.selectedIndex = this._step;
-        console.log(this._step);
     }
 
     prevStep() {
