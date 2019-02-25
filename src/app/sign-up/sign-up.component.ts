@@ -359,7 +359,7 @@ export class SignUpComponent implements OnInit {
                 if (f.value.values[i] !== 'code') {
                     const indexGroup = this.getIndexGroup(f.value.values[i]);
                     if (formArray.controls[indexGroup].get(f.value.values[i]).valid && this._fieldChecked.get(f.value.values[i])) {
-                        counter = counter + 1;
+                        counter++;
                     }
                 }
             }
