@@ -18,8 +18,6 @@
 
 button, mat-error, h1, a, mat-icon {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
     /*width:100%;*/
     margin-top:10px;
     margin-bottom:10px;
@@ -31,7 +29,7 @@ h1 {
 
 
 mat-form-field, button, a {
-    width:300px;
+    /*width:300px;*/
 }
 
 #submitButton, span, a {

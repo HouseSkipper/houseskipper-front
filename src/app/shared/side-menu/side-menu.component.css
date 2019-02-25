@@ -5,6 +5,11 @@
     flex-direction: column;
     justify-content: center;
     padding:40px;
+    overflow-y:hidden;
+}
+
+#buttonMenu::-webkit-scrollbar {
+    display: none;
 }
 
 .titleField {

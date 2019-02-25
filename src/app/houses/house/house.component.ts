@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 export class HouseComponent implements OnInit {
 
     private _dataSource: House[];
-    private _displayedColumns = ['House_Name', 'Type', 'Address', 'numberPieces', 'Delete'];
+    private _displayedColumns = ['House_Name', 'Type', 'Category', 'Lieu', 'NbDocs' , 'Delete'];
 
     constructor(private _houseService: HouseService, private _router: Router) {
     }
