@@ -30,6 +30,9 @@
                 </mat-panel-title>
                 <mat-panel-description>
                     Caractéristiques générales
+                    <mat-icon svgIcon="icon-checked" *ngIf="checked(1) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(1) === 1"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="checked(1) === 0"></mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="centerElement">
@@ -137,6 +140,8 @@
                 </mat-panel-title>
                 <mat-panel-description>
                     Adresse du logement
+                    <mat-icon svgIcon="icon-checked" *ngIf="checked(2) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="checked(2) === 0"></mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="centerElement">
@@ -203,6 +208,8 @@
                 </mat-panel-title>
                 <mat-panel-description>
                     Confirmation adresse du logement
+                    <mat-icon svgIcon="icon-checked" *ngIf="checked(2) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="checked(2) === 0"></mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
@@ -244,6 +251,9 @@
                 </mat-panel-title>
                 <mat-panel-description>
                     Énergie
+                    <mat-icon svgIcon="icon-checked" *ngIf="checked(3) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(3) === 1"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="checked(3) === 0"></mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
@@ -314,9 +324,15 @@
                 </mat-panel-title>
                 <mat-panel-description *ngIf="form.get('rooms').controls[i].get('roomName').value == undefined">
                     Pièce {{i-1}}
+                    <mat-icon svgIcon="icon-checked" *ngIf="checked(4, i) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(4, i) === 1"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="checked(4, i) === 0"></mat-icon>
                 </mat-panel-description>
                 <mat-panel-description *ngIf="form.get('rooms').controls[i].get('roomName').value != undefined">
                     {{form.get('rooms').controls[i].get('roomName').value}}
+                    <mat-icon svgIcon="icon-checked" *ngIf="checked(4 , i) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(4, i) === 1"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="checked(4,i ) === 0"></mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div formArrayName="rooms">
@@ -416,6 +432,9 @@
                 </mat-panel-title>
                 <mat-panel-description>
                     Extérieur
+                    <mat-icon svgIcon="icon-checked" *ngIf="checked(5) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(5) === 1"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="checked(5) === 0"></mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
@@ -495,6 +514,9 @@
                 </mat-panel-title>
                 <mat-panel-description>
                     Commentaire
+                    <mat-icon svgIcon="icon-checked" *ngIf="checked(6) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(6) === 1"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="checked(6) === 0"></mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div>

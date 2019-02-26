@@ -23,8 +23,8 @@ export class FormHouseComponent implements OnInit, OnChanges {
     private _step: number;
     private _types: Type[];
     rooms: FormArray;
-    private  _pays: string[];
-    private  _classeEnergetique: string[];
+    private _pays: string[];
+    private _classeEnergetique: string[];
     private _isUpdateMode: boolean;
     private _model: House;
 
@@ -87,7 +87,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
             if (house.constructionYear === 0) {
                 house.constructionYear = '0000';
             }
-            for (let i = 0; i < house.rooms.length ; i++) {
+            for (let i = 0; i < house.rooms.length; i++) {
                 if (house.rooms[i].volet === 0) {
                     house.rooms[i].volet = '0';
                 } else {
@@ -100,11 +100,11 @@ export class FormHouseComponent implements OnInit, OnChanges {
             this._form.patchValue(this._model);
             this.rooms = this._form.get('rooms') as FormArray;
             let taille = this.rooms.length;
-            for (let i = 0; i < taille ; i++) {
+            for (let i = 0; i < taille; i++) {
                 this.deletePiece(0);
             }
             taille = house.rooms.length;
-            for (let i = 0; i < taille ; i++) {
+            for (let i = 0; i < taille; i++) {
                 this.rooms.push(this.createRoom(house.rooms[i].id, house.rooms[i].roomName, house.rooms[i].space, house.rooms[i].nbFenetre,
                     house.rooms[i].nbPorteFenetre, house.rooms[i].typeChauffage, house.rooms[i].nbRadiateur, house.rooms[i].volet,
                     house.rooms[i].nbVolet));
@@ -118,6 +118,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
     get classEnergetique(): string[] {
         return this._classeEnergetique;
     }
+
     get pays(): string[] {
         return this._pays;
     }
@@ -127,8 +128,8 @@ export class FormHouseComponent implements OnInit, OnChanges {
             id: new FormControl(p),
             roomName: new FormControl(nom),
             space: new FormControl('', Validators.compose([
-                    Validators.required, Validators.pattern('\\d*')
-                ])),
+                Validators.required, Validators.pattern('\\d*')
+            ])),
             nbFenetre: new FormControl('0', Validators.compose([
                 Validators.pattern('\\d*')
             ])),
@@ -162,7 +163,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
             ])),
             typeChauffage: new FormControl(typeChauffage),
             nbRadiateur: new FormControl(nbRadiateur, Validators.compose([
-               Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             volet: new FormControl(volet),
             nbVolet: new FormControl(nbVolet, Validators.compose([
@@ -196,10 +197,10 @@ export class FormHouseComponent implements OnInit, OnChanges {
         }
         this.rooms = this._form.get('rooms') as FormArray;
         const taille = this.rooms.length;
-        for (let i = 2; i < taille ; i++) {
+        for (let i = 2; i < taille; i++) {
             this.deletePiece(2);
         }
-        for (let i = 0; i < type ; i++) {
+        for (let i = 0; i < type; i++) {
             this.addItem(undefined);
         }
 
@@ -228,7 +229,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
                 flatMap((id: string) => id === undefined ? of(undefined) : this._houseService.fetchHouse(id))
             )
             .subscribe((house: House) => house === undefined ? undefined : this.ngOnChanges(house));
-            // .subscribe((house: House) => console.log(house));
+        // .subscribe((house: House) => console.log(house));
         this.nextStep();
     }
 
@@ -266,8 +267,8 @@ export class FormHouseComponent implements OnInit, OnChanges {
             rooms: new FormArray([this.createItem(0, 'Cuisine')]),
             revetementExterieur: new FormControl(''),
             surfaceToiture: new FormControl('', Validators.compose([
-                    Validators.pattern('\\d*')
-                ])),
+                Validators.pattern('\\d*')
+            ])),
             revetementToiture: new FormControl(''),
             classeEnergetique: new FormControl(''),
             gaz: new FormControl(''),
@@ -278,7 +279,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
                 Validators.pattern('\\d*')
             ])),
             surfaceExterieurDroit: new FormControl('0', Validators.compose([
-               Validators.pattern('\\d*')
+                Validators.pattern('\\d*')
             ])),
             surfaceExterieurGauche: new FormControl('0', Validators.compose([
                 Validators.pattern('\\d*')
@@ -298,7 +299,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
 
     submit(payload: House) {
         payload = this.verifier(payload);
-        this._houseService.create(payload).subscribe( (_) => this._router.navigate([ '/users/houses']));
+        this._houseService.create(payload).subscribe((_) => this._router.navigate(['/users/houses']));
     }
 
 
@@ -309,7 +310,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
     modifier(payload: House) {
         payload = this.verifier(payload);
         payload.id = this._model.id;
-        this._houseService.modifier(payload).subscribe( (_) => this._router.navigate([ '/users/houses']));
+        this._houseService.modifier(payload).subscribe((_) => this._router.navigate(['/users/houses']));
     }
 
     private verifier(house: House): House {
@@ -320,7 +321,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
             house.surfaceExterieurDroit = 0;
             house.surfaceExterieurGauche = 0;
         }
-        for (let i = 0; i < house.rooms.length ; i++) {
+        for (let i = 0; i < house.rooms.length; i++) {
             if (house.rooms[i].volet === 0) {
                 house.rooms[i].nbVolet = 0;
             }
@@ -337,16 +338,98 @@ export class FormHouseComponent implements OnInit, OnChanges {
             return this._step;
         } else if (this._step === 2) {
             return 1;
-        }  else if (this._step === 3) {
+        } else if (this._step === 3) {
             return 2;
         } else if (this._step >= 4 && this._step < 4 + this.lengthRoom()) {
             return 3;
-        } else if (this.exterieur() === 1 && this.step === (4 + this.lengthRoom()) ) {
+        } else if (this.exterieur() === 1 && this.step === (4 + this.lengthRoom())) {
             return 4;
-        } else if (this.exterieur() === 1 && this.step > (4 + this.lengthRoom()) ) {
+        } else if (this.exterieur() === 1 && this.step > (4 + this.lengthRoom())) {
             return 5;
         } else {
             return 4;
+        }
+    }
+
+    checked(num: number, i: number | undefined): number {
+        // console.log(this._form.get('surfaceToiture').value);
+        switch (num) {
+            case 1:
+                if (this._form.get('houseType').invalid || this._form.get('residence').invalid
+                    || this._form.get('houseName').invalid || this._form.get('standardType').invalid) {
+                    return 0;
+                } else if (this._form.get('constructionYear').value === '0000' || this._form.get('revetementExterieur').value === ''
+                    || this._form.get('revetementToiture').value === '' || this._form.get('surfaceToiture').value === 0 || this._form.get('surfaceToiture').value === '') {
+                    return 1;
+                } else {
+                    return 2;
+                }
+            case 2:
+                if (this._form.get('pays').invalid || this._form.get('address').invalid
+                    || this._form.get('postalCode').invalid || this._form.get('city').invalid) {
+                    return 0;
+                } else {
+                    return 2;
+                }
+            case 3:
+                if (this._form.get('classeEnergetique').invalid || this._form.get('gaz').invalid
+                    || this._form.get('electricite').invalid || this._form.get('panneauxPhoto').invalid
+                    || this._form.get('eolienne').invalid) {
+                    return 0;
+                } else if (this._form.get('classeEnergetique').value === '') {
+                    return 1;
+                } else if (this._form.get('gaz').value === '' && this._form.get('electricite').value === ''
+                    && this._form.get('panneauxPhoto').value === '' && this._form.get('eolienne').value === '') {
+                    return 1;
+                } else if (this._form.get('gaz').value === '0' && this._form.get('electricite').value === '0'
+                    && this._form.get('panneauxPhoto').value === '0' && this._form.get('eolienne').value === '0') {
+                    return 1;
+                } else {
+                    return 2;
+                }
+            case 4:
+                const room = this._form.get('rooms')['controls'][i];
+                // console.log(parseInt(room.get('nbPorteFenetre').value, 10) + parseInt(room.get('nbFenetre').value, 10));
+                if (room.invalid) {
+                    return 0;
+                } else if (room.get('typeChauffage').value === 'radiateur' && room.get('nbRadiateur').value === '0') {
+                    return 1;
+                } else if (room.get('volet').value === '1' && room.get('nbVolet').value === '0') {
+                    return 1;
+                } else if (room.get('volet').value === '1'
+                    && parseInt(room.get('nbVolet').value, 10) >
+                    (parseInt(room.get('nbPorteFenetre').value, 10) + parseInt(room.get('nbFenetre').value, 10))) {
+                    return 1;
+                } else {
+                    return 2;
+                }
+            case 5:
+                if (this._form.get('outsideSpace').invalid || this._form.get('surfaceExterieurAvant').invalid ||
+                    this._form.get('surfaceExterieurDroit').invalid || this._form.get('surfaceExterieurGauche').invalid ||
+                    this._form.get('surfaceExterieurArriere').invalid) {
+                    return 0;
+                } else if (this._form.get('outsideSpace').value === '0') {
+                    return 1;
+                } else if (parseInt(this._form.get('outsideSpace').value, 10) !==
+                    (parseInt(this._form.get('surfaceExterieurAvant').value, 10)
+                        + parseInt(this._form.get('surfaceExterieurDroit').value, 10)
+                        + parseInt(this._form.get('surfaceExterieurGauche').value, 10)
+                        + parseInt(this._form.get('surfaceExterieurArriere').value, 10))) {
+                    return 1;
+                } else {
+                    return 2;
+                }
+            case 6:
+                // console.log(this._form.get('comment').value);
+                if (this._form.get('comment').invalid) {
+                    return 0;
+                } else if (this._form.get('comment').value === null) {
+                    return 1;
+                } else {
+                    return 2;
+                }
+            default:
+                return 0;
         }
     }
 
