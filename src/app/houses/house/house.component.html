@@ -23,24 +23,36 @@
                                     <mat-header-cell *matHeaderCellDef> Type</mat-header-cell>
                                     <mat-cell *matCellDef="let element"> {{element.houseType}} </mat-cell>
                                 </ng-container>
-                                <ng-container matColumnDef="Address">
-                                    <mat-header-cell *matHeaderCellDef> Adresse</mat-header-cell>
+                                <ng-container matColumnDef="Category">
+                                    <mat-header-cell *matHeaderCellDef> Catégorie</mat-header-cell>
                                     <mat-cell
-                                            *matCellDef="let element"> {{element.address}} {{element.city}} {{element.postalCode}} </mat-cell>
+                                            *matCellDef="let element"> {{element.standardType}} </mat-cell>
                                 </ng-container>
-                                <ng-container matColumnDef="numberPieces">
-                                    <mat-header-cell *matHeaderCellDef> Nombre de pièces</mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> {{element.numberPieces}} </mat-cell>
+                                <ng-container matColumnDef="Lieu">
+                                    <mat-header-cell *matHeaderCellDef> Lieu</mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="NbDocs">
+                                    <mat-header-cell *matHeaderCellDef> Nombres de documents </mat-header-cell>
+                                    <mat-cell *matCellDef="let element"> 0 </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Delete">
                                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                                     <mat-cell *matCellDef="let element">
-                                        <a type="button" (click)="delete(element.id)">
-                                            <mat-icon svgIcon="icon-delete">supprimer</mat-icon>
-                                        </a>
                                         <a type="button" [routerLink]="['/users/houses/' + element.id]">
                                             <mat-icon svgIcon="icon-edit">modifier</mat-icon>
                                         </a>
+                                        <span></span>
+                                        <a type="button" (click)="delete(element.id)">
+                                            <mat-icon svgIcon="icon-delete">supprimer</mat-icon>
+                                        </a>
+                                    </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="Check">
+                                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <mat-icon svgIcon="icon-checked" *ngIf="check(element)"></mat-icon>
+                                        <mat-icon svgIcon="icon-OrangeChecked" *ngIf="check(element) === false"></mat-icon>
                                     </mat-cell>
                                 </ng-container>
                                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
