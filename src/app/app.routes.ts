@@ -32,10 +32,10 @@ const ROUTES: Routes = [
             {path: 'users/tasks', component: TaskComponent, canActivate: [AuthGuardService]},
             {path: 'users/tasks/addtask', component: FormTaskComponent, canActivate: [AuthGuardService]},
             {path: 'users/tasks/:id', component: FormTaskComponent, canActivate: [AuthGuardService]},
-            {path: 'skills', component: SkillsComponent, canActivate: [AuthGuardService]},
-            {path: 'skills/:id', component: SubSkillComponent, canActivate: [AuthGuardService]},
+            {path: 'infos/update/skills', component: SkillsComponent, canActivate: [AuthGuardService]},
+            {path: 'infos/update/skills/:id', component: SubSkillComponent, canActivate: [AuthGuardService]},
             {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
-            {path: 'update', component: UpdateComponent, canActivate: [AuthGuardService]},
+            {path: 'infos/update', component: UpdateComponent, canActivate: [AuthGuardService]},
         ]
     },
     // no layout routes

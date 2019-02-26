@@ -8,8 +8,8 @@
         </span>
         <span class="centered subfieldSpan" *ngFor="let subfield of field.value.values">
             <span *ngIf="fieldContains(subfield)">
-                <a *ngIf="step === subfield" style="color: #5c6d9e" mat-button (click)="setStep(subfield)">{{subfield}}</a>
-                <a *ngIf="step !== subfield" mat-button (click)="setStep(subfield)">{{subfield}}</a>
+                <a *ngIf="step === subfield" style="color: #5c6d9e" mat-button (click)="setStep(subfield)">{{subfield.title}}</a>
+                <a *ngIf="step !== subfield" mat-button (click)="setStep(subfield)">{{subfield.title}}</a>
             </span>
         </span>
     </div>
