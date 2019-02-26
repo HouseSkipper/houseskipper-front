@@ -100,7 +100,6 @@ import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.c
         MatTooltipModule,
         MatPaginatorModule,
         MatStepperModule,
-        MatSortModule,
         MatTableModule,
         APP_ROUTES
     ],

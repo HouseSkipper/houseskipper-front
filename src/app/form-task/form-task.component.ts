@@ -92,8 +92,8 @@ export class FormTaskComponent implements OnInit, OnChanges {
         // build all backend urls
         Object.keys(environment.backend.endpoints.tasks).forEach(k => this._backendURL[ k ] =
             `${baseUrl}${environment.backend.endpoints.tasks[ k ]}`);
-        this.dataService.getAll().subscribe((_) => this._rooms = _);
-        this._houseService.fecthAllHouse().subscribe((_) => this._data = _);
+
+            this._houseService.fecthAllHouse().subscribe((_) => this._data = _);
     }
 
     private _buildForm(): FormGroup {
@@ -152,14 +152,12 @@ export class FormTaskComponent implements OnInit, OnChanges {
       };
   }
 
-    get roomsC(): Room[] {
-        let roomsC: Room[];
-        for (const t of this._rooms) {
-            if (t.roomName.includes(this.blogTask.residence)) {
-               roomsC.push(t);
-            }
-        }
-        return roomsC;
+  roomsC() {
+        this.dataService.getRoomsByHouse(this.blogTask.residence).subscribe((_) => this._rooms = _);
+    }
+
+    get rooms(): Room[] {
+        return this._rooms;
     }
 
     get houses(): House[] {
@@ -199,6 +197,9 @@ export class FormTaskComponent implements OnInit, OnChanges {
     nextStep() {
           this._step++;
         this.stepper.selectedIndex = this._step;
+        if (this._step === 1) {
+            this.roomsC();
+        }
     }
 
     prevStep() {
