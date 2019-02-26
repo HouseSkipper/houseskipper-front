@@ -79,7 +79,7 @@
         <mat-form-field class="margin importantField" appearance="outline">
           <mat-label>Pièce</mat-label>
             <mat-select matInput placeholder="Pièce concérnée" required [(ngModel)]="blogTask.partieExacte" formControlName="partieExacte">
-              <mat-option *ngFor="let room of rooms" [value]="room.roomName">
+              <mat-option *ngFor="let room of roomsC" [value]="room.roomName">
                 {{ room.roomName }}
               </mat-option>
             </mat-select>

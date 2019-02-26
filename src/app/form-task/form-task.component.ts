@@ -14,6 +14,7 @@ import {TasksService} from '../services/tasks.service';
 import {HttpHeaders} from '@angular/common/http';
 import {HouseService} from '../services/house.service';
 import {MatStepper} from '@angular/material';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-form-task',
@@ -151,8 +152,14 @@ export class FormTaskComponent implements OnInit, OnChanges {
       };
   }
 
-    get rooms(): Room[] {
-        return this._rooms;
+    get roomsC(): Room[] {
+        let roomsC: Room[];
+        for (const t of this._rooms) {
+            if (t.roomName.includes(this.blogTask.residence)) {
+               roomsC.push(t);
+            }
+        }
+        return roomsC;
     }
 
     get houses(): House[] {
