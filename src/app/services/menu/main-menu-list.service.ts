@@ -1,52 +1,87 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {MenuListService} from './menu-list.service';
-import {HouseService} from '../house.service';
-import {House} from '../../interfaces/house';
-import {TasksService} from '../tasks.service';
-import {Task} from '../../interfaces/task';
+import {SkillsService} from '../skills.service';
+import {Event, NavigationEnd, Router} from '@angular/router';
+import {BehaviorSubject} from 'rxjs';
+import {NavItem} from '../../interfaces/user';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MainMenuListService implements MenuListService {
+    public appDrawer: any;
+    public currentUrl = new BehaviorSubject<string>(undefined);
+    private _childrenSkills = [];
 
-
-    constructor(private _houseService: HouseService, private _tasksService: TasksService) {
-    }
-
-    getFields() {
-        const fields = [];
-        fields.push({title: 'Tableau de bord', values: []});
-        // this.getTasks(fields);
-        fields.push({title: 'Habitation', values: ['Ajouter une habitation']});
-        fields.push({title: 'Travaux', values: ['Ajouter une demande de travaux']});
-        // this.getHouses(fields);
-        fields.push({title: 'Contact', values: []});
-        fields.push({title: 'Compte', values: ['Compétences', 'Modifier mes informations']});
-        return fields;
-    }
-
-    /* Plus besoin
-    private getHouses(fields: any) {
-        this._houseService.fecthAllHouse().subscribe((houses: House[]) => {
-            const tmpHouses = ['Ajouter un logement'];
-            for (let i = 0; i < houses.length; i++) {
-                // const html = '<a [routerLink]="[\'/users/houses\',\'' + houses[i].id + '\']">' + houses[i].houseName + '</a>';
-                tmpHouses.push(houses[i].houseName);
+    constructor(private router: Router, private _skillServices: SkillsService) {
+        this.router.events.subscribe((event: Event) => {
+            if (event instanceof NavigationEnd) {
+                this.currentUrl.next(event.urlAfterRedirects);
             }
-            fields.push({title: 'Résidence', values: tmpHouses});
         });
     }
 
-    private getTasks(fields: any) {
-        this._tasksService.getAll().subscribe((tasks: Task[]) => {
-                const t = ['Ajouter une demande de travaux'];
-                for (let i = 0; i < tasks.length; i++) {
-                    t.push(tasks[i].nom);
-                }
-                fields.push({title: 'Travaux', values: t});
-            }
-        );
+    public closeNav() {
+        this.appDrawer.close();
     }
-    */
+
+    public openNav() {
+        this.appDrawer.open();
+    }
+    getMenuEntries() {
+
+        this._skillServices.fetchAll().subscribe( skills => {
+            for (const skill of skills ) {
+                this._childrenSkills.push({
+                    displayName: skill.type,
+                    iconName: 'turned_in_not',
+                    route: 'infos/update/skills/' + skill.id,
+                });
+            }
+        });
+        const navItems: NavItem[] = [
+            {
+                displayName: 'Tableau de bord',
+                iconName: 'dashboard',
+                route: '/dashboard',
+                children: []
+            },
+            {
+                displayName: 'Besoin d’aide',
+                iconName: 'help_outline',
+                route: '/help',
+                children: []
+            },
+            {
+                displayName: 'Mes informations',
+                iconName: 'infos',
+                route: '/infos/update',
+                children: this._childrenSkills
+            },
+            {
+                displayName: 'Mes travaux',
+                iconName: 'today',
+                route: '/users/tasks',
+                children: [{
+                    displayName: 'Ajouter',
+                    iconName: 'add',
+                    route: '/users/tasks/addTask',
+                }]
+            },
+            {
+                displayName: 'Mes habitations',
+                iconName: 'location_city',
+                route: '/users/houses',
+                children: [{
+                    displayName: 'Ajouter',
+                    iconName: 'add',
+                    route: '/users/houses/addHouse',
+                }]
+            },
+
+        ];
+        return navItems;
+    }
+    public getFields() {
+    }
 }

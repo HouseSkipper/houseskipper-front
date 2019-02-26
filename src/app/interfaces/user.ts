@@ -23,3 +23,12 @@ export interface SubSkill {
     type: string;
     nb_works?: string;
 }
+
+export interface NavItem {
+    displayName: string;
+    disabled?: boolean;
+    iconName: string;
+    route?: string;
+    children?: NavItem[];
+}
+

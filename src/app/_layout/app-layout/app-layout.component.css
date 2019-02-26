@@ -1,7 +1,0 @@
-mat-form-field, button, a {
-    width: unset !important;
-}
-
-.mat-drawer-container {
-    height: calc(100% - 130px);
-}
