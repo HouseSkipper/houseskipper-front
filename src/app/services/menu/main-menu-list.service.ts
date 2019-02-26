@@ -29,6 +29,7 @@ export class MainMenuListService implements MenuListService {
         this.appDrawer.open();
     }
     getMenuEntries() {
+        this._childrenSkills = [];
 
         this._skillServices.fetchAll().subscribe( skills => {
             for (const skill of skills ) {
