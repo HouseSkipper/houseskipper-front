@@ -48,6 +48,13 @@
                                         </a>
                                     </mat-cell>
                                 </ng-container>
+                                <ng-container matColumnDef="Check">
+                                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                    <mat-cell *matCellDef="let element">
+                                        <mat-icon svgIcon="icon-checked" *ngIf="check(element)"></mat-icon>
+                                        <mat-icon svgIcon="icon-OrangeChecked" *ngIf="check(element) === false"></mat-icon>
+                                    </mat-cell>
+                                </ng-container>
                                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                             </mat-table>
