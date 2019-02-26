@@ -423,7 +423,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
                 // console.log(this._form.get('comment').value);
                 if (this._form.get('comment').invalid) {
                     return 0;
-                } else if (this._form.get('comment').value === null) {
+                } else if (this._form.get('comment').value === null || this._form.get('comment').value === '') {
                     return 1;
                 } else {
                     return 2;
