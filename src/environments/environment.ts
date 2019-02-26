@@ -22,6 +22,12 @@ export const environment = {
             addHouse: '/add/house',
             removeHouse: '/houses/:houseId',
             rooms: '/rooms',
+            phases: '/phases',
+            historic: {
+                getHistoricByUser: '/historic',
+                getHistoricByUserByMonth: '/historic/month/:month',
+                getHistoricByUserByYear: '/historic/year/:year'
+            },
             tasks: {
               allTasks: '/tasks',
               oneTask: '/tasks/:id',
