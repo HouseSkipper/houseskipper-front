@@ -43,7 +43,7 @@ export class HouseComponent implements OnInit {
                 return false;
             } else if (house.rooms[i].volet === 1 && house.rooms[i].nbVolet === 0) {
                 return false;
-            } else if (house.rooms[i].nbVolet !== house.rooms[i].nbFenetre + house.rooms[i].nbPorteFenetre ){
+            } else if (house.rooms[i].volet === 1 && house.rooms[i].nbVolet > house.rooms[i].nbFenetre + house.rooms[i].nbPorteFenetre ){
                 return false;
             }
         }
@@ -56,6 +56,8 @@ export class HouseComponent implements OnInit {
             return false;
         } else if (house.constructionYear === 0 || house.surfaceToiture === 0 || house.revetementExterieur === ''
         || house.revetementToiture === '') {
+            return false;
+        } else if (house.comment === null) {
             return false;
         } else {
             return true;

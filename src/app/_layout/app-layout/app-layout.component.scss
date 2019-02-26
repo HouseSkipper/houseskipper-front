@@ -1,0 +1,33 @@
+mat-form-field, button, a {
+    width: unset !important;
+}
+
+.mat-drawer-container {
+    height: calc(100% - 130px);
+}
+
+.mat-sidenav {
+    width: 280px;
+}
+.mat-sidenav-container {
+    background-color: white !important;
+    height: 100vh;
+}
+.sidenav-toolbar {
+    height: 64px;
+     background-color: #6E6D8F;
+    display: flex;
+    flex-direction: row;
+
+@media (max-width: 600px) {
+    height: 56px;
+}
+}
+.mat-nav-list {
+    padding-top: 0;
+}
+.menu-list-item.mat-list-item {
+.mat-list-item-content {
+    flex: 1 1 100%;
+}
+}

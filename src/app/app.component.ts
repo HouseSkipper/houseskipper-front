@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
         this._matIconRegistry.addSvgIcon('icon-logo-plat', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/Logo-House-Skipper-long.svg'));
         this._matIconRegistry.addSvgIcon('icon-checked', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/checked.svg'));
         this._matIconRegistry.addSvgIcon('icon-OrangeChecked', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/orangeChecked.svg'));
+        this._matIconRegistry.addSvgIcon('icon-error', this._domSanitizer.bypassSecurityTrustResourceUrl('/assets/images/error.svg'));
     }
 
 }
