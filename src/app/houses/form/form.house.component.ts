@@ -351,7 +351,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
         }
     }
 
-    checked(num: number| undefined): number {
+    checked(num: number): number {
         // console.log(this._form.get('surfaceToiture').value);
         switch (num) {
             case 1:
@@ -418,7 +418,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
         }
     }
 
-    checkRoom(i: number | undefined): number{
+    checkRoom(i: number): number {
         const room = this._form.get('rooms')['controls'][i];
         // console.log(room.get('typeChauffage').value);
         if (room.invalid) {
