@@ -49,6 +49,12 @@ export class DataService {
             );
     }
 
-
+    getRoomsByHouse(HouseName: string): Observable<Room[]> {
+        return this._http.get<Room[]>(this._backendURL.roomsByHouse.replace('houseName', HouseName))
+            .pipe(
+                filter(_ => !!_),
+                defaultIfEmpty([])
+            );
+    }
 
 }

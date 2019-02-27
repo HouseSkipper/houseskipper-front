@@ -22,6 +22,7 @@ export const environment = {
             addHouse: '/add/house',
             removeHouse: '/houses/:houseId',
             rooms: '/rooms',
+            roomsByHouse: '/rooms/:houseName',
             tasks: {
               allTasks: '/tasks',
               oneTask: '/tasks/:id',
