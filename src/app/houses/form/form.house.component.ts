@@ -389,12 +389,14 @@ export class FormHouseComponent implements OnInit, OnChanges {
                 }
             case 4:
                 const room = this._form.get('rooms')['controls'][i];
-                // console.log(parseInt(room.get('nbPorteFenetre').value, 10) + parseInt(room.get('nbFenetre').value, 10));
+                // console.log(room.get('typeChauffage').value);
                 if (room.invalid) {
                     return 0;
-                } else if (room.get('typeChauffage').value === 'radiateur' && room.get('nbRadiateur').value === '0') {
+                } else if (room.get('typeChauffage').value === 'radiateur' && parseInt(room.get('nbRadiateur').value, 10 ) === 0) {
                     return 1;
-                } else if (room.get('volet').value === '1' && room.get('nbVolet').value === '0') {
+                } else if (room.get('volet').value === '1' && parseInt(room.get('nbVolet').value, 10) === 0) {
+                    return 1;
+                } else if (room.get('typeChauffage').value === '' || room.get('typeChauffage').value === null) {
                     return 1;
                 } else if (room.get('volet').value === '1'
                     && parseInt(room.get('nbVolet').value, 10) >
