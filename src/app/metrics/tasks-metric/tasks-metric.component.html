@@ -1,0 +1,13 @@
+<div id="tasks-metrics">
+    <h2 class="mat-h2">Mes travaux</h2>
+    <span class="mat-body-1" id="number-tasks">{{totalNumber}}</span>
+    <span *ngFor="let h of phasesNb | keyvalue">
+        <span class="phaseTitle">{{h.key}}</span>
+        <span class="phaseNumber">{{h.value}}</span>
+    </span>
+    <span id="buttonSpan">
+        <button mat-flat-button [class.active]="activeMenu == 'Mois'" (click)="setActive('Mois')">Mois</button>
+        <button mat-flat-button [class.active]="activeMenu == 'Annee'" (click)="setActive('Annee')">Année</button>
+        <button mat-flat-button [class.active]="activeMenu == 'Tous'" (click)="setActive('Tous')">Tous</button>
+    </span>
+</div>
