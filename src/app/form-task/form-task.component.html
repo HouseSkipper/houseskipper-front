@@ -33,8 +33,8 @@
         </mat-panel-title>
         <mat-panel-description>
           Caractéristiques du projet
-          <mat-icon svgIcon="icon-checked" *ngIf="checked(1) === 1"></mat-icon>
-          <mat-icon svgIcon="icon-error" *ngIf="checked(1) === 0"></mat-icon>
+          <mat-icon svgIcon="icon-checked" *ngIf="checked(1) === 2"></mat-icon>
+          <mat-icon svgIcon="icon-error" *ngIf="checked(1) !== 2"></mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div class="centerElement">
@@ -68,11 +68,11 @@
           Quel Type de Travaux ?
         </p>
         <mat-radio-group>
-          <mat-radio-button (click)="setMode()" style="margin: 5px;" checked="true" value="1">Principal</mat-radio-button>
-          <mat-radio-button (click)="setMode()" style="margin: 5px;" value="2">Secondaire</mat-radio-button>
+          <mat-radio-button (click)="setMode('p')" style="margin: 5px;" [checked]="principal" value="1">Principal</mat-radio-button>
+          <mat-radio-button (click)="setMode('s')" style="margin: 5px;" [checked]="!principal" value="2">Secondaire</mat-radio-button>
         </mat-radio-group>
       </div>
-      <div class="centerElement" *ngIf="principal==true">
+      <div class="centerElement" *ngIf="principal">
       <mat-form-field class="margin importantField" appearance="outline">
         <mat-label>Type de travaux Principal</mat-label>
         <mat-select placeholder="Type de travaux" formControlName="type" (click)="roomsC()" [(ngModel)]="blogTask.type" required name="type">
@@ -84,9 +84,9 @@
       </mat-form-field>
     </div>
 
-      <div  class="centerElement" *ngIf="principal==false">
-      <div formArrayName="typeSecondaire">
-        <div *ngFor="let local of form.get('typeSecondaire')['controls']; let i=index">
+      <div  class="centerElement" *ngIf="!principal">
+      <div formArrayName="typeSecondaires">
+        <div *ngFor="let local of form.get('typeSecondaires')['controls']; let i=index">
           <div [formGroupName]="i">
         <mat-form-field class="margin importantField" appearance="outline">
           <mat-label>Type de travaux Principal</mat-label>
@@ -98,11 +98,11 @@
           </mat-select>
         </mat-form-field>
         <button mat-mini-fab color="warn"
-                *ngIf="form.get('typeSecondaire')['controls'].length > 1" (click)="removeT(i)"><mat-icon>delete forever</mat-icon></button>
+                *ngIf="form.get('typeSecondaires')['controls'].length > 1" (click)="removeT(i)"><mat-icon>delete forever</mat-icon></button>
       </div>
           </div>
         </div>
-        <mat-card-actions class="centerElement"><button mat-raised-button (click)="addTypeSec()"><mat-icon>add box</mat-icon></button></mat-card-actions>
+        <mat-card-actions class="centerElement"><button mat-raised-button (click)="addTypeSec('')"><mat-icon>add box</mat-icon></button></mat-card-actions>
 
       </div>
 
@@ -146,8 +146,10 @@
       </div>
       </div>
       <mat-card-actions class="centerElement"><button mat-raised-button *ngIf="blogTask.partie !== ''" (click)="addPiece('')"><mat-icon>add box</mat-icon></button></mat-card-actions>
+      <mat-error id="errorMessage1" class="alert alert-danger">{{errorMsg}}</mat-error><br/>
+
       <mat-action-row>
-        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)">Modifier votre de demande</button>
         <button mat-button color="primary" (click)="nextStep()">Suivant</button>
       </mat-action-row>
     </mat-expansion-panel>
@@ -189,6 +191,7 @@
                   name="description"></textarea>
       </mat-form-field>
 
+      <mat-error id="errorMessage2" class="alert alert-danger">{{errorMsg}}</mat-error><br/>
 
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>

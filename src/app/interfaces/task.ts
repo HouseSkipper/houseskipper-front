@@ -6,7 +6,7 @@ export interface Task {
     partiesExacte: PartieExacte[];
     description: string;
     type: string;
-    typeSecondaire: TypeSecondaire[];
+    typeSecondaires: TypeSecondaire[];
     start_date: Date;
     status: string;
     resultat: string;

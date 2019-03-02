@@ -72,8 +72,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     @ViewChild('fileInput')
     fileInput: ElementRef;
 
-    @ViewChild('rad')
-    radTypeS: ElementRef;
+    @ViewChild('rad') radTypeS: ElementRef;
 
     @ViewChild('stepper') stepper: MatStepper;
     constructor(
@@ -114,7 +113,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
                 Validators.required, Validators.minLength(3)
             ])),
             partiesExacte: new FormArray([this.getPiece('')]),
-            typeSecondaire: new FormArray([this.getTypeSec()]),
+            typeSecondaires: new FormArray([this.getTypeSec('')]),
             type: new FormControl('', Validators.compose([
                 Validators.required, Validators.minLength(3)
             ])),
@@ -136,21 +135,31 @@ export class FormTaskComponent implements OnInit, OnChanges {
         return this._principal;
     }
 
-    setMode() {
-        this._principal = !this._principal;
+    setMode(signe: string) {
+        switch (signe) {
+            case 'p':
+                this._principal = true;
+                this.checked(1);
+                break;
+            case 's':
+                this._principal = false;
+                this.checked(1);
+                this._form.get('type').setValue('');
+                break;
+        }
     }
 
-    private getTypeSec(): FormGroup {
+    private getTypeSec(nom: string): FormGroup {
         return new FormGroup({
-            typeS:  new FormControl('', Validators.compose([
+            typeS:  new FormControl(nom, Validators.compose([
                 Validators.required, Validators.minLength(3)
             ]))
         });
     }
 
-    private addTypeSec() {
-        const control = <FormArray>this._form.get('typeSecondaire');
-        control.push(this.getTypeSec());
+    private addTypeSec(nom: string) {
+        const control = <FormArray>this._form.get('typeSecondaires');
+        control.push(this.getTypeSec(nom));
     }
 
     private getPiece(nom: string): FormGroup {
@@ -196,9 +205,22 @@ export class FormTaskComponent implements OnInit, OnChanges {
             console.log(i);
             this.addPiece(pieces[i].local);
         }
-        const tailleT = task.typeSecondaire.length;
-        if ( tailleT > 0) {
-            this._principal = false;
+        if (task.typeSecondaires !== undefined) {
+            const tailleT = task.typeSecondaires.length;
+            console.log(tailleT);
+            if (tailleT !== 0) {
+                const typeSec = task.typeSecondaires;
+                for (let i = 0; i < tailleT; i++) {
+                    this.removeT(i);
+                }
+                for (let i = 0; i < tailleT; i++) {
+                    console.log(i);
+                    this.addTypeSec(typeSec[i].typeS);
+                }
+                this.setMode('s');
+            } else {
+                this.blogTask.type = task.type;
+            }
         }
         this._form.patchValue(task);
         this.roomsC();
@@ -211,7 +233,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     removeT(num: number) {
-        const control = <FormArray>this._form.controls['typeSecondaire'];
+        const control = <FormArray>this._form.controls['typeSecondaires'];
         control.removeAt(num);
     }
 
@@ -276,7 +298,11 @@ export class FormTaskComponent implements OnInit, OnChanges {
 
     nextStep() {
           this._step++;
-          this.checked(this._step - 1);
+          if ( this.checked(this._step - 1) === 0) {
+              this._errorMsg = 'Tous les champs sont obligatoires.';
+              this._step --;
+          }
+
         // this.stepper.selectedIndex = this._step;
     }
 
@@ -290,7 +316,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
       if (task.nom === '' || task.partie === '' || this._form.get('partiesExacte')['controls'][0] === ''
           || task.resultat === '' ||
           task.description === '' || task.connaissance === '' ) {
-          if ( this._form.get('typeSecondaire')['controls'][0].invalid || task.type === '') {
+          if ( this._form.get('typeSecondaires')['controls'][0].invalid || task.type === '') {
             this._errorMsg = 'Tous les champs sont obligatoires.';
           }
       } else {
@@ -308,13 +334,36 @@ export class FormTaskComponent implements OnInit, OnChanges {
     checked(num: number): number {
         switch (num) {
             case 1:
-                if (this._form.get('nom').invalid || this._form.get('residence').invalid || this._form.get('partie').invalid
-                    || this._form.get('type').invalid || this._form.get('partiesExacte')['controls'][0].invalid
-                    || this._form.get('typeSecondaire')['controls'][0].invalid ) {
-                    return 0;
-                } else {
-                    return 1;
+                let res: number;
+                if (this._form.get('nom').status === 'VALID' || this._form.get('residence').status === 'VALID'
+                    || this._form.get('partie').status === 'VALID') {
+                    for (let i = 0; i < this._form.get('partiesExacte')['controls'].length; i++) {
+                        if (this._form.get('partiesExacte')['controls'][i].invalid) {
+                           return res = -1;
+                        } else {
+                            res = 1;
+                        }
+                    }
+                    if (this._principal === true) {
+                        if (this._form.get('type').status === 'VALID') {
+                            res = 2;
+                        } else {
+                            return res = -2;
+                        }
+                        return res;
+                    } else {
+                        for (let i = 0; i < this._form.get('typeSecondaires')['controls'].length; i++) {
+                            if (this._form.get('typeSecondaires')['controls'][i].invalid) {
+                                return res = -1;
+                            } else {
+                                res = 2;
+                            }
+                        }
+                        return res;
+                    }
+                    return res;
                 }
+                break;
             case 2:
                 if (this._form.get('connaissance').invalid || this._form.get('resultat').invalid
                     || this._form.get('description').invalid ) {
@@ -322,20 +371,35 @@ export class FormTaskComponent implements OnInit, OnChanges {
                 } else {
                     return 1;
                 }
+                break;
             case 3:
                 return 2;
+                break;
             case 4:
                 if (this._form.get('filename').invalid) {
                     return 0;
                 } else {
                     return 1;
                 }
+                break;
         }
     }
 
     edit(task: Task) {
         console.log(this._taskid);
         task.id = this._taskid;
+        if (this._principal) {
+            const tailleT = task.typeSecondaires.length;
+            console.log(tailleT);
+            if (tailleT !== 0) {
+                const typeSec = task.typeSecondaires;
+                for (let i = 0; i < tailleT; i++) {
+                    this.removeT(i);
+                }
+            }
+        } else {
+            task.type = '';
+        }
          this._tasksService.update(task).subscribe((_) => console.log(_), null, () => {
              this.onSaveFile();
              this._file = true;
