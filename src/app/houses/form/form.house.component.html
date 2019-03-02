@@ -330,9 +330,9 @@
                 </mat-panel-description>
                 <mat-panel-description *ngIf="form.get('rooms').controls[i].get('roomName').value != undefined">
                     {{form.get('rooms').controls[i].get('roomName').value}}
-                    <mat-icon svgIcon="icon-checked" *ngIf="checked(4 , i) === 2"></mat-icon>
-                    <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(4, i) === 1"></mat-icon>
-                    <mat-icon svgIcon="icon-error" *ngIf="checked(4,i ) === 0"></mat-icon>
+                    <mat-icon svgIcon="icon-checked" *ngIf="checkRoom(i) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checkRoom(i) === 1"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="checkRoom(i) === 0"></mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <div formArrayName="rooms">
