@@ -418,7 +418,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
         }
     }
 
-    checkRoom(i: number | undefined): number{
+    checkRoom(i: number | undefined): number {
         const room = this._form.get('rooms')['controls'][i];
         // console.log(parseInt(room.get('nbPorteFenetre').value, 10) + parseInt(room.get('nbFenetre').value, 10));
         if (room.invalid) {

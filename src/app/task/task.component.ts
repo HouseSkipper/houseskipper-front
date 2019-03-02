@@ -76,9 +76,7 @@ export class TaskComponent implements OnInit {
         this._dataService.getFiles(id).subscribe((_) => {
             this._files = _;
             this.hasFile = true;
-        }, () => this._files = [], () => {
-            setTimeout(() => { console.log(''); }, 4000);
-        });
+        }, () => this._files = [], null);
     }
 
     downloadFile(file, id) {
