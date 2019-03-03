@@ -1,8 +1,8 @@
 <mat-accordion class="example-headers-align justify-content">
-    <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
-        <mat-step  [editable]="form.get('houseType').invalid || form.get('residence').invalid
+    <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom">
+        <mat-step [editable]="form.get('houseType').invalid || form.get('residence').invalid
                 || form.get('houseName').invalid || form.get('standardType').invalid || 0 === stepMatStepper()">
-            <ng-template  matStepLabel>Générale</ng-template>
+            <ng-template matStepLabel>Générale</ng-template>
         </mat-step>
         <mat-step [editable]="form.get('pays').invalid || form.get('address').invalid
                  || form.get('postalCode').invalid || form.get('city').invalid || 1 === stepMatStepper()">
@@ -20,10 +20,15 @@
         <mat-step [editable]="4 === stepMatStepper() || 5 === stepMatStepper()">
             <ng-template matStepLabel>Commentaire</ng-template>
         </mat-step>
+        <mat-step [editable]="5 === stepMatStepper() || 6 === stepMatStepper()">
+            <ng-template matStepLabel>Documents</ng-template>
+        </mat-step>
     </mat-horizontal-stepper>
-    <form novalidate [formGroup]="form">
+
+    <form novalidate [formGroup]="form" *ngIf="!file">
         <!-- Caractéristiques générales -->
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"
+                             (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header class="right-aligned-header">
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-houses"></mat-icon>
@@ -124,7 +129,8 @@
             </div>
             <mat-action-row>
                 <button mat-button color="primary" [disabled]="form.get('houseType').invalid || form.get('residence').invalid
-                || form.get('houseName').invalid || form.get('standardType').invalid " (click)="nextStep()">Suivant</button>
+                || form.get('houseName').invalid || form.get('standardType').invalid " (click)="nextStep()">Suivant
+                </button>
                 <button *ngIf="isUpdateMode === true" mat-button color="primary" type="submit"
                         (click)="modifier(form.value)" [disabled]="form.invalid">
                     Modifier
@@ -133,7 +139,8 @@
         </mat-expansion-panel>
 
         <!-- Adresse -->
-        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)"
+                             (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-maps"></mat-icon>
@@ -192,7 +199,8 @@
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Précédent</button>
                 <button mat-button color="primary" [disabled]="form.get('pays').invalid || form.get('address').invalid
-                 || form.get('postalCode').invalid || form.get('city').invalid"  (click)="nextStep()">Suivant</button>
+                 || form.get('postalCode').invalid || form.get('city').invalid" (click)="nextStep()">Suivant
+                </button>
                 <button *ngIf="isUpdateMode === true" mat-button color="primary" type="submit"
                         (click)="modifier(form.value)" [disabled]="form.invalid">
                     Modifier
@@ -201,7 +209,8 @@
         </mat-expansion-panel>
 
         <!-- Confirmation Adresse -->
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)"
+                             (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-maps"></mat-icon>
@@ -235,7 +244,10 @@
 
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Modifier l'adresse</button>
-                <button mat-button color="primary" [disabled]="form.get('address').invalid || form.get('postalCode').invalid || form.get('pays').invalid" (click)="nextStep()">Confirmer</button>
+                <button mat-button color="primary"
+                        [disabled]="form.get('address').invalid || form.get('postalCode').invalid || form.get('pays').invalid"
+                        (click)="nextStep()">Confirmer
+                </button>
                 <button *ngIf="isUpdateMode === true" mat-button color="primary" type="submit"
                         (click)="modifier(form.value)" [disabled]="form.invalid">
                     Modifier
@@ -244,7 +256,8 @@
         </mat-expansion-panel>
 
         <!-- Énergie -->
-        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)"
+                             (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-energy"></mat-icon>
@@ -271,7 +284,7 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Gaz</mat-label>
-                    <mat-select placeholder="Gaz" formControlName="gaz"  name="gaz">
+                    <mat-select placeholder="Gaz" formControlName="gaz" name="gaz">
                         <mat-option value="1">Oui</mat-option>
                         <mat-option value="0">Non</mat-option>
                     </mat-select>
@@ -280,7 +293,7 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Électricité</mat-label>
-                    <mat-select placeholder="Électricité" formControlName="electricite"  name="electricite">
+                    <mat-select placeholder="Électricité" formControlName="electricite" name="electricite">
                         <mat-option value="1">Oui</mat-option>
                         <mat-option value="0">Non</mat-option>
                     </mat-select>
@@ -299,7 +312,7 @@
             <div class="centerElement">
                 <mat-form-field class="margin" appearance="outline">
                     <mat-label>Éolienne</mat-label>
-                    <mat-select placeholder="Éolienne" formControlName="eolienne"  name="eolienne">
+                    <mat-select placeholder="Éolienne" formControlName="eolienne" name="eolienne">
                         <mat-option value="1">Oui</mat-option>
                         <mat-option value="0">Non</mat-option>
                     </mat-select>
@@ -317,13 +330,15 @@
         </mat-expansion-panel>
 
         <!-- Pièces -->
-        <mat-expansion-panel *ngFor="let piece of form.get('rooms')['controls']; let i = index;" [expanded]="step === 4+i" (opened)="setStep(4+i)" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
+        <mat-expansion-panel *ngFor="let piece of form.get('rooms')['controls']; let i = index;"
+                             [expanded]="step === 4+i" (opened)="setStep(4+i)"
+                             (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-door"></mat-icon>
                 </mat-panel-title>
                 <mat-panel-description *ngIf="form.get('rooms').controls[i].get('roomName').value == undefined">
-                    Pièce {{i-1}}
+                    Pièce {{i - 1}}
                     <mat-icon svgIcon="icon-checked" *ngIf="checkRoom(i) === 2"></mat-icon>
                     <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checkRoom( i) === 1"></mat-icon>
                     <mat-icon svgIcon="icon-error" *ngIf="checkRoom(i) === 0"></mat-icon>
@@ -379,7 +394,7 @@
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline">
                         <mat-label>Type de chauffage</mat-label>
-                        <mat-select placeholder="Type de chauffage" formControlName="typeChauffage" >
+                        <mat-select placeholder="Type de chauffage" formControlName="typeChauffage">
                             <mat-option value="radiateur">Radiateur</mat-option>
                             <mat-option value="sol">Sol</mat-option>
                         </mat-select>
@@ -396,7 +411,7 @@
                     </mat-form-field>
                     <mat-form-field class="margin" appearance="outline">
                         <mat-label>Volet</mat-label>
-                        <mat-select placeholder="Volet" formControlName="volet" >
+                        <mat-select placeholder="Volet" formControlName="volet">
                             <mat-option value="1">Oui</mat-option>
                             <mat-option value="0">Non</mat-option>
                         </mat-select>
@@ -415,7 +430,9 @@
             </div>
             <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-                <button mat-button color="primary" (click)="nextStep()" [disabled]="form.get('rooms').controls[i].invalid">Suivant</button>
+                <button mat-button color="primary" (click)="nextStep()"
+                        [disabled]="form.get('rooms').controls[i].invalid">Suivant
+                </button>
                 <button *ngIf="isUpdateMode === true" mat-button color="primary" type="submit"
                         (click)="modifier(form.value)" [disabled]="form.invalid">
                     Modifier
@@ -424,7 +441,8 @@
         </mat-expansion-panel>
 
         <!-- Extérieur -->
-        <mat-expansion-panel *ngIf="form.get('exterieur').value === '1'" [expanded]="step === 4+lengthRoom()" (opened)="setStep(4+lengthRoom())"
+        <mat-expansion-panel *ngIf="form.get('exterieur').value === '1'" [expanded]="step === 4+lengthRoom()"
+                             (opened)="setStep(4+lengthRoom())"
                              (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -507,7 +525,9 @@
 
 
         <!-- Commentaire -->
-        <mat-expansion-panel [expanded]="step === 4+lengthRoom()+exterieur()" (opened)="setStep(4+lengthRoom()+exterieur())" (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
+        <mat-expansion-panel [expanded]="step === 4+lengthRoom()+exterieur()"
+                             (opened)="setStep(4+lengthRoom()+exterieur())"
+                             (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <mat-icon svgIcon="icon-message"></mat-icon>
@@ -536,6 +556,54 @@
                 <button *ngIf="isUpdateMode === true" mat-button color="primary" type="submit"
                         (click)="modifier(form.value)" [disabled]="form.invalid">
                     Modifier
+                </button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </form>
+
+    <form novalidate [formGroup]="formFile" *ngIf="file">
+        <mat-expansion-panel hideToggle (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" [expanded]="step === 5+lengthRoom()+exterieur()"
+                             (opened)="setStep(5+lengthRoom()+exterieur())">
+            <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                    <mat-icon>attachements</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Ajout de(s) fichier(s)
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <button mat-button type="button" (click)="addFile()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <div *ngFor="let file of formFile.get('files')['controls']; let i = index;">
+                <div formArrayName="files">
+                    <div [formGroupName]="i">
+                        <label *ngIf="formFile.get('files').controls[i].get('file').value === ''" class="mat-body"
+                               style="width: 100%;">Document {{i + 1}}</label>
+                        <label *ngIf="formFile.get('files').controls[i].get('file').value !== ''" class="mat-body"
+                               style="width: 100%;">{{formFile.get('files').controls[i].get('file').value.name}}
+                        </label>
+                        <br/>
+                        <input type="file" name="file" (change)="onFileChange($event, i)"/>
+                        <br/>
+                        <div>
+                            <mat-form-field class="margin textaeraPerso" appearance="outline">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput placeholder="Description de votre document"
+                                          formControlName="description"
+                                          name="description" required></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <mat-action-row>
+                <button mat-button color="primary" type="submit" [disabled]="formFile.invalid" (click)="saveFile()" color="primary">Sauvegarder et ajouter le(s)
+                    fichier(s)
+                </button>
+                <button mat-button color="primary" type="submit" [routerLink]="['/users/houses']"   color="primary">Sauvegarder sans ajouter de documents
                 </button>
             </mat-action-row>
         </mat-expansion-panel>
