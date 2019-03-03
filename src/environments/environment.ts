@@ -21,6 +21,7 @@ export const environment = {
             allHouses: '/houses/house',
             addHouse: '/add/house',
             removeHouse: '/houses/:houseId',
+            uploadFileHouse: '/houses/uploadFile/:houseId',
             rooms: '/rooms',
             roomsByHouse: '/rooms/:houseName',
             tasks: {

@@ -27,6 +27,9 @@ export class FormHouseComponent implements OnInit, OnChanges {
     private _classeEnergetique: string[];
     private _isUpdateMode: boolean;
     private _model: House;
+    private _file: boolean;
+    private _formFile: FormGroup;
+    files: FormArray;
 
     @ViewChild('stepper') stepper: MatStepper;
 
@@ -47,6 +50,17 @@ export class FormHouseComponent implements OnInit, OnChanges {
         this._pays = ['France', 'Luxembourg', 'Allemagne', 'Belgique', 'Suisse'];
         this._classeEnergetique = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
         this._isUpdateMode = false;
+        this._file = false;
+        this._formFile = this._buildFormFile();
+    }
+
+
+    get file(): boolean {
+        return this._file;
+    }
+
+    get formFile(): FormGroup {
+        return this._formFile;
     }
 
     lengthRoom(): number {
@@ -241,6 +255,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
         return this._form;
     }
 
+
     private _buildForm(): FormGroup {
         return new FormGroup({
             houseName: new FormControl('', Validators.compose([
@@ -299,7 +314,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
 
     submit(payload: House) {
         payload = this.verifier(payload);
-        this._houseService.create(payload).subscribe((_) => this._router.navigate(['/users/houses']));
+        this._houseService.create(payload).subscribe((_) => this._model = _, null, () => { this._file = true; this.nextStep(); });
     }
 
 
@@ -310,7 +325,8 @@ export class FormHouseComponent implements OnInit, OnChanges {
     modifier(payload: House) {
         payload = this.verifier(payload);
         payload.id = this._model.id;
-        this._houseService.modifier(payload).subscribe((_) => this._router.navigate(['/users/houses']));
+        this._file = true;
+        this._houseService.modifier(payload).subscribe(null, null, () => this._file = true);
     }
 
     private verifier(house: House): House {
@@ -345,6 +361,10 @@ export class FormHouseComponent implements OnInit, OnChanges {
         } else if (this.exterieur() === 1 && this.step === (4 + this.lengthRoom())) {
             return 4;
         } else if (this.exterieur() === 1 && this.step > (4 + this.lengthRoom())) {
+            return 5;
+        } else if (this.exterieur() === 1 && this._file) {
+            return 6;
+        } else if (this._file) {
             return 5;
         } else {
             return 4;
@@ -423,7 +443,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
         // console.log(room.get('typeChauffage').value);
         if (room.invalid) {
             return 0;
-        } else if (room.get('typeChauffage').value === 'radiateur' && parseInt(room.get('nbRadiateur').value, 10 ) === 0) {
+        } else if (room.get('typeChauffage').value === 'radiateur' && parseInt(room.get('nbRadiateur').value, 10) === 0) {
             return 1;
         } else if (room.get('volet').value === '1' && parseInt(room.get('nbVolet').value, 10) === 0) {
             return 1;
@@ -436,6 +456,53 @@ export class FormHouseComponent implements OnInit, OnChanges {
         } else {
             return 2;
         }
+    }
+
+
+    private _buildFormFile(): FormGroup {
+        return new FormGroup({
+            files: new FormArray([new FormGroup({
+                description: new FormControl(''),
+                file: new FormControl('')
+            })])
+        });
+    }
+
+    addFile(): void {
+        this.files = this._formFile.get('files') as FormArray;
+        this.files.push(new FormGroup({
+            description: new FormControl(''),
+            file: new FormControl('')
+        }));
+    }
+
+    onFileChange(event, i: number) {
+        if (event.target.files.length > 0) {
+            const file: File = event.target.files[0];
+            this._formFile.get('files')['controls'][i].get('file').setValue(file);
+            // console.log(this._formFile.get('files'));
+            /*
+            let input = new FormData();
+            input.append('file', file);
+            input.forEach((_) => console.log(_));
+            // console.log(file);
+            // console.log(input.);
+            // this._houseService.uploadFile(input).subscribe();
+            */
+        }
+    }
+
+    saveFile() {
+        // console.log(this._formFile.get('files'));
+        // this.files = this._formFile.get('files') as FormArray;
+        for (let i = 0 ; i < this._formFile.get('files').value.length ; i++) {
+            // console.log(this._formFile.get('files')['controls'][i].get('file'));
+            const input = new FormData();
+            input.append('file', this._formFile.get('files')['controls'][i].get('file').value);
+            input.append('description', this._formFile.get('files')['controls'][i].get('description').value);
+            this._houseService.uploadFile(input, this._model.id).subscribe();
+        }
+        this._router.navigate(['/users/houses']);
     }
 
 }

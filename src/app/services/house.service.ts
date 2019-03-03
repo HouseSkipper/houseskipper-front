@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {House} from '../interfaces/house';
 import {environment} from '../../environments/environment';
@@ -59,5 +59,16 @@ export class HouseService {
     modifier(house: House): Observable<any> {
         return this._httpClient.put<House>(this._backendURL.removeHouse.replace(':houseId', house.id), house, this._options());
     }
+
+    uploadFile(payload: FormData, id: string): Observable<any> {
+        // return this._httpClient.post(this._backendURL.uploadFileHouse.replace(':houseId', 1), file, this._options());
+        const req = new HttpRequest('POST', this._backendURL.uploadFileHouse.replace(':houseId', id), payload, {
+            reportProgress: true,
+            responseType: 'text'
+        });
+
+        return this._httpClient.request(req);
+    }
+
 
 }
