@@ -12,14 +12,6 @@ import {Room} from '../interfaces/house';
 export class DataService {
 
     private readonly _backendURL: any;
-    budgets = [
-        {value: '< 200 euros', viewValue: '< 200 euros'},
-        {value: '300 euros', viewValue: '300 euros'},
-        {value: '400 euros', viewValue: '400 euros'},
-        {value: '500 euros', viewValue: '500 euros'},
-        {value: '800 euros', viewValue: '800 euros'},
-        {value: '> 800 euros', viewValue: '> 800 euros'},
-    ];
     constructor(private _http: HttpClient) {
 
         this._backendURL = {};
@@ -34,10 +26,6 @@ export class DataService {
         Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[ k ] =
             `${baseUrl}${environment.backend.endpoints[ k ]}`);
 
-    }
-
-    getBudgets() {
-        return this.budgets;
     }
 
     getAll(): Observable<Room[]> {

@@ -8,10 +8,12 @@ export interface Task {
     type: string;
     typeSecondaires: TypeSecondaire[];
     start_date: Date;
-    status: string;
+    status: Phase;
+    currentPhase: string;
     resultat: string;
     connaissance: string;
     partie: string;
+    historics: Historic[];
 }
 export interface PartieExacte {
     local: string;
@@ -19,4 +21,13 @@ export interface PartieExacte {
 
 export interface TypeSecondaire {
     type: string;
+}
+
+export interface Phase {
+    phaseName: string;
+}
+
+export interface Historic {
+    date: Date;
+    currentSubPhase: string;
 }

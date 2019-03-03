@@ -41,6 +41,7 @@ export class TaskComponent implements OnInit {
     }
     ngOnInit() {
         new TaskDataSource(this._dataService).connect().subscribe(_ => {
+            console.log(_);
                 this.dataSource = new MatTableDataSource<Task>(_);
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
@@ -126,11 +127,16 @@ export class TaskComponent implements OnInit {
             const isAsc = sort.direction === 'asc';
             switch (sort.active) {
                 case 'Référence': return compare(a.id, b.id, isAsc);
-                case 'Etat': return compare(a.status, b.status, isAsc);
+                case 'Etat': return compare(a.status.phaseName, b.status.phaseName, isAsc);
                 case 'Nom': return compare(a.nom, b.nom, isAsc);
                 default: return 0;
             }
         });
+    }
+
+    nextStep(task) {
+
+         this._dataService.nextPhase(task).subscribe(null, (_) => console.log(_), null);
     }
 
 }

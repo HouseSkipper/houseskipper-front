@@ -41,6 +41,18 @@ export class TasksService {
       return this._http.get<Task>(this._backendURL.oneTask.replace(':id', id));
     }
 
+    nextPhase(task: Task): Observable<any> {
+        const user = this._authentication.currentUserValue;
+        console.log(task.description);
+        if (user !== null) {
+            task.username = this._authentication.currentUserValue.username;
+        } else {
+            task.username = 'admin';
+        }
+        return this._http.post<Task>(this._backendURL.toNext, task, this._options());
+        console.log(task.description);
+    }
+
     create(task: Task): Observable<any> {
       const user = this._authentication.currentUserValue;
       console.log(task.description);

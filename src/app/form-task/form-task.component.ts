@@ -9,7 +9,7 @@ import {environment} from '../../environments/environment';
 import {DataService} from '../services/budget.service';
 import {flatMap, map} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {PartieExacte, Task} from '../interfaces/task';
+import {PartieExacte, Phase, Task} from '../interfaces/task';
 import {TasksService} from '../services/tasks.service';
 import {HttpHeaders} from '@angular/common/http';
 import {HouseService} from '../services/house.service';
@@ -72,7 +72,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     @ViewChild('fileInput')
     fileInput: ElementRef;
 
-    @ViewChild('rad') radTypeS: ElementRef;
+    private _currentTask: Task;
 
     @ViewChild('stepper') stepper: MatStepper;
     constructor(
@@ -133,6 +133,10 @@ export class FormTaskComponent implements OnInit, OnChanges {
 
     get principal(): boolean {
         return this._principal;
+    }
+
+    get currentTask(): Task {
+        return this._currentTask;
     }
 
     setMode(signe: string) {
@@ -225,6 +229,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
         this._form.patchValue(task);
         this.roomsC();
         this.filesNames(task.id);
+        this._currentTask = task;
     }
 
     removeP(num: number) {
@@ -321,7 +326,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
           }
       } else {
         task.start_date = new Date();
-        task.status = 'Rédaction';
+        task.status = {phaseName: 'Redaction'};
         this._tasksService.create(task).subscribe((_) => console.log(task), (_) => console.log(_), () => {
             this._file = true;
             this._step++;

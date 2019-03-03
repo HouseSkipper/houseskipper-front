@@ -1,28 +1,55 @@
 <mat-accordion class="example-headers-align justify-content" >
-  <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
-    <mat-step  [editable]=false>
-      <ng-template  matStepLabel>Rédaction</ng-template>
-    </mat-step>
-    <mat-step [editable]=false>
-      <ng-template matStepLabel>Validation</ng-template>
-    </mat-step>
-    <mat-step [editable]=fasle>
-      <ng-template matStepLabel>Soumission</ng-template>
-    </mat-step>
-    <mat-step [editable]=false>
-      <ng-template matStepLabel>Evaluationt</ng-template>
-    </mat-step>
-    <mat-step [editable]="false">
-      <ng-template matStepLabel>Décision</ng-template>
-    </mat-step>
-    <mat-step [editable]=false>
-      <ng-template matStepLabel>Finalisation</ng-template>
-    </mat-step>
-    <mat-step [editable]="false">
-      <ng-template matStepLabel>Exploitation</ng-template>
-    </mat-step>
-  </mat-horizontal-stepper>
+  <div *ngIf="addMode">
+    <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
+      <mat-step  [editable]=false>
+        <ng-template  matStepLabel>Rédaction</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Validation</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Soumission</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Evaluationt</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Décision</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Finalisation</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Exploitation</ng-template>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+  <div *ngIf="!addMode">
+    <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
+      <mat-step  [editable]="currentTask.status === Redaction">
+        <ng-template  matStepLabel>Rédaction</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Validation">
+        <ng-template matStepLabel>Validation</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Soumission">
+        <ng-template matStepLabel>Soumission</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Evaluationt">
+        <ng-template matStepLabel>Evaluationt</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Decision">
+        <ng-template matStepLabel>Décision</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Finalisation">
+        <ng-template matStepLabel>Finalisation</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Exploitation">
+        <ng-template matStepLabel>Exploitation</ng-template>
+      </mat-step>
+    </mat-horizontal-stepper>
 
+  </div>
 
 
   <form novalidate [formGroup]="form">
@@ -149,7 +176,7 @@
       <mat-error id="errorMessage1" class="alert alert-danger">{{errorMsg}}</mat-error><br/>
 
       <mat-action-row>
-        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)">Modifier votre de demande</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="checked(1) !== 2">Modifier votre de demande</button>
         <button mat-button color="primary" (click)="nextStep()">Suivant</button>
       </mat-action-row>
     </mat-expansion-panel>
@@ -195,7 +222,7 @@
 
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="checked(2) === 0">Modifier votre de demande</button>
         <button mat-button color="primary" (click)="nextStep()">Suivant</button>
       </mat-action-row>
     </mat-expansion-panel>
@@ -252,7 +279,7 @@
 
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="checked(1) !== 2 || checked(2) === 0">Modifier votre de demande</button>
         <button mat-button color="primary" type="submit" *ngIf="addMode" (click)="onSaveFile()" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Valider</button>
       </mat-action-row>
     </mat-expansion-panel>
