@@ -21,19 +21,19 @@
                 </ng-container>
                 <ng-container matColumnDef="Etat" mat-sort-header>
                   <mat-header-cell *matHeaderCellDef> Etat </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element.currentPhase}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Nom" mat-sort-header>
                   <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.nom}} </mat-cell>
                 </ng-container>
                 <ng-container  matColumnDef="Habitation concernée">
-                  <mat-header-cell *matHeaderCellDef> Habitation concernée </mat-header-cell>
-                  <mat-cell  *matCellDef="let element "> {{element.partieExacte}} </mat-cell>
+                  <mat-header-cell *matHeaderCellDef> Habitation </mat-header-cell>
+                  <mat-cell  *matCellDef="let element "> {{element.residence}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Type travaux">
                   <mat-header-cell *matHeaderCellDef> Type travaux </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> <span *ngIf="element.type === ''">Secondaire</span><span *ngIf="element.type !== ''">Principal</span>  </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Résultat attendu">
                   <mat-header-cell *matHeaderCellDef> Résultat attendu </mat-header-cell>
@@ -65,6 +65,7 @@
                        type="button">
                       <mat-icon class="icon">cloud_download</mat-icon>
                     </a>
+                    
                   </mat-cell>
                 </ng-container>
 

@@ -1,25 +1,57 @@
 <mat-accordion class="example-headers-align justify-content" >
-  <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
-    <mat-step  [editable]="form.get('nom').invalid || form.get('residence').invalid
-                || form.get('partie').invalid">
-      <ng-template  matStepLabel>Spécification du nom de la demande et la partie concérnée</ng-template>
-    </mat-step>
-    <mat-step [editable]="form.get('partieExacte').invalid">
-      <ng-template matStepLabel>Lieu Concérnée</ng-template>
-    </mat-step>
-    <mat-step [editable]="form.get('type').invalid || form.get('connaissance').invalid">
-      <ng-template matStepLabel>Type de travaux et connaissance</ng-template>
-    </mat-step>
-    <mat-step [editable]="form.get('resultat').invalid || form.get('description').invalid">
-      <ng-template matStepLabel>Description du projet</ng-template>
-    </mat-step>
-    <mat-step [editable]="false">
-      <ng-template matStepLabel>Ajout de(s) fichier(s)</ng-template>
-    </mat-step>
-  </mat-horizontal-stepper>
+  <div *ngIf="addMode">
+    <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
+      <mat-step  [editable]=false>
+        <ng-template  matStepLabel>Rédaction</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Validation</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Soumission</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Evaluationt</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Décision</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Finalisation</ng-template>
+      </mat-step>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel>Exploitation</ng-template>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+  <div *ngIf="!addMode">
+    <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
+      <mat-step  [editable]="currentTask.status === Redaction">
+        <ng-template  matStepLabel>Rédaction</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Validation">
+        <ng-template matStepLabel>Validation</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Soumission">
+        <ng-template matStepLabel>Soumission</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Evaluationt">
+        <ng-template matStepLabel>Evaluationt</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Decision">
+        <ng-template matStepLabel>Décision</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Finalisation">
+        <ng-template matStepLabel>Finalisation</ng-template>
+      </mat-step>
+      <mat-step [editable]="currentTask.status === Exploitation">
+        <ng-template matStepLabel>Exploitation</ng-template>
+      </mat-step>
+    </mat-horizontal-stepper>
+
+  </div>
 
 
-  <div *ngIf="!file" [@slideUpDown]>
   <form novalidate [formGroup]="form">
     <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"  hideToggle>
       <mat-expansion-panel-header class="right-aligned-header">
@@ -27,18 +59,21 @@
           <mat-icon>location_city</mat-icon>
         </mat-panel-title>
         <mat-panel-description>
-          Spécification du nom de la demande et la partie concérnée
+          Caractéristiques du projet
+          <mat-icon svgIcon="icon-checked" *ngIf="checked(1) === 2"></mat-icon>
+          <mat-icon svgIcon="icon-error" *ngIf="checked(1) !== 2"></mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div class="centerElement">
         <mat-form-field class="margin importantField" appearance="outline">
           <mat-label>Nom de la demande</mat-label>
-            <input matInput placeholder="Nom de la demande" required [(ngModel)]="blogTask.taskName" formControlName="nom" name="nom"/>
+            <input matInput placeholder="Nom de la demande" *ngIf="addMode" required [(ngModel)]="blogTask.taskName" formControlName="nom" name="nom"/>
+          <input matInput placeholder="Nom de la demande" *ngIf="!addMode" required [(ngModel)]="blogTask.taskName" formControlName="nom" name="nom" readonly/>
         </mat-form-field>
       </div>
       <div class="centerElement">
         <mat-form-field class="margin importantField" appearance="outline">
-          <mat-label>Résidence concérnée</mat-label>
+          <mat-label>Habitation concérnée</mat-label>
           <mat-select placeholder="Résidence Concérnée" formControlName="residence" [(ngModel)]="blogTask.residence" required name="residence">
             <mat-option *ngFor="let house of houses" [value]="house.houseName">
               {{ house.houseName }}
@@ -49,56 +84,145 @@
       <div class="centerElement">
         <mat-form-field class="margin importantField" appearance="outline">
           <mat-label>Partie Concérnée</mat-label>
-          <mat-select placeholder="Partie Concérnée" formControlName="partie" [(ngModel)]="blogTask.partie" required name="partie">
-            <mat-option value="Bâtiment">Bâtiment</mat-option>
+          <mat-select placeholder="Partie Concérnée" formControlName="partie" (click)="roomsC()" [(ngModel)]="blogTask.partie" required name="partie">
+            <mat-option value="Construction">Construction</mat-option>
             <mat-option value="Extérieur">Extérieur</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-
-      <mat-action-row>
-        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
-        <button mat-button color="primary" (click)="nextStep()">Suivant</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-
-
-    <mat-expansion-panel [expanded]="step === 1" (click)="roomsC()" (opened)="setStep(1)"  hideToggle>
-      <mat-expansion-panel-header class="right-aligned-header">
-        <mat-panel-title>
-          <mat-icon>add_location</mat-icon>
-        </mat-panel-title>
-        <mat-panel-description>
-          Lieu concerné
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="centerElement" *ngIf="blogTask.partie === ''">
-        <mat-error class="alert alert-danger">Veuillez sélectionner une Partie pour les travaux.</mat-error>
+      <div class="centerElement">
+        <p>
+          Quel Type de Travaux ?
+        </p>
+        <mat-radio-group>
+          <mat-radio-button (click)="setMode('p')" style="margin: 5px;" [checked]="principal" value="1">Principal</mat-radio-button>
+          <mat-radio-button (click)="setMode('s')" style="margin: 5px;" [checked]="!principal" value="2">Secondaire</mat-radio-button>
+        </mat-radio-group>
       </div>
-      <div class="centerElement" *ngIf="blogTask.partie === 'Bâtiment'">
+      <div class="centerElement" *ngIf="principal">
+      <mat-form-field class="margin importantField" appearance="outline">
+        <mat-label>Type de travaux Principal</mat-label>
+        <mat-select placeholder="Type de travaux" formControlName="type" (click)="roomsC()" [(ngModel)]="blogTask.type" required name="type">
+          <mat-option value="Gros œuvre">Gros œuvre</mat-option>
+          <mat-option value="Seconds œuvre">Seconds œuvre</mat-option>
+          <mat-option value="Aménagement paysager">Aménagement paysager</mat-option>
+          <mat-option value="Petits travaux de jardinage">Petits travaux</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+      <div  class="centerElement" *ngIf="!principal">
+      <div formArrayName="typeSecondaires">
+        <div *ngFor="let local of form.get('typeSecondaires')['controls']; let i=index">
+          <div [formGroupName]="i">
+        <mat-form-field class="margin importantField" appearance="outline">
+          <mat-label>Type de travaux Principal</mat-label>
+          <mat-select placeholder="Type de travaux" formControlName="typeS" required>
+            <mat-option value="Gros œuvre">Gros œuvre</mat-option>
+            <mat-option value="Seconds œuvre">Seconds œuvre</mat-option>
+            <mat-option value="Aménagement paysager">Aménagement paysager</mat-option>
+            <mat-option value="Petits travaux de jardinage">Petits travaux</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-mini-fab color="warn"
+                *ngIf="form.get('typeSecondaires')['controls'].length > 1" (click)="removeT(i)"><mat-icon>delete forever</mat-icon></button>
+      </div>
+          </div>
+        </div>
+        <mat-card-actions class="centerElement"><button mat-raised-button (click)="addTypeSec('')"><mat-icon>add box</mat-icon></button></mat-card-actions>
+
+      </div>
+
+      <div class="centerElement" *ngIf="form.get('residence').value === '' || form.get('partie').value === ''" >
+        <mat-error class="alert alert-danger">Veuillez sélectionner une Habitation et une Partie pour les travaux.</mat-error>
+      </div>
+      <div formArrayName="partiesExacte" ngDefaultControl>
+      <div *ngFor="let local of form.get('partiesExacte')['controls']; let i=index">
+        <div [formGroupName]="i">
+      <div class="centerElement" *ngIf="form.get('partie').value === 'Construction' && form.get('residence').value !== ''">
+        <div>
         <mat-form-field class="margin importantField" appearance="outline">
           <mat-label>Pièce</mat-label>
-            <mat-select matInput placeholder="Pièce concérnée" required [(ngModel)]="blogTask.partieExacte" formControlName="partieExacte">
-              <mat-option *ngFor="let room of rooms" [value]="room.roomName">
-                {{ room.roomName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+          <mat-select matInput placeholder="Pièces"  required  formControlName="local">
+            <mat-option *ngFor="let room of rooms" [value]="room.roomName">
+              {{ room.roomName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+          <button mat-mini-fab color="warn"
+                  *ngIf="form.get('partiesExacte')['controls'].length > 1" (click)="removeP(i)"><mat-icon>delete forever</mat-icon></button>
+
+        </div>
       </div>
-      <div class="centerElement" *ngIf="blogTask.partie === 'Extérieur'">
+      <div class="centerElement" *ngIf="form.get('partie').value === 'Extérieur' && form.get('residence').value !== ''" >
+        <div>
         <mat-form-field class="margin importantField" appearance="outline">
-          <mat-label>Lieu</mat-label>
-          <mat-select placeholder="Partie Concérnée" formControlName="partieExacte" [(ngModel)]="blogTask.partieExacte" required name="partieExacte">
+          <mat-label>Parties</mat-label>
+          <mat-select placeholder="Parties" formControlName="local" required name="local">
             <mat-option value="Avant">Avant</mat-option>
             <mat-option value="Derrière">Derrière</mat-option>
             <mat-option value="Droite">Droite</mat-option>
             <mat-option value="Gauche">Gauche</mat-option>
           </mat-select>
         </mat-form-field>
+        <button mat-mini-fab color="warn"
+                *ngIf="form.get('partiesExacte')['controls'].length > 1" (click)="removeP(i)"><mat-icon>delete forever</mat-icon></button>
+        </div>
       </div>
+        </div>
+      </div>
+      </div>
+      <mat-card-actions class="centerElement"><button mat-raised-button *ngIf="blogTask.partie !== ''" (click)="addPiece('')"><mat-icon>add box</mat-icon></button></mat-card-actions>
+      <mat-error id="errorMessage1" class="alert alert-danger">{{errorMsg}}</mat-error><br/>
+
+      <mat-action-row>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="checked(1) !== 2">Modifier votre de demande</button>
+        <button mat-button color="primary" (click)="nextStep()">Suivant</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel [expanded]="step === 1"  (opened)="setStep(1)"  hideToggle>
+      <mat-expansion-panel-header class="right-aligned-header">
+        <mat-panel-title>
+          <mat-icon>add_location</mat-icon>
+        </mat-panel-title>
+        <mat-panel-description>
+          Description des attentes
+          <mat-icon svgIcon="icon-checked" *ngIf="checked(2) === 1"></mat-icon>
+          <mat-icon svgIcon="icon-error" *ngIf="checked(2) === 0"></mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="centerElement">
+        <mat-form-field class="margin importantField" appearance="outline">
+          <mat-label>Connaissance du projet</mat-label>
+          <mat-select placeholder="Connaissance du projet" formControlName="connaissance" [(ngModel)]="blogTask.connaissance" required name="connaissance">
+            <mat-option value="J’ai une idée précise">J’ai une idée précise</mat-option>
+            <mat-option value="J’ai une idée qui doit être complétée">J’ai une idée qui doit être complétée</mat-option>
+            <mat-option value="J’ai une vague idée et j’attends des propositions">J’ai une vague idée et j’attends des propositions</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="centerElement">
+        <mat-form-field class="margin importantField" appearance="outline">
+          <mat-label>Résultat attendu</mat-label>
+          <mat-select placeholder="Résultat attendu" formControlName="resultat" [(ngModel)]="blogTask.resultat" required name="resultat">
+            <mat-option value="Réception de devis">Réception de devis</mat-option>
+            <mat-option value="Estimation budgétaire">Estimation budgétaire</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <mat-form-field class="textaeraPerso" appearance="outline" style="width: 100%;">
+        <mat-label>Description du projet</mat-label>
+        <textarea matInput placeholder="Description du projet" [(ngModel)]="blogTask.comment" formControlName="description"
+                  name="description"></textarea>
+      </mat-form-field>
+
+      <mat-error id="errorMessage2" class="alert alert-danger">{{errorMsg}}</mat-error><br/>
+
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="checked(2) === 0">Modifier votre de demande</button>
         <button mat-button color="primary" (click)="nextStep()">Suivant</button>
       </mat-action-row>
     </mat-expansion-panel>
@@ -110,36 +234,18 @@
           <mat-icon>school</mat-icon>
         </mat-panel-title>
         <mat-panel-description>
-          Type de travaux et connaissance
+          Commentaires
+          <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(3) === 2"></mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div class="centerElement">
-        <mat-form-field class="margin importantField" appearance="outline">
-          <mat-label>Type de travaux</mat-label>
-          <mat-select placeholder="Type de travaux" formControlName="type" [(ngModel)]="blogTask.type" required name="type">
-            <mat-option value="Gros œuvre">Gros œuvre</mat-option>
-            <mat-option value="Seconds œuvre">Seconds œuvre</mat-option>
-            <mat-option value="Aménagement paysager">Aménagement paysager</mat-option>
-            <mat-option value="Petits travaux de bricolage">Petits travaux de bricolage</mat-option>
-            <mat-option value="Petits travaux de jardinage">Petits travaux de jardinage</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="centerElement">
-        <mat-form-field class="margin importantField" appearance="outline">
-          <mat-label>Connaissance du projet</mat-label>
-          <mat-select placeholder="Connaissance du projet" formControlName="connaissance" [(ngModel)]="blogTask.connaissance" required name="connaissance">
-            <mat-option value="J’ai une idée précise">J’ai une idée précise</mat-option>
-            <mat-option value="J’ai une idée qui doit être complétée">J’ai une idée qui doit être complétée</mat-option>
-            <mat-option value="J’ai une vague idée et j’attends des propositions">J’ai une vague idée et j’attends des propositions</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+
+      <mat-error id="errorMessage" class="alert alert-danger">En construction ..</mat-error><br/>
 
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
-        <button mat-button color="primary" (click)="nextStep()">Suivant</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" >Modifier votre de demande</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="nextStep()" >Suivant</button>
+        <button mat-button color="primary" *ngIf="addMode" (click)="submit(form.value)">Suivant</button>
       </mat-action-row>
     </mat-expansion-panel>
 
@@ -150,55 +256,33 @@
           <mat-icon>filter_none</mat-icon>
         </mat-panel-title>
         <mat-panel-description>
-          Description du projet
+          Documents associés
+          <mat-icon svgIcon="icon-checked" *ngIf="checked(4) === 1"></mat-icon>
+          <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(4) === 0"></mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div class="centerElement">
-        <mat-form-field class="margin importantField" appearance="outline">
-          <mat-label>Résultat attendu</mat-label>
-          <mat-select placeholder="Résultat attendu" formControlName="resultat" [(ngModel)]="blogTask.resultat" required name="resultat">
-            <mat-option value="Réception de devis">Réception de devis</mat-option>
-            <mat-option value="Estimation budgétaire">Estimation budgétaire</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
 
-            <mat-form-field class="textaeraPerso" appearance="outline" style="width: 100%;">
-              <mat-label>Description du projet</mat-label>
-              <textarea matInput placeholder="Description du projet" [(ngModel)]="blogTask.comment" formControlName="description"
-                        name="description"></textarea>
-            </mat-form-field>
+      <input id="fileToUpload" type="file" (change)="onSelectFile($event)" #fileInput style="display:none;" ng2FileSelect [uploader]="uploader" >
+      <mat-form-field class="margin">
+        <input matInput formControlName="filename" placeholder="Ajoutez une image ou un document à la fois."  readonly>
+        <br/>
+      </mat-form-field>
 
-      <mat-error id="errorMessage" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error><br/>
+      <button mat-button (click)="selectFile()">Selectionner</button>
+      <br/>
+      <h2>Documents Ajoutés : </h2>
+      <mat-list>
+        <mat-list-item *ngFor="let file of files">
+          <h3 matLine> - {{file}} </h3>
+        </mat-list-item>
+      </mat-list>
+
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-        <button mat-button color="primary" *ngIf="addMode" (click)="submit(form.value)" [disabled]="form.invalid">Valider votre de demande</button>
-        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="form.invalid">Modifier votre de demande</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="checked(1) !== 2 || checked(2) === 0">Modifier votre de demande</button>
+        <button mat-button color="primary" type="submit" *ngIf="addMode" (click)="onSaveFile()" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Valider</button>
       </mat-action-row>
     </mat-expansion-panel>
   </form>
-  </div>
-
-  <mat-expansion-panel *ngIf="file" hideToggle>
-    <mat-expansion-panel-header class="right-aligned-header">
-      <mat-panel-title>
-        <mat-icon>attachment</mat-icon>
-      </mat-panel-title>
-      <mat-panel-description>
-        Ajout de(s) fichier(s)
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-      <mat-form-field class="margin">
-        <label class="mat-body" name="ligne2" style="width: 100%;">Ajoutez une image ou document à la fois.</label>
-          <br/>
-              <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
-              <br/>
-
-      </mat-form-field>
-
-    <mat-action-row>
-      <button mat-button color="primary" type="submit" (click)="onSaveFile()" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Sauvegarder et ajouter le(s) fichier(s)</button>
-    </mat-action-row>
-  </mat-expansion-panel>
 
 </mat-accordion>
