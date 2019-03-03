@@ -14,6 +14,7 @@ import {TasksService} from '../services/tasks.service';
 import {HttpHeaders} from '@angular/common/http';
 import {HouseService} from '../services/house.service';
 import {MatStepper} from '@angular/material';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-form-task',
@@ -91,8 +92,8 @@ export class FormTaskComponent implements OnInit, OnChanges {
         // build all backend urls
         Object.keys(environment.backend.endpoints.tasks).forEach(k => this._backendURL[ k ] =
             `${baseUrl}${environment.backend.endpoints.tasks[ k ]}`);
-        this.dataService.getAll().subscribe((_) => this._rooms = _);
-        this._houseService.fecthAllHouse().subscribe((_) => this._data = _);
+
+            this._houseService.fecthAllHouse().subscribe((_) => this._data = _);
     }
 
     private _buildForm(): FormGroup {
@@ -151,6 +152,10 @@ export class FormTaskComponent implements OnInit, OnChanges {
       };
   }
 
+  roomsC() {
+        this.dataService.getRoomsByHouse(this.blogTask.residence).subscribe((_) => this._rooms = _);
+    }
+
     get rooms(): Room[] {
         return this._rooms;
     }
@@ -192,6 +197,9 @@ export class FormTaskComponent implements OnInit, OnChanges {
     nextStep() {
           this._step++;
         this.stepper.selectedIndex = this._step;
+        if (this._step === 1) {
+            this.roomsC();
+        }
     }
 
     prevStep() {

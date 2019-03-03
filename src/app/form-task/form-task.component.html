@@ -63,7 +63,7 @@
     </mat-expansion-panel>
 
 
-    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)"  hideToggle>
+    <mat-expansion-panel [expanded]="step === 1" (click)="roomsC()" (opened)="setStep(1)"  hideToggle>
       <mat-expansion-panel-header class="right-aligned-header">
         <mat-panel-title>
           <mat-icon>add_location</mat-icon>

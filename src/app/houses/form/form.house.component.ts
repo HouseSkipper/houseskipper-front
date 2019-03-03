@@ -351,7 +351,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
         }
     }
 
-    checked(num: number, i: number | undefined): number {
+    checked(num: number| undefined): number {
         // console.log(this._form.get('surfaceToiture').value);
         switch (num) {
             case 1:
@@ -359,7 +359,8 @@ export class FormHouseComponent implements OnInit, OnChanges {
                     || this._form.get('houseName').invalid || this._form.get('standardType').invalid) {
                     return 0;
                 } else if (this._form.get('constructionYear').value === '0000' || this._form.get('revetementExterieur').value === ''
-                    || this._form.get('revetementToiture').value === '' || this._form.get('surfaceToiture').value === 0 || this._form.get('surfaceToiture').value === '') {
+                    || this._form.get('revetementToiture').value === '' || this._form.get('surfaceToiture').value === 0
+                    || this._form.get('surfaceToiture').value === '') {
                     return 1;
                 } else {
                     return 2;
@@ -383,22 +384,6 @@ export class FormHouseComponent implements OnInit, OnChanges {
                     return 1;
                 } else if (this._form.get('gaz').value === '0' && this._form.get('electricite').value === '0'
                     && this._form.get('panneauxPhoto').value === '0' && this._form.get('eolienne').value === '0') {
-                    return 1;
-                } else {
-                    return 2;
-                }
-            case 4:
-                const room = this._form.get('rooms')['controls'][i];
-                // console.log(parseInt(room.get('nbPorteFenetre').value, 10) + parseInt(room.get('nbFenetre').value, 10));
-                if (room.invalid) {
-                    return 0;
-                } else if (room.get('typeChauffage').value === 'radiateur' && room.get('nbRadiateur').value === '0') {
-                    return 1;
-                } else if (room.get('volet').value === '1' && room.get('nbVolet').value === '0') {
-                    return 1;
-                } else if (room.get('volet').value === '1'
-                    && parseInt(room.get('nbVolet').value, 10) >
-                    (parseInt(room.get('nbPorteFenetre').value, 10) + parseInt(room.get('nbFenetre').value, 10))) {
                     return 1;
                 } else {
                     return 2;
@@ -430,6 +415,24 @@ export class FormHouseComponent implements OnInit, OnChanges {
                 }
             default:
                 return 0;
+        }
+    }
+
+    checkRoom(i: number | undefined): number{
+        const room = this._form.get('rooms')['controls'][i];
+        // console.log(parseInt(room.get('nbPorteFenetre').value, 10) + parseInt(room.get('nbFenetre').value, 10));
+        if (room.invalid) {
+            return 0;
+        } else if (room.get('typeChauffage').value === 'radiateur' && room.get('nbRadiateur').value === '0') {
+            return 1;
+        } else if (room.get('volet').value === '1' && room.get('nbVolet').value === '0') {
+            return 1;
+        } else if (room.get('volet').value === '1'
+            && parseInt(room.get('nbVolet').value, 10) >
+            (parseInt(room.get('nbPorteFenetre').value, 10) + parseInt(room.get('nbFenetre').value, 10))) {
+            return 1;
+        } else {
+            return 2;
         }
     }
 

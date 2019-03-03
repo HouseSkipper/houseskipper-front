@@ -102,7 +102,6 @@ import { TasksMetricComponent } from './metrics/tasks-metric/tasks-metric.compon
         MatTooltipModule,
         MatPaginatorModule,
         MatStepperModule,
-        MatSortModule,
         MatTableModule,
         APP_ROUTES
     ],
