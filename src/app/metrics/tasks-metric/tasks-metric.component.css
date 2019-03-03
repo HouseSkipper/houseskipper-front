@@ -30,3 +30,17 @@
     margin-top:10px;
     margin-bottom: 10px;
 }
+
+#phases {
+    width:100%;
+    display: flex;
+}
+
+#metrics {
+    padding:20px;
+}
+
+.phaseNumber {
+    justify-self: flex-end;
+    margin-left: auto;
+}

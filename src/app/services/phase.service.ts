@@ -30,7 +30,7 @@ export class PhaseService {
     }
 
 
-    getAll(): Observable<Phase[]> {
+    getAll(): Observable<any> {
         return this._http.get<Phase[]>(this._backendURL.phases)
             .pipe(
                 filter(_ => !!_),

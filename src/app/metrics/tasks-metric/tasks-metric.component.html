@@ -1,10 +1,12 @@
 <div id="tasks-metrics">
     <h2 class="mat-h2">Mes travaux</h2>
     <span class="mat-body-1" id="number-tasks">{{totalNumber}}</span>
-    <span *ngFor="let h of phasesNb | keyvalue">
-        <span class="phaseTitle">{{h.key}}</span>
-        <span class="phaseNumber">{{h.value}}</span>
-    </span>
+    <div id="metrics">
+        <span id="phases" *ngFor="let h of _phases">
+            <span class="phaseTitle mat-body-1">{{h.phaseName}}</span>
+            <span class="phaseNumber mat-body-1">{{getNbPhase(h.phaseName)}}</span>
+        </span>
+    </div>
     <span id="buttonSpan">
         <button mat-flat-button [class.active]="activeMenu == 'Mois'" (click)="setActive('Mois')">Mois</button>
         <button mat-flat-button [class.active]="activeMenu == 'Annee'" (click)="setActive('Annee')">Année</button>

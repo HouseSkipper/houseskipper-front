@@ -19,6 +19,7 @@ export class TasksMetricComponent implements OnInit {
   private currentPhases: Historic[];
   private _phasesNb: Map<string, number>;
   private _activeMenu: string;
+  private _phases: Phase[];
 
 
   constructor(private _authService: AuthenticationService, private _phaseService: PhaseService, private _historicService: HistoricService) {
@@ -27,15 +28,27 @@ export class TasksMetricComponent implements OnInit {
           this.getAllCurrentPhases();
           this.getNbPhases();
       });
+      if (!!!this.currentPhases) {
+          this.getPhases().subscribe(_ => {
+              this._phases = _;
+              console.log(this._phases);
+              console.log('pelo');
+              for (const p of this._phases) {
+                  this._phasesNb.set(p.phaseName, 0);
+              }
+          });
+      }
+
   }
 
   ngOnInit() {
     this._activeMenu = 'Mois';
     this._totalNumber = 0;
     this.currentPhases = [];
+    this._phasesNb = new Map();
   }
 
-  getPhases(): Observable<Phase[]> {
+  getPhases(): Observable<any> {
      return this._phaseService.getAll();
   }
 
@@ -43,7 +56,7 @@ export class TasksMetricComponent implements OnInit {
       this._historicService.getAllFromUser(this.currentUser).subscribe(_ => {
           this.currentPhases = _;
           this._totalNumber = this.currentPhases.length;
-          console.log('mdr');
+          console.log(this.currentPhases);
       });
   }
 
@@ -62,16 +75,22 @@ export class TasksMetricComponent implements OnInit {
     }
 
   getNbPhases() {
-      if (!!this.currentPhases) {
+     if (!!this.currentPhases) {
+         console.log(this.currentPhases);
           for (const h of this.currentPhases) {
               const histo = h as Historic;
-              if (this._phasesNb.has(histo.subphase.sPhaseName)) {
-                  this._phasesNb.set(histo.subphase.phase.phaseName, this._phasesNb.get(histo.subphase.phase.phaseName) + 1);
+              if (this._phasesNb.has(histo.subphase.sphaseName)) {
+                  //this._phasesNb.set(histo.subphase.phase.phaseName, this._phasesNb.get(histo.subphase.phase.phaseName) + 1);
               } else {
-                  this._phasesNb.set(histo.subphase.phase.phaseName, 1);
+                  //this._phasesNb.set(histo.subphase.phase.phaseName, 1);
               }
           }
       }
+  }
+
+
+  getNbPhase(phase: string) {
+      return this._phasesNb.get(phase);
   }
 
   setActive(button: string) {
@@ -100,5 +119,10 @@ export class TasksMetricComponent implements OnInit {
 
     get totalNumber(): number {
         return this._totalNumber;
+    }
+
+
+    get phases(): Phase[] {
+        return this._phases;
     }
 }
