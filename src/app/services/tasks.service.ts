@@ -80,6 +80,7 @@ export class TasksService {
     }
 
     sendComment(id: string, comment: Commentaire): Observable<any> {
+        console.log(comment);
         return this._http.post<Commentaire>(this._backendURL.comment.replace(':id', id), comment, this._options());
     }
 

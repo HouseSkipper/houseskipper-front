@@ -71,6 +71,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
         comment: ''
     };
     private _files: string[];
+    public now = new Date();
     @ViewChild('fileInput')
     fileInput: ElementRef;
 
@@ -117,7 +118,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
             ])),
             partiesExacte: new FormArray([this.getPiece('')]),
             typeSecondaires: new FormArray([this.getTypeSec('')]),
-            commentaires: new FormArray([this.getCommentaire('', '', '')]),
+            commentaires: new FormArray([this.getCommentaire(this.now, '', '', '')]),
             type: new FormControl('', Validators.compose([
                 Validators.required, Validators.minLength(3)
             ])),
@@ -165,10 +166,9 @@ export class FormTaskComponent implements OnInit, OnChanges {
         });
     }
 
-    private getCommentaire(auteur: string, etat: string, commentaire: string): FormGroup {
-        const now = new Date();
+    private getCommentaire(date: Date, auteur: string, etat: string, commentaire: string): FormGroup {
         return new FormGroup({
-            datec:  new FormControl(this._datePipe.transform(now, 'yyyy-MM-dd'), Validators.compose([
+            datec:  new FormControl(this._datePipe.transform(date, 'yyyy-MM-dd'), Validators.compose([
                 Validators.required, Validators.minLength(3)
             ])),
             auteur:  new FormControl(auteur, Validators.compose([
@@ -183,9 +183,12 @@ export class FormTaskComponent implements OnInit, OnChanges {
         });
     }
 
-    private addCommentaire(auteur: string, etat: string, commentaire: string) {
+    private addCommentaire(date: Date, auteur: string, etat: string, commentaire: string) {
+        if (this._datePipe.transform(date, 'yyyy-MM-dd') === null) {
+            date = this.now;
+        }
         const control = <FormArray>this._form.get('commentaires');
-        control.push(this.getCommentaire(auteur, etat, commentaire));
+        control.push(this.getCommentaire(date, auteur, etat, commentaire));
     }
 
     private addTypeSec(nom: string) {
@@ -210,10 +213,12 @@ export class FormTaskComponent implements OnInit, OnChanges {
         return this._files;
     }
 
-    addComment(i) {
-        console.log(i);
-        // commentaire: Commentaire {date: }
-        // this._tasksService.sendComment(this.blogTask.taskName, commentaire).subscribe(null, null, () => this.addCommentaire('', '', ''));
+    addComment(auteur, etat, com) {
+        let commentaire: Commentaire;
+        commentaire = {datec: this.now, auteur: auteur, etat: etat, commentaire: com, phasec: this._currentTask.currentPhase};
+         this._tasksService.sendComment(this.blogTask.taskName, commentaire)
+             .subscribe(null, null, null);
+        this.addCommentaire(this.now, '', '', '');
     }
 
     onSelectFile(event) {
@@ -228,9 +233,10 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(task) {
-        console.log(task);
         const taille = task.partiesExacte.length;
         const pieces = task.partiesExacte;
+        const comments = task.commentaires;
+        const tailleC = task.commentaires.length;
         this._editMode = true;
         this._addMode = false;
         this._taskid = task.id;
@@ -239,19 +245,22 @@ export class FormTaskComponent implements OnInit, OnChanges {
             this.removeP(i);
         }
         for (let i = 0; i < taille; i++) {
-            console.log(i);
             this.addPiece(pieces[i].local);
+        }
+        for (let i = 0; i < tailleC; i++) {
+            this.removeC(i);
+        }
+        for (let i = 0; i < tailleC; i++) {
+            this.addCommentaire(comments[i].datec, comments[i].auteur, comments[i].etat, comments[i].commentaire);
         }
         if (task.typeSecondaires !== undefined) {
             const tailleT = task.typeSecondaires.length;
-            console.log(tailleT);
             if (tailleT !== 0) {
                 const typeSec = task.typeSecondaires;
                 for (let i = 0; i < tailleT; i++) {
                     this.removeT(i);
                 }
                 for (let i = 0; i < tailleT; i++) {
-                    console.log(i);
                     this.addTypeSec(typeSec[i].typeS);
                 }
                 this.setMode('s');
@@ -263,10 +272,16 @@ export class FormTaskComponent implements OnInit, OnChanges {
         this.roomsC();
         this.filesNames(task.id);
         this._currentTask = task;
+         this.addCommentaire(this.now, '', '', '');
     }
 
     removeP(num: number) {
         const control = <FormArray>this._form.controls['partiesExacte'];
+        control.removeAt(num);
+    }
+
+    removeC(num: number) {
+        const control = <FormArray>this._form.controls['commentaires'];
         control.removeAt(num);
     }
 
@@ -287,7 +302,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
 
       this.uploader.onAfterAddingFile = (file) => { file.withCredentials = true; };
       this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-          console.log('ImageUpload:uploaded:', item, status, response);
+          // console.log('ImageUpload:uploaded:', item, status, response);
           console.log('File uploaded successfully');
       };
   }
@@ -329,7 +344,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     setStep(index: number) {
-        console.log('set ' + index);
         this._step = index;
         // this.stepper.selectedIndex = this._step;
     }
@@ -350,6 +364,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     submit(task: Task) {
+        this.removeP(0);
       if (task.nom === '' || task.partie === '' || this._form.get('partiesExacte')['controls'][0] === ''
           || task.resultat === '' ||
           task.description === '' || task.connaissance === '' ) {
@@ -363,7 +378,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
             this._file = true;
             this._step++;
         });
-
+          this._currentTask = task;
           // this.stepper.selectedIndex = this._step + 1;
       }
     }
@@ -410,7 +425,14 @@ export class FormTaskComponent implements OnInit, OnChanges {
                 }
                 break;
             case 3:
-                return 2;
+                for (let i = 0; i < this._form.get('commentaires')['controls'].length; i++) {
+                    if (this._form.get('commentaires')['controls'][i].invalid) {
+                        return res = -1;
+                    } else {
+                        res = 2;
+                    }
+                }
+                return res;
                 break;
             case 4:
                 if (this._form.get('filename').invalid) {
@@ -423,11 +445,10 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     edit(task: Task) {
-        console.log(this._taskid);
         task.id = this._taskid;
+        // task.status.phaseName = this._currentTask.status.phaseName;
         if (this._principal) {
             const tailleT = task.typeSecondaires.length;
-            console.log(tailleT);
             if (tailleT !== 0) {
                 const typeSec = task.typeSecondaires;
                 for (let i = 0; i < tailleT; i++) {
@@ -437,11 +458,13 @@ export class FormTaskComponent implements OnInit, OnChanges {
         } else {
             task.type = '';
         }
+        this.toTaskList();
          this._tasksService.update(task).subscribe((_) => console.log(_), null, () => {
              this.onSaveFile();
              this._file = true;
          });
          this.onSaveFile();
+        // this.toTaskList();
         // this.stepper.selectedIndex = this._step + 1;
     }
 
@@ -452,10 +475,13 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     onSaveFile(): void {
-        console.log(this.blogTask.taskName);
         this.uploader.setOptions({url: this._backendURL.upload.replace(':id', this.blogTask.taskName), headers: this._options()});
         this.uploader.uploadAll();
-        this._router.navigate(['/users/tasks']);
+        this.nextStep();
+    }
+
+    toTaskList() {
+            this._router.navigate(['/users/tasks']);
     }
 
     private _options(headerList: Object = {}): any {
