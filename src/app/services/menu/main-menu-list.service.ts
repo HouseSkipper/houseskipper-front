@@ -66,7 +66,7 @@ export class MainMenuListService implements MenuListService {
                 children: [{
                     displayName: 'Ajouter',
                     iconName: 'add',
-                    route: '/users/tasks/addTask',
+                    route: '/users/tasks/addtask',
                 }]
             },
             {

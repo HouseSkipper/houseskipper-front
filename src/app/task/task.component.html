@@ -14,30 +14,30 @@
           </mat-card-title>
           <mat-card-content>
             <div class="example-container mat-elevation-z8 ">
-              <mat-table #table [dataSource]="dataSource" matSort>
-                <ng-container matColumnDef="start_date">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Date de début </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.start_date  | date: 'dd/MM/y'}} </mat-cell>
+              <mat-table #table [dataSource]="dataSource" (matSortChange)="sortData($event)" matSort>
+                <ng-container matColumnDef="Référence">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Référence </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.id }} </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="name">
-                  <mat-header-cell *matHeaderCellDef> Nom de la tâche </mat-header-cell>
+                <ng-container matColumnDef="Etat" mat-sort-header>
+                  <mat-header-cell *matHeaderCellDef> Etat </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.currentPhase}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Nom" mat-sort-header>
+                  <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.nom}} </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="room">
-                  <mat-header-cell *matHeaderCellDef> Lieu </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.partieExacte}} </mat-cell>
+                <ng-container  matColumnDef="Habitation concernée">
+                  <mat-header-cell *matHeaderCellDef> Habitation </mat-header-cell>
+                  <mat-cell  *matCellDef="let element "> {{element.residence}}</mat-cell>
                 </ng-container>
-                <ng-container  matColumnDef="description">
-                  <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-                  <mat-cell  *matCellDef="let element "> {{element.description}} </mat-cell>
+                <ng-container matColumnDef="Type travaux">
+                  <mat-header-cell *matHeaderCellDef> Type travaux </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> <span *ngIf="element.type === ''">Secondaire</span><span *ngIf="element.type !== ''">Principal</span>  </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="budget">
-                  <mat-header-cell *matHeaderCellDef> Partie concérnée </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.partie}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="status">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+                <ng-container matColumnDef="Résultat attendu">
+                  <mat-header-cell *matHeaderCellDef> Résultat attendu </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.resultat}} </mat-cell>
                 </ng-container>
                  <ng-container matColumnDef="file">
                   <mat-header-cell *matHeaderCellDef> Piece jointe </mat-header-cell>
@@ -65,6 +65,7 @@
                        type="button">
                       <mat-icon class="icon">cloud_download</mat-icon>
                     </a>
+                    
                   </mat-cell>
                 </ng-container>
 

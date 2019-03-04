@@ -12,14 +12,6 @@ import {Room} from '../interfaces/house';
 export class DataService {
 
     private readonly _backendURL: any;
-    budgets = [
-        {value: '< 200 euros', viewValue: '< 200 euros'},
-        {value: '300 euros', viewValue: '300 euros'},
-        {value: '400 euros', viewValue: '400 euros'},
-        {value: '500 euros', viewValue: '500 euros'},
-        {value: '800 euros', viewValue: '800 euros'},
-        {value: '> 800 euros', viewValue: '> 800 euros'},
-    ];
     constructor(private _http: HttpClient) {
 
         this._backendURL = {};
@@ -36,10 +28,6 @@ export class DataService {
 
     }
 
-    getBudgets() {
-        return this.budgets;
-    }
-
     getAll(): Observable<Room[]> {
         console.log(this._backendURL.rooms);
         return this._http.get<Room[]>(this._backendURL.rooms)
@@ -49,6 +37,12 @@ export class DataService {
             );
     }
 
-
+    getRoomsByHouse(HouseName: string): Observable<Room[]> {
+        return this._http.get<Room[]>(this._backendURL.roomsByHouse.replace('houseName', HouseName))
+            .pipe(
+                filter(_ => !!_),
+                defaultIfEmpty([])
+            );
+    }
 
 }
