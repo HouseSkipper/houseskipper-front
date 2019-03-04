@@ -5,6 +5,7 @@ import {flatMap, map} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {Skill, SubSkill} from '../interfaces/user';
 import {MatSort, MatStepper, MatTableDataSource, Sort} from '@angular/material';
+import {FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-sub-skill',
@@ -33,6 +34,7 @@ export class SubSkillComponent implements OnInit {
     constructor(private _skillService: SkillsService, private _route: ActivatedRoute) {
         this._skill = {} as Skill;
     }
+
 
     ngOnInit() {
         this._route.params
@@ -70,8 +72,8 @@ export class SubSkillComponent implements OnInit {
         return this._descLevels[num];
     }
 
-    save(element: SubSkill) {
-        this._skillService.updateSubSkill(element).subscribe();
+    save(subskill: SubSkill) {
+        this._skillService.updateSubSkill(subskill).subscribe();
     }
 
     public stepMatStepper(): number {

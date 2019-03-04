@@ -1,15 +1,35 @@
 <mat-accordion class="example-headers-align justify-content">
-  <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom">
-    <mat-step *ngFor="let level of getLevels(); let i = index" [editable]="false">
-      <ng-template  matStepLabel><span matTooltip="{{tooltip(i)}}">{{level}}</span></ng-template>
-    </mat-step>
-  </mat-horizontal-stepper>
-  <mat-expansion-panel (opened)="setStep(0)" *ngFor="let skillCategory of getSkill().skillCategories" hideToggle>
-    <mat-expansion-panel-header class="right-aligned-header">
-      <mat-panel-description>
-        {{skillCategory.name}}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-  </mat-expansion-panel>
+    <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom">
+      <mat-step *ngFor="let level of getLevels(); let i = index" [editable]="false">
+        <ng-template  matStepLabel><span matTooltip="{{tooltip(i)}}">{{level}}</span></ng-template>
+      </mat-step>
+    </mat-horizontal-stepper>
+    <mat-expansion-panel (opened)="setStep(0)" *ngFor="let skillCategory of getSkill().skillCategories" hideToggle>
+      <mat-expansion-panel-header class="right-aligned-header">
+        <mat-panel-title>
+        </mat-panel-title>
+        <mat-panel-description >
+          {{skillCategory.name}}
+          <mat-icon svgIcon="icon-checked"></mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="centered" *ngFor="let subSkill of skillCategory.subSkills" style="display: flex; justify-content: center;">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input matInput value="{{subSkill.type}}" disabled style="color: #000000; !important">
+        </mat-form-field>
+        <mat-form-field class="importantField" appearance="outline" style="margin-left: 10px">
+          <mat-label>Niveau estimé</mat-label>
+          <mat-select placeholder="Niveau estimé"  required>
+            <mat-option *ngFor="let level of getLevels();" value="{{subSkill.nb_works}}" (onSelectionChange)="save(subSkill)">{{level}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline" style="margin-left: 10px">
+          <input id="desc-{{subSkill.id}}" matInput placeholder="Description du niveau" disabled >
+        </mat-form-field>
+      </div>
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Précédent</button>
+        <button mat-button color="primary" (click)="nextStep()">Suivant</button>
+      </mat-action-row>
+    </mat-expansion-panel>
 </mat-accordion>

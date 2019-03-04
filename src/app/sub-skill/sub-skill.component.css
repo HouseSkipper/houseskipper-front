@@ -1,0 +1,71 @@
+mat-accordion {
+    padding: 10px;
+}
+
+form {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+mat-expansion-panel {
+    /* background: rgb(133,158,248);*/
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+
+mat-panel-description {
+    /* color: white; */
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.margin {
+    margin: 0 10px;
+}
+
+
+.centerElement{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.right-aligned-header > .mat-content {
+    justify-content: space-between;
+}
+
+.mat-content > mat-panel-title, .mat-content > mat-panel-description {
+    flex: 0 0 auto;
+}
+
+::ng-deep .importantField.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: red;
+}
+
+#stepper {
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    padding: 30px;
+    background-color: initial;
+    pointer-events: none !important;
+}
+
