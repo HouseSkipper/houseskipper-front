@@ -33,7 +33,33 @@ article
 {
 
 }
-.incident
+
+article table
+{
+  margin: 30px;
+}
+
+article th
+{
+  font-size: 150%;
+  text-align: left;
+}
+
+article button
+{
+  font-size: 120%;
+  text-align: center;
+
+  padding: 10px 15px;
+  margin: 10px;
+
+  background: none;
+
+  border: 2px solid red;
+  cursor: pointer;
+}
+
+.incident, .incident button
 {
   color: red;
 }
