@@ -14,6 +14,7 @@ export interface Task {
     connaissance: string;
     partie: string;
     historics: Historic[];
+    commentaires: Commentaire[];
 }
 export interface PartieExacte {
     local: string;
@@ -30,4 +31,12 @@ export interface Phase {
 export interface Historic {
     date: Date;
     currentSubPhase: string;
+}
+
+export interface Commentaire {
+    datec: Date;
+    commentaire: string;
+    auteur: string;
+    etat: string;
+    phase: string;
 }

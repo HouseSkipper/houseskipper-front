@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {defaultIfEmpty, filter, map} from 'rxjs/operators';
-import {Task} from '../interfaces/task';
+import {Commentaire, Task} from '../interfaces/task';
 import {AuthenticationService} from './authentication.service';
 
 @Injectable({
@@ -43,14 +43,12 @@ export class TasksService {
 
     nextPhase(task: Task): Observable<any> {
         const user = this._authentication.currentUserValue;
-        console.log(task.description);
         if (user !== null) {
             task.username = this._authentication.currentUserValue.username;
         } else {
             task.username = 'admin';
         }
-        return this._http.post<Task>(this._backendURL.toNext, task, this._options());
-        console.log(task.description);
+        return this._http.put<Task>(this._backendURL.toNext.replace(':id', task.id), task, this._options());
     }
 
     create(task: Task): Observable<any> {
@@ -79,6 +77,10 @@ export class TasksService {
         .pipe(
           map(_ => id)
         );
+    }
+
+    sendComment(id: string, comment: Commentaire): Observable<any> {
+        return this._http.post<Commentaire>(this._backendURL.comment.replace(':id', id), comment, this._options());
     }
 
     getFiles(id): Observable<string[]> {
