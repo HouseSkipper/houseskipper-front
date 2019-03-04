@@ -27,8 +27,8 @@ export const environment = {
             phases: '/phases',
             historic: {
                 getHistoricByUser: '/historic',
-                getHistoricByUserByMonth: '/historic/month/:month',
-                getHistoricByUserByYear: '/historic/year/:year'
+                getHistoricByUserByMonth: '/historic/month',
+                getHistoricByUserByYear: '/historic/year'
             },
             tasks: {
               allTasks: '/tasks',

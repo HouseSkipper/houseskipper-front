@@ -1,5 +1,5 @@
 import {SubPhase} from './subphase';
-import {Task} from './task';
+import {Commentaire, Task} from './task';
 
 export interface Phase {
     id: number;

@@ -10,7 +10,7 @@ import {
     MatIconModule,
     MatInputModule, MatRadioModule,
     MatSelectModule, MatSidenavModule, MatSliderModule, MatStepperModule, MatSortModule, MatTableModule,
-    MatToolbarModule, MatTooltipModule
+    MatToolbarModule, MatTooltipModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
@@ -104,6 +104,7 @@ import {DatePipe} from '@angular/common';
         MatPaginatorModule,
         MatStepperModule,
         MatTableModule,
+        MatProgressSpinnerModule,
         APP_ROUTES
     ],
     providers: [
