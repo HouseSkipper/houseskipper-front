@@ -1,29 +1,15 @@
-<mat-table [dataSource]="dataSource"  class="mat-elevation-z8" (matSortChange)="sortData($event)" matSort>
+<mat-accordion class="example-headers-align justify-content">
+  <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom">
+    <mat-step *ngFor="let level of getLevels(); let i = index" [editable]="false">
+      <ng-template  matStepLabel><span matTooltip="{{tooltip(i)}}">{{level}}</span></ng-template>
+    </mat-step>
+  </mat-horizontal-stepper>
+  <mat-expansion-panel (opened)="setStep(0)" *ngFor="let skillCategory of getSkill().skillCategories" hideToggle>
+    <mat-expansion-panel-header class="right-aligned-header">
+      <mat-panel-description>
+        {{skillCategory.name}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="Nom">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Nom</mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
-  </ng-container>
-
-  <!-- Weight Column -->
-  <ng-container matColumnDef="Niveau">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>Niveau</mat-header-cell>
-    <mat-cell *matCellDef="let element" matTooltip="{{tooltip(element.nb_works)}}">{{niveau(element.nb_works)}}</mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="Gérer">
-    <mat-header-cell *matHeaderCellDef>Gérer</mat-header-cell>
-    <mat-cell *matCellDef="let element"> <mat-slider
-            min="1"
-            max="5"
-            step="1"
-            [(ngModel)]="element.nb_works"
-            (ngModelChange)="save(element)"
-    ></mat-slider></mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+  </mat-expansion-panel>
+</mat-accordion>

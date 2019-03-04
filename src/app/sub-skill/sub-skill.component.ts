@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {flatMap, map} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {Skill, SubSkill} from '../interfaces/user';
-import {MatSort, MatTableDataSource, Sort} from '@angular/material';
+import {MatSort, MatStepper, MatTableDataSource, Sort} from '@angular/material';
 
 @Component({
     selector: 'app-sub-skill',
@@ -13,11 +13,22 @@ import {MatSort, MatTableDataSource, Sort} from '@angular/material';
 })
 export class SubSkillComponent implements OnInit {
 
+    private _step: number;
     private _skill: Skill;
-    dataSource: MatTableDataSource<SubSkill>;
-    displayedColumns: string[] = ['Nom', 'Niveau', 'Gérer'];
-
-    @ViewChild(MatSort) sort: MatSort;
+    private _levels: string[] = ['Novice', 'Débutant avancé', 'Compétent', 'Efficace', 'Expert'];
+    private _descLevels: string[] = [
+        'Personne qui possède peu ou aucune expérience dans ' +
+    'le domaine et a besoin d’un guide pour assurer un suivi des travaux.',
+        'Personne qui possède peu ou aucune expérience dans' +
+        ' le domaine et a besoin d’un guide pour assurer un suivi des travaux.',
+        'Personne qui possède un peu d’expérience dans' +
+        ' le domaine mais reste dépendante d’un guide pour assurer un suivi des travaux.',
+        'Personne qui possède une expérience suffisante du domaine pour' +
+        ' savoir ce qu’il faut faire dans la plupart des cas pour réaliser un suivi des travaux.',
+        'Personne qui possède suffisamment d’expérience dans le domaine' +
+        ' pour savoir précisément ce qu’il faut faire pour réaliser un suivi des travaux.'
+    ];
+    @ViewChild('stepper') stepper: MatStepper;
 
     constructor(private _skillService: SkillsService, private _route: ActivatedRoute) {
         this._skill = {} as Skill;
@@ -30,81 +41,55 @@ export class SubSkillComponent implements OnInit {
                 flatMap((id: string) => id === undefined ? of(undefined) : this._skillService.fetchOneSkill(id))
             )
             .subscribe(_ => {
+                console.log(_);
                 this._skill = _;
-                this.dataSource = new MatTableDataSource<SubSkill>(_.subSkills);
-                this.dataSource.sort = this.sort;
             });
     }
 
-    sortData(sort: Sort) {
-        const data = this.dataSource.data.slice();
-        if (!sort.active || sort.direction === '') {
-            this.dataSource.data = data;
-            return;
-        }
+    setStep(index: number) {
+        // console.log('set ' + index);
+        this._step = index;
+        this.stepper.selectedIndex = this.stepMatStepper();
+    }
 
-        this.dataSource.data = data.sort((a, b) => {
-            const isAsc = sort.direction === 'asc';
-            switch (sort.active) {
-                case 'Nom': return compare(a.type, b.type, isAsc);
-                case 'Niveau': return compare(a.nb_works, b.nb_works, isAsc);
-                default: return 0;
-            }
-        });
+    nextStep() {
+        this._step++;
+        this.stepper.selectedIndex = this.stepMatStepper();
+    }
+
+    prevStep() {
+        this._step--;
+        this.stepper.selectedIndex = this.stepMatStepper();
     }
 
     niveau(num: number): string {
-        let res = 'Novice';
-        switch (num) {
-            case 1:
-                res = 'Novice';
-                break;
-            case 2:
-                res = 'Débutant avancé';
-                break;
-            case 3:
-                res = 'Compétent';
-                break;
-            case 4:
-                res = 'Efficace';
-                break;
-            case 5:
-                res = 'Expert';
-                break;
-        }
-        return res;
+        return this._levels[num];
     }
 
     tooltip(num: number): string {
-        let res = 'Personne qui possède peu ou aucune expérience dans' +
-            ' le domaine et a besoin d’un guide pour assurer un suivi des travaux.';
-        switch (num) {
-            case 1:
-                res = 'Personne qui possède peu ou aucune expérience dans' +
-                    ' le domaine et a besoin d’un guide pour assurer un suivi des travaux.';
-                break;
-            case 2:
-                res = 'Personne qui possède un peu d’expérience dans' +
-                    ' le domaine mais reste dépendante d’un guide pour assurer un suivi des travaux.';
-                break;
-            case 3:
-                res = 'Personne qui commence à avoir un nombre suffisant d’expériences dans' +
-                    ' le domaine pour réaliser un suivi éclairé des travaux.';
-                break;
-            case 4:
-                res = 'Personne qui possède une expérience suffisante du domaine pour' +
-                    ' savoir ce qu’il faut faire dans la plupart des cas pour réaliser un suivi des travaux.';
-                break;
-            case 5:
-                res = 'Personne qui possède suffisamment d’expérience dans le domaine' +
-                    ' pour savoir précisément ce qu’il faut faire pour réaliser un suivi des travaux.';
-                break;
-        }
-        return res;
+        return this._descLevels[num];
     }
 
     save(element: SubSkill) {
         this._skillService.updateSubSkill(element).subscribe();
+    }
+
+    public stepMatStepper(): number {
+        // console.log('entre dans stepMats');
+        if (this._step < 2) {
+            return this._step;
+        } else if (this._step === 2) {
+            return 1;
+        }  else if (this._step === 3) {
+            return 2;
+        }
+    }
+
+    getLevels() {
+        return this._levels;
+    }
+    getSkill() {
+        return this._skill;
     }
 
 }
