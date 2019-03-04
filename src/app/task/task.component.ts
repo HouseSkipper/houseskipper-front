@@ -136,7 +136,7 @@ export class TaskComponent implements OnInit {
 
     nextStep(task) {
 
-         this._dataService.nextPhase(task).subscribe(null, (_) => console.log(_), null);
+         // this._dataService.nextPhase(task).subscribe(null, (_) => console.log(_), null);
     }
 
 }

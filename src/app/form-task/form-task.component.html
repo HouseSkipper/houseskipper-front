@@ -243,7 +243,7 @@
           <mat-icon>school</mat-icon>
         </mat-panel-title>
         <mat-panel-description>
-          Commentaires
+          Commentaires Phase Rédaction
           <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(3) === -1"></mat-icon>
           <mat-icon svgIcon="icon-checked" *ngIf="checked(3) === 2"></mat-icon>
         </mat-panel-description>
@@ -281,8 +281,6 @@
         local['controls'].commentaire.value)"><mat-icon>create</mat-icon></button>
 
             </div></div></div></div>
-
-      <mat-error id="errorMessage" class="alert alert-danger">En construction ..</mat-error><br/>
 
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>

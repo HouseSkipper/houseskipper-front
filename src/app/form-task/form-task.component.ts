@@ -184,7 +184,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     private addCommentaire(date: Date, auteur: string, etat: string, commentaire: string) {
-        console.log(this._datePipe.transform(date, 'yyyy-MM-dd'));
         if (this._datePipe.transform(date, 'yyyy-MM-dd') === null) {
             date = this.now;
         }
@@ -215,7 +214,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     addComment(auteur, etat, com) {
-        console.log(auteur +  etat + com);
         let commentaire: Commentaire;
         commentaire = {datec: this.now, auteur: auteur, etat: etat, commentaire: com, phasec: this._currentTask.currentPhase};
          this._tasksService.sendComment(this.blogTask.taskName, commentaire)
@@ -235,7 +233,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(task) {
-        console.log(task);
         const taille = task.partiesExacte.length;
         const pieces = task.partiesExacte;
         const comments = task.commentaires;
@@ -248,26 +245,22 @@ export class FormTaskComponent implements OnInit, OnChanges {
             this.removeP(i);
         }
         for (let i = 0; i < taille; i++) {
-            console.log(i);
             this.addPiece(pieces[i].local);
         }
         for (let i = 0; i < tailleC; i++) {
             this.removeC(i);
         }
         for (let i = 0; i < tailleC; i++) {
-            console.log(i);
             this.addCommentaire(comments[i].datec, comments[i].auteur, comments[i].etat, comments[i].commentaire);
         }
         if (task.typeSecondaires !== undefined) {
             const tailleT = task.typeSecondaires.length;
-            console.log(tailleT);
             if (tailleT !== 0) {
                 const typeSec = task.typeSecondaires;
                 for (let i = 0; i < tailleT; i++) {
                     this.removeT(i);
                 }
                 for (let i = 0; i < tailleT; i++) {
-                    console.log(i);
                     this.addTypeSec(typeSec[i].typeS);
                 }
                 this.setMode('s');
@@ -279,6 +272,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
         this.roomsC();
         this.filesNames(task.id);
         this._currentTask = task;
+         this.addCommentaire(this.now, '', '', '');
     }
 
     removeP(num: number) {
@@ -308,7 +302,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
 
       this.uploader.onAfterAddingFile = (file) => { file.withCredentials = true; };
       this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-          console.log('ImageUpload:uploaded:', item, status, response);
+          // console.log('ImageUpload:uploaded:', item, status, response);
           console.log('File uploaded successfully');
       };
   }
@@ -350,7 +344,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     setStep(index: number) {
-        console.log('set ' + index);
         this._step = index;
         // this.stepper.selectedIndex = this._step;
     }
@@ -371,6 +364,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     submit(task: Task) {
+        this.removeP(0);
       if (task.nom === '' || task.partie === '' || this._form.get('partiesExacte')['controls'][0] === ''
           || task.resultat === '' ||
           task.description === '' || task.connaissance === '' ) {
@@ -451,12 +445,10 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     edit(task: Task) {
-        console.log(this._taskid);
         task.id = this._taskid;
-        task.status.phaseName = this._currentTask.status.phaseName;
+        // task.status.phaseName = this._currentTask.status.phaseName;
         if (this._principal) {
             const tailleT = task.typeSecondaires.length;
-            console.log(tailleT);
             if (tailleT !== 0) {
                 const typeSec = task.typeSecondaires;
                 for (let i = 0; i < tailleT; i++) {
@@ -466,11 +458,13 @@ export class FormTaskComponent implements OnInit, OnChanges {
         } else {
             task.type = '';
         }
+        this.toTaskList();
          this._tasksService.update(task).subscribe((_) => console.log(_), null, () => {
              this.onSaveFile();
              this._file = true;
          });
          this.onSaveFile();
+        // this.toTaskList();
         // this.stepper.selectedIndex = this._step + 1;
     }
 
@@ -481,15 +475,13 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     onSaveFile(): void {
-        console.log(this.blogTask.taskName);
         this.uploader.setOptions({url: this._backendURL.upload.replace(':id', this.blogTask.taskName), headers: this._options()});
         this.uploader.uploadAll();
         this.nextStep();
     }
 
     toTaskList() {
-        console.log(this._form.get('commentaires')['controls'][this._form.get('commentaires')['controls'].length - 1].commentaire + 'eee');
-        this._router.navigate(['/users/tasks']);
+            this._router.navigate(['/users/tasks']);
     }
 
     private _options(headerList: Object = {}): any {
