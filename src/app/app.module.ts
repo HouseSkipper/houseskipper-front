@@ -10,7 +10,7 @@ import {
     MatIconModule,
     MatInputModule, MatRadioModule,
     MatSelectModule, MatSidenavModule, MatSliderModule, MatStepperModule, MatSortModule, MatTableModule,
-    MatToolbarModule, MatTooltipModule
+    MatToolbarModule, MatTooltipModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
@@ -47,6 +47,8 @@ import { SubSkillComponent } from './sub-skill/sub-skill.component';
 import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
 import { TasksMetricComponent } from './metrics/tasks-metric/tasks-metric.component';
 import {DatePipe} from '@angular/common';
+import { BudgetMetricComponent } from './metrics/budget-metric/budget-metric.component';
+import {ChartsModule} from 'ng2-charts';
 
 
 @NgModule({
@@ -77,7 +79,8 @@ import {DatePipe} from '@angular/common';
         FormTaskComponent,
         SubSkillComponent,
         PrestataireLoginComponent,
-        TasksMetricComponent
+        TasksMetricComponent,
+        BudgetMetricComponent
     ],
     imports: [
         BrowserModule,
@@ -104,6 +107,8 @@ import {DatePipe} from '@angular/common';
         MatPaginatorModule,
         MatStepperModule,
         MatTableModule,
+        MatProgressSpinnerModule,
+        ChartsModule,
         APP_ROUTES
     ],
     providers: [

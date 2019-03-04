@@ -25,9 +25,9 @@ export const environment = {
             roomsByHouse: '/rooms/:houseName',
             phases: '/phases',
             historic : {
-                getHistoricByUser: '/historic/:userid',
-                getHistoricByUserByMonth: '/historic/:userid/month/:month',
-                getHistoricByUserByYear: '/historic/:userid/year/:year'
+                getHistoricByUser: '/historic',
+                getHistoricByUserByMonth: '/historic/month',
+                getHistoricByUserByYear: '/historic/year'
             },
             tasks: {
                 allTasks: '/tasks',
