@@ -5,10 +5,8 @@
 
 .content-page {
     display:flex;
-    align-items: center;
     flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
+    padding:40px;
     height:calc(100vh - 130px);
     top:130px;
 }

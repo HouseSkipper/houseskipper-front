@@ -23,6 +23,12 @@ export const environment = {
             uploadFileHouse: '/houses/uploadFile/:houseId',
             rooms: '/rooms',
             roomsByHouse: '/rooms/:houseName',
+            phases: '/phases',
+            historic : {
+                getHistoricByUser: '/historic/:userid',
+                getHistoricByUserByMonth: '/historic/:userid/month/:month',
+                getHistoricByUserByYear: '/historic/:userid/year/:year'
+            },
             tasks: {
                 allTasks: '/tasks',
                 oneTask: '/tasks/:id',
