@@ -1,0 +1,15 @@
+<div id="skills-metrics">
+    <h2 class="mat-h2">Mes compétences</h2>
+    <div id="metrics">
+        <ngx-gauge *ngFor="let skill of currentSkills" [type]="gaugeType"
+                   [value]="skill.nb_works"
+                   [append]="gaugeAppendText"
+                   [size]="gaugeSize"
+                   [max]="gaugeMax"
+                   [thick]="gaugeThick"
+                   [foregroundColor]="gaugeForeColor">
+            <ngx-gauge-value class="mat-display-2">{{ skill.nb_works }}</ngx-gauge-value>
+            <ngx-gauge-label class="mat-body-11">{{skill.type}}</ngx-gauge-label>
+        </ngx-gauge>
+    </div>
+</div>
