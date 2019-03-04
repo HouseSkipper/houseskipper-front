@@ -84,7 +84,7 @@ import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.com
         PrestataireLoginComponent,
         TasksMetricComponent,
         BudgetMetricComponent,
-        SkillsMetricComponent
+        SkillsMetricComponent,
         BudgetMetricComponent,
 	    HelpComponent
     ],
