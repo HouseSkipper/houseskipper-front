@@ -191,6 +191,11 @@ export class FormTaskComponent implements OnInit, OnChanges {
         control.push(this.getCommentaire(date, auteur, etat, commentaire));
     }
 
+    addOneCommentaire(auteur: string, etat: string, commentaire: string) {
+        const control = <FormArray>this._form.get('commentaires');
+        control.push(this.getCommentaire(this.now, auteur, etat, commentaire));
+    }
+
     private addTypeSec(nom: string) {
         const control = <FormArray>this._form.get('typeSecondaires');
         control.push(this.getTypeSec(nom));

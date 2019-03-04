@@ -1,14 +1,14 @@
 <div id="tasks-metrics">
-    <mat-progress-spinner [color]="'accent'"  [diameter]="50" *ngIf="!!!_phases" mode="indeterminate"></mat-progress-spinner>
-    <h2 class="mat-h2" *ngIf="_phases">Mes travaux</h2>
-    <span class="mat-body-1" id="number-tasks" *ngIf="_phases">{{totalNumber}}</span>
-    <div id="metrics" *ngIf="_phases">
-        <span id="phases" *ngFor="let h of _phases">
+    <mat-progress-spinner [color]="'accent'"  [diameter]="50" *ngIf="!!!phases" mode="indeterminate"></mat-progress-spinner>
+    <h2 class="mat-h2" *ngIf="phases">Mes travaux</h2>
+    <span class="mat-body-1" id="number-tasks" *ngIf="phases">{{totalNumber}}</span>
+    <div id="metrics" *ngIf="phases">
+        <span id="phases" *ngFor="let h of phases">
             <span class="phaseTitle mat-body-1">{{h.phaseName}}</span>
             <span class="phaseNumber mat-body-1">{{getNbPhase(h.phaseName)}}</span>
         </span>
     </div>
-    <span id="buttonSpan" *ngIf="_phases">
+    <span id="buttonSpan" *ngIf="phases">
         <button mat-flat-button [class.active]="activeMenu == 'Mois'" (click)="setActive('Mois')">Mois</button>
         <button mat-flat-button [class.active]="activeMenu == 'Annee'" (click)="setActive('Annee')">Année</button>
         <button mat-flat-button [class.active]="activeMenu == 'Tous'" (click)="setActive('Tous')">Tous</button>

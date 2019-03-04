@@ -36,7 +36,8 @@ export const environment = {
                 toNext: 'tasks/next/:id',
                 upload : '/uploadFile/:id',
                 dowload : '/downloadFile/:fileName/:id',
-                fileNames : '/fileNames/:id'
+                fileNames : '/fileNames/:id',
+                comment : '/commentaire/:id'
             },
             allSkills: '/skills',
             oneSkill: '/skills/:idSkill',

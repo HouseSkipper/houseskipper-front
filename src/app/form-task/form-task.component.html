@@ -248,7 +248,7 @@
           <mat-icon svgIcon="icon-checked" *ngIf="checked(3) === 2"></mat-icon>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <mat-card-actions class="centerElement margin"><button mat-raised-button  (click)="addCommentaire('','','')"><mat-icon>add box</mat-icon></button></mat-card-actions>
+      <mat-card-actions class="centerElement margin"><button mat-raised-button  (click)="addOneCommentaire('','','')"><mat-icon>add box</mat-icon></button></mat-card-actions>
 
       <div formArrayName="commentaires" ngDefaultControl>
         <div *ngFor="let local of form.get('commentaires')['controls']; let i=index">
