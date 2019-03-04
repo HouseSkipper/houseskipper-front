@@ -1,0 +1,46 @@
+#tasks-metrics {
+    display: flex;
+    flex-direction: column;
+    background: #3A3A64;
+    border-radius: 4px;
+    padding:20px;
+    color:white;
+    min-height:200px;
+}
+
+.active {
+    background-color: greenyellow;
+}
+
+#buttonSpan {
+    align-self: flex-end;
+    margin-top:auto;
+}
+
+#buttonSpan button {
+    margin-left: 5px;
+    margin-right:5px;
+}
+
+#number-tasks {
+    font-size: 2em;
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+
+#phases {
+    width:100%;
+    display: flex;
+}
+
+#metrics {
+    padding:20px;
+}
+
+.phaseNumber {
+    justify-self: flex-end;
+    margin-left: auto;
+}
