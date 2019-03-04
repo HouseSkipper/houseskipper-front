@@ -1,0 +1,50 @@
+
+section
+{
+}
+
+
+#helpHeader
+{
+  width: 100%;
+  height: 96px;
+
+  background-image: linear-gradient(rgba(200, 200, 200, 0.5), white, rgba(200, 200, 200, 0.5));
+}
+
+#helpHeadImg
+{
+  float:left;
+  width: 237px;
+  height: inherit;
+
+  background-image: url('../../assets/images/background.png');
+  background-size: cover;
+}
+
+.title
+{
+  display: inline-flex;
+  margin: 38px 25px;
+}
+
+
+article
+{
+
+}
+.incident
+{
+  color: red;
+}
+
+aside
+{
+  display: inline-block;
+  float: right;
+}
+
+.helpAsideEm
+{
+  color: rgb(90, 190, 238);
+}

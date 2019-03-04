@@ -38,5 +38,5 @@ export interface Commentaire {
     commentaire: string;
     auteur: string;
     etat: string;
-    phase: string;
+    phasec: string;
 }

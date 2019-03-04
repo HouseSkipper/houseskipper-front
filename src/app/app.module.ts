@@ -45,6 +45,7 @@ import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-d
 import { FormTaskComponent } from './form-task/form-task.component';
 import { SubSkillComponent } from './sub-skill/sub-skill.component';
 import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
+import {HelpComponent} from './help/help.component';
 import { TasksMetricComponent } from './metrics/tasks-metric/tasks-metric.component';
 import {DatePipe} from '@angular/common';
 import { BudgetMetricComponent } from './metrics/budget-metric/budget-metric.component';
@@ -84,6 +85,8 @@ import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.com
         TasksMetricComponent,
         BudgetMetricComponent,
         SkillsMetricComponent
+        BudgetMetricComponent,
+	    HelpComponent
     ],
     imports: [
         BrowserModule,
@@ -122,7 +125,7 @@ import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.com
     entryComponents: [
        ShortcutDialogComponent, BeforeLoginDialogComponent
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
