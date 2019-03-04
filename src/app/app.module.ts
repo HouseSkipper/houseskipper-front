@@ -45,6 +45,7 @@ import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-d
 import { FormTaskComponent } from './form-task/form-task.component';
 import { SubSkillComponent } from './sub-skill/sub-skill.component';
 import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
+import {DatePipe} from '@angular/common';
 
 
 @NgModule({
@@ -105,7 +106,7 @@ import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.c
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
-        DataService, TasksService, CookieService
+        DataService, TasksService, CookieService, DatePipe
     ],
     entryComponents: [
        ShortcutDialogComponent, BeforeLoginDialogComponent
