@@ -1,5 +1,5 @@
 <mat-accordion class="example-headers-align justify-content" >
-  <div *ngIf="addMode">
+
     <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
       <mat-step  [editable]=false>
         <ng-template  matStepLabel>Rédaction</ng-template>
@@ -23,33 +23,6 @@
         <ng-template matStepLabel>Exploitation</ng-template>
       </mat-step>
     </mat-horizontal-stepper>
-  </div>
-  <div *ngIf="!addMode">
-    <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
-      <mat-step  [editable]="currentTask.status === Redaction">
-        <ng-template  matStepLabel>Rédaction</ng-template>
-      </mat-step>
-      <mat-step [editable]="currentTask.status === Validation">
-        <ng-template matStepLabel>Validation</ng-template>
-      </mat-step>
-      <mat-step [editable]="currentTask.status === Soumission">
-        <ng-template matStepLabel>Soumission</ng-template>
-      </mat-step>
-      <mat-step [editable]="currentTask.status === Evaluationt">
-        <ng-template matStepLabel>Evaluationt</ng-template>
-      </mat-step>
-      <mat-step [editable]="currentTask.status === Decision">
-        <ng-template matStepLabel>Décision</ng-template>
-      </mat-step>
-      <mat-step [editable]="currentTask.status === Finalisation">
-        <ng-template matStepLabel>Finalisation</ng-template>
-      </mat-step>
-      <mat-step [editable]="currentTask.status === Exploitation">
-        <ng-template matStepLabel>Exploitation</ng-template>
-      </mat-step>
-    </mat-horizontal-stepper>
-
-  </div>
 
 
   <form novalidate [formGroup]="form">
@@ -224,62 +197,13 @@
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
         <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="checked(2) === 0">Modifier votre de demande</button>
-        <button mat-button color="primary" (click)="nextStep()">Suivant</button>
-      </mat-action-row>
-    </mat-expansion-panel>
-
-
-    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)"  hideToggle>
-      <mat-expansion-panel-header class="right-aligned-header">
-        <mat-panel-title>
-          <mat-icon>school</mat-icon>
-        </mat-panel-title>
-        <mat-panel-description>
-          Commentaires
-          <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(3) === 2"></mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <mat-card-actions class="centerElement margin"><button mat-raised-button (click)="addCommentaire('','','')"><mat-icon>add box</mat-icon></button></mat-card-actions>
-
-      <div formArrayName="commentaires" ngDefaultControl>
-        <div *ngFor="let local of form.get('commentaires')['controls']; let i=index">
-          <div [formGroupName]="i">
-      <div>
-        <mat-form-field class="margin importantField" appearance="outline" style="width: 10vh;">
-          <input matInput placeholder="Date" formControlName="datec" name="datec"  readonly/>
-        </mat-form-field>
-        <mat-form-field class="margin importantField" appearance="outline" style="width: 10vh;">
-          <mat-label>Auteur</mat-label>
-          <input matInput placeholder="Auteur" required formControlName="auteur" name="auteur"/>
-        </mat-form-field>
-        <mat-form-field class="margin importantField" appearance="outline" style="width: 10vh;">
-          <mat-label>Etat</mat-label>
-          <mat-select placeholder="Etat" formControlName="etat" required name="etat">
-            <mat-option value="Pour information">Pour information</mat-option>
-            <mat-option value="Pour action">Pour action</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field class="textaeraPerso" appearance="outline" style="width: 50vh;">
-          <mat-label>Commentaire</mat-label>
-          <textarea matInput placeholder="Commentaire" required formControlName="commentaire"
-                    name="commentaire"></textarea>
-       </mat-form-field><button style="margin: 5px;" *ngIf="i === form.get('commentaires')['controls'].length -1" mat-raised-button (click)="addComment(local['controls'])"><mat-icon>create</mat-icon></button>
-
-      </div></div></div></div>
-
-      <mat-error id="errorMessage" class="alert alert-danger">En construction ..</mat-error><br/>
-
-      <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" >Modifier votre de demande</button>
         <button mat-button color="primary" *ngIf="!addMode" (click)="nextStep()" >Suivant</button>
         <button mat-button color="primary" *ngIf="addMode" (click)="submit(form.value)">Suivant</button>
       </mat-action-row>
     </mat-expansion-panel>
 
 
-    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)"  hideToggle>
+    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)"  hideToggle>
       <mat-expansion-panel-header class="right-aligned-header">
         <mat-panel-title>
           <mat-icon>filter_none</mat-icon>
@@ -309,7 +233,61 @@
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
         <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="checked(1) !== 2 || checked(2) === 0">Modifier votre de demande</button>
-        <button mat-button color="primary" type="submit" *ngIf="addMode" (click)="onSaveFile()" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Valider</button>
+        <button mat-button color="primary" type="submit" *ngIf="addMode" (click)="onSaveFile()" [disabled]="!uploader.getNotUploadedItems().length" color="primary">Suivant</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)"  hideToggle>
+      <mat-expansion-panel-header class="right-aligned-header">
+        <mat-panel-title>
+          <mat-icon>school</mat-icon>
+        </mat-panel-title>
+        <mat-panel-description>
+          Commentaires
+          <mat-icon svgIcon="icon-OrangeChecked" *ngIf="checked(3) === -1"></mat-icon>
+          <mat-icon svgIcon="icon-checked" *ngIf="checked(3) === 2"></mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-card-actions class="centerElement margin"><button mat-raised-button  (click)="addCommentaire('','','')"><mat-icon>add box</mat-icon></button></mat-card-actions>
+
+      <div formArrayName="commentaires" ngDefaultControl>
+        <div *ngFor="let local of form.get('commentaires')['controls']; let i=index">
+          <div [formGroupName]="i">
+            <div>
+              <mat-form-field class="margin importantField" appearance="outline" style="width: 10vh;">
+                <input matInput placeholder="Date" style="cursor: not-allowed;" formControlName="datec" name="datec"  readonly/>
+              </mat-form-field>
+              <mat-form-field class="margin importantField" appearance="outline" style="width: 10vh;">
+                <mat-label>Auteur</mat-label>
+                <input matInput placeholder="Auteur" required *ngIf="i === form.get('commentaires')['controls'].length -1" formControlName="auteur" name="auteur"/>
+                <input matInput placeholder="Auteur" style="cursor: not-allowed;" required *ngIf="i !== form.get('commentaires')['controls'].length -1" formControlName="auteur" name="auteur" readonly/>
+              </mat-form-field>
+              <mat-form-field class="margin importantField" appearance="outline" style="width: 10vh;">
+                <mat-label>Etat</mat-label>
+                <mat-select placeholder="Etat" formControlName="etat" *ngIf="i === form.get('commentaires')['controls'].length -1" required name="etat">
+                  <mat-option value="Pour information">Pour information</mat-option>
+                  <mat-option value="Pour action">Pour action</mat-option>
+                </mat-select>
+                <input matInput placeholder="Etat" required style="cursor: not-allowed;" *ngIf="i !== form.get('commentaires')['controls'].length -1" formControlName="etat" name="etat" readonly/>
+              </mat-form-field>
+
+              <mat-form-field class="textaeraPerso" appearance="outline" style="width: 50vh;">
+                <mat-label>Commentaire</mat-label>
+                <textarea matInput placeholder="Commentaire" *ngIf="i === form.get('commentaires')['controls'].length -1" required formControlName="commentaire"
+                          name="commentaire"></textarea>
+                <textarea matInput placeholder="Commentaire" style="cursor: not-allowed;" *ngIf="i !== form.get('commentaires')['controls'].length -1" required formControlName="commentaire"
+                          name="commentaire" readonly></textarea>
+              </mat-form-field><button style="margin: 5px;" *ngIf="i === form.get('commentaires')['controls'].length -1" mat-raised-button (click)="addComment(local['controls'].auteur.value, local['controls'].etat.value,
+        local['controls'].commentaire.value)"><mat-icon>create</mat-icon></button>
+
+            </div></div></div></div>
+
+      <mat-error id="errorMessage" class="alert alert-danger">En construction ..</mat-error><br/>
+
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Précédent</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" >Modifier votre de demande</button>
+        <button mat-button color="primary" *ngIf="addMode" (click)="toTaskList()">Vers la Liste de demandes</button>
       </mat-action-row>
     </mat-expansion-panel>
   </form>

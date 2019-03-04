@@ -71,6 +71,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
         comment: ''
     };
     private _files: string[];
+    public now = new Date();
     @ViewChild('fileInput')
     fileInput: ElementRef;
 
@@ -117,7 +118,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
             ])),
             partiesExacte: new FormArray([this.getPiece('')]),
             typeSecondaires: new FormArray([this.getTypeSec('')]),
-            commentaires: new FormArray([this.getCommentaire('', '', '')]),
+            commentaires: new FormArray([this.getCommentaire(this.now, '', '', '')]),
             type: new FormControl('', Validators.compose([
                 Validators.required, Validators.minLength(3)
             ])),
@@ -165,10 +166,9 @@ export class FormTaskComponent implements OnInit, OnChanges {
         });
     }
 
-    private getCommentaire(auteur: string, etat: string, commentaire: string): FormGroup {
-        const now = new Date();
+    private getCommentaire(date: Date, auteur: string, etat: string, commentaire: string): FormGroup {
         return new FormGroup({
-            datec:  new FormControl(this._datePipe.transform(now, 'yyyy-MM-dd'), Validators.compose([
+            datec:  new FormControl(this._datePipe.transform(date, 'yyyy-MM-dd'), Validators.compose([
                 Validators.required, Validators.minLength(3)
             ])),
             auteur:  new FormControl(auteur, Validators.compose([
@@ -183,9 +183,13 @@ export class FormTaskComponent implements OnInit, OnChanges {
         });
     }
 
-    private addCommentaire(auteur: string, etat: string, commentaire: string) {
+    private addCommentaire(date: Date, auteur: string, etat: string, commentaire: string) {
+        console.log(this._datePipe.transform(date, 'yyyy-MM-dd'));
+        if (this._datePipe.transform(date, 'yyyy-MM-dd') === null) {
+            date = this.now;
+        }
         const control = <FormArray>this._form.get('commentaires');
-        control.push(this.getCommentaire(auteur, etat, commentaire));
+        control.push(this.getCommentaire(date, auteur, etat, commentaire));
     }
 
     private addTypeSec(nom: string) {
@@ -210,10 +214,13 @@ export class FormTaskComponent implements OnInit, OnChanges {
         return this._files;
     }
 
-    addComment(i) {
-        console.log(i);
-        // commentaire: Commentaire {date: }
-        // this._tasksService.sendComment(this.blogTask.taskName, commentaire).subscribe(null, null, () => this.addCommentaire('', '', ''));
+    addComment(auteur, etat, com) {
+        console.log(auteur +  etat + com);
+        let commentaire: Commentaire;
+        commentaire = {datec: this.now, auteur: auteur, etat: etat, commentaire: com, phasec: this._currentTask.currentPhase};
+         this._tasksService.sendComment(this.blogTask.taskName, commentaire)
+             .subscribe(null, null, null);
+        this.addCommentaire(this.now, '', '', '');
     }
 
     onSelectFile(event) {
@@ -231,6 +238,8 @@ export class FormTaskComponent implements OnInit, OnChanges {
         console.log(task);
         const taille = task.partiesExacte.length;
         const pieces = task.partiesExacte;
+        const comments = task.commentaires;
+        const tailleC = task.commentaires.length;
         this._editMode = true;
         this._addMode = false;
         this._taskid = task.id;
@@ -241,6 +250,13 @@ export class FormTaskComponent implements OnInit, OnChanges {
         for (let i = 0; i < taille; i++) {
             console.log(i);
             this.addPiece(pieces[i].local);
+        }
+        for (let i = 0; i < tailleC; i++) {
+            this.removeC(i);
+        }
+        for (let i = 0; i < tailleC; i++) {
+            console.log(i);
+            this.addCommentaire(comments[i].datec, comments[i].auteur, comments[i].etat, comments[i].commentaire);
         }
         if (task.typeSecondaires !== undefined) {
             const tailleT = task.typeSecondaires.length;
@@ -267,6 +283,11 @@ export class FormTaskComponent implements OnInit, OnChanges {
 
     removeP(num: number) {
         const control = <FormArray>this._form.controls['partiesExacte'];
+        control.removeAt(num);
+    }
+
+    removeC(num: number) {
+        const control = <FormArray>this._form.controls['commentaires'];
         control.removeAt(num);
     }
 
@@ -364,7 +385,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
             this._file = true;
             this._step++;
         });
-
+          this._currentTask = task;
           // this.stepper.selectedIndex = this._step + 1;
       }
     }
@@ -411,7 +432,14 @@ export class FormTaskComponent implements OnInit, OnChanges {
                 }
                 break;
             case 3:
-                return 2;
+                for (let i = 0; i < this._form.get('commentaires')['controls'].length; i++) {
+                    if (this._form.get('commentaires')['controls'][i].invalid) {
+                        return res = -1;
+                    } else {
+                        res = 2;
+                    }
+                }
+                return res;
                 break;
             case 4:
                 if (this._form.get('filename').invalid) {
@@ -426,6 +454,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     edit(task: Task) {
         console.log(this._taskid);
         task.id = this._taskid;
+        task.status.phaseName = this._currentTask.status.phaseName;
         if (this._principal) {
             const tailleT = task.typeSecondaires.length;
             console.log(tailleT);
@@ -456,6 +485,11 @@ export class FormTaskComponent implements OnInit, OnChanges {
         console.log(this.blogTask.taskName);
         this.uploader.setOptions({url: this._backendURL.upload.replace(':id', this.blogTask.taskName), headers: this._options()});
         this.uploader.uploadAll();
+        this.nextStep();
+    }
+
+    toTaskList() {
+        console.log(this._form.get('commentaires')['controls'][this._form.get('commentaires')['controls'].length - 1].commentaire + 'eee');
         this._router.navigate(['/users/tasks']);
     }
 
