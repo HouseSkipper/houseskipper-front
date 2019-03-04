@@ -24,14 +24,21 @@ export const environment = {
             uploadFileHouse: '/houses/uploadFile/:houseId',
             rooms: '/rooms',
             roomsByHouse: '/rooms/:houseName',
+            phases: '/phases',
+            historic: {
+                getHistoricByUser: '/historic',
+                getHistoricByUserByMonth: '/historic/month',
+                getHistoricByUserByYear: '/historic/year'
+            },
             tasks: {
               allTasks: '/tasks',
               oneTask: '/tasks/:id',
                 allTasksForUser: '/tasks',
                 upload : '/uploadFile/:id',
-                toNext: 'tasks/next',
+                toNext: 'tasks/next/:id',
               dowload : '/downloadFile/:fileName/:id',
-              fileNames : '/fileNames/:id'
+              fileNames : '/fileNames/:id',
+                comment : '/commentaire/:id'
             },
             allSkills: '/skills',
             oneSkill: '/skills/:idSkill',

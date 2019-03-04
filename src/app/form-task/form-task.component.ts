@@ -9,12 +9,14 @@ import {environment} from '../../environments/environment';
 import {DataService} from '../services/budget.service';
 import {flatMap, map} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {PartieExacte, Phase, Task} from '../interfaces/task';
+import {Commentaire, PartieExacte, Phase, Task} from '../interfaces/task';
 import {TasksService} from '../services/tasks.service';
 import {HttpHeaders} from '@angular/common/http';
 import {HouseService} from '../services/house.service';
 import {MatStepper} from '@angular/material';
 import {forEach} from '@angular/router/src/utils/collection';
+import DateTimeFormat = Intl.DateTimeFormat;
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-form-task',
@@ -81,7 +83,8 @@ export class FormTaskComponent implements OnInit, OnChanges {
                 public _route: ActivatedRoute,
                 public _router: Router,
                 public _tasksService: TasksService,
-                private _houseService: HouseService
+                private _houseService: HouseService,
+                private _datePipe: DatePipe
     ) {
       this._form = this._buildForm();
         this._step = 0;
@@ -114,6 +117,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
             ])),
             partiesExacte: new FormArray([this.getPiece('')]),
             typeSecondaires: new FormArray([this.getTypeSec('')]),
+            commentaires: new FormArray([this.getCommentaire('', '', '')]),
             type: new FormControl('', Validators.compose([
                 Validators.required, Validators.minLength(3)
             ])),
@@ -161,6 +165,29 @@ export class FormTaskComponent implements OnInit, OnChanges {
         });
     }
 
+    private getCommentaire(auteur: string, etat: string, commentaire: string): FormGroup {
+        const now = new Date();
+        return new FormGroup({
+            datec:  new FormControl(this._datePipe.transform(now, 'yyyy-MM-dd'), Validators.compose([
+                Validators.required, Validators.minLength(3)
+            ])),
+            auteur:  new FormControl(auteur, Validators.compose([
+                Validators.required, Validators.minLength(3)
+            ])),
+            etat:  new FormControl(etat, Validators.compose([
+                Validators.required, Validators.minLength(3)
+            ])),
+            commentaire:  new FormControl(commentaire, Validators.compose([
+                Validators.required, Validators.minLength(3)
+            ]))
+        });
+    }
+
+    private addCommentaire(auteur: string, etat: string, commentaire: string) {
+        const control = <FormArray>this._form.get('commentaires');
+        control.push(this.getCommentaire(auteur, etat, commentaire));
+    }
+
     private addTypeSec(nom: string) {
         const control = <FormArray>this._form.get('typeSecondaires');
         control.push(this.getTypeSec(nom));
@@ -181,6 +208,12 @@ export class FormTaskComponent implements OnInit, OnChanges {
 
     get files(): string[] {
         return this._files;
+    }
+
+    addComment(i) {
+        console.log(i);
+        // commentaire: Commentaire {date: }
+        // this._tasksService.sendComment(this.blogTask.taskName, commentaire).subscribe(null, null, () => this.addCommentaire('', '', ''));
     }
 
     onSelectFile(event) {
@@ -317,7 +350,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     submit(task: Task) {
-        console.log(task);
       if (task.nom === '' || task.partie === '' || this._form.get('partiesExacte')['controls'][0] === ''
           || task.resultat === '' ||
           task.description === '' || task.connaissance === '' ) {
@@ -325,9 +357,9 @@ export class FormTaskComponent implements OnInit, OnChanges {
             this._errorMsg = 'Tous les champs sont obligatoires.';
           }
       } else {
-        task.start_date = new Date();
-        task.status = {phaseName: 'Redaction'};
-        this._tasksService.create(task).subscribe((_) => console.log(task), (_) => console.log(_), () => {
+        /**task.start_date = new Date();
+        task.status = {phaseName: 'Redaction'};**/
+        this._tasksService.create(task).subscribe((_) => console.log(_), (_) => console.log(_), () => {
             this._file = true;
             this._step++;
         });

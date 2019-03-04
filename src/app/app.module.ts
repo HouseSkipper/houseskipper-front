@@ -10,7 +10,7 @@ import {
     MatIconModule,
     MatInputModule, MatRadioModule,
     MatSelectModule, MatSidenavModule, MatSliderModule, MatStepperModule, MatSortModule, MatTableModule,
-    MatToolbarModule, MatTooltipModule
+    MatToolbarModule, MatTooltipModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
@@ -46,6 +46,8 @@ import { FormTaskComponent } from './form-task/form-task.component';
 import { SubSkillComponent } from './sub-skill/sub-skill.component';
 import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
 import {HelpComponent} from './help/help.component';
+import { TasksMetricComponent } from './metrics/tasks-metric/tasks-metric.component';
+import {DatePipe} from '@angular/common';
 
 
 @NgModule({
@@ -76,6 +78,7 @@ import {HelpComponent} from './help/help.component';
         FormTaskComponent,
         SubSkillComponent,
         PrestataireLoginComponent,
+        TasksMetricComponent
         HelpComponent
     ],
     imports: [
@@ -103,11 +106,12 @@ import {HelpComponent} from './help/help.component';
         MatPaginatorModule,
         MatStepperModule,
         MatTableModule,
+        MatProgressSpinnerModule,
         APP_ROUTES
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
-        DataService, TasksService, CookieService
+        DataService, TasksService, CookieService, DatePipe
     ],
     entryComponents: [
        ShortcutDialogComponent, BeforeLoginDialogComponent
