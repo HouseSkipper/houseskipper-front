@@ -1,0 +1,10 @@
+<div id="budget-metrics">
+  <mat-progress-spinner *ngIf="false" [color]="'accent'"  [diameter]="50" mode="indeterminate"></mat-progress-spinner>
+  <h2 class="mat-h2">Répartitions de mes dépenses</h2>
+    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [options]="barChartOptions" ></canvas>
+  <span id="buttonSpan">
+        <button mat-flat-button [class.active]="activeMenu == 'Mois'" (click)="setActive('Mois')">Mois</button>
+        <button mat-flat-button [class.active]="activeMenu == 'Annee'" (click)="setActive('Annee')">Année</button>
+        <button mat-flat-button [class.active]="activeMenu == 'Tous'" (click)="setActive('Tous')">Tous</button>
+    </span>
+</div>
