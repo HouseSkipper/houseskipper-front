@@ -38,25 +38,25 @@ export class MainSideMenuComponent implements OnInit {
     ngOnInit(): void {
         this.menuListService.currentUrl.subscribe((url: string) => {
             if (this.item.route && url) {
-                 console.log(`Checking '${this.item.route}' against '${url}'`);
+                 // console.log(`Checking '${this.item.route}' against '${url}'`);
                 this.expanded = url.indexOf(`${this.item.route}`) === 0;
                 this.ariaExpanded = this.expanded;
-                 console.log(`${this.item.route} is expanded: ${this.expanded}`);
+                 // console.log(`${this.item.route} is expanded: ${this.expanded}`);
             }
         });
     }
 
     onItemSelected(item: NavItem) {
-        console.log(item);
+        // console.log(item);
         if (!item.children || !item.children.length) {
-            console.log('ITEM ROUTE :: ' + item.route);
+            // console.log('ITEM ROUTE :: ' + item.route);
             this.router.navigate([item.route]);
-            console.log('==== No child');
+            // console.log('==== No child');
             // this.menuListService.closeNav();
         }
         if (item.children && item.children.length) {
-            console.log(item.route);
-            console.log('==== Child');
+            // console.log(item.route);
+            // console.log('==== Child');
             this.expanded = true;
             this.router.navigate([item.route]);
         }

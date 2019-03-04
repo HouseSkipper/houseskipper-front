@@ -15,6 +15,11 @@ export interface Skill {
     userId?: string;
     type: string;
     nb_works?: string;
+    skillCategories: SkillCategory[];
+}
+
+export interface SkillCategory {
+    name: string;
     subSkills: SubSkill[];
 }
 
