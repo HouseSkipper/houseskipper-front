@@ -30,7 +30,7 @@ export class HistoricService {
     }
 
 
-    getAllFromUser(user: User): Observable<Historic[]> {
+    getAllFromUser(): Observable<Historic[]> {
         console.log(this._backendURL.getHistoricByUser);
         return this._http.get<Historic[]>(this._backendURL.getHistoricByUser)
             .pipe(
@@ -39,18 +39,18 @@ export class HistoricService {
             );
     }
 
-    getMonthFromUser(user: User): Observable<Historic[]> {
+    getMonthFromUser(): Observable<Historic[]> {
       const d = new Date();
-        return this._http.get<Historic[]>(this._backendURL.getHistoricByUserByMonth.replace(':month', d.getMonth()))
+        return this._http.get<Historic[]>(this._backendURL.getHistoricByUserByMonth)
             .pipe(
                 filter(_ => !!_),
                 defaultIfEmpty([])
             );
     }
 
-    getYearFromUser(user: User): Observable<Historic[]> {
+    getYearFromUser(): Observable<Historic[]> {
         const d = new Date();
-        return this._http.get<Historic[]>(this._backendURL.getHistoricByUserByYear.replace(':year', d.getFullYear()))
+        return this._http.get<Historic[]>(this._backendURL.getHistoricByUserByYear)
             .pipe(
                 filter(_ => !!_),
                 defaultIfEmpty([])
