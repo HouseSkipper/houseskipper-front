@@ -120,7 +120,7 @@ import {ChartsModule} from 'ng2-charts';
     entryComponents: [
        ShortcutDialogComponent, BeforeLoginDialogComponent
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
