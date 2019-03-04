@@ -80,13 +80,9 @@ import {ChartsModule} from 'ng2-charts';
         FormTaskComponent,
         SubSkillComponent,
         PrestataireLoginComponent,
-<<<<<<< HEAD
-        TasksMetricComponent
-        HelpComponent
-=======
         TasksMetricComponent,
-        BudgetMetricComponent
->>>>>>> sprint4
+        BudgetMetricComponent,
+	HelpComponent
     ],
     imports: [
         BrowserModule,
