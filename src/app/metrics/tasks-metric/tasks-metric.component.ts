@@ -34,7 +34,7 @@ export class TasksMetricComponent implements OnInit {
               console.log(this._phases);
               console.log('pelo');
               for (const p of this._phases) {
-                  this._phasesNb.set(p.phaseName, 0);
+                  this._phasesNb.set(p.phaseName, p.tasks.length);
               }
           });
       }

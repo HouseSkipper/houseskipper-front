@@ -317,7 +317,6 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     submit(task: Task) {
-        console.log(task);
       if (task.nom === '' || task.partie === '' || this._form.get('partiesExacte')['controls'][0] === ''
           || task.resultat === '' ||
           task.description === '' || task.connaissance === '' ) {
@@ -325,9 +324,9 @@ export class FormTaskComponent implements OnInit, OnChanges {
             this._errorMsg = 'Tous les champs sont obligatoires.';
           }
       } else {
-        task.start_date = new Date();
-        task.status = {phaseName: 'Redaction'};
-        this._tasksService.create(task).subscribe((_) => console.log(task), (_) => console.log(_), () => {
+        /**task.start_date = new Date();
+        task.status = {phaseName: 'Redaction'};**/
+        this._tasksService.create(task).subscribe((_) => console.log(_), (_) => console.log(_), () => {
             this._file = true;
             this._step++;
         });
