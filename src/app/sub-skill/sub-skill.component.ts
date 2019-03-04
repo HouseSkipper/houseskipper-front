@@ -73,6 +73,7 @@ export class SubSkillComponent implements OnInit {
     }
 
     save(subskill: SubSkill) {
+        console.log(subskill);
         this._skillService.updateSubSkill(subskill).subscribe();
     }
 

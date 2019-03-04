@@ -20,7 +20,7 @@
         <mat-form-field class="importantField" appearance="outline" style="margin-left: 10px">
           <mat-label>Niveau estimé</mat-label>
           <mat-select placeholder="Niveau estimé"  required>
-            <mat-option *ngFor="let level of getLevels();" value="{{subSkill.nb_works}}" (onSelectionChange)="save(subSkill)">{{level}}</mat-option>
+            <mat-option *ngFor="let level of getLevels();" value="subSkill.nb_works" (onSelectionChange)="save(subSkill)">{{level}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="example-full-width" appearance="outline" style="margin-left: 10px">
