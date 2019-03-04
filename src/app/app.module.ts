@@ -48,6 +48,8 @@ import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.c
 import {HelpComponent} from './help/help.component';
 import { TasksMetricComponent } from './metrics/tasks-metric/tasks-metric.component';
 import {DatePipe} from '@angular/common';
+import { BudgetMetricComponent } from './metrics/budget-metric/budget-metric.component';
+import {ChartsModule} from 'ng2-charts';
 
 
 @NgModule({
@@ -78,8 +80,13 @@ import {DatePipe} from '@angular/common';
         FormTaskComponent,
         SubSkillComponent,
         PrestataireLoginComponent,
+<<<<<<< HEAD
         TasksMetricComponent
         HelpComponent
+=======
+        TasksMetricComponent,
+        BudgetMetricComponent
+>>>>>>> sprint4
     ],
     imports: [
         BrowserModule,
@@ -107,6 +114,7 @@ import {DatePipe} from '@angular/common';
         MatStepperModule,
         MatTableModule,
         MatProgressSpinnerModule,
+        ChartsModule,
         APP_ROUTES
     ],
     providers: [
