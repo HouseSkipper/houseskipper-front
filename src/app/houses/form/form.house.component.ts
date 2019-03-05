@@ -314,7 +314,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
 
     submit(payload: House) {
         payload = this.verifier(payload);
-        this._houseService.create(payload).subscribe((_) => this._model = _, null, () => { this._file = true; this.nextStep(); });
+        this._houseService.create(payload).subscribe((_) => this._model = _, null, () => this.saveFile());
     }
 
 
@@ -326,7 +326,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
         payload = this.verifier(payload);
         payload.id = this._model.id;
         this._file = true;
-        this._houseService.modifier(payload).subscribe(null, null, () => this._file = true);
+        this._houseService.modifier(payload).subscribe(null, null, () => this.saveFile());
     }
 
     private verifier(house: House): House {
@@ -360,11 +360,11 @@ export class FormHouseComponent implements OnInit, OnChanges {
             return 3;
         } else if (this.exterieur() === 1 && this.step === (4 + this.lengthRoom())) {
             return 4;
-        } else if (this.exterieur() === 1 && this.step > (4 + this.lengthRoom())) {
+        } else if (this.exterieur() === 1 && this.step === (5 + this.lengthRoom())) {
             return 5;
-        } else if (this.exterieur() === 1 && this._file) {
+        } else if (this.exterieur() === 1 && this.step > (5 + this.lengthRoom())) {
             return 6;
-        } else if (this._file) {
+        } else if (this.exterieur() === 0 && this.step === (5 + this.lengthRoom())) {
             return 5;
         } else {
             return 4;
@@ -433,6 +433,12 @@ export class FormHouseComponent implements OnInit, OnChanges {
                 } else {
                     return 2;
                 }
+            case 7:
+                if (this._formFile.invalid) {
+                    return 0;
+                } else {
+                    return 2;
+                }
             default:
                 return 0;
         }
@@ -461,10 +467,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
 
     private _buildFormFile(): FormGroup {
         return new FormGroup({
-            files: new FormArray([new FormGroup({
-                description: new FormControl(''),
-                file: new FormControl('')
-            })])
+            files: new FormArray([])
         });
     }
 
