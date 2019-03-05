@@ -10,7 +10,7 @@ import {
     MatIconModule,
     MatInputModule, MatRadioModule,
     MatSelectModule, MatSidenavModule, MatSliderModule, MatStepperModule, MatSortModule, MatTableModule,
-    MatToolbarModule, MatTooltipModule, MatProgressSpinnerModule
+    MatToolbarModule, MatTooltipModule, MatProgressSpinnerModule, MatGridListModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
@@ -116,6 +116,7 @@ import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.com
         MatProgressSpinnerModule,
         ChartsModule,
         NgxGaugeModule,
+        MatGridListModule,
         APP_ROUTES
     ],
     providers: [
