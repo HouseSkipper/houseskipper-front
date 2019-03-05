@@ -7,11 +7,15 @@
     .mat-list-item.active {
         background-color: #A1ADCD
     }
-    &:hover,
-    &:focus {
+    &:hover {
+        cursor: pointer;
         >.mat-list-item:not(.expanded) {
-             background-color: #A1ADCD
+            background-color: #A1ADCD
         }
+    }
+    &:focus {
+
+
     }
 }
 

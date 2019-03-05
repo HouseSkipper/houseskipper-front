@@ -45,10 +45,13 @@ import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-d
 import { FormTaskComponent } from './form-task/form-task.component';
 import { SubSkillComponent } from './sub-skill/sub-skill.component';
 import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
+import {HelpComponent} from './help/help.component';
 import { TasksMetricComponent } from './metrics/tasks-metric/tasks-metric.component';
 import {DatePipe} from '@angular/common';
 import { BudgetMetricComponent } from './metrics/budget-metric/budget-metric.component';
 import {ChartsModule} from 'ng2-charts';
+import {NgxGaugeModule} from 'ngx-gauge';
+import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.component';
 
 
 @NgModule({
@@ -80,7 +83,10 @@ import {ChartsModule} from 'ng2-charts';
         SubSkillComponent,
         PrestataireLoginComponent,
         TasksMetricComponent,
-        BudgetMetricComponent
+        BudgetMetricComponent,
+        SkillsMetricComponent,
+        BudgetMetricComponent,
+	    HelpComponent
     ],
     imports: [
         BrowserModule,
@@ -109,6 +115,7 @@ import {ChartsModule} from 'ng2-charts';
         MatTableModule,
         MatProgressSpinnerModule,
         ChartsModule,
+        NgxGaugeModule,
         APP_ROUTES
     ],
     providers: [
@@ -118,7 +125,7 @@ import {ChartsModule} from 'ng2-charts';
     entryComponents: [
        ShortcutDialogComponent, BeforeLoginDialogComponent
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

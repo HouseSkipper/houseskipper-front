@@ -17,6 +17,7 @@ import {BeforeLoginDialogComponent} from './before-login-dialog/before-login-dia
 import {FormTaskComponent} from './form-task/form-task.component';
 import {SubSkillComponent} from './sub-skill/sub-skill.component';
 import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
+import {HelpComponent} from './help/help.component';
 
 const ROUTES: Routes = [
     // App routes goes here
@@ -35,6 +36,7 @@ const ROUTES: Routes = [
             {path: 'infos/update/skills', component: SkillsComponent, canActivate: [AuthGuardService]},
             {path: 'infos/update/skills/:id', component: SubSkillComponent, canActivate: [AuthGuardService]},
             {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
+            {path: 'help', component: HelpComponent, canActivate: [AuthGuardService]},
             {path: 'infos/update', component: UpdateComponent, canActivate: [AuthGuardService]},
         ]
     },

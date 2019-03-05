@@ -191,12 +191,9 @@ export class FormTaskComponent implements OnInit, OnChanges {
         control.push(this.getCommentaire(date, auteur, etat, commentaire));
     }
 
-    private addCommentaires(auteur: string, etat: string, commentaire: string) {
-        if (this._datePipe.transform(date, 'yyyy-MM-dd') === null) {
-            date = this.now;
-        }
+    addOneCommentaire(auteur: string, etat: string, commentaire: string) {
         const control = <FormArray>this._form.get('commentaires');
-        control.push(this.getCommentaire(date, auteur, etat, commentaire));
+        control.push(this.getCommentaire(this.now, auteur, etat, commentaire));
     }
 
     private addTypeSec(nom: string) {
