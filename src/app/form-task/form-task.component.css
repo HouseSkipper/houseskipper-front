@@ -78,4 +78,12 @@ mat-panel-description {
     pointer-events: none !important;
 }
 
+.example-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.example-form > * {
+    width: 100%;
+}
 

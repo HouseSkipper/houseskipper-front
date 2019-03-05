@@ -35,7 +35,7 @@ export const environment = {
               oneTask: '/tasks/:id',
                 allTasksForUser: '/tasks',
                 upload : '/uploadFile/:id',
-                toNext: 'tasks/next/:id',
+                next: '/tasks/next/:id',
               dowload : '/downloadFile/:fileName/:id',
               fileNames : '/fileNames/:id',
                 comment : '/commentaire/:id'

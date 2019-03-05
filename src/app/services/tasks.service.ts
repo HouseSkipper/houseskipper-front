@@ -42,13 +42,8 @@ export class TasksService {
     }
 
     nextPhase(task: Task): Observable<any> {
-        const user = this._authentication.currentUserValue;
-        if (user !== null) {
-            task.username = this._authentication.currentUserValue.username;
-        } else {
-            task.username = 'admin';
-        }
-        return this._http.put<Task>(this._backendURL.toNext.replace(':id', task.id), task, this._options());
+        console.log(this._backendURL.next.replace(':id', task.id));
+        return this._http.post<Task>(this._backendURL.next.replace(':id', task.id), task, this._options());
     }
 
     create(task: Task): Observable<any> {

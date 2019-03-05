@@ -1,5 +1,6 @@
 export interface Task {
     id?: string;
+    idas: string;
     nom: string;
     username: string;
     residence: string;
@@ -10,6 +11,7 @@ export interface Task {
     start_date: Date;
     status: Phase;
     currentPhase: string;
+    currentPhaseId: number;
     resultat: string;
     connaissance: string;
     partie: string;
