@@ -53,18 +53,20 @@ export class TaskComponent implements OnInit {
         return this._errorMsg;
     }
     deleteTask(id) {
-        this._dataService.remove(id).subscribe(
-            null,
-            null,
-            () => {
-                new TaskDataSource(this._dataService).connect().subscribe(_ => {
-                        this.dataSource = new MatTableDataSource<Task>(_);
-                        this.dataSource.paginator = this.paginator;
-                        this.dataSource.sort = this.sort;
-                    }
-                );
-            }
-        );
+        if (confirm('Êtes-vous sûr de vouloir supprimer la tâche ?')) {
+            this._dataService.remove(id).subscribe(
+                null,
+                null,
+                () => {
+                    new TaskDataSource(this._dataService).connect().subscribe(_ => {
+                            this.dataSource = new MatTableDataSource<Task>(_);
+                            this.dataSource.paginator = this.paginator;
+                            this.dataSource.sort = this.sort;
+                        }
+                    );
+                }
+            );
+        }
     }
 
 
@@ -135,7 +137,9 @@ export class TaskComponent implements OnInit {
     }
 
     nextStep(task) {
-        this._dataService.nextPhase(task).subscribe(_ => console.log(_), null, () => location.reload());
+        if (confirm('Êtes-vous sûr de vouloir passer à l\'étape suivante ?')) {
+            this._dataService.nextPhase(task).subscribe(_ => console.log(_), null, () => location.reload());
+        }
 
     }
 
