@@ -25,6 +25,7 @@ export interface House {
     surfaceExterieurGauche: number;
     surfaceExterieurArriere: number;
     comment: string;
+    nbDocument: number;
 }
 
 export interface Room {

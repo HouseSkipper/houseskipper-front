@@ -34,7 +34,7 @@
                                 </ng-container>
                                 <ng-container matColumnDef="NbDocs">
                                     <mat-header-cell *matHeaderCellDef> Nombres de documents </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> 0 </mat-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.nbDocument}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Delete">
                                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
@@ -43,7 +43,7 @@
                                             <mat-icon svgIcon="icon-edit">modifier</mat-icon>
                                         </a>
                                         <span></span>
-                                        <a type="button" (click)="delete(element.id)">
+                                        <a type="button" (click)="delete(element)">
                                             <mat-icon svgIcon="icon-delete">supprimer</mat-icon>
                                         </a>
                                     </mat-cell>

@@ -52,6 +52,7 @@ import { BudgetMetricComponent } from './metrics/budget-metric/budget-metric.com
 import {ChartsModule} from 'ng2-charts';
 import {NgxGaugeModule} from 'ngx-gauge';
 import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.component';
+import {HouseDialogDelete} from './houses/matDialog/delete/house.dialog.delete';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.com
         BudgetMetricComponent,
         SkillsMetricComponent,
         BudgetMetricComponent,
-	    HelpComponent
+	    HelpComponent,
+        HouseDialogDelete
     ],
     imports: [
         BrowserModule,
@@ -123,7 +125,7 @@ import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.com
         DataService, TasksService, CookieService, DatePipe
     ],
     entryComponents: [
-       ShortcutDialogComponent, BeforeLoginDialogComponent
+       ShortcutDialogComponent, BeforeLoginDialogComponent, HouseDialogDelete
     ],
     bootstrap: [AppComponent]
 })

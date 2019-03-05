@@ -99,5 +99,6 @@ mat-panel-description {
     text-align: center;
     text-decoration: none;
     margin:inherit;
-    display: inline-block
+    display: inline-block;
+    margin-bottom: 10px;
 }
