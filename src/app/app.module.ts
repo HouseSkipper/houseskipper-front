@@ -52,6 +52,7 @@ import { BudgetMetricComponent } from './metrics/budget-metric/budget-metric.com
 import {ChartsModule} from 'ng2-charts';
 import {NgxGaugeModule} from 'ngx-gauge';
 import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.component';
+import { AlertMetricComponent } from './metrics/alert-metric/alert-metric.component';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.com
         BudgetMetricComponent,
         SkillsMetricComponent,
         BudgetMetricComponent,
-	    HelpComponent
+	    HelpComponent,
+	    AlertMetricComponent
     ],
     imports: [
         BrowserModule,

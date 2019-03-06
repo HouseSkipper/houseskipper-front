@@ -21,7 +21,7 @@
     margin: 10px !important;
 }
 
-app-tasks-metric, app-budget-metric, app-skills-metric {
+app-tasks-metric, app-budget-metric, app-skills-metric, app-alert-metric {
     width:100%;
     height:100%;
 }
