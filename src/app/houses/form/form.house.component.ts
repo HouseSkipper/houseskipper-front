@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnInit, ViewChild, ɵunv} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {House} from '../../interfaces/house';
+import {FileHouse, House} from '../../interfaces/house';
 import {HouseService} from '../../services/house.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {flatMap, map} from 'rxjs/operators';
@@ -123,10 +123,27 @@ export class FormHouseComponent implements OnInit, OnChanges {
                     house.rooms[i].nbPorteFenetre, house.rooms[i].typeChauffage, house.rooms[i].nbRadiateur, house.rooms[i].volet,
                     house.rooms[i].nbVolet));
             }
+            let fi: FileHouse[];
+            this.files = this._formFile.get('files') as FormArray;
+            this._houseService.fetchFiles(house.id).subscribe((_) => fi = _, null, () => {
+                for (let i = 0; i < fi.length; i++) {
+                     // console.log(this.str2ab(fi[i].pic));
+                    const f: File = new File([this.str2ab(fi[i].pic)], fi[i].fileName);
+                    this.files.push(this.createFile(f, fi[i].description, fi[i].id));
+                }
+            });
 
         } else {
             this._isUpdateMode = false;
         }
+    }
+
+    createFile(name: File, description: string, id: string): FormGroup {
+        return new FormGroup({
+            description: new FormControl(description, Validators.required),
+            file: new FormControl(name),
+            id: new FormControl(id),
+        });
     }
 
     get classEnergetique(): string[] {
@@ -475,7 +492,8 @@ export class FormHouseComponent implements OnInit, OnChanges {
         this.files = this._formFile.get('files') as FormArray;
         this.files.push(new FormGroup({
             description: new FormControl(''),
-            file: new FormControl('')
+            file: new FormControl(''),
+            id: null,
         }));
     }
 
@@ -498,7 +516,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
     saveFile() {
         // console.log(this._formFile.get('files'));
         // this.files = this._formFile.get('files') as FormArray;
-        for (let i = 0 ; i < this._formFile.get('files').value.length ; i++) {
+        for (let i = 0; i < this._formFile.get('files').value.length; i++) {
             // console.log(this._formFile.get('files')['controls'][i].get('file'));
             const input = new FormData();
             input.append('file', this._formFile.get('files')['controls'][i].get('file').value);
@@ -506,6 +524,70 @@ export class FormHouseComponent implements OnInit, OnChanges {
             this._houseService.uploadFile(input, this._model.id).subscribe();
         }
         this._router.navigate(['/users/houses']);
+    }
+
+    downloadFileAs(id: string, data: any) {
+        this._houseService.fetchFile(id).subscribe((_) => {
+            const a = document.createElement('a');
+            document.body.appendChild(a);
+            let type = '';
+            if (data.name.includes('png') || data.name.includes('jpg')
+                || data.name.includes('jpeg')) {
+                type = 'image/jpg';
+            } else if (data.name.includes('pdf')) {
+                type = 'application/pdf';
+            }
+            const blob = new Blob([_], {type: type});
+            const url = window.URL.createObjectURL(blob);
+            const pwa = window.open(url);
+            if (!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
+                alert('Disable Pop-up');
+            } else {
+                a.href = url;
+                a.download = data.name;
+                a.click();
+            }
+        });
+        /*
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        let type = '';
+        if (data.name.includes('png') || data.name.includes('jpg')
+            || data.name.includes('jpeg')) {
+            type = 'image/jpg';
+        } else if (data.name.includes('pdf')) {
+            type = 'application/pdf';
+        }
+        let blob = null;
+        var reader = new FileReader();
+        let url = null;
+        let pwa = null;
+        blob = data.slice();
+        // blob.type = type;
+        console.log(blob);
+        url = window.URL.createObjectURL(data.slice());
+        pwa = window.open(url);
+        if (!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
+            alert('Disable Pop-up');
+        } else {
+            a.href = url;
+            a.download = data.name;
+            a.click();
+        }
+        reader.onload = function () {
+
+        };
+        reader.readAsText(data.slice());
+        */
+
+    }
+     str2ab(str): ArrayBuffer {
+        let buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
+        let bufView = new Uint16Array(buf);
+        for (let i = 0, strLen = str.length; i < strLen; i++) {
+            bufView[i] = str.charCodeAt(i);
+        }
+        return buf;
     }
 
 }

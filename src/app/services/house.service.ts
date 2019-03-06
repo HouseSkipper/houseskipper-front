@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {House} from '../interfaces/house';
+import {FileHouse, House} from '../interfaces/house';
 import {environment} from '../../environments/environment';
 import {AuthenticationService} from './authentication.service';
 import {defaultIfEmpty, filter, map} from 'rxjs/operators';
@@ -69,6 +69,16 @@ export class HouseService {
 
         return this._httpClient.request(req);
     }
+
+    fetchFiles(id: string): Observable<FileHouse[]> {
+        return this._httpClient.get<FileHouse[]>(this._backendURL.uploadFileHouse.replace(':houseId', id));
+    }
+
+
+    fetchFile(id: string): Observable<any> {
+        return this._httpClient.get(this._backendURL.fileHouse.replace(':id', id), { responseType : 'arraybuffer'});
+    }
+
 
 
 }
