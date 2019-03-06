@@ -127,8 +127,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
             this.files = this._formFile.get('files') as FormArray;
             this._houseService.fetchFiles(house.id).subscribe((_) => fi = _, null, () => {
                 for (let i = 0; i < fi.length; i++) {
-                     // console.log(this.str2ab(fi[i].pic));
-                    const f: File = new File([this.str2ab(fi[i].pic)], fi[i].fileName);
+                    const f: File = new File([fi[i].pic], fi[i].fileName);
                     this.files.push(this.createFile(f, fi[i].description, fi[i].id));
                 }
             });
@@ -493,7 +492,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
         this.files.push(new FormGroup({
             description: new FormControl(''),
             file: new FormControl(''),
-            id: null,
+            id: new FormControl(),
         }));
     }
 
@@ -517,11 +516,14 @@ export class FormHouseComponent implements OnInit, OnChanges {
         // console.log(this._formFile.get('files'));
         // this.files = this._formFile.get('files') as FormArray;
         for (let i = 0; i < this._formFile.get('files').value.length; i++) {
-            // console.log(this._formFile.get('files')['controls'][i].get('file'));
-            const input = new FormData();
-            input.append('file', this._formFile.get('files')['controls'][i].get('file').value);
-            input.append('description', this._formFile.get('files')['controls'][i].get('description').value);
-            this._houseService.uploadFile(input, this._model.id).subscribe();
+            if (this._formFile.get('files')['controls'][i].get('id').value === null) {
+                const input = new FormData();
+                input.append('file', this._formFile.get('files')['controls'][i].get('file').value);
+                input.append('description', this._formFile.get('files')['controls'][i].get('description').value);
+                this._houseService.uploadFile(input, this._model.id).subscribe();
+            }
+            // console.log(this._formFile.get('files')['controls'][i]);
+
         }
         this._router.navigate(['/users/houses']);
     }
@@ -548,46 +550,7 @@ export class FormHouseComponent implements OnInit, OnChanges {
                 a.click();
             }
         });
-        /*
-        const a = document.createElement('a');
-        document.body.appendChild(a);
-        let type = '';
-        if (data.name.includes('png') || data.name.includes('jpg')
-            || data.name.includes('jpeg')) {
-            type = 'image/jpg';
-        } else if (data.name.includes('pdf')) {
-            type = 'application/pdf';
-        }
-        let blob = null;
-        var reader = new FileReader();
-        let url = null;
-        let pwa = null;
-        blob = data.slice();
-        // blob.type = type;
-        console.log(blob);
-        url = window.URL.createObjectURL(data.slice());
-        pwa = window.open(url);
-        if (!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
-            alert('Disable Pop-up');
-        } else {
-            a.href = url;
-            a.download = data.name;
-            a.click();
-        }
-        reader.onload = function () {
-
-        };
-        reader.readAsText(data.slice());
-        */
-
     }
-     str2ab(str): ArrayBuffer {
-        let buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
-        let bufView = new Uint16Array(buf);
-        for (let i = 0, strLen = str.length; i < strLen; i++) {
-            bufView[i] = str.charCodeAt(i);
-        }
-        return buf;
-    }
+
 
 }

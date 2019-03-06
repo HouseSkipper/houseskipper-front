@@ -587,7 +587,7 @@
                         <label *ngIf="formFile.get('files').controls[i].get('file').value !== ''" class="mat-body"
                                style="width: 100%;">{{formFile.get('files').controls[i].get('file').value.name}}
                         </label>
-                        <input *ngIf="formFile.get('files').controls[i].get('file').value === ''" type="file"
+                        <input *ngIf="formFile.get('files').controls[i].get('id').value === null" type="file"
                                name="file" style="margin-left: 10px" (change)="onFileChange($event, i)"/>
                         <mat-form-field class="margin " appearance="outline">
                             <mat-label>Description</mat-label>
@@ -595,7 +595,7 @@
                                       formControlName="description"
                                       name="description" required></textarea>
                         </mat-form-field>
-                        <button mat-button *ngIf="formFile.get('files').controls[i].get('file').value !== ''" (click)="downloadFileAs(formFile.get('files').controls[i].get('id').value, formFile.get('files').controls[i].get('file').value)"><mat-icon>cloud_download</mat-icon></button>
+                        <button mat-button *ngIf="formFile.get('files').controls[i].get('id').value !== null" (click)="downloadFileAs(formFile.get('files').controls[i].get('id').value, formFile.get('files').controls[i].get('file').value)"><mat-icon>cloud_download</mat-icon></button>
                     </div>
                 </div>
             </div>
