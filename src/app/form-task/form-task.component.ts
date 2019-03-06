@@ -214,6 +214,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     private getPiece(nom: string): FormGroup {
+        console.log(nom);
         return new FormGroup({
            local:  new FormControl(nom, Validators.compose([
                Validators.required, Validators.minLength(3)
@@ -250,6 +251,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(task) {
+        console.log(task);
         const taille = task.partiesExacte.length;
         const pieces = task.partiesExacte;
         const comments = task.commentaires;

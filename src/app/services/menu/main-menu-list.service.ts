@@ -19,16 +19,6 @@ export class MainMenuListService implements MenuListService {
                 this.currentUrl.next(event.urlAfterRedirects);
             }
         });
-    }
-
-    public closeNav() {
-        this.appDrawer.close();
-    }
-
-    public openNav() {
-        this.appDrawer.open();
-    }
-    getMenuEntries() {
         this._childrenSkills = [];
 
         this._skillServices.fetchAll().subscribe( skills => {
@@ -40,6 +30,54 @@ export class MainMenuListService implements MenuListService {
                 });
             }
         });
+    }
+
+    public closeNav() {
+        this.appDrawer.close();
+    }
+
+    public openNav() {
+        this.appDrawer.open();
+    }
+
+    getMenuEntriesCollapse() {
+        const navItems: NavItem[] = [
+            {
+                displayName: '',
+                iconName: 'dashboard',
+                route: '/dashboard',
+                children: []
+            },
+            {
+                displayName: '',
+                iconName: 'help_outline',
+                route: '/help',
+                children: []
+            },
+            {
+                displayName: '',
+                iconName: 'infos',
+                route: '/infos/update',
+                children: []
+            },
+            {
+                displayName: '',
+                iconName: 'today',
+                route: '/users/tasks',
+                children: []
+            },
+            {
+                displayName: '',
+                iconName: 'location_city',
+                route: '/users/houses',
+                children: []
+            },
+
+        ];
+        return navItems;
+    }
+
+    getMenuEntries() {
         const navItems: NavItem[] = [
             {
                 displayName: 'Tableau de bord',
