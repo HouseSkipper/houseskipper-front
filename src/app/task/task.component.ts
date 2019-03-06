@@ -3,11 +3,8 @@ import {Observable} from 'rxjs';
 import {DataService} from '../services/budget.service';
 import {DataSource} from '@angular/cdk/table';
 import { Task} from '../interfaces/task';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource, Sort} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource, Sort} from '@angular/material';
 import {TasksService} from '../services/tasks.service';
-import {FileUploader} from 'ng2-file-upload';
-import {AuthenticationService} from '../services/authentication.service';
-import {HttpHeaders} from '@angular/common/http';
 import {Route, Router} from '@angular/router';
 
 @Component({
@@ -33,7 +30,6 @@ export class TaskComponent implements OnInit {
     constructor(private _dataService: TasksService, private _router: Router
                 ) {
         this.hasFile = false;
-
     }
 
     get files(): string[] {

@@ -14,6 +14,7 @@ import {TaskDataSource} from '../../task/task.component';
 export class ShortcutAreaComponent implements OnInit {
 
   private _model: Shortcut[];
+
   constructor(private _shortcutService: ShortcutsService, public dialog: MatDialog, private _router: Router) { }
 
   ngOnInit() {
@@ -37,5 +38,6 @@ export class ShortcutAreaComponent implements OnInit {
       });
     });
   }
+
 
 }

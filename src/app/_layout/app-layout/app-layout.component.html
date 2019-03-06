@@ -1,11 +1,19 @@
 <app-main-nav-bar></app-main-nav-bar>
 <mat-sidenav-container autosize>
-  <mat-sidenav id="sideMenu" mode="side" opened>
+  <mat-sidenav id="sideMenu" mode="side" opened [ngStyle]="{ 'width.em': sidenavWidth }"(mouseenter)="increase()" (mouseleave)="decrease()">
+    <span *ngIf="sidenavWidth > 4">
     <app-main-side-menu *ngFor="let item of navItems" [item]="item">
     </app-main-side-menu>
+    </span>
+    <span *ngIf="sidenavWidth < 4">
+      <app-main-side-menu  *ngFor="let item of navItemCollapse" [item]="item">
+    </app-main-side-menu>
+    </span>
+
   </mat-sidenav>
-  <mat-sidenav id="sideMenuRight" mode="side" opened position="end">
-    <!--<app-shortcut-area></app-shortcut-area>-->
+  <mat-sidenav id="sideMenuRight" mode="side" position="end" style="border: 1vh" [ngStyle]="{ 'width.em': sidenavWidthRight, 'height.em': sidenavWidthRight-2.5 }" opened (mouseenter)="increaseR()"
+               (mouseleave)="decreaseR()">
+    <app-shortcut-area></app-shortcut-area>
   </mat-sidenav>
   <mat-sidenav-content >
     <div>
