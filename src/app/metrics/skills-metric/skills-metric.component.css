@@ -1,13 +1,13 @@
 #skills-metrics {
-    margin-top:20px;
     display: flex;
     flex-direction: column;
     background: #3A3A64;
     border-radius: 4px;
     padding:20px;
     color:white;
-    min-height:100px;
-    width:98%;
+    height:100%;
+    width:100%;
+    box-sizing: border-box;
 }
 
 #metrics {

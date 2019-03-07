@@ -23,7 +23,7 @@ export class TasksMetricComponent implements OnInit {
     private _phases: Phase[];
 
 
-    constructor(private _authService: AuthenticationService, private _phaseService: PhaseService, private _historicService: HistoricService, private _taskService: TasksService) {
+    constructor(private _authService: AuthenticationService, private _phaseService: PhaseService, private _historicService: HistoricService) {
         this._authService.currentUser.subscribe(u => {
             this.currentUser = u;
         });
@@ -84,7 +84,6 @@ export class TasksMetricComponent implements OnInit {
 
     init() {
         this.getPhases().subscribe(_ => {
-            console.log(_);
             this._phases = _;
             for (const p of _) {
                 this._phasesNb.set(p.phaseName, 0);

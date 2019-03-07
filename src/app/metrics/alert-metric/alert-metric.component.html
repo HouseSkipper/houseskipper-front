@@ -1,0 +1,30 @@
+<div id="alert-metrics">
+  <mat-progress-spinner *ngIf="false" [color]="'accent'"  [diameter]="50" mode="indeterminate"></mat-progress-spinner>
+  <h2 class="mat-h2">Mes alertes</h2>
+    <div id="alerts-container">
+        <div class="alert">
+            <button mat-mini-fab class="longWaiting">{{soumissionLongWaiting.length ? soumissionLongWaiting.length : ''}}</button>
+            <button mat-mini-fab class="mediumWaiting">{{soumissionMediumWaiting.length ? soumissionMediumWaiting.length : ''}}</button>
+            <button mat-mini-fab class="smallWaiting">{{soumissionSmallWaiting.length ? soumissionSmallWaiting.length : ''}}</button>
+            <span class="mat-body-1">Attente soumission</span>
+        </div>
+        <div class="alert">
+            <button mat-mini-fab class="longWaiting">{{evaluationLongWaiting.length ? evaluationLongWaiting.length : ''}}</button>
+            <button mat-mini-fab class="mediumWaiting">{{evaluationMediumWaiting.length ? evaluationMediumWaiting.length : ''}}</button>
+            <button mat-mini-fab class="smallWaiting">{{evaluationSmallWaiting.length ? evaluationSmallWaiting.length : ''}}</button>
+            <span class="mat-body-1">Attente évaluation</span>
+        </div>
+        <div class="alert">
+            <button mat-mini-fab class="longWaiting">{{decisionLongWaiting.length ? decisionLongWaiting.length : ''}}</button>
+            <button mat-mini-fab class="mediumWaiting">{{decisionMediumWaiting.length ? decisionMediumWaiting.length : ''}}</button>
+            <button mat-mini-fab class="smallWaiting">{{decisionSmallWaiting.length ? decisionSmallWaiting.length : ''}}</button>
+            <span class="mat-body-1">Attente décision</span>
+        </div>
+        <div class="alert">
+            <button mat-mini-fab class="longWaiting">{{finalisationLongWaiting.length ? finalisationLongWaiting.length : ''}}</button>
+            <button mat-mini-fab class="mediumWaiting">{{finalisationMediumWaiting.length ? finalisationMediumWaiting.length : ''}}</button>
+            <button mat-mini-fab class="smallWaiting">{{finalisationSmallWaiting.length ? finalisationSmallWaiting.length : ''}}</button>
+            <span class="mat-body-1">Attente finalisation</span>
+        </div>
+    </div>
+</div>
