@@ -3,11 +3,8 @@ import {Observable} from 'rxjs';
 import {DataService} from '../services/budget.service';
 import {DataSource} from '@angular/cdk/table';
 import { Task} from '../interfaces/task';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource, Sort} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource, Sort} from '@angular/material';
 import {TasksService} from '../services/tasks.service';
-import {FileUploader} from 'ng2-file-upload';
-import {AuthenticationService} from '../services/authentication.service';
-import {HttpHeaders} from '@angular/common/http';
 import {Route, Router} from '@angular/router';
 
 @Component({
@@ -33,7 +30,6 @@ export class TaskComponent implements OnInit {
     constructor(private _dataService: TasksService, private _router: Router
                 ) {
         this.hasFile = false;
-
     }
 
     get files(): string[] {
@@ -53,18 +49,20 @@ export class TaskComponent implements OnInit {
         return this._errorMsg;
     }
     deleteTask(id) {
-        this._dataService.remove(id).subscribe(
-            null,
-            null,
-            () => {
-                new TaskDataSource(this._dataService).connect().subscribe(_ => {
-                        this.dataSource = new MatTableDataSource<Task>(_);
-                        this.dataSource.paginator = this.paginator;
-                        this.dataSource.sort = this.sort;
-                    }
-                );
-            }
-        );
+        if (confirm('Êtes-vous sûr de vouloir supprimer la tâche ?')) {
+            this._dataService.remove(id).subscribe(
+                null,
+                null,
+                () => {
+                    new TaskDataSource(this._dataService).connect().subscribe(_ => {
+                            this.dataSource = new MatTableDataSource<Task>(_);
+                            this.dataSource.paginator = this.paginator;
+                            this.dataSource.sort = this.sort;
+                        }
+                    );
+                }
+            );
+        }
     }
 
 
@@ -135,7 +133,9 @@ export class TaskComponent implements OnInit {
     }
 
     nextStep(task) {
-        this._dataService.nextPhase(task).subscribe(_ => console.log(_), null, () => location.reload());
+        if (confirm('Êtes-vous sûr de vouloir passer à l\'étape suivante ?')) {
+            this._dataService.nextPhase(task).subscribe(_ => console.log(_), null, () => location.reload());
+        }
 
     }
 
