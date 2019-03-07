@@ -39,3 +39,13 @@ export interface Room {
     volet: number;
     nbVolet: number;
 }
+
+export interface FileHouse {
+    id: string;
+    fileName: string;
+    fileDownloadUri: string;
+    fileType: string;
+    size: number;
+    pic: string;
+    description: string;
+}

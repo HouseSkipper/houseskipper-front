@@ -9,9 +9,25 @@ import {Component, OnInit} from '@angular/core';
 export class HelpComponent implements OnInit {
 
 
+    private _subject :string;
+
     constructor () {}
 
     ngOnInit () {
+    }
+
+
+
+    missRDV () {
+      //
+    }
+
+    damage () {
+      //
+    }
+
+    disagree () {
+      //
     }
 
 

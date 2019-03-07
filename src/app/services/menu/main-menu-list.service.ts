@@ -40,7 +40,7 @@ export class MainMenuListService implements MenuListService {
         this.appDrawer.open();
     }
 
-    getMenuEntriesCollapse() {
+    getMenuEntriesCollapse(): NavItem[] {
         const navItems: NavItem[] = [
             {
                 displayName: '',

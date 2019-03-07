@@ -102,3 +102,7 @@ mat-panel-description {
     display: inline-block;
     margin-bottom: 10px;
 }
+
+.icon {
+    color: #8C9BC0;
+}

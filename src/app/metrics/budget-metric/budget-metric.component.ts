@@ -23,8 +23,8 @@ export class BudgetMetricComponent implements OnInit {
             padding: {
                 left: 20,
                 right: 20,
-                top: 30,
-                bottom: 30
+                top: 20,
+                bottom: 20
             }
         }
     }
