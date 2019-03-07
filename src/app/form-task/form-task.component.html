@@ -228,7 +228,7 @@
       <h2>Documents Ajoutés : </h2>
       <mat-list>
         <mat-list-item *ngFor="let file of files">
-          <h3 matLine> - {{file}} </h3>
+          <h3 matLine> - <a id="file" (click)="downloadFile(file)">{{file}}</a> </h3>
         </mat-list-item>
       </mat-list>
 
@@ -256,21 +256,21 @@
         <div *ngFor="let local of form.get('commentaires')['controls']; let i=index">
           <div [formGroupName]="i">
             <div *ngIf="local['controls'].phasec.value === displayedBlock[iblock]">
-              <mat-form-field class="margin importantField" appearance="outline" style="width: 10vh;">
+              <mat-form-field class="margin importantField" appearance="outline" style="width: 11vh;">
                 <input matInput placeholder="Date" style="cursor: not-allowed;" formControlName="datec" name="datec"  readonly/>
               </mat-form-field>
               <mat-form-field class="margin importantField" appearance="outline" style="width: 10vh;">
                 <mat-label>Auteur</mat-label>
                 <input matInput placeholder="Auteur" style="cursor: not-allowed;" required formControlName="auteur" name="auteur" readonly/>
               </mat-form-field>
-              <mat-form-field class="margin importantField" appearance="outline" style="width: 10vh;" *ngIf="iblock === currentPhaseId -1 && i === form.get('commentaires')['controls'].length -1" >
+              <mat-form-field class="margin importantField" appearance="outline" style="width: 15vh;" *ngIf="iblock === currentPhaseId -1 && i === form.get('commentaires')['controls'].length -1" >
                 <mat-label>Etat</mat-label>
-                <mat-select placeholder="Etat" formControlName="etat" required name="etat">
+                <mat-select placeholder="Etat" formControlName="etat"  required name="etat">
                   <mat-option value="Pour information">Pour information</mat-option>
                   <mat-option value="Pour action">Pour action</mat-option>
                 </mat-select>
                 </mat-form-field>
-              <mat-form-field class="margin importantField" appearance="outline" style="width: 10vh;" *ngIf=" i !== form.get('commentaires')['controls'].length -1">
+              <mat-form-field class="margin importantField" appearance="outline" style="width: 15vh;" *ngIf=" i !== form.get('commentaires')['controls'].length -1">
                 <mat-label>Etat</mat-label>
                 <input matInput placeholder="Etat" required style="cursor: not-allowed;" formControlName="etat" name="etat" readonly/>
               </mat-form-field>
@@ -280,7 +280,7 @@
                 <textarea matInput placeholder="Commentaire" style="cursor: not-allowed;"  required formControlName="commentaire"
                           name="commentaire" readonly></textarea>
               </mat-form-field>
-              <mat-form-field class="textaeraPerso" appearance="outline" style="width: 50vh;" *ngIf="iblock === currentPhaseId -1 && i === form.get('commentaires')['controls'].length -1">
+              <mat-form-field class="textaeraPerso" appearance="outline" style="width: 40vh;" *ngIf="iblock === currentPhaseId -1 && i === form.get('commentaires')['controls'].length -1">
                 <mat-label>Commentaire</mat-label>
                 <textarea matInput placeholder="Commentaire"  required formControlName="commentaire"
                           name="commentaire"></textarea>
