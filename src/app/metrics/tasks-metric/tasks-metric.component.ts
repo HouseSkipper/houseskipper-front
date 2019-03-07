@@ -84,7 +84,6 @@ export class TasksMetricComponent implements OnInit {
 
     init() {
         this.getPhases().subscribe(_ => {
-            console.log(_);
             this._phases = _;
             for (const p of _) {
                 this._phasesNb.set(p.phaseName, 0);

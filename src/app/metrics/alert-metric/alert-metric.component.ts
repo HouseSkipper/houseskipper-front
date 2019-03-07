@@ -8,6 +8,9 @@ import {HistoricService} from '../../services/historic.service';
 })
 export class AlertMetricComponent implements OnInit {
 
+    private static LONG_WAITING = 30;
+    private static MEDIUM_WAITING = 15;
+
     private _soumissionLongWaiting;
     private _soumissionMediumWaiting;
     private _soumissionSmallWaiting;
@@ -40,6 +43,7 @@ export class AlertMetricComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.clearAll();
         this._historicService.getAllFromUser().subscribe(_ => {
             const now = new Date();
             for (const h of _) {
@@ -47,22 +51,60 @@ export class AlertMetricComponent implements OnInit {
                 switch (h.currentPhase) {
                     case 'Soumission':
                         // soumission
-
+                        if (nbDays >= AlertMetricComponent.LONG_WAITING) {
+                            this._soumissionLongWaiting.push(h);
+                        } else if (nbDays >= AlertMetricComponent.MEDIUM_WAITING) {
+                            this._soumissionMediumWaiting.push(h);
+                        } else {
+                            this._soumissionSmallWaiting.push(h);
+                        }
                         break;
                     case 'Evaluation':
-                        // evaluation
+                        if (nbDays >= AlertMetricComponent.LONG_WAITING) {
+                            this._evaluationLongWaiting.push(h);
+                        } else if (nbDays >= AlertMetricComponent.MEDIUM_WAITING) {
+                            this._evaluationMediumWaiting.push(h);
+                        } else {
+                            this._evaluationSmallWaiting.push(h);
+                        }
                         break;
                     case 'Decision':
-                        // decision
+                        if (nbDays >= AlertMetricComponent.LONG_WAITING) {
+                            this._decisionLongWaiting.push(h);
+                        } else if (nbDays >= AlertMetricComponent.MEDIUM_WAITING) {
+                            this._decisionMediumWaiting.push(h);
+                        } else {
+                            this._decisionSmallWaiting.push(h);
+                        }
                         break;
                     case 'Finalisation' :
-                        // finalisation
+                        if (nbDays >= AlertMetricComponent.LONG_WAITING) {
+                            this._finalisationLongWaiting.push(h);
+                        } else if (nbDays >= AlertMetricComponent.MEDIUM_WAITING) {
+                            this._finalisationMediumWaiting.push(h);
+                        } else {
+                            this._finalisationSmallWaiting.push(h);
+                        }
                         break;
                 }
             }
         });
     }
 
+    clearAll() {
+        this._soumissionLongWaiting = [];
+        this._soumissionMediumWaiting = [];
+        this._soumissionSmallWaiting = [];
+        this._evaluationLongWaiting = [];
+        this._evaluationMediumWaiting = [];
+        this._evaluationSmallWaiting = [];
+        this._decisionLongWaiting = [];
+        this._decisionMediumWaiting = [];
+        this._decisionSmallWaiting = [];
+        this._finalisationLongWaiting = [];
+        this._finalisationSmallWaiting = [];
+        this._finalisationMediumWaiting = [];
+    }
 
     get soumissionLongWaiting() {
         return this._soumissionLongWaiting;
