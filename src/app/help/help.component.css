@@ -1,9 +1,4 @@
 
-section
-{
-}
-
-
 #helpHeader
 {
   width: 100%;
@@ -16,38 +11,53 @@ section
 {
   float:left;
   width: 237px;
-  height: inherit;
+  height: 100%;
 
   background-image: url('../../assets/images/background.png');
   background-size: cover;
 }
 
-.title
+.helpTitle
 {
   display: inline-flex;
   margin: 38px 25px;
+
+  font-size: 125%;
 }
 
 
-article
+
+#helpContent
 {
-
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  overflow: scroll;
 }
 
-article table
+
+
+.helpArticle
+{
+  flex-grow: 2;
+  max-width: 550px;
+}
+
+.helpArticle table
 {
   margin: 30px;
 }
 
-article th
+.helpArticle th
 {
-  font-size: 150%;
+  font-size: 125%;
   text-align: left;
 }
 
-article button
+.helpIncident button
 {
-  font-size: 120%;
+  font-size: 110%;
   text-align: center;
 
   padding: 10px 15px;
@@ -59,18 +69,116 @@ article button
   cursor: pointer;
 }
 
-.incident, .incident button
+.helpIncident, .helpIncident button
 {
   color: red;
 }
 
-aside
+
+
+#helpOther
 {
-  display: inline-block;
+  width: 100%;
+}
+
+.helpOtherTitle
+{
+  color: grey;
+}
+
+.helpOther form
+{
+  background-color: rgba(200, 200, 200, 0.2);
+  padding-bottom: 40px;
+}
+
+.helpOther input
+{
+  border: 1px solid grey;
+}
+
+.helpOther table
+{
+  margin: 15px 5px;
+}
+
+.helpOther td
+{
+  margin: 5px 0px;
+}
+
+.helpOther p
+{
+  color: rgb(200, 200, 200);
+  text-align: left;
+}
+
+.helpOtherBig
+{
+  font-size: 160%;
+  margin: 10px 0px;
+}
+
+.helpOtherObj
+{
+  float: left;
+  padding: 5px 20px;
+}
+
+
+#helpFileUpload_
+{
+  display: none;
+}
+
+#helpFileUpload
+{
+  float: left;
+  margin: 10px 10px 40px 10px;
+}
+
+#helpSubmit
+{
   float: right;
+  margin: 10px 10px 40px 10px;
+}
+
+
+
+.helpAside
+{
+  flex-grow: 1;
+  min-width: 5%;
+  max-width: 400px;
+}
+
+.helpAside img
+{
+  width: 48px;
+  height: 48px;
+
+  margin: 10px 30px;
+}
+
+.helpAside table
+{
+  margin: 10px 15px;
+}
+
+.helpAside hr
+{
+  opacity: 0.2;
 }
 
 .helpAsideEm
 {
   color: rgb(90, 190, 238);
 }
+
+
+
+.smallText
+{
+  font-size: 70%;
+}
+

@@ -1,28 +1,65 @@
 
-<section>
-  <div id="helpHeader">
-    <div id="helpHeadImg"></div><h1 class="title">Besoin d'aide ?</h1>
-  </div>
+<div id="helpHeader">
+  <div id="helpHeadImg"></div><span class="helpTitle">Besoin d'aide ?</span>
+</div>
 
-  <article>
-    <div class="incident">
+<div id="helpContent">
+  <div class="helpArticle">
+    <div class="helpIncident">
       <table>
         <tr><th colspan="3">Signaler un incident</th></tr>
         <tr>
-          <td><button>Absence rendez-vous</button></td>
-          <td><button>Sinistre</button></td>
-          <td><button>Désaccord</button></td>
+          <td><button (click)="missRDV()">Absence rendez-vous</button></td>
+          <td><button (click)="damage()">Sinistre</button></td>
+          <td><button (click)="disagree()">Désaccord</button></td>
         </tr>
       </table>
     </div>
-  </article>
-  <aside>
+    <div class="helpOther">
+      <span class="helpOtherTitle">Pour une autre demande, dites-nous ce que vous souhaitez...</span><br/>
+      <form>
+        <table>
+          <tr><td><span class="helpOtherBig">OBJET</span></td><td></td><td></td></tr>
+          <tr>
+            <td></td><td class="helpOtherObj smallText">Votre demande concerne</td>
+            <td><input type="text" /></td>
+          </tr>
+          <tr>
+            <td></td><td class="helpOtherObj smallText">Quel est le sujet ?</td>
+            <td><input type="text" />
+          </tr>
+        </table>
+        <table>
+        <tr><td><span class="helpOtherBig">MESSAGE</span></td></tr>
+        <tr><td class="smallText">1000 caractères maximum</td></tr>
+        <tr><td><textarea name="helpMessage" rows="15" cols="50" maxlength="1000"></textarea></td></tr>
+        </table>
+        <input id="helpFileUpload_" type="file" name="fileUpload" />
+        <button id="helpFileUpload" onclick="document.getElementById('helpFileUpload_').click();">Joindre un fichier</button>
+        <input id="helpSubmit" type="submit" value="Valider" />
+      </form>
+    </div>
+  </div>
+  <div class="helpAside">
     <p>Vous avez des questions ? <br/>Contactez-nous</p>
     <hr/>
-    <p>Par Téléphone <br/> <span class="helpAsideEm">+33 1 23 45 67 89</span></p>
+    <table><tr>
+      <td><img src="../../assets/images/help_phone.png"/></td>
+      <td>Par Téléphone <br/><span class="helpAsideEm">+33 1 23 45 67 89</span></td>
+    </tr></table>
     <hr/>
-    <p>Par e-mail <br/> <span class="helpAsideEm">contact@houseskipper.com</span></p>
-    <p>Par e-Chat <br/> <a class="helpAsideEm">Cliquez ici</a></p>
-    <p>Etre rappelé <br/> <a class="helpAsideEm">Cliquez ici</a></p>
-  </aside>
-</section>
+    <table><tr>
+      <td><img src="../../assets/icons/email.png"/></td>
+      <td>Par e-mail <br/> <span class="helpAsideEm">contact@houseskipper.com</span></td>
+    </tr></table>
+    <table><tr>
+      <td><img src="../../assets/icons/echat.png"/></td>
+      <td>Par e-Chat <br/> <a class="helpAsideEm">Cliquez ici</a></td>
+    </tr></table>
+    <table><tr>
+      <td><img src="../../assets/icons/callback.png"/></td>
+      <td>Etre rappelé <br/> <a class="helpAsideEm">Cliquez ici</a></td>
+    </tr></table>
+  </div>
+</div>
+
