@@ -595,7 +595,14 @@
                                       formControlName="description"
                                       name="description" required></textarea>
                         </mat-form-field>
-                        <button mat-button *ngIf="formFile.get('files').controls[i].get('id').value !== null" (click)="downloadFileAs(formFile.get('files').controls[i].get('id').value, formFile.get('files').controls[i].get('file').value)"><mat-icon>cloud_download</mat-icon></button>
+                        <button mat-button *ngIf="formFile.get('files').controls[i].get('id').value !== null"
+                                (click)="downloadFileAs(formFile.get('files').controls[i].get('id').value, formFile.get('files').controls[i].get('file').value)">
+                            <mat-icon class="icon">cloud_download</mat-icon>
+                        </button>
+                        <button mat-button
+                                *ngIf="formFile.get('files').controls[i].get('id').value !== null" (click)="removeFile(formFile.get('files').controls[i].get('id').value, i)">
+                            <mat-icon class="icon">delete</mat-icon>
+                        </button>
                     </div>
                 </div>
             </div>

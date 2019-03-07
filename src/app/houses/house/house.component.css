@@ -35,3 +35,7 @@ mat-header-cell{
     height:calc(100vh - 130px);
     top:130px;
 }
+
+.icon {
+    color: #8C9BC0;
+}

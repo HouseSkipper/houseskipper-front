@@ -40,11 +40,11 @@
                                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                                     <mat-cell *matCellDef="let element">
                                         <a type="button" [routerLink]="['/users/houses/' + element.id]">
-                                            <mat-icon svgIcon="icon-edit">modifier</mat-icon>
+                                            <mat-icon class="icon">edit</mat-icon>
                                         </a>
                                         <span></span>
                                         <a type="button" (click)="delete(element)">
-                                            <mat-icon svgIcon="icon-delete">supprimer</mat-icon>
+                                            <mat-icon class="icon">delete</mat-icon>
                                         </a>
                                     </mat-cell>
                                 </ng-container>

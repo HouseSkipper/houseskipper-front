@@ -76,7 +76,11 @@ export class HouseService {
 
 
     fetchFile(id: string): Observable<any> {
-        return this._httpClient.get(this._backendURL.fileHouse.replace(':id', id), { responseType : 'arraybuffer'});
+        return this._httpClient.get(this._backendURL.fileHouse.replace(':id', id), {responseType: 'arraybuffer'});
+    }
+
+    removeFile(id: string): Observable<any> {
+        return this._httpClient.delete(this._backendURL.fileHouse.replace(':id', id));
     }
 
 

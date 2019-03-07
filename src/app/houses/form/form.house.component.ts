@@ -515,17 +515,26 @@ export class FormHouseComponent implements OnInit, OnChanges {
     saveFile() {
         // console.log(this._formFile.get('files'));
         // this.files = this._formFile.get('files') as FormArray;
+        let vide = false;
         for (let i = 0; i < this._formFile.get('files').value.length; i++) {
             if (this._formFile.get('files')['controls'][i].get('id').value === null) {
+                vide = true;
                 const input = new FormData();
                 input.append('file', this._formFile.get('files')['controls'][i].get('file').value);
                 input.append('description', this._formFile.get('files')['controls'][i].get('description').value);
-                this._houseService.uploadFile(input, this._model.id).subscribe();
+                if (i === this._formFile.get('files').value.length - 1) {
+                    this._houseService.uploadFile(input, this._model.id).subscribe(null, null, () => this._router.navigate(['/users/houses']));
+                } else {
+                    this._houseService.uploadFile(input, this._model.id).subscribe();
+                }
             }
             // console.log(this._formFile.get('files')['controls'][i]);
 
         }
-        this._router.navigate(['/users/houses']);
+        if (vide === false) {
+            this._router.navigate(['/users/houses']);
+        }
+
     }
 
     downloadFileAs(id: string, data: any) {
@@ -549,6 +558,14 @@ export class FormHouseComponent implements OnInit, OnChanges {
                 a.download = data.name;
                 a.click();
             }
+        });
+    }
+
+    removeFile(id: string, i: number) {
+        this._houseService.removeFile(id).subscribe(null, null, () => {
+            this.files = this._formFile.get('files') as FormArray;
+            this.files.removeAt(i);
+            this._formFile.get('files').setValue(this.files);
         });
     }
 
