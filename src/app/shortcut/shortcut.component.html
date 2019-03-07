@@ -1,1 +1,11 @@
-<a class="shortcutLink" mat-raised-button href="/#/{{shortcut.link}}">{{shortcut.name}}</a>
+<!--<a class="shortcutLink" mat-raised-button href="/#/{{shortcut.link}}">{{shortcut.name}}</a>-->
+<div class="divCard">
+    <mat-card class="example-card" *ngFor="let element of interlocuteur;">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{element.name}}</mat-card-title>
+            <mat-card-subtitle>{{element.function}}</mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+
+</div>
