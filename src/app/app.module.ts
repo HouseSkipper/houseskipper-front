@@ -46,6 +46,8 @@ import { FormTaskComponent } from './form-task/form-task.component';
 import { SubSkillComponent } from './sub-skill/sub-skill.component';
 import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
 import {HelpComponent} from './help/help.component';
+import {HelpDialogComponent} from './help/helpDialog.component';
+import {HelpDialogFormComponent} from './help/helpDialogForm.component';
 import { TasksMetricComponent } from './metrics/tasks-metric/tasks-metric.component';
 import {DatePipe} from '@angular/common';
 import { BudgetMetricComponent } from './metrics/budget-metric/budget-metric.component';
@@ -88,9 +90,10 @@ import { AlertMetricComponent } from './metrics/alert-metric/alert-metric.compon
         BudgetMetricComponent,
         SkillsMetricComponent,
         BudgetMetricComponent,
-	    HelpComponent,
-	    AlertMetricComponent,
-	    HelpComponent,
+	AlertMetricComponent,
+	HelpComponent,
+        HelpDialogFormComponent,
+        HelpDialogComponent,
         HouseDialogDelete
     ],
     imports: [

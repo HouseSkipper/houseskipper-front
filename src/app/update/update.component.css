@@ -1,150 +1,108 @@
-.content-page {
-    display:flex;
-    align-items: center;
-    flex-wrap: wrap;
-    align-content: center;
+mmamat-accordion {
+    padding: 10px;
+}
+
+form {
     justify-content: center;
-    height:calc(100vh - 130px);
-    top:130px;
-}
-
-mat-card {
-    max-height: 300px;
-    max-width: 400px;
-    margin:10px;
-}
-
-button {
-    width: inherit;
-}
-p {
-    font-size: 1em;
+    align-content: center;
+    align-items: center;
+    width: 100vh;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
-.signup-form-container {
+mat-expansion-panel {
+    /* background: rgb(133,158,248);*/
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+
+mat-panel-description {
+    /* color: white; */
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.sectionTypeLogement {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.margin {
+    margin: 0 10px;
+}
+
+.textaeraPerso{
+    width: 95%;
+}
+
+.centerElement{
     display: flex;
     flex-direction: column;
-    margin-right:10px;
-    margin-left:30px;
-}
-
-span {
-    display: flex;
-    flex-direction: row;
+    align-content: center;
     align-items: center;
-    justify-content: flex-start;
 }
 
-mat-icon {
-}
-
-.name {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+.right-aligned-header > .mat-content {
     justify-content: space-between;
 }
 
-mat-form-field, button {
-    width:inherit;
-    display:block;
-    margin-right:20px;
+.mat-content > mat-panel-title, .mat-content > mat-panel-description {
+    flex: 0 0 auto;
 }
 
-#login-container {
-    /*flex-basis:468px;
-    /* display:flex;
-     flex-basis:468px;
-     align-content:center;
-     align-items: center;
-     height:100vh;
-     flex-direction: column;*/
+::ng-deep .importantField.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: red;
 }
 
-.mgb15{
-    margin-bottom: 15px;
-}
-
-button, mat-error, h1, a {
-    margin-left: auto;
-    margin-right: auto;
-    text-align:center;
-}
-
-h1 {
-    text-align: center;
-}
-
-
-/*
-.form-container > * {
-    width: 70%;
-}*/
-
-#continueButton{
-    margin-left: 30px !important;
-    width:200px;
-    height:50px;
-    background: #c5f135;;
-    text-align: center;
-    text-decoration: none;
-    margin:inherit;
-}
-
-#terminerButton{
-    margin-left: 30px !important;
-    width:200px;
-    height:50px;
-    background: #0066ff;;
-    text-align: center;
-    text-decoration: none;
-    margin:inherit;
-}
-
-*, :after, :before {
-    box-sizing: border-box;
-}
-
-#buttonMenu {
-    min-width: 200px;
+#stepper {
     height:100%;
     display:flex;
     flex-direction: column;
-    justify-content: center;
-    padding:40px;
+    padding: 30px;
+    background-color: initial;
 }
 
-#buttonMenu button {
-    margin-top:10px;
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
 }
 
-#signup-container {
-    /*height:100%;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;*/
+::ng-deep .mat-horizontal-stepper-header-container {
+    justify-self: flex-start;
 }
 
-mat-sidenav-container {
-    height: calc(100vh - 80px);
+::ng-deep .mat-horizontal-content-container {
+    margin-top:auto;
+    margin-bottom: auto;
+    justify-self: center;
 }
 
-.titleField {
-    font-weight: bold;
-    font-size:1.2em;
-    padding-left: 3px;
-    margin-bottom:10px;
+.actionButton {
+    margin-left: 10px !important;
+    width:200px;
+    height:50px;
+    background: #48ac98;;
+    text-align: center;
+    text-decoration: none;
+    margin:inherit;
+    display: inline-block;
+    margin-bottom: 10px;
 }
 
-.iconChecked {
-    width: 20px;
-    height: 20px;
-    padding-top: 3px;
-    margin-left:-10px;
-    margin-right:10px;
-}
-
-.capitalize {
-    margin-left: 3px;
+mat-icon{
+    alignment: right;
 }
