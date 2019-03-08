@@ -30,5 +30,15 @@ a {
 
 .icon {
     color: #8C9BC0;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
+.container mat-cell {
+    width:7em;
+}
+
+#actionCell {
+    display: flex;
+    justify-content: space-between !important;
+}
