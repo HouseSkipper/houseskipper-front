@@ -574,7 +574,7 @@
                     <mat-icon svgIcon="icon-error" *ngIf="checked(7) === 0"></mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-card-actions class="centerElement margin">
+            <mat-card-actions class="centerElement">
                 <button mat-raised-button (click)="addFile()">
                     <mat-icon>add box</mat-icon>
                 </button>
@@ -582,14 +582,13 @@
             <div *ngFor="let file of formFile.get('files')['controls']; let i = index;">
                 <div formArrayName="files">
                     <div id="filesDiv" [formGroupName]="i">
-                        <label *ngIf="formFile.get('files').controls[i].get('file').value === ''" class="mat-body"
-                               style="width: 100%;">Document {{i + 1}}</label>
-                        <label *ngIf="formFile.get('files').controls[i].get('file').value !== ''" class="mat-body"
-                               style="width: 100%;">{{formFile.get('files').controls[i].get('file').value.name}}
+                        <label *ngIf="formFile.get('files').controls[i].get('file').value === ''" class="mat-body">Document {{i + 1}}</label>
+                        <label *ngIf="formFile.get('files').controls[i].get('file').value !== ''" class="mat-body">
+                            {{formFile.get('files').controls[i].get('file').value.name}}
                         </label>
                         <input *ngIf="formFile.get('files').controls[i].get('id').value === null" type="file"
                                name="file" style="margin-left: 10px" (change)="onFileChange($event, i)"/>
-                        <mat-form-field class="margin " appearance="outline">
+                        <mat-form-field class="margin" appearance="outline">
                             <mat-label>Description</mat-label>
                             <textarea matInput placeholder="Description de votre document"
                                       formControlName="description"
@@ -622,7 +621,7 @@
         </mat-expansion-panel>
     </form>
 </mat-accordion>
-<div class="centerElement margin">
+<div class="centerElement">
     <button *ngIf="isUpdateMode === false" mat-button class="actionButton" type="submit"
             (click)="submit(form.value)" [disabled]="form.invalid || formFile.invalid">
         Valider
