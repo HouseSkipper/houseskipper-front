@@ -87,3 +87,9 @@ mat-panel-description {
     width: 100%;
 }
 
+#file:hover{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+

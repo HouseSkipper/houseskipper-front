@@ -10,7 +10,7 @@ import {
     MatIconModule,
     MatInputModule, MatRadioModule,
     MatSelectModule, MatSidenavModule, MatSliderModule, MatStepperModule, MatSortModule, MatTableModule,
-    MatToolbarModule, MatTooltipModule, MatProgressSpinnerModule
+    MatToolbarModule, MatTooltipModule, MatProgressSpinnerModule, MatGridListModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
@@ -46,6 +46,8 @@ import { FormTaskComponent } from './form-task/form-task.component';
 import { SubSkillComponent } from './sub-skill/sub-skill.component';
 import {PrestataireLoginComponent} from './prestataire-login/prestataire-login.component';
 import {HelpComponent} from './help/help.component';
+import {HelpDialogComponent} from './help/helpDialog.component';
+import {HelpDialogFormComponent} from './help/helpDialogForm.component';
 import { TasksMetricComponent } from './metrics/tasks-metric/tasks-metric.component';
 import {DatePipe} from '@angular/common';
 import { BudgetMetricComponent } from './metrics/budget-metric/budget-metric.component';
@@ -53,6 +55,7 @@ import {ChartsModule} from 'ng2-charts';
 import {NgxGaugeModule} from 'ngx-gauge';
 import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.component';
 import {HouseDialogDelete} from './houses/matDialog/delete/house.dialog.delete';
+import { AlertMetricComponent } from './metrics/alert-metric/alert-metric.component';
 
 
 @NgModule({
@@ -87,7 +90,10 @@ import {HouseDialogDelete} from './houses/matDialog/delete/house.dialog.delete';
         BudgetMetricComponent,
         SkillsMetricComponent,
         BudgetMetricComponent,
-	    HelpComponent,
+	AlertMetricComponent,
+	HelpComponent,
+        HelpDialogFormComponent,
+        HelpDialogComponent,
         HouseDialogDelete
     ],
     imports: [
@@ -118,6 +124,7 @@ import {HouseDialogDelete} from './houses/matDialog/delete/house.dialog.delete';
         MatProgressSpinnerModule,
         ChartsModule,
         NgxGaugeModule,
+        MatGridListModule,
         APP_ROUTES
     ],
     providers: [

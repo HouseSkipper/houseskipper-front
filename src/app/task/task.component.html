@@ -40,13 +40,8 @@
                 </ng-container>
                  <ng-container matColumnDef="file">
                   <mat-header-cell *matHeaderCellDef> Piece jointe </mat-header-cell>
-                   <mat-cell *matCellDef="let element">
-                     <mat-select matInput placeholder="Choisissez un fichier" (click)="filesNames(element.id)" [ngModel]="blogFile.filename" [(ngModel)]="blogFile.file" name="fileToDownload">
-                       <mat-option *ngFor="let file of files" [value]="file">
-                         {{ file }}
-                       </mat-option>
-                     </mat-select>
-                   </mat-cell>
+                   <mat-cell style="text-align: center;" *matCellDef="let element"> {{element.files.length}} </mat-cell>
+
                 </ng-container>
 
                 <ng-container matColumnDef="delete">
@@ -59,10 +54,6 @@
                     <a (click)="editTask(element)"
                        type="button">
                       <mat-icon class="icon">edit</mat-icon>
-                    </a>
-                    <a (click)="downloadFile(blogFile.file, element.id)"
-                       type="button">
-                      <mat-icon  class="icon">cloud_download</mat-icon>
                     </a>
                     <a (click)="nextStep(element)"
                        type="button">
