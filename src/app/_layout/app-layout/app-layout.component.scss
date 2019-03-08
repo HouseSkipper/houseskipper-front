@@ -3,15 +3,32 @@ mat-form-field, button, a {
 }
 
 .mat-drawer-container {
-    height: 50vh;
+     height: 50vh;
+ }
+
+.mat-drawer-inner-container {
+    height: calc(100% - 130px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .mat-sidenav {
     width: 280px;
 }
+
+#sidenav-content {
+    height:100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .mat-sidenav-container {
     background-color: white !important;
-    height: 100vh;
+    height: calc(100% - 130px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .sidenav-toolbar {
     height: 64px;
@@ -27,7 +44,10 @@ mat-form-field, button, a {
     padding-top: 0;
 }
 .menu-list-item.mat-list-item {
+
+}
+
 .mat-list-item-content {
     flex: 1 1 100%;
-}
+    width:100% !important;
 }

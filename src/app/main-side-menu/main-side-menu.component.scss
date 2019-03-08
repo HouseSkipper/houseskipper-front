@@ -27,4 +27,22 @@
     .routeIcon {
         margin-right: 40px !important;
     }
+
+    .mat-list-item-content {
+        width:100% !important;
+    }
+
+}
+
+.side-content {
+    width: 100%;
+    display: flex !important;
+    align-content: center !important;
+    align-items: center !important;
+}
+
+.side-content mat-icon {
+    margin-left:auto;
+    justify-self: flex-end;
+    margin-top:5px;
 }
