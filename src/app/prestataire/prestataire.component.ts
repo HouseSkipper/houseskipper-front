@@ -51,7 +51,7 @@ export class PrestataireComponent implements OnInit {
                 Validators.required, Validators.minLength(3)
             ])),
             commentaire: new FormControl('', Validators.compose([
-                Validators.required, Validators.minLength(3)
+                Validators.minLength(3)
             ]))
         });
     }
@@ -99,7 +99,7 @@ export class PrestataireComponent implements OnInit {
         if (presetataire.email.includes('outlook') || presetataire.email.includes('yahoo')) {
             return 'email';
         }
-        if (presetataire.commentaire === '' || presetataire.email === '' || presetataire.nom === '' || presetataire.nomSociete === ''
+        if (presetataire.email === '' || presetataire.nom === '' || presetataire.nomSociete === ''
             || presetataire.profession === '' || presetataire.zipCode === '00000') {
             return 'invalide';
         }

@@ -47,7 +47,7 @@ export class AlertMetricComponent implements OnInit {
         this._historicService.getAllFromUser().subscribe(_ => {
             const now = new Date();
             for (const h of _) {
-                const nbDays =  Math.floor(( now.getDate() - h.date.getDate() ) / 86400000);
+                const nbDays =  Math.floor(( now.getTime() - h.date.valueOf() ) / 86400000);
                 switch (h.currentPhase) {
                     case 'Soumission':
                         // soumission

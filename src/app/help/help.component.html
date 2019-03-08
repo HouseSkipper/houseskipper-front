@@ -4,6 +4,7 @@
 </div>
 
 <div id="helpContent">
+<div class="helpAside"></div>
   <div class="helpArticle">
     <div class="helpIncident">
       <table>
@@ -22,17 +23,17 @@
           <tr><td><span class="helpOtherBig">OBJET</span></td><td></td><td></td></tr>
           <tr>
             <td></td><td class="helpOtherObj smallText">Votre demande concerne</td>
-            <td><input type="text" /></td>
+            <td><input type="text" value="{{ticket.involved}}" /></td>
           </tr>
           <tr>
             <td></td><td class="helpOtherObj smallText">Quel est le sujet ?</td>
-            <td><input type="text" />
+            <td><input type="text" value="{{ticket.subject}}" />
           </tr>
         </table>
         <table>
         <tr><td><span class="helpOtherBig">MESSAGE</span></td></tr>
         <tr><td class="smallText">1000 caractères maximum</td></tr>
-        <tr><td><textarea name="helpMessage" rows="15" cols="50" maxlength="1000"></textarea></td></tr>
+        <tr><td><textarea name="helpMessage" rows="20" cols="70" maxlength="1000"></textarea></td></tr>
         </table>
         <input id="helpFileUpload_" type="file" name="fileUpload" />
         <button id="helpFileUpload" onclick="document.getElementById('helpFileUpload_').click();">Joindre un fichier</button>
@@ -40,6 +41,7 @@
       </form>
     </div>
   </div>
+<div class="helpAside"></div>
   <div class="helpAside">
     <p>Vous avez des questions ? <br/>Contactez-nous</p>
     <hr/>
