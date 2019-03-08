@@ -8,11 +8,7 @@
         <br>
         <div class="container">
             <div layout="row" Align="center center" class="content">
-                <mat-card class="card">
-                    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-                        <h3>Habitations</h3>
-                    </mat-card-title>
-                    <mat-card-content>
+                        <h3 class="mat-display-2">Habitations</h3>
                         <div class="example-container mat-elevation-z8">
                             <mat-table #table [dataSource]="dataSource">
                                 <ng-container matColumnDef="House_Name">
@@ -34,23 +30,23 @@
                                 </ng-container>
                                 <ng-container matColumnDef="NbDocs">
                                     <mat-header-cell *matHeaderCellDef> Nombres de documents </mat-header-cell>
-                                    <mat-cell *matCellDef="let element"> 0 </mat-cell>
+                                    <mat-cell *matCellDef="let element"> {{element.nbDocument}} </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Delete">
                                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                                    <mat-cell *matCellDef="let element">
+                                    <mat-cell id="actionCell" *matCellDef="let element">
                                         <a type="button" [routerLink]="['/users/houses/' + element.id]">
-                                            <mat-icon svgIcon="icon-edit">modifier</mat-icon>
+                                            <mat-icon class="icon">edit</mat-icon>
                                         </a>
                                         <span></span>
-                                        <a type="button" (click)="delete(element.id)">
-                                            <mat-icon svgIcon="icon-delete">supprimer</mat-icon>
+                                        <a type="button" (click)="delete(element)">
+                                            <mat-icon class="icon">delete</mat-icon>
                                         </a>
                                     </mat-cell>
                                 </ng-container>
                                 <ng-container matColumnDef="Check">
                                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                                    <mat-cell *matCellDef="let element">
+                                    <mat-cell id="tickCell" *matCellDef="let element">
                                         <mat-icon svgIcon="icon-checked" *ngIf="check(element)"></mat-icon>
                                         <mat-icon svgIcon="icon-OrangeChecked" *ngIf="check(element) === false"></mat-icon>
                                     </mat-cell>
@@ -59,8 +55,6 @@
                                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                             </mat-table>
                         </div>
-                    </mat-card-content>
-                </mat-card>
             </div>
         </div>
     </div>

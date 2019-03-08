@@ -44,6 +44,7 @@ mat-panel-description {
 
 .margin {
     margin: 0 10px;
+    width:25em;
 }
 
 .textaeraPerso{
@@ -55,6 +56,7 @@ mat-panel-description {
     flex-direction: column;
     align-content: center;
     align-items: center;
+    justify-self: center;
 }
 
 .right-aligned-header > .mat-content {
@@ -89,4 +91,31 @@ mat-panel-description {
     margin-top:auto;
     margin-bottom: auto;
     justify-self: center;
+}
+
+.actionButton {
+    margin-left: 10px !important;
+    width:200px;
+    height:50px;
+    background: #48ac98;;
+    text-align: center;
+    text-decoration: none;
+    margin:inherit;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.icon {
+    color: #8C9BC0;
+}
+
+#filesDiv {
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+#filesDiv input, #filesDiv label {
+    align-self: center;
 }

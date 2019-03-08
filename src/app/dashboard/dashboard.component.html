@@ -1,5 +1,8 @@
 <div class="content-page">
-    <app-tasks-metric></app-tasks-metric>
-    <app-budget-metric></app-budget-metric>
-    <app-skills-metric></app-skills-metric>
+    <mat-grid-list cols="3" rowHeight="85px" gutterSize="10px">
+        <mat-grid-tile [colspan]="1" [rowspan]="4"><app-tasks-metric></app-tasks-metric></mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="4"><app-budget-metric></app-budget-metric></mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="3"><app-skills-metric></app-skills-metric></mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="3"><app-alert-metric></app-alert-metric></mat-grid-tile>
+    </mat-grid-list>
 </div>

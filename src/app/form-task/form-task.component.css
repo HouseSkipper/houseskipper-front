@@ -78,4 +78,18 @@ mat-panel-description {
     pointer-events: none !important;
 }
 
+.example-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.example-form > * {
+    width: 100%;
+}
+
+#file:hover{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
 

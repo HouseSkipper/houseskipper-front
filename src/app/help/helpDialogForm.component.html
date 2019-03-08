@@ -1,0 +1,23 @@
+
+<h2 mat-dialog-title >Ticket</h2>
+
+<mat-dialog-content>
+    <form novalidate [formGroup]="form">
+        <table>
+            <tr>
+                <td>Votre demande concerne</td>
+                <td><input type="text" formControlName="involved" /></td>
+            </tr>
+            <tr>
+            <td>Votre message :</td>
+            <td><textarea name="helpMessage" rows="20" cols="70" maxlength="1000" formControlName="message"></textarea></td>
+            </tr>
+        </table>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-button type="submit" (click)="submit(form.value)" [disabled]="form.invalid">Valider</button>
+</mat-dialog-actions>
+

@@ -25,6 +25,10 @@ mat-panel-description {
     align-items: center;
 }
 
+mat-form-field-infix {
+    width:auto;
+}
+
 .example-headers-align .mat-expansion-panel-header-title,
 .example-headers-align .mat-expansion-panel-header-description {
     flex-basis: 0;

@@ -1,0 +1,49 @@
+#alert-metrics {
+    display: flex;
+    flex-direction: column;
+    background: #3A3A64;
+    border-radius: 4px;
+    padding:20px;
+    color:white;
+    height:100%;
+    width:100%;
+    box-sizing: border-box;
+}
+
+#alerts-container {
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.alert {
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.alert button {
+    color: black;
+    margin-bottom: 5px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.alert span {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.smallWaiting {
+    background-color: greenyellow;
+}
+
+.mediumWaiting {
+    background-color: orange;
+}
+
+.longWaiting {
+    background-color: red;
+}
