@@ -1,11 +1,12 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {SkillsService} from '../services/skills.service';
 import {ActivatedRoute} from '@angular/router';
-import {flatMap, map} from 'rxjs/operators';
+import {flatMap, map, take} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {Skill, SubSkill} from '../interfaces/user';
-import {MatSort, MatStepper, MatTableDataSource, Sort} from '@angular/material';
+import {Skill, SkillCategory, SubSkill} from '../interfaces/user';
+import {MatOptionSelectionChange, MatSort, MatStepper, MatTableDataSource, Sort} from '@angular/material';
 import {FormGroup} from '@angular/forms';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 
 @Component({
     selector: 'app-sub-skill',
@@ -15,9 +16,11 @@ import {FormGroup} from '@angular/forms';
 export class SubSkillComponent implements OnInit {
 
     private _step: number;
+    private average: number;
     private _skill: Skill;
-    private _levels: string[] = ['Novice', 'Débutant avancé', 'Compétent', 'Efficace', 'Expert'];
+    private _levels: string[] = ['Non défini', 'Novice', 'Débutant avancé', 'Compétent', 'Efficace', 'Expert'];
     private _descLevels: string[] = [
+        'Non défini',
         'Personne qui possède peu ou aucune expérience dans ' +
     'le domaine et a besoin d’un guide pour assurer un suivi des travaux.',
         'Personne qui possède peu ou aucune expérience dans' +
@@ -30,8 +33,10 @@ export class SubSkillComponent implements OnInit {
         ' pour savoir précisément ce qu’il faut faire pour réaliser un suivi des travaux.'
     ];
     @ViewChild('stepper') stepper: MatStepper;
+    @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-    constructor(private _skillService: SkillsService, private _route: ActivatedRoute) {
+
+    constructor(private _skillService: SkillsService, private _route: ActivatedRoute, private _ngZone: NgZone) {
         this._skill = {} as Skill;
     }
 
@@ -45,23 +50,14 @@ export class SubSkillComponent implements OnInit {
             .subscribe(_ => {
                 console.log(_);
                 this._skill = _;
+                this._step = this._skill.nb_works;
             });
     }
 
-    setStep(index: number) {
-        // console.log('set ' + index);
-        this._step = index;
-        this.stepper.selectedIndex = this.stepMatStepper();
-    }
-
-    nextStep() {
-        this._step++;
-        this.stepper.selectedIndex = this.stepMatStepper();
-    }
-
-    prevStep() {
-        this._step--;
-        this.stepper.selectedIndex = this.stepMatStepper();
+    triggerResize() {
+        // Wait for changes to be applied, then trigger textarea resize.
+        this._ngZone.onStable.pipe(take(1))
+            .subscribe(() => this.autosize.resizeToFitContent(true));
     }
 
     niveau(num: number): string {
@@ -72,20 +68,19 @@ export class SubSkillComponent implements OnInit {
         return this._descLevels[num];
     }
 
-    save(subskill: SubSkill) {
-        console.log(subskill);
+    save(subskill: SubSkill, level: number) {
+        subskill.nb_works = level;
         this._skillService.updateSubSkill(subskill).subscribe();
     }
 
-    public stepMatStepper(): number {
-        // console.log('entre dans stepMats');
-        if (this._step < 2) {
-            return this._step;
-        } else if (this._step === 2) {
-            return 1;
-        }  else if (this._step === 3) {
-            return 2;
-        }
+
+
+    public getCategoryAverage(skillCat: SkillCategory) {
+        this.average = 0;
+        skillCat.subSkills.forEach(item => {
+            this.average += item.nb_works;
+        });
+        return Math.trunc(this.average / skillCat.subSkills.length);
     }
 
     getLevels() {
@@ -95,8 +90,4 @@ export class SubSkillComponent implements OnInit {
         return this._skill;
     }
 
-}
-
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

@@ -6,7 +6,7 @@ form {
     justify-content: center;
     align-content: center;
     align-items: center;
-    width: 100vh;
+    width: 300vh;
     margin-left: auto;
     margin-right: auto;
 }
@@ -63,7 +63,9 @@ mat-form-field-infix {
 ::ng-deep .importantField.mat-form-field-appearance-outline .mat-form-field-outline {
     color: red;
 }
-
+.mat-badge-content {
+    z-index: 1;
+}
 #stepper {
     height:100%;
     display:flex;

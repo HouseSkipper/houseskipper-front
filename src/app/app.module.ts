@@ -10,7 +10,7 @@ import {
     MatIconModule,
     MatInputModule, MatRadioModule,
     MatSelectModule, MatSidenavModule, MatSliderModule, MatStepperModule, MatSortModule, MatTableModule,
-    MatToolbarModule, MatTooltipModule, MatProgressSpinnerModule, MatGridListModule
+    MatToolbarModule, MatTooltipModule, MatProgressSpinnerModule, MatGridListModule, MatBadgeModule, MatChipsModule
 } from '@angular/material';
 import {LoginComponent} from './login/login.component';
 import {SignUpComponent} from './sign-up/sign-up.component';
@@ -90,8 +90,8 @@ import { AlertMetricComponent } from './metrics/alert-metric/alert-metric.compon
         BudgetMetricComponent,
         SkillsMetricComponent,
         BudgetMetricComponent,
-	AlertMetricComponent,
-	HelpComponent,
+        AlertMetricComponent,
+        HelpComponent,
         HelpDialogFormComponent,
         HelpDialogComponent,
         HouseDialogDelete
@@ -125,6 +125,8 @@ import { AlertMetricComponent } from './metrics/alert-metric/alert-metric.compon
         ChartsModule,
         NgxGaugeModule,
         MatGridListModule,
+        MatBadgeModule,
+        MatChipsModule,
         APP_ROUTES
     ],
     providers: [
@@ -132,7 +134,7 @@ import { AlertMetricComponent } from './metrics/alert-metric/alert-metric.compon
         DataService, TasksService, CookieService, DatePipe
     ],
     entryComponents: [
-       ShortcutDialogComponent, BeforeLoginDialogComponent, HouseDialogDelete
+        ShortcutDialogComponent, BeforeLoginDialogComponent, HouseDialogDelete
     ],
     bootstrap: [AppComponent]
 })
