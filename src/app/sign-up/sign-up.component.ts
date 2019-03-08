@@ -94,12 +94,12 @@ export class SignUpComponent implements OnInit {
     getIndexGroup(step: string) {
         let indexGroup = 0;
         switch (step) {
-            case 'username' :
-            case 'telephone' :
+            case 'Email' :
+            case 'Telephone' :
                 indexGroup = 1;
                 break;
-            case 'password':
-            case 'role':
+            case 'Mot de passe':
+            case 'Role':
             case 'confirmPassword':
                 indexGroup = 2;
                 break;
@@ -131,13 +131,13 @@ export class SignUpComponent implements OnInit {
         if (index <= 5) {
             if (formArray.controls[indexGroup].get(this._step).valid) {
                 this._fieldChecked.set(this._step, true);
-                if (this._step === 'password') {
-                    if (formArray.controls[indexGroup].get('confirmPassword').value === formArray.controls[indexGroup].get('password').value) { // form.get('formArray').controls[0]
+                if (this._step === 'Mot de passe') {
+                    if (formArray.controls[indexGroup].get('confirmPassword').value === formArray.controls[indexGroup].get('Mot de passe').value) { // form.get('formArray').controls[0]
                         this.stepForward();
                     } else {
                         this._errorMsg = 'Votre mot de passe ne correspond pas';
                     }
-                } else if (this._step === 'username') {
+                } else if (this._step === 'Email') {
                     this._userService.checkExists(formArray.controls[indexGroup].get(this._step).value).subscribe(data => { // form.get('formArray').controls[0]
                         if (data) {
                             this._errorMsg = 'Cet email est déjà utilisé';
@@ -203,7 +203,7 @@ export class SignUpComponent implements OnInit {
     }
 
 
-    private _buildForm(): FormGroup {
+    private _buildForm(): FormGroup { // TODO
         return new FormGroup({
             formArray: new FormArray([
                 new FormGroup({
@@ -353,8 +353,8 @@ export class SignUpComponent implements OnInit {
 
     check(f: any): boolean {
         const formArray = this.form.get('formArray') as FormArray;
-        if (f.value.title === 'Account') {
-            if (formArray.controls[2].get('confirmPassword').value === formArray.controls[2].get('password').value && formArray.controls[2].get('password').valid) {
+        if (f.value.title === 'Compte') {
+            if (formArray.controls[2].get('confirmPassword').value === formArray.controls[2].get('Mot de passe').value && formArray.controls[2].get('Mot de passe').valid) {
                 return true;
             }
         } else {
