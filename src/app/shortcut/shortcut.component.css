@@ -5,6 +5,11 @@
 }
 .example-card {
     max-width: 400px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 5%;
+    background-color: #9daaca;
 }
 
 .example-header-image {
