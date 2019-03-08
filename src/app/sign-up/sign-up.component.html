@@ -105,13 +105,13 @@
                         <button *ngIf="step == 'Telephone'" mat-button matStepperNext class="actionButton" type="button" (click)="continue(form.value, formCodeEmail.value)">Continuer</button>
                     </mat-step>
                     <mat-step label="Compte" formGroupName="2" [stepControl]="form.get('formArray').get([2])">
-                        <div id="password" *ngIf="step == 'Mot de passe'" [@slideInOut]>
+                        <div id="password" *ngIf="step == 'Motdepasse'" [@slideInOut]>
                             <h2 class="mat-headline">Quel est votre mot de passe?</h2>
-                            <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('formArray').controls[2].get('Mot de passe').invalid" class="importantField">
+                            <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('formArray').controls[2].get('Motdepasse').invalid" class="importantField">
                                 <mat-error class="alert alert-danger">Mot de passe requis</mat-error>
-                                <mat-error *ngIf="form.invalid && form.get('formArray').controls[2].get('Mot de passe').hasError('pattern')" class="alert alert-danger">Le mot de passe doit contenir 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial</mat-error>
+                                <mat-error *ngIf="form.invalid && form.get('formArray').controls[2].get('Motdepasse').hasError('pattern')" class="alert alert-danger">Le mot de passe doit contenir 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial</mat-error>
                                 <mat-label>Mot de passe</mat-label>
-                                <input matInput placeholder="Mot de passe" type="password" formControlName="Mot de passe" required>
+                                <input matInput placeholder="Mot de passe" type="password" formControlName="Motdepasse" required>
                             </mat-form-field>
                             <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('formArray').controls[2].get('confirmPassword').invalid" class="importantField">
                                 <mat-error class="alert alert-danger">Mot de passe requis</mat-error>
@@ -132,9 +132,9 @@
                                 <mat-error >S'il vous plaît, choisissez votre rôle</mat-error>
                             </mat-form-field>
                         </div>
-                        <button *ngIf="step == 'Mot de passe'" mat-button matStepperPrevious class="precButton" type="button" (click)="previous(form.value)"><</button>
-                        <button *ngIf="step !== 'Mot de passe'" mat-button class="precButton" type="button" (click)="previous(form.value)"><</button>
-                        <button *ngIf="step == 'Mot de passe'" mat-button class="actionButton" type="button" (click)="continue(form.value, formCodeEmail.value)">Continuer</button>
+                        <button *ngIf="step == 'Motdepasse'" mat-button matStepperPrevious class="precButton" type="button" (click)="previous(form.value)"><</button>
+                        <button *ngIf="step !== 'Motdepasse'" mat-button class="precButton" type="button" (click)="previous(form.value)"><</button>
+                        <button *ngIf="step == 'Motdepasse'" mat-button class="actionButton" type="button" (click)="continue(form.value, formCodeEmail.value)">Continuer</button>
                         <button *ngIf="step == 'Role'" mat-button matStepperNext class="actionButton" type="button" (click)="continue(form.value, formCodeEmail.value)">Continuer</button>
                     </mat-step>
                     <mat-step label="Validation" formGroupName="3" [stepControl]="formCodeEmail.get('code')">

@@ -98,7 +98,7 @@ export class SignUpComponent implements OnInit {
             case 'Telephone' :
                 indexGroup = 1;
                 break;
-            case 'Mot de passe':
+            case 'Motdepasse':
             case 'Role':
             case 'confirmPassword':
                 indexGroup = 2;
@@ -131,8 +131,8 @@ export class SignUpComponent implements OnInit {
         if (index <= 5) {
             if (formArray.controls[indexGroup].get(this._step).valid) {
                 this._fieldChecked.set(this._step, true);
-                if (this._step === 'Mot de passe') {
-                    if (formArray.controls[indexGroup].get('confirmPassword').value === formArray.controls[indexGroup].get('Mot de passe').value) { // form.get('formArray').controls[0]
+                if (this._step === 'Motdepasse') {
+                    if (formArray.controls[indexGroup].get('confirmPassword').value === formArray.controls[indexGroup].get('Motdepasse').value) { // form.get('formArray').controls[0]
                         this.stepForward();
                     } else {
                         this._errorMsg = 'Votre mot de passe ne correspond pas';
@@ -207,31 +207,31 @@ export class SignUpComponent implements OnInit {
         return new FormGroup({
             formArray: new FormArray([
                 new FormGroup({
-                    firstname: new FormControl('', Validators.compose([
+                    Prénom: new FormControl('', Validators.compose([
                         Validators.required, Validators.minLength(3)
                     ])),
-                    lastname: new FormControl('', Validators.compose([
+                    Nom: new FormControl('', Validators.compose([
                         Validators.required, Validators.minLength(3)
                     ])),
                 }),
                 new FormGroup({
-                    username: new FormControl('', Validators.compose([
+                    Email: new FormControl('', Validators.compose([
                         Validators.required,
                         Validators.pattern(
                             '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}' +
                             '\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')
                     ])),
-                    telephone: new FormControl('', Validators.compose([
+                    Telephone: new FormControl('', Validators.compose([
                         Validators.pattern('\\d{10}')
                     ])),
                 }),
                 new FormGroup({
-                    password: new FormControl('', Validators.compose([
+                    Motdepasse: new FormControl('', Validators.compose([
                         Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
                     ])),
                     confirmPassword: new FormControl('', Validators.compose([Validators.required])),
                     // validator: MustMatch('password', 'confirmPassword'),
-                    role: new FormControl('Particulier-propriétaire', Validators.required)
+                    Role: new FormControl('Particulier-propriétaire', Validators.required)
                 }),
                 this._buildFormCodeEmail()
             ])
@@ -354,7 +354,7 @@ export class SignUpComponent implements OnInit {
     check(f: any): boolean {
         const formArray = this.form.get('formArray') as FormArray;
         if (f.value.title === 'Compte') {
-            if (formArray.controls[2].get('confirmPassword').value === formArray.controls[2].get('Mot de passe').value && formArray.controls[2].get('Mot de passe').valid) {
+            if (formArray.controls[2].get('confirmPassword').value === formArray.controls[2].get('Motdepasse').value && formArray.controls[2].get('Motdepasse').valid) {
                 return true;
             }
         } else {
