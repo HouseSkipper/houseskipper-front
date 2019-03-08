@@ -1,7 +1,7 @@
 <div class="content-page">
     <br>
         <div class="container">
-            <h3 class="centerElement">Mes Informations</h3>
+            <h3  class="centerElement mat-h3">Mes Informations</h3>
             <form [formGroup]="form">
                 <mat-expansion-panel hideToggle>
                 <mat-expansion-panel-header  class="right-aligned-header">
@@ -33,6 +33,9 @@
             </mat-expansion-panel>
             <mat-expansion-panel hideToggle>
                 <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <mat-icon class="icon">contacts</mat-icon>
+                    </mat-panel-title>
                     <mat-panel-description>
                         Informations de contact
                         <mat-icon svgIcon="icon-checked" *ngIf="check(1) === 2"></mat-icon>
@@ -57,6 +60,9 @@
             </mat-expansion-panel>
             <mat-expansion-panel hideToggle>
                 <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <mat-icon class="icon">poll</mat-icon>
+                    </mat-panel-title>
                     <mat-panel-description>
                         Informations sur le compte
                         <mat-icon svgIcon="icon-checked" *ngIf="check(2) === 2"></mat-icon>
@@ -70,6 +76,9 @@
             </mat-expansion-panel>
             <mat-expansion-panel hideToggle>
                 <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <mat-icon class="icon">error</mat-icon>
+                    </mat-panel-title>
                     <mat-panel-description>
                         Informations légales
                         <mat-icon svgIcon="icon-checked" *ngIf="check(3) === 2"></mat-icon>
@@ -82,6 +91,9 @@
             </mat-expansion-panel>
             <mat-expansion-panel hideToggle>
                 <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <mat-icon class="icon">delete</mat-icon>
+                    </mat-panel-title>
                     <mat-panel-description>
                         Suppression du compte
                         <mat-icon svgIcon="icon-checked" *ngIf="check(3) === 2"></mat-icon>

@@ -93,7 +93,7 @@ export class UpdateComponent implements OnInit, OnChanges {
     }
 
     saveUser(user : User) {
-        this._userService.update(user).subscribe((_: User) => this._authService.setCurrentUser(_), null, () => this.ngOnInit());
+        this._userService.update(user).subscribe((_: User) => this._authService.setCurrentUser(_), null, () => this._router.navigate(['/dashboard']));
     }
 
     check(item: number): number {
