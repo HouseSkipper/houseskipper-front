@@ -25,6 +25,11 @@ export class HelpDialogFormComponent implements OnInit, OnChanges {
     }
     
     ngOnInit () {
+        this._ticket = {
+            subject :'',
+            involved :'',
+            message :''
+        };
     }
     
     
@@ -55,6 +60,17 @@ export class HelpDialogFormComponent implements OnInit, OnChanges {
     
     
     ngOnChanges (data) {
+        if (data.model && data.model.currentValue) {
+            this._form.patchValue(this._ticket);
+        }
+        else
+        {
+            this._ticket = {
+                subject :'',
+                involved :'',
+                message :''
+            };
+        }
     }
     
     
