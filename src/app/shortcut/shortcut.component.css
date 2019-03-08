@@ -1,6 +1,7 @@
 .divCard {
     padding: 2px;
     margin-bottom: 2px;
+    height: 100%;
 }
 .example-card {
     max-width: 400px;

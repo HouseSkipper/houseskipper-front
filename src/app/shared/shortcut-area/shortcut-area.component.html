@@ -2,13 +2,13 @@
 <div>
   <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
 
-      <button mat-button disableRipple>
+      <button mat-button >
         <mat-icon class="icon">accessibility</mat-icon>
       </button>
 
   </div>
 </div>
-<span>
+<span align="center">
   <h3 id="menuTitle" class="mat-h6">Mes interlocuteurs</h3>
-  <app-shortcut></app-shortcut>
+  <app-shortcut [interlocuteur]="interlocuteur" *ngFor="let interlocuteur of interlocuteurs"></app-shortcut>
 </span>
