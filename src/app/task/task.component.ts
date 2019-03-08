@@ -3,12 +3,12 @@ import {Observable} from 'rxjs';
 import {DataService} from '../services/budget.service';
 import {DataSource} from '@angular/cdk/table';
 import { Task} from '../interfaces/task';
-import {MatDialog, MatPaginator, MatSort, MatTableDataSource, Sort} from '@angular/material';
+import {MatDialog, MatDialogRef, MatPaginator, MatSort, MatTableDataSource, Sort} from '@angular/material';
 import {TasksService} from '../services/tasks.service';
-import {FileUploader} from 'ng2-file-upload';
-import {AuthenticationService} from '../services/authentication.service';
-import {HttpHeaders} from '@angular/common/http';
 import {Route, Router} from '@angular/router';
+import {TaskDialogConfirmComponent} from '../task-dialog-confirm/task-dialog-confirm.component';
+import {HouseDialogDelete} from '../houses/matDialog/delete/house.dialog.delete';
+import {filter, flatMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-task',
@@ -19,21 +19,21 @@ export class TaskComponent implements OnInit {
 
 
 
-    displayedColumns = ['Référence', 'Etat', 'Nom', 'Habitation concernée', 'Type travaux', 'Résultat attendu', 'file', 'delete'];
+    displayedColumns = ['Référence', 'Phase', 'Debut de la phase', 'Nom', 'Habitation concernée', 'Type travaux', 'Résultat attendu', 'file', 'delete'];
     taskList: Task[];
     dataSource: MatTableDataSource<Task>;
     private _files: string[];
     blogFile = { filename: '', file: ''};
     hasFile: boolean;
     private _errorMsg = '';
+    private _taskDialogConfirm: MatDialogRef<TaskDialogConfirmComponent>;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    constructor(private _dataService: TasksService, private _router: Router
+    constructor(private _dataService: TasksService, private _router: Router, private _dialog: MatDialog
                 ) {
         this.hasFile = false;
-
     }
 
     get files(): string[] {
@@ -52,19 +52,36 @@ export class TaskComponent implements OnInit {
     get errorMsg(): string {
         return this._errorMsg;
     }
-    deleteTask(id) {
-        this._dataService.remove(id).subscribe(
-            null,
-            null,
-            () => {
-                new TaskDataSource(this._dataService).connect().subscribe(_ => {
-                        this.dataSource = new MatTableDataSource<Task>(_);
-                        this.dataSource.paginator = this.paginator;
-                        this.dataSource.sort = this.sort;
-                    }
-                );
-            }
-        );
+    deleteTask(task) {
+        this._taskDialogConfirm = this._dialog.open(TaskDialogConfirmComponent, {
+            width: '500px',
+            disableClose: true,
+            data: task,
+            id: 'Suppression'
+        });
+
+        this._taskDialogConfirm.afterClosed()
+            .pipe(
+                filter(_ => !!_),
+                flatMap(_ => this._dataService.remove(_))
+            )
+            .subscribe(null, null, () => this.ngOnInit());
+        /*
+        if (confirm('Êtes-vous sûr de vouloir supprimer la tâche ?')) {
+            this._dataService.remove(id).subscribe(
+                null,
+                null,
+                () => {
+                    new TaskDataSource(this._dataService).connect().subscribe(_ => {
+                            this.dataSource = new MatTableDataSource<Task>(_);
+                            this.dataSource.paginator = this.paginator;
+                            this.dataSource.sort = this.sort;
+                        }
+                    );
+                }
+            );
+        }
+         */
     }
 
 
@@ -135,8 +152,25 @@ export class TaskComponent implements OnInit {
     }
 
     nextStep(task) {
+        this._taskDialogConfirm = this._dialog.open(TaskDialogConfirmComponent, {
+            width: '500px',
+            disableClose: true,
+            data: task,
+            id: 'Confirmation'
+        });
+        this._taskDialogConfirm.afterClosed()
+            .pipe(
+                filter(_ => !!_),
+                flatMap(_ => this._dataService.nextPhase(_))
+            )
+            .subscribe(null, null, () => location.reload());
+        /*
 
-         // this._dataService.nextPhase(task).subscribe(null, (_) => console.log(_), null);
+        if (confirm('Êtes-vous sûr de vouloir passer à l\'étape suivante ?')) {
+            this._dataService.nextPhase(task).subscribe(_ => console.log(_), null, () => location.reload());
+        }
+         */
+
     }
 
 }

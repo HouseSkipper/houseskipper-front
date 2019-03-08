@@ -8,20 +8,20 @@
     <br>
     <div class="container">
       <div layout="row" Align="center center" class="content">
-        <mat-card class="card" >
-          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
-            <h3>Demandes de travaux récentes</h3>
-          </mat-card-title>
-          <mat-card-content>
+        <h3 class="mat-display-2">Demandes de travaux</h3>
             <div class="example-container mat-elevation-z8 ">
               <mat-table #table [dataSource]="dataSource" (matSortChange)="sortData($event)" matSort>
                 <ng-container matColumnDef="Référence">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Référence </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.id }} </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="Etat" mat-sort-header>
-                  <mat-header-cell *matHeaderCellDef> Etat </mat-header-cell>
+                <ng-container matColumnDef="Phase" mat-sort-header>
+                  <mat-header-cell *matHeaderCellDef> Phase </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.currentPhase}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Debut de la phase" mat-sort-header>
+                  <mat-header-cell *matHeaderCellDef> Debut de la phase </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.historics[element.historics.length - 1].date}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Nom" mat-sort-header>
                   <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
@@ -41,18 +41,13 @@
                 </ng-container>
                  <ng-container matColumnDef="file">
                   <mat-header-cell *matHeaderCellDef> Piece jointe </mat-header-cell>
-                   <mat-cell *matCellDef="let element">
-                     <mat-select matInput placeholder="Choisissez un fichier" (click)="filesNames(element.id)" [ngModel]="blogFile.filename" [(ngModel)]="blogFile.file" name="fileToDownload">
-                       <mat-option *ngFor="let file of files" [value]="file">
-                         {{ file }}
-                       </mat-option>
-                     </mat-select>
-                   </mat-cell>
+                   <mat-cell style="text-align: center;" *matCellDef="let element"> {{element.files.length}} </mat-cell>
+
                 </ng-container>
 
                 <ng-container matColumnDef="delete">
                   <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                  <mat-cell *matCellDef="let element">
+                  <mat-cell id="actionCell" *matCellDef="let element">
                     <a (click)="deleteTask(element.id)"
                        type="button">
                       <mat-icon class="icon">delete</mat-icon>
@@ -60,10 +55,6 @@
                     <a (click)="editTask(element)"
                        type="button">
                       <mat-icon class="icon">edit</mat-icon>
-                    </a>
-                    <a (click)="downloadFile(blogFile.file, element.id)"
-                       type="button">
-                      <mat-icon class="icon">cloud_download</mat-icon>
                     </a>
                     <a (click)="nextStep(element)"
                        type="button">
@@ -74,16 +65,15 @@
 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-              </mat-table>
-            </div>
 
-          </mat-card-content>
-        </mat-card>
+              </mat-table>
+              <mat-paginator [length]="100"
+                             [pageSize]="5"
+                             [pageSizeOptions]="[5, 10, 25, 100]">
+              </mat-paginator>
+            </div>
         <mat-error id="errorMessage" *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</mat-error>
-        <mat-paginator [length]="100"
-                       [pageSize]="5"
-                       [pageSizeOptions]="[5, 10, 25, 100]">
-        </mat-paginator>
+
       </div>
     </div>
   </div>

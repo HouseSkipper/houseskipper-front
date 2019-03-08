@@ -14,7 +14,7 @@ export interface Skill {
     id?: string;
     userId?: string;
     type: string;
-    nb_works?: string;
+    nb_works?: number;
     skillCategories: SkillCategory[];
 }
 
@@ -26,7 +26,7 @@ export interface SkillCategory {
 export interface SubSkill {
     id?: string;
     type: string;
-    nb_works?: string;
+    nb_works?: number;
 }
 
 export interface NavItem {

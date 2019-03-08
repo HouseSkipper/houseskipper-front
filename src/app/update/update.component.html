@@ -1,120 +1,118 @@
 <div class="content-page">
     <br>
-    <div class="container" *ngIf="modif == false">
         <div class="container">
-            <mat-card >
-                <mat-card-title-group>
-                    <mat-card-title><span>Informations personnelles</span></mat-card-title>
-                </mat-card-title-group>
-                <mat-card-content>
-                    <p>Nom d'utilisateur : {{model.username}}</p>
-                    <p>Nom : {{model.lastname}}</p>
-                    <p>Prénom : {{model.firstname}}</p>
-                    <p>Téléphone : {{model.telephone}}</p>
-                    <p>Rôle : {{model.role}}</p>
-                </mat-card-content>
-                <mat-card-footer>
-                    <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
-                        <div class="blocks">
-                            <button button="submit" mat-raised-button color="primary" (click)="modifInfo()">
-                                <mat-icon>create</mat-icon> Modifier mes informations
-                            </button>
-                        </div>
-                    </div>
-                    <br>
-                    <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
-                        <div class="blocks">
-                            <button button="submit" mat-raised-button color="primary" (click)="modifMotDePasse()">
-                                <mat-icon>create</mat-icon> Modifier mon mot de passe
-                            </button>
-                        </div>
-                    </div>
-                    <br>
-                </mat-card-footer>
-            </mat-card>
-        </div>
-    </div>
-
-    <div id="signup-container" *ngIf="modif">
-        <div id="sideMenu"  style="margin-left: 10px">
-            <div id="buttonMenu">
-                <div *ngFor="let field of fields | keyvalue; let i = index">
-                    <mat-icon class="iconChecked" [style.visibility]="check(field) && modif ? 'visible' : 'hidden'" svgIcon="icon-checked"></mat-icon>
-                    <a mat-button (click)="setStep(field.value.values[0])" class="titleField">{{field.value.title}}</a>
-                    <div *ngIf="field.value.values.indexOf(step) > -1">
-                    <span *ngFor="let subfield of field.value.values">
-                        <mat-icon [style.visibility]="step === subfield && modif ? 'visible' : 'hidden'">arrow_forward</mat-icon>
-                        <a mat-button (click)="setStep(subfield)" class="capitalize">{{subfield}}</a>
-                    </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <mat-sidenav-content>
-            <form class="signup-form-container" novalidate [formGroup]="form">
-                <div id="name" *ngIf="step === 'firstname'" [@slideInOut]>
-                    <h2 class="mat-headline">Quel est votre prénom?</h2>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Prénom</mat-label>
-                        <input matInput placeholder="Prénom" formControlName="firstname" value="{{model.firstname}}">
-                        <mat-error class="alert alert-danger">Prénom requis</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('firstname').hasError('minlength')" class="alert alert-danger">Le prénom doit avoir au moins 3 lettres</mat-error>
-                    </mat-form-field>
-                </div>
-                <div id="lastname" *ngIf="step == 'lastname'" [@slideInOut]>
-                    <h2 class="mat-headline">Quel est votre nom?</h2>
-                    <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('lastname').invalid">
+            <h3  class="centerElement mat-h3">Mes Informations</h3>
+            <form [formGroup]="form">
+                <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header  class="right-aligned-header">
+                    <mat-panel-title>
+                        <mat-icon svgIcon="icon-houses"></mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Informations d'identité
+                        <mat-icon svgIcon="icon-checked" *ngIf="check(0) === 2"></mat-icon>
+                        <mat-icon svgIcon="icon-error" *ngIf="check(0) === 0"></mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                    <div class="centerElement">
+                        <mat-form-field class="margin importantField" appearance="outline">
+                        <mat-label>Nom</mat-label>
+                        <input matInput placeholder="Nom" formControlName="lastname">
                         <mat-error class="alert alert-danger">Nom requis</mat-error>
                         <mat-error *ngIf="form.invalid && form.get('lastname').hasError('minlength')" class="alert alert-danger">Le nom doit avoir au moins 3 lettres</mat-error>
-                        <mat-label>Nom</mat-label>
-                        <input matInput placeholder="Nom" formControlName="lastname" value="{{model.lastname}}">
-                    </mat-form-field>
-                </div>
-                <div id="email" *ngIf="step == 'username'" [@slideInOut]>
-                    <h2 class="mat-headline">Quel est votre email?</h2>
-                    <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('username').invalid">
-                        <mat-label>Adresse Email</mat-label>
-                        <input matInput placeholder="Adresse Email" formControlName="username" value="{{model.username}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="centerElement">
+                        <mat-form-field class="margin importantField" appearance="outline">
+                        <mat-label>Prénom</mat-label>
+                        <input matInput placeholder="Prénom" formControlName="firstname">
+                        <mat-error class="alert alert-danger">Prénom requis</mat-error>
+                        <mat-error *ngIf="form.invalid && form.get('firstname').hasError('minlength')" class="alert alert-danger">Le prénom doit avoir au moins 3 lettres</mat-error>
+                        </mat-form-field>
+                    </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <mat-icon class="icon">contacts</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Informations de contact
+                        <mat-icon svgIcon="icon-checked" *ngIf="check(1) === 2"></mat-icon>
+                        <mat-icon svgIcon="icon-error" *ngIf="check(1) === 0"></mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="centerElement">
+                    <mat-form-field class="margin importantField" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Email" formControlName="username">
                         <mat-error class="alert alert-danger">Email requis</mat-error>
                         <mat-error *ngIf="form.invalid && form.get('username').hasError('pattern')" class="alert alert-danger">Email non valide</mat-error>
                     </mat-form-field>
                 </div>
-                <div id="telephone" *ngIf="step == 'telephone'" [@slideInOut]>
-                    <h2 class="mat-headline">Quel est votre numéro de téléphone?</h2>
-                    <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('telephone').invalid">
+                <div class="centerElement">
+                    <mat-form-field class="margin importantField" appearance="outline">
                         <mat-label>Téléphone</mat-label>
-                        <input matInput placeholder="Téléphone" formControlName="telephone" value="{{model.telephone}}">
+                        <input matInput placeholder="Téléphone" formControlName="telephone">
                         <mat-error *ngIf="form.invalid && form.get('telephone').hasError('pattern')" class="alert alert-danger">Numéro de téléphone invalide</mat-error>
                     </mat-form-field>
                 </div>
-                <div id="role" *ngIf="step == 'role'" [@slideInOut]>
-                    <h2 class="mat-headline">Quel sera votre rôle dans HouseKeeper?</h2>
-                    <mat-form-field appearance="outline">
-                        <mat-label>S'enregistrer en tant que</mat-label>
-                        <mat-select formControlName="role">
-                            <mat-option *ngFor="let role of roles" [value]="role">
-                                {{role}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error >S'il vous plaît, choisissez votre rôle</mat-error>
-                    </mat-form-field>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <mat-icon class="icon">poll</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Informations sur le compte
+                        <mat-icon svgIcon="icon-checked" *ngIf="check(2) === 2"></mat-icon>
+                        <mat-icon svgIcon="icon-error" *ngIf="check(2) === 0"></mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="centerElement">
+                    <mat-label>Rôle</mat-label>
+                    <input disabled formControlName="role">
                 </div>
-
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <mat-icon class="icon">error</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Informations légales
+                        <mat-icon svgIcon="icon-checked" *ngIf="check(3) === 2"></mat-icon>
+                        <mat-icon svgIcon="icon-error" *ngIf="check(3) === 0"></mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="centerElement">
+                        <mat-label>Informations légales</mat-label>
+                </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header class="right-aligned-header">
+                    <mat-panel-title>
+                        <mat-icon class="icon">delete</mat-icon>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Suppression du compte
+                        <mat-icon svgIcon="icon-checked" *ngIf="check(3) === 2"></mat-icon>
+                        <mat-icon svgIcon="icon-error" *ngIf="check(3) === 0"></mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="centerElement">
+                        <mat-label>Supprimer le compte ?</mat-label>
+                </div>
+            </mat-expansion-panel>
             </form>
-            <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
-            <div>
-                <button *ngIf="stepNum > 0" id="previousButton" mat-button (click)="previous(form.value)">
-                    Précédent
-                </button>
-                <button id="continueButton" mat-button type="submit" (click)="continue(form.value)" [disabled]="step == 'role' && !cgu">
-                    Continuer
-                </button>
-                <button id="terminerButton" mat-button type="submit" (click)="terminer(form.value)" [disabled]="step == 'code' && !cgu">
-                    Terminer
+            <div class="centerElement">
+                <button class="actionButton" mat-button type="submit" (click)="saveUser(form.value)">
+                    Valider
                 </button>
             </div>
-        </mat-sidenav-content>
-    </div>
+        </div>
+        <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
+        <br>
+        </div>
 
-</div>
 

@@ -11,7 +11,7 @@ export const environment = {
         host: 'localhost',
         port: '8080',
         endpoints: {
-            oneUsers: '/api/users/:id',
+            oneUsers: '/users/:username',
             allUsers: '/api/users',
             exists: '/users/exists',
             updateUsers: '/users/update',
@@ -22,6 +22,7 @@ export const environment = {
             addHouse: '/add/house',
             removeHouse: '/houses/:houseId',
             uploadFileHouse: '/houses/uploadFile/:houseId',
+            fileHouse: '/houses/file/:id',
             rooms: '/rooms',
             roomsByHouse: '/rooms/:houseName',
             phases: '/phases',
@@ -35,7 +36,7 @@ export const environment = {
               oneTask: '/tasks/:id',
                 allTasksForUser: '/tasks',
                 upload : '/uploadFile/:id',
-                toNext: 'tasks/next/:id',
+                next: '/tasks/next/:id',
               dowload : '/downloadFile/:fileName/:id',
               fileNames : '/fileNames/:id',
                 comment : '/commentaire/:id'

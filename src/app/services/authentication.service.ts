@@ -4,6 +4,7 @@ import {User} from '../interfaces/user';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
+import {UsersService} from './users.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthenticationService {
     private _currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    constructor(private _http: HttpClient) {
+    constructor(private _http: HttpClient, private _userService: UsersService) {
         this._currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this._currentUserSubject.asObservable();
 
@@ -33,6 +34,14 @@ export class AuthenticationService {
     public get currentUserValue(): User {
         return this._currentUserSubject.value;
 
+    }
+
+    setCurrentUser(user: any) {
+        this._userService.fetchOne(user.username).subscribe((_) => {
+            localStorage.removeItem('currentUser');
+            localStorage.setItem('currentUser', JSON.stringify(_));
+            this._currentUserSubject.next(_);
+             } );
     }
 
     login(username: string, password: string) {

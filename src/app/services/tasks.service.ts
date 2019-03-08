@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {defaultIfEmpty, filter, map} from 'rxjs/operators';
@@ -42,13 +42,8 @@ export class TasksService {
     }
 
     nextPhase(task: Task): Observable<any> {
-        const user = this._authentication.currentUserValue;
-        if (user !== null) {
-            task.username = this._authentication.currentUserValue.username;
-        } else {
-            task.username = 'admin';
-        }
-        return this._http.put<Task>(this._backendURL.toNext.replace(':id', task.id), task, this._options());
+        console.log(this._backendURL.next.replace(':id', task.id));
+        return this._http.post<Task>(this._backendURL.next.replace(':id', task.id), task, this._options());
     }
 
     create(task: Task): Observable<any> {
@@ -77,6 +72,15 @@ export class TasksService {
         .pipe(
           map(_ => id)
         );
+    }
+
+    uploadFile(data: FormData, id: string): Observable<any> {
+            const req = new HttpRequest('POST', this._backendURL.upload.replace(':id', id), data, {
+                reportProgress: true,
+                responseType: 'text'
+            });
+
+        return this._http.request(req);
     }
 
     sendComment(id: string, comment: Commentaire): Observable<any> {

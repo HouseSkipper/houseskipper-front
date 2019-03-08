@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {MenuListService} from '../services/menu/menu-list.service';
 import {MainMenuListService} from '../services/menu/main-menu-list.service';
 import {Router} from '@angular/router';
@@ -27,12 +27,15 @@ export class MainSideMenuComponent implements OnInit {
     @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
     @Input() item: NavItem;
     @Input() depth: number;
+    private isExpended: boolean;
+
 
 
     constructor(private menuListService: MainMenuListService, public router: Router) {
         if (this.depth === undefined) {
             this.depth = 0;
         }
+        this.isExpended = false;
     }
 
     ngOnInit(): void {
@@ -44,6 +47,14 @@ export class MainSideMenuComponent implements OnInit {
                  // console.log(`${this.item.route} is expanded: ${this.expanded}`);
             }
         });
+    }
+
+    get IsExpended() {
+        return this.isExpended;
+    }
+
+    setIsExpended(val: boolean) {
+        this.isExpended = val;
     }
 
     onItemSelected(item: NavItem) {
@@ -61,6 +72,5 @@ export class MainSideMenuComponent implements OnInit {
             this.router.navigate([item.route]);
         }
     }
-
 
 }

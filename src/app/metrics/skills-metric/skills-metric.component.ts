@@ -26,7 +26,6 @@ export class SkillsMetricComponent implements OnInit {
     getSkills() {
         this._skillsService.fetchAll().subscribe(_ => {
             this._currentSkills = _;
-            console.log(_);
         });
     }
 

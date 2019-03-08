@@ -25,6 +25,7 @@ export interface House {
     surfaceExterieurGauche: number;
     surfaceExterieurArriere: number;
     comment: string;
+    nbDocument: number;
 }
 
 export interface Room {
@@ -37,4 +38,14 @@ export interface Room {
     nbRadiateur: number;
     volet: number;
     nbVolet: number;
+}
+
+export interface FileHouse {
+    id: string;
+    fileName: string;
+    fileDownloadUri: string;
+    fileType: string;
+    size: number;
+    pic: string;
+    description: string;
 }

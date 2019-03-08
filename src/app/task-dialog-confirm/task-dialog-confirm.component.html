@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{msg}}</h2>
+
+<mat-dialog-content *ngIf="msg === 'Suppression'">
+  <p class="mat-body">Êtes-Vous sûr de vouloir supprimer votre demande de travaux : {{task.nom}}</p>
+</mat-dialog-content>
+<mat-dialog-content *ngIf="msg === 'Confirmation'">
+  <p class="mat-body">Êtes-vous sûr de vouloir passer à l'étape suivante ?</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="onCancel()">Annuler</button>
+  <button mat-button color="warn" type="submit" *ngIf="msg === 'Suppression'" (click)="onSave(task.id)">Supprimer</button>
+  <button mat-button color="primary" type="submit" *ngIf="msg === 'Confirmation'" (click)="onSaveC(task)">Valider</button>
+</mat-dialog-actions>

@@ -574,26 +574,34 @@
                     <mat-icon svgIcon="icon-error" *ngIf="checked(7) === 0"></mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-card-actions class="centerElement margin"><button mat-raised-button  (click)="addFile()"><mat-icon>add box</mat-icon></button></mat-card-actions>
+            <mat-card-actions class="centerElement">
+                <button mat-raised-button (click)="addFile()">
+                    <mat-icon>add box</mat-icon>
+                </button>
+            </mat-card-actions>
             <div *ngFor="let file of formFile.get('files')['controls']; let i = index;">
                 <div formArrayName="files">
-                    <div [formGroupName]="i">
-                        <label *ngIf="formFile.get('files').controls[i].get('file').value === ''" class="mat-body"
-                               style="width: 100%;">Document {{i + 1}}</label>
-                        <label *ngIf="formFile.get('files').controls[i].get('file').value !== ''" class="mat-body"
-                               style="width: 100%;">{{formFile.get('files').controls[i].get('file').value.name}}
+                    <div id="filesDiv" [formGroupName]="i">
+                        <label *ngIf="formFile.get('files').controls[i].get('file').value === ''" class="mat-body">Document {{i + 1}}</label>
+                        <label *ngIf="formFile.get('files').controls[i].get('file').value !== ''" class="mat-body">
+                            {{formFile.get('files').controls[i].get('file').value.name}}
                         </label>
-                        <br/>
-                        <input type="file" name="file" (change)="onFileChange($event, i)"/>
-                        <br/>
-                        <div>
-                            <mat-form-field class="margin textaeraPerso" appearance="outline">
-                                <mat-label>Description</mat-label>
-                                <textarea matInput placeholder="Description de votre document"
-                                          formControlName="description"
-                                          name="description" required></textarea>
-                            </mat-form-field>
-                        </div>
+                        <input *ngIf="formFile.get('files').controls[i].get('id').value === null" type="file"
+                               name="file" style="margin-left: 10px" (change)="onFileChange($event, i)"/>
+                        <mat-form-field class="margin" appearance="outline">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput placeholder="Description de votre document"
+                                      formControlName="description"
+                                      name="description" required></textarea>
+                        </mat-form-field>
+                        <button mat-button *ngIf="formFile.get('files').controls[i].get('id').value !== null"
+                                (click)="downloadFileAs(formFile.get('files').controls[i].get('id').value, formFile.get('files').controls[i].get('file').value)">
+                            <mat-icon class="icon">cloud_download</mat-icon>
+                        </button>
+                        <button mat-button
+                                *ngIf="formFile.get('files').controls[i].get('id').value !== null" (click)="removeFile(formFile.get('files').controls[i].get('id').value, i)">
+                            <mat-icon class="icon">delete</mat-icon>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -613,12 +621,12 @@
         </mat-expansion-panel>
     </form>
 </mat-accordion>
-<div class="centerElement margin">
+<div class="centerElement">
     <button *ngIf="isUpdateMode === false" mat-button class="actionButton" type="submit"
             (click)="submit(form.value)" [disabled]="form.invalid || formFile.invalid">
         Valider
     </button>
-    <button *ngIf="isUpdateMode === true" mat-button  class="actionButton" type="submit"
+    <button *ngIf="isUpdateMode === true" mat-button class="actionButton" type="submit"
             (click)="modifier(form.value)" [disabled]="form.invalid || formFile.invalid">
         Valider
     </button>

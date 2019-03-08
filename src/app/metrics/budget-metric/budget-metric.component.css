@@ -5,8 +5,11 @@
     border-radius: 4px;
     padding:20px;
     color:white;
-    min-height:150px;
-    min-width:430px;
+    height:100%;
+    width:100%;
+    min-height:350px;
+    min-width: 530px;
+    box-sizing: border-box;
 }
 
 .active {
@@ -22,6 +25,13 @@
 }
 
 #buttonSpan button {
-    margin-left: 5px;
-    margin-right:5px;
+    margin-left: 2px;
+    margin-right:2px;
+    padding-right:0px;
+    padding-left:0px;
+    width:40px;
+}
+
+#budget-metrics canvas {
+    height:220px !important;
 }

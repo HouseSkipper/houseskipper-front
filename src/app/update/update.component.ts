@@ -49,70 +49,15 @@ export class UpdateComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this._fields = [];
-        this._fields.push({title: 'Entité', values: ['firstname', 'lastname']});
-        this._fields.push({title: 'Contact', values: ['username', 'telephone']});
-        this._fields.push({title: 'Compte', values: ['role']});
-        let i = 0;
-        this._fields.forEach(value => {
-            for (const subfield of value.values) {
-                this._fieldsFlatten[i] = subfield;
-                i++;
-            }
-        });
-        this._step = this._fieldsFlatten[0];
-        this._cgu = false;
-
         this._model = this._authService.currentUserValue;
         this._modif = false;
+        this._form.patchValue(this._model);
     }
 
-    ngOnChanges(record) {
-        console.log('ngOnChange');
-        this._form.patchValue(record.model.currentValue);
+    ngOnChanges() {
+        this._form.patchValue(this._model);
     }
 
-    modifInfo(): any {
-        // this._route.navigate(['/signup']);
-        this._modif = !this._modif;
-    }
-
-    modifMotDePasse(): any {
-
-    }
-
-    terminer(data: any): any {
-        this.modifInfo();
-    }
-
-    continue(data: any) {
-        const index = this._fieldsFlatten.indexOf(this._step);
-        this._errorMsg = '';
-        if (index <= 5) {
-            if (this._form.get(this._step).valid) {
-                console.log('index:' + index);
-                if (index < 5) {
-                    console.log('on est dans la même categorie');
-                    this._step = this._fieldsFlatten[index + 1];
-                } else if (this._form.valid) {
-                    this._step = this._fieldsFlatten[index + 1];
-                    this.saveUser(data as User);
-                } else {
-                    this._errorMsg = 'Des champs sont manquants';
-                }
-            }
-        }
-    }
-
-    previous(data: any) {
-        const index = this._fieldsFlatten.indexOf(this._step);
-        console.log('index:' + index);
-        if (index > 0) {
-            console.log('on est dans la même categorie');
-            this._step = this._fieldsFlatten[index - 1];
-        }
-
-    }
 
     setStep(value: string): void {
         console.log(value);
@@ -147,57 +92,36 @@ export class UpdateComponent implements OnInit, OnChanges {
         });
     }
 
-    saveUser(user: User) {
-        of(user)
-            .pipe(
-                map(_ => {
-                        return {
-                            'firstname': _.firstname,
-                            'lastname': _.lastname,
-                            'password': _.password,
-                            'username': _.username,
-                            'telephone': _.telephone,
-                            'role': _.role
-                        };
-                    }
-                ),
-                flatMap(_ => this._userService.update(_))
-            ).subscribe(
-            data => {
-                console.log(data);
-                // this._route.navigate(['/']);
-            },
-            error => {
-                console.log(error);
-                this._errorMsg = error;
-                this._invalid = true;
-            });
+    saveUser(user : User) {
+        this._userService.update(user).subscribe((_: User) => this._authService.setCurrentUser(_), null, () => this._router.navigate(['/dashboard']));
     }
 
-    check(f: any): boolean {
+    check(item: number): number {
         let counter = 0;
-        const length = f.value.values.length;
-        for (let i = 0; i < length; i++) {
-            // console.log(f.value.values[i]);
-            if (f.value.values[i] !== 'code') {
-                if (this._form.get(f.value.values[i]).valid) {
-                    counter = counter + 1;
+        switch (item) {
+            case 0 :
+                if (this._form.get('lastname').valid && this._form.get('firstname').valid) {
+                    counter = 2;
                 }
-            }
+                break;
+            case 1 :
+                if (this._form.get('username').valid && this._form.get('telephone').valid) {
+                    counter = 2;
+                }
+                break;
+            case 2 :
+                if (this._form.get('role').valid) {
+                    counter = 2;
+                }
+                break;
+            case 3 :
+                counter = 2;
+                break;
+            case 4 :
+                counter = 2
+                break;
         }
-        return length === counter;
-    }
-
-    get model(): User {
-        return this._model;
-    }
-
-    get modif(): boolean {
-        return this._modif;
-    }
-
-    get roles(): string[] {
-        return this._roles;
+        return counter;
     }
 
     @Output('submit')
