@@ -1,35 +1,40 @@
 <app-main-nav-bar></app-main-nav-bar>
 
-<mat-sidenav-container autosize>
-  <mat-sidenav id="sideMenu" mode="side" opened [ngStyle]="{ 'width.em': sidenavWidth }">
-    <span style="cursor: pointer;padding: 1.4vh;" (click)="sidenav.toggle()">
-      <mat-icon>announcement</mat-icon>
-    </span>
-    <span *ngIf="sidenavWidth > 4">
-        <span style="cursor: pointer;padding: 1.4vh;" (click)="toggle()">
-          <mat-icon>view_headline</mat-icon>
-        </span>
-    <app-main-side-menu *ngFor="let item of navItems" [item]="item">
-    </app-main-side-menu>
-    </span>
-    <span *ngIf="sidenavWidth < 4">
-      <span style="cursor: pointer;padding: 1.4vh;" (click)="toggle()" >
-        <mat-icon>view_headline</mat-icon>
-      </span>
-      <app-main-side-menu  *ngFor="let item of navItemCollapse" [item]="item">
-    </app-main-side-menu>
-    </span>
-  </mat-sidenav>
+<mat-sidenav-container>
+    <mat-sidenav id="sideMenu" mode="side" opened [ngStyle]="{ 'width.em': sidenavWidth }">
+        <div id="sidenav-content">
+            <span style="display:flex; flex-direction:column;" *ngIf="sidenavWidth > 4">
+                <span style="cursor: pointer;padding: 8px; padding-left:12px;" (click)="toggle()">
+                  <mat-icon>view_headline</mat-icon>
+                </span>
+                <span style="cursor: pointer;padding: 8px; padding-left:12px;" (click)="sidenav.toggle()">
+                    <mat-icon>announcement</mat-icon>
+                </span>
+                <app-main-side-menu *ngFor="let item of navItems" [item]="item">
+                </app-main-side-menu>
+            </span>
+            <span style="display:flex; flex-direction:column;" *ngIf="sidenavWidth < 4">
+                <span style="cursor: pointer;padding: 8px; padding-left:12px;" (click)="toggle()">
+                    <mat-icon>view_headline</mat-icon>
+                </span>
+                <span style="cursor: pointer;padding: 8px; padding-left:12px;" (click)="sidenav.toggle()">
+                    <mat-icon>announcement</mat-icon>
+                </span>
+                <app-main-side-menu *ngFor="let item of navItemCollapse" [item]="item">
+                </app-main-side-menu>
+            </span>
+        </div>
+    </mat-sidenav>
 
-  <mat-sidenav id="sideMenuRight" mode="side" position="end"  #sidenav>
+    <mat-sidenav id="sideMenuRight" mode="side" position="end" #sidenav>
+        <app-shortcut-area></app-shortcut-area>
+    </mat-sidenav>
 
-    <app-shortcut-area></app-shortcut-area>
-  </mat-sidenav>
-  <mat-sidenav-content >
-    <div>
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
+    <mat-sidenav-content>
+        <div id="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
 
 </mat-sidenav-container>
 <app-legal-bar></app-legal-bar>

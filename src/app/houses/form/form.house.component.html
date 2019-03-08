@@ -581,7 +581,7 @@
             </mat-card-actions>
             <div *ngFor="let file of formFile.get('files')['controls']; let i = index;">
                 <div formArrayName="files">
-                    <div [formGroupName]="i">
+                    <div id="filesDiv" [formGroupName]="i">
                         <label *ngIf="formFile.get('files').controls[i].get('file').value === ''" class="mat-body"
                                style="width: 100%;">Document {{i + 1}}</label>
                         <label *ngIf="formFile.get('files').controls[i].get('file').value !== ''" class="mat-body"

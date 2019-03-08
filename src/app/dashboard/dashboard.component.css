@@ -4,6 +4,8 @@
 }
 
 .content-page {
+    margin-right:200px;
+    margin-left:200px;
     display:flex;
     flex-wrap: wrap;
     padding:40px;

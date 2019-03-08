@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {MenuListService} from '../services/menu/menu-list.service';
 import {MainMenuListService} from '../services/menu/main-menu-list.service';
 import {Router} from '@angular/router';
