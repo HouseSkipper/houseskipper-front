@@ -60,6 +60,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     private _file: boolean;
     private _errorMsg: string;
     private _taskid: string;
+     isLinear = false;
     displayedBlock = ['Rédaction', 'Validation', 'Soumission', 'Evaluation', 'Décision', 'Finalisation', 'Exploitation'];
     stepperPhase = [];
     currentPhaseId: number;
@@ -73,11 +74,23 @@ export class FormTaskComponent implements OnInit, OnChanges {
         resultat: '',
         comment: ''
     };
+    blogFile = {
+        files: [],
+        description: []
+    }
+    public _dateP1: string;
+    public _dateP2: string;
+    public _dateP3: string;
+    public _dateP4: string;
+    public _dateP5: string;
+    public _dateP6: string;
+    public _dateP7: string;
     private _files: string[];
     public now = new Date();
     @ViewChild('fileInput')
     fileInput: ElementRef;
 
+    filesToUpload = new FormData();
     private _currentTask: Task;
     private _taskSent: boolean;
 
@@ -138,6 +151,9 @@ export class FormTaskComponent implements OnInit, OnChanges {
             ])),
             status: new FormControl(),
             filename: new FormControl(),
+            fileDescription: new FormControl('', Validators.compose([
+                Validators.required, Validators.minLength(5)
+            ])),
         });
     }
 
@@ -234,15 +250,27 @@ export class FormTaskComponent implements OnInit, OnChanges {
     addComment(auteur, etat, com) {
         let commentaire: Commentaire;
         commentaire = {datec: this.now, auteur: auteur, etat: etat, commentaire: com, phasec: this._currentTask.currentPhase};
-         this._tasksService.sendComment(this.blogTask.taskName, commentaire)
+         this._tasksService.sendComment(this._taskid, commentaire)
              .subscribe(null, null, null);
         this.addCommentaire(this.now, this.authService.currentUserValue.firstname, '', '', this._currentTask.currentPhase);
     }
 
     onSelectFile(event) {
+        if (event.target.files[0].size > 10000000) {
+            alert('Les documents doivent pas dépasser 10MB.');
+            return;
+        }
         if (event.target.files && event.target.files.length > 0) {
-            const file = event.target.files[0];
+            const file: File = event.target.files[0];
             this._form.get('filename').setValue(file.name);
+            if (this._form.get('fileDescription') === null) {
+                this.blogFile.description.push('pas de commentaire sur ce document');
+            } else {
+                this.blogFile.files.push(this._form.get('filename').value);
+                this.blogFile.description.push(this._form.get('fileDescription').value);
+            }
+            this._form.get('filename').setValue('');
+            this._form.get('fileDescription').setValue('');
         }
     }
 
@@ -251,6 +279,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(task) {
+
         console.log(task);
         const taille = task.partiesExacte.length;
         const pieces = task.partiesExacte;
@@ -272,6 +301,10 @@ export class FormTaskComponent implements OnInit, OnChanges {
         for (let i = 0; i < tailleC; i++) {
             this.addCommentaire(comments[i].datec, comments[i].auteur, comments[i].etat, comments[i].commentaire, comments[i].phasec);
             console.log(comments[i].phasec);
+        }
+        for (let i = 0; i < task.files.length; i++) {
+            this.blogFile.files.push(task.files[i].fileName);
+            this.blogFile.description.push(task.files[i].description);
         }
         if (task.typeSecondaires !== undefined) {
             const tailleT = task.typeSecondaires.length;
@@ -302,6 +335,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
         }
         this.stepperPhase.push(task.currentPhaseId);
         this.currentPhaseId = task.currentPhaseId;
+
     }
 
     removeP(num: number) {
@@ -319,6 +353,36 @@ export class FormTaskComponent implements OnInit, OnChanges {
         control.removeAt(num);
     }
 
+    datesq(event) {
+        console.log(event);
+    }
+    dates(num: number) {
+        switch (num) {
+            case 1:
+                console.log('this._datePipe.transform(this._currentTask.historics[0].date,');
+                this._dateP1 =  this._datePipe.transform(this._currentTask.historics[0].date, 'yyyy-MM-dd');
+                break;
+            case 2:
+                this._dateP2 = this._datePipe.transform(this._currentTask.historics[1].date, 'yyyy-MM-dd');
+                break;
+            case 3:
+                this._dateP3 = this._datePipe.transform(this._currentTask.historics[2].date, 'yyyy-MM-dd');
+                break;
+            case 4:
+                this._dateP4 = this._datePipe.transform(this._currentTask.historics[3].date, 'yyyy-MM-dd');
+                break;
+            case 5:
+                this._dateP5 = this._datePipe.transform(this._currentTask.historics[4].date, 'yyyy-MM-dd');
+                break;
+            case 6:
+                this._dateP6 =  this._datePipe.transform(this._currentTask.historics[5].date, 'yyyy-MM-dd');
+                break;
+            case 1:
+                this._dateP7 = this._datePipe.transform(this._currentTask.historics[6].date, 'yyyy-MM-dd');
+                break;
+
+        }
+    }
   ngOnInit() {
         this._addMode = true;
         this._editMode = false;
@@ -336,7 +400,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
       };
   }
 
-  roomsC() {
+    roomsC() {
         this.dataService.getRoomsByHouse(this.blogTask.residence).subscribe((_) => this._rooms = _);
     }
 
@@ -393,6 +457,7 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     submit(task: Task) {
+        console.log(task);
         this.removeP(0);
       if (task.nom === '' || task.partie === '' || this._form.get('partiesExacte')['controls'][0] === ''
           || task.resultat === '' ||
@@ -401,8 +466,9 @@ export class FormTaskComponent implements OnInit, OnChanges {
             this._errorMsg = 'Tous les champs sont obligatoires.';
           }
       } else {
-        /**task.start_date = new Date();
-        task.status = {phaseName: 'Redaction'};**/
+          if (this._principal) {
+              task.typeSecondaires.length = 0;
+          }
         this._tasksService.create(task).subscribe((_) => {
             // console.log(_.id);
             // this._currentTask = task;
@@ -509,14 +575,28 @@ export class FormTaskComponent implements OnInit, OnChanges {
     }
 
     onSaveFile(): void {
-        this.uploader.setOptions({url: this._backendURL.upload.replace(':id', this.blogTask.taskName), headers: this._options()});
-        this.uploader.uploadAll();
-        if (this._addMode) {
-            this.toTaskList();
-        } else {
+        for (let i = 0; i < this.uploader.queue.length; i++) {
+            let data = new FormData();
+            let file = this.uploader.queue[i]._file;
+            console.log(file);
+            data.append('file', file);
+            data.append('description', this.blogFile.description[i]);
+            console.log(this.blogFile.description[i]);
+            this._tasksService.uploadFile(data, this.blogTask.taskName).subscribe((_) => console.log(_), null, () => {
+                if (this._addMode) {
+                    this.toTaskList();
+                } else {
 
-            this.nextStep();
+                    this.nextStep();
+                }
+            });
         }
+       // this.uploader.setOptions({url: this._backendURL.upload.replace(':id', this.blogTask.taskName), headers: this._options()});
+
+        // this.uploader.uploadAll();
+
+
+
     }
 
     toTaskList() {

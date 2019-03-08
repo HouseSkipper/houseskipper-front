@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {defaultIfEmpty, filter, map} from 'rxjs/operators';
@@ -72,6 +72,15 @@ export class TasksService {
         .pipe(
           map(_ => id)
         );
+    }
+
+    uploadFile(data: FormData, id: string): Observable<any> {
+            const req = new HttpRequest('POST', this._backendURL.upload.replace(':id', id), data, {
+                reportProgress: true,
+                responseType: 'text'
+            });
+
+        return this._http.request(req);
     }
 
     sendComment(id: string, comment: Commentaire): Observable<any> {
