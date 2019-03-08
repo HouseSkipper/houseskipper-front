@@ -526,4 +526,35 @@ export class FormTaskComponent implements OnInit, OnChanges {
     private _options(headerList: Object = {}): any {
         return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
     }
+
+    downloadFile(file) {
+        console.log(file + ', ' + this.currentTask.id);
+        this._tasksService.downloadFileNow(file, this.currentTask.id).subscribe(
+            response => {
+                if (file.includes('png') || file.includes('jpg')
+                    || file.includes('jpeg')) {
+                    this.downloadFileAs(file, response, 'image/jpg');
+                } else if (file.includes('pdf')) {
+                    this.downloadFileAs(file, response, 'application/pdf');
+                }
+            },
+            () => this._errorMsg = 'Veuillez choisir une image à télécharger.'
+        );
+
+    }
+
+    private downloadFileAs(file: string, data: any, type: string) {
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        const blob = new Blob([data], {type: type});
+        const url = window.URL.createObjectURL(blob);
+        const pwa = window.open(url);
+        if (!pwa || pwa.closed || typeof pwa.closed === 'undefined') {
+            alert('Disable Pop-up');
+        } else {
+            a.href = url;
+            a.download = file;
+            a.click();
+        }
+    }
 }

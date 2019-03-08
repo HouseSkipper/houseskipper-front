@@ -2,13 +2,11 @@
 <div>
   <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" align="center" class="content">
 
-      <button button="submit" mat-raised-button color="primary" (click)="openDialog()">
-        <mat-icon>add</mat-icon>
-      </button>
+
 
   </div>
 </div>
 <span align="center">
-  <h3 id="menuTitle" class="mat-h6">Raccourcis</h3>
-  <app-shortcut id="shortcut" [shortcut]="shortcut" *ngFor="let shortcut of shortcuts"></app-shortcut>
+  <h4 id="menuTitle" class="mat-h4">Mes interlocuteurs</h4>
+  <app-shortcut [interlocuteur]="interlocuteur" *ngFor="let interlocuteur of interlocuteurs"></app-shortcut>
 </span>
