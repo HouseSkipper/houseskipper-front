@@ -28,8 +28,8 @@ export class UsersService {
     /**
      * Function to return one person for current id
      */
-    fetchOne(id: string): Observable<User> {
-        return this._http.get<User>(this._backendURL.oneUsers.replace(':id', id));
+    fetchOne(username: string): Observable<User> {
+        return this._http.get<User>(this._backendURL.oneUsers.replace(':username', username));
     }
 
     checkExists(email: string) {
