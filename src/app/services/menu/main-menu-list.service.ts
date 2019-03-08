@@ -20,7 +20,11 @@ export class MainMenuListService implements MenuListService {
             }
         });
         this._childrenSkills = [];
-
+        this._childrenSkills.push({
+            displayName: 'Informations personnelles',
+            iconName: 'turned_in_not',
+            route: '/infos/update',
+        });
         this._skillServices.fetchAll().subscribe( skills => {
             for (const skill of skills ) {
                 this._childrenSkills.push({

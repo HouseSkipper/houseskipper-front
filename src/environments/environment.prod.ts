@@ -10,7 +10,7 @@ export const environment = {
         host: '92.222.9.74',
         port: '56723',
         endpoints: {
-            oneUsers: '/api/users/:id',
+            oneUsers: '/users/:username',
             allUsers: '/api/users',
             exists: '/users/exists',
             updateUsers: '/users/update',

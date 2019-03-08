@@ -11,7 +11,7 @@ export const environment = {
         host: 'localhost',
         port: '8080',
         endpoints: {
-            oneUsers: '/api/users/:id',
+            oneUsers: '/users/:username',
             allUsers: '/api/users',
             exists: '/users/exists',
             updateUsers: '/users/update',
