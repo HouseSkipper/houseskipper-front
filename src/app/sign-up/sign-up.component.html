@@ -56,7 +56,7 @@
                     <ng-template matStepperIcon="edit">
                         <mat-icon class="greenIcon">done</mat-icon>
                     </ng-template>
-                    <mat-step label="Entity" formGroupName="0" [stepControl]="form.get('formArray')?.get([0])">
+                    <mat-step label="Identité" formGroupName="0" [stepControl]="form.get('formArray')?.get([0])">
                         <div id="name" *ngIf="step === 'firstname'" [@slideInOut]>
                             <h2 class="mat-headline">Quel est votre prénom?</h2>
                             <mat-form-field appearance="outline" class="importantField" >
@@ -104,7 +104,7 @@
                         <button *ngIf="step == 'username'" mat-button class="actionButton" type="button" (click)="continue(form.value, formCodeEmail.value)">Continuer</button>
                         <button *ngIf="step == 'telephone'" mat-button matStepperNext class="actionButton" type="button" (click)="continue(form.value, formCodeEmail.value)">Continuer</button>
                     </mat-step>
-                    <mat-step label="Account" formGroupName="2" [stepControl]="form.get('formArray').get([2])">
+                    <mat-step label="Compte" formGroupName="2" [stepControl]="form.get('formArray').get([2])">
                         <div id="password" *ngIf="step == 'password'" [@slideInOut]>
                             <h2 class="mat-headline">Quel est votre mot de passe?</h2>
                             <mat-form-field appearance="outline" [class.mgb15]="form.invalid && form.get('formArray').controls[2].get('password').invalid" class="importantField">
