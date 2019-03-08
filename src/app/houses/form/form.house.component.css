@@ -106,3 +106,14 @@ mat-panel-description {
 .icon {
     color: #8C9BC0;
 }
+
+#filesDiv {
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+#filesDiv input, #filesDiv label {
+    align-self: center;
+}
