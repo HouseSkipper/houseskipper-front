@@ -2,6 +2,9 @@
 
 <mat-sidenav-container autosize>
   <mat-sidenav id="sideMenu" mode="side" opened [ngStyle]="{ 'width.em': sidenavWidth }">
+    <span style="cursor: pointer;padding: 1.4vh;" (click)="sidenav.toggle()">
+      <mat-icon class="icon">accessibility</mat-icon>
+    </span>
     <span *ngIf="sidenavWidth > 4">
         <span style="cursor: pointer;padding: 1.4vh;" (click)="toggle()">
           <mat-icon>view_headline</mat-icon>
@@ -18,9 +21,8 @@
     </span>
   </mat-sidenav>
 
-  </mat-sidenav>
-  <mat-sidenav id="sideMenuRight" mode="side" position="end" style="border: 1vh" [ngStyle]="{ 'width.em': sidenavWidthRight }" opened (mouseenter)="increaseR()"
-               (mouseleave)="decreaseR()">
+  <mat-sidenav id="sideMenuRight" mode="side" position="end"  #sidenav>
+
     <app-shortcut-area></app-shortcut-area>
   </mat-sidenav>
   <mat-sidenav-content >
