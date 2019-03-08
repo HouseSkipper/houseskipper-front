@@ -15,22 +15,26 @@ import { HelpDialogComponent } from './helpDialog.component';
 export class HelpComponent implements OnInit {
 
 
-    private _ticket :helpTicket;
-    private _dialogRef :MatDialogRef<HelpDialogComponent>;
+    private _ticket: helpTicket;
+    private _dialogRef: MatDialogRef<HelpDialogComponent>;
 
-    constructor (private _dialog :MatDialog)
-    {}
+    constructor (private _dialog: MatDialog) {}
 
     ngOnInit () {
+        this._ticket = {
+            subject : '',
+            involved : '',
+            message : ''
+        };
     }
 
 
 
-    get ticket () :helpTicket {
+    get ticket (): helpTicket {
         return this._ticket;
     }
-    
-    set ticket (value :helpTicket) {
+
+    set ticket (value: helpTicket) {
         this._ticket = value;
     }
 
@@ -50,15 +54,15 @@ export class HelpComponent implements OnInit {
         this._ticket.subject = 'Désaccord';
         this.showDialog();
     }
-    
+
     showDialog () {
-        this._dialogRef = this._dialog.open(HelpDialogComponent, {disableClose :true});
+        this._dialogRef = this._dialog.open(HelpDialogComponent, {disableClose : true});
         this._dialogRef.afterClosed()
         .pipe(
             filter(_ => !!_)
         )
         .subscribe(
-            (ticket :helpTicket) => this._ticket = ticket
+            (ticket: helpTicket) => this._ticket = ticket
         );
     }
 

@@ -1,8 +1,8 @@
 <mat-accordion class="example-headers-align justify-content" >
 
     <mat-horizontal-stepper id="stepper" #stepper labelPosition="bottom" >
-      <mat-step  [editable]=false>
-        <ng-template  matStepLabel>Rédaction</ng-template>
+      <mat-step [editable]=false>
+        <ng-template matStepLabel >Rédaction</ng-template>
       </mat-step>
       <mat-step [editable]=false>
         <ng-template matStepLabel>Validation</ng-template>
@@ -47,7 +47,7 @@
       <div class="centerElement">
         <mat-form-field class="margin importantField" appearance="outline">
           <mat-label>Habitation concérnée</mat-label>
-          <mat-select placeholder="Résidence Concérnée" formControlName="residence" [(ngModel)]="blogTask.residence" required name="residence">
+          <mat-select placeholder="Résidence Concérnée" (closed)="roomsC()" (click)="roomsC()" formControlName="residence" [(ngModel)]="blogTask.residence" required name="residence">
             <mat-option *ngFor="let house of houses" [value]="house.houseName">
               {{ house.houseName }}
             </mat-option>
@@ -196,9 +196,9 @@
 
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Précédent</button>
-        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)" [disabled]="checked(2) === 0">Modifier votre de demande</button>
+        <button mat-button color="primary" *ngIf="!addMode" (click)="edit(form.value)">Modifier votre de demande</button>
         <button mat-button color="primary" *ngIf="!addMode" (click)="nextStep()" >Suivant</button>
-        <button mat-button color="primary" *ngIf="addMode && taskSent===false" (click)="submit(form.value)">Suivant</button>
+        <button mat-button color="primary" *ngIf="addMode && taskSent===false" (click)="submit(form.value)" [disabled]="checked(1) !== 2 || checked(2) !== 1">Suivant</button>
         <button mat-button color="primary" *ngIf="addMode && taskSent===true" (click)="nextStep()">Suivant</button>
       </mat-action-row>
     </mat-expansion-panel>
@@ -218,17 +218,24 @@
 
       <input id="fileToUpload" type="file" (change)="onSelectFile($event)" #fileInput style="display:none;" ng2FileSelect [uploader]="uploader" >
 
-      <mat-form-field class="margin">
-        <input matInput formControlName="filename" placeholder="Ajoutez une image ou un document à la fois."  readonly>
+      <mat-form-field class="margin"  style="width: 50vh;">
+       <textarea matInput placeholder="Description"  required formControlName="fileDescription"
+                 name="fileDescription"></textarea>
+        <br/>
+      </mat-form-field>
+      <mat-form-field *ngIf="form.get('fileDescription').valid" class="margin" >
+        <input matInput formControlName="filename" placeholder="Ajoutez une image ou un document à la fois."  readonly/>
         <br/>
       </mat-form-field>
 
-      <button mat-button (click)="selectFile()">Selectionner</button>
+
+      <button mat-button *ngIf="form.get('fileDescription').valid"  (click)="selectFile()">Selectionner</button>
       <br/>
       <h2>Documents Ajoutés : </h2>
       <mat-list>
-        <mat-list-item *ngFor="let file of files">
-          <h3 matLine> - <a id="file" (click)="downloadFile(file)">{{file}}</a> </h3>
+        <mat-list-item *ngFor="let file of blogFile.files; let i=index">
+          <h3 matLine> - <a >{{blogFile.description[i]}} : <a id="file" *ngIf="!addMode" (click)="downloadFile(file)">{{file}} </a>
+            <a *ngIf="addMode">{{file}} </a></a> </h3>
         </mat-list-item>
       </mat-list>
 
@@ -299,7 +306,7 @@
     </span>
 
     <div mat-dialog-content class="example-form">
-      <button mat-raised-button type="submit" *ngIf="addMode && step === 2" (click)="onSaveFile()" color="primary">Vers la Liste de demandes</button>
+      <button mat-raised-button type="submit" *ngIf="addMode" (click)="onSaveFile()" color="primary">Vers la Liste de demandes</button>
       <button mat-raised-button type="submit" *ngIf="!addMode && step === stepperPhase.length + 2" (click)="toTaskList()" color="primary">Vers la Liste de demandes</button>
     </div>
   </form>

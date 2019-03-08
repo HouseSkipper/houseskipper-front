@@ -15,9 +15,13 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Référence </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.id }} </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="Etat" mat-sort-header>
-                  <mat-header-cell *matHeaderCellDef> Etat </mat-header-cell>
+                <ng-container matColumnDef="Phase" mat-sort-header>
+                  <mat-header-cell *matHeaderCellDef> Phase </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.currentPhase}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Debut de la phase" mat-sort-header>
+                  <mat-header-cell *matHeaderCellDef> Debut de la phase </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.historics[element.historics.length - 1].date}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Nom" mat-sort-header>
                   <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>

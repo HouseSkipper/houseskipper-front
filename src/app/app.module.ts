@@ -56,6 +56,7 @@ import {NgxGaugeModule} from 'ngx-gauge';
 import { SkillsMetricComponent } from './metrics/skills-metric/skills-metric.component';
 import {HouseDialogDelete} from './houses/matDialog/delete/house.dialog.delete';
 import { AlertMetricComponent } from './metrics/alert-metric/alert-metric.component';
+import { TaskDialogConfirmComponent } from './task-dialog-confirm/task-dialog-confirm.component';
 
 
 @NgModule({
@@ -94,7 +95,11 @@ import { AlertMetricComponent } from './metrics/alert-metric/alert-metric.compon
         HelpComponent,
         HelpDialogFormComponent,
         HelpDialogComponent,
-        HouseDialogDelete
+        HelpComponent,
+        AlertMetricComponent,
+        HelpComponent,
+        HouseDialogDelete,
+        TaskDialogConfirmComponent
     ],
     imports: [
         BrowserModule,
@@ -134,7 +139,7 @@ import { AlertMetricComponent } from './metrics/alert-metric/alert-metric.compon
         DataService, TasksService, CookieService, DatePipe
     ],
     entryComponents: [
-        ShortcutDialogComponent, BeforeLoginDialogComponent, HouseDialogDelete
+        ShortcutDialogComponent, BeforeLoginDialogComponent, HouseDialogDelete, TaskDialogConfirmComponent
     ],
     bootstrap: [AppComponent]
 })

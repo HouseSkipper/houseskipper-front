@@ -106,3 +106,7 @@ mat-panel-description {
 mat-icon{
     alignment: right;
 }
+
+.icon {
+    color: #8C9BC0;
+}

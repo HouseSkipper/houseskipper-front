@@ -37,8 +37,10 @@ export class AuthenticationService {
     }
 
     setCurrentUser(user: any) {
-        this._userService.fetchOne(user.username).subscribe((_) => { localStorage.setItem('currentUser', JSON.stringify(user));
-            this.currentUser = this._currentUserSubject.asObservable();
+        this._userService.fetchOne(user.username).subscribe((_) => {
+            localStorage.removeItem('currentUser');
+            localStorage.setItem('currentUser', JSON.stringify(_));
+            this._currentUserSubject.next(_);
              } );
     }
 
