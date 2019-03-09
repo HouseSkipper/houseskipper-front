@@ -255,12 +255,12 @@ export class SignUpComponent implements OnInit {
             .pipe(
                 map(_ => {
                         return {
-                            'firstname': _.firstname,
-                            'lastname': _.lastname,
-                            'password': _.password,
-                            'username': _.username,
-                            'telephone': _.telephone,
-                            'role': _.role
+                            'firstname': _.Prénom,
+                            'lastname': _.Nom,
+                            'password': _.Motdepasse,
+                            'username': _.Email,
+                            'telephone': _.Telephone,
+                            'role': _.Role
                         };
                     }
                 ),
