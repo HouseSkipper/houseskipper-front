@@ -31,10 +31,10 @@ import { SIGNUP_STEPS } from './signup-steps';
             ])
         ]),
         trigger(
-          'fadeInOut', [
-            state('void', style({opacity: 0})),
-            transition('void <=> *', animate(2000))
-          ]
+            'fadeInOut', [
+                state('void', style({opacity: 0})),
+                transition('void <=> *', animate(2000))
+            ]
         )
     ]
 })
@@ -94,12 +94,12 @@ export class SignUpComponent implements OnInit {
     getIndexGroup(step: string) {
         let indexGroup = 0;
         switch (step) {
-            case 'Email' :
-            case 'Telephone' :
+            case 'username' :
+            case 'telephone' :
                 indexGroup = 1;
                 break;
-            case 'Motdepasse':
-            case 'Role':
+            case 'password':
+            case 'role':
             case 'confirmPassword':
                 indexGroup = 2;
                 break;
@@ -131,13 +131,13 @@ export class SignUpComponent implements OnInit {
         if (index <= 5) {
             if (formArray.controls[indexGroup].get(this._step).valid) {
                 this._fieldChecked.set(this._step, true);
-                if (this._step === 'Motdepasse') {
-                    if (formArray.controls[indexGroup].get('confirmPassword').value === formArray.controls[indexGroup].get('Motdepasse').value) { // form.get('formArray').controls[0]
+                if (this._step === 'password') {
+                    if (formArray.controls[indexGroup].get('confirmPassword').value === formArray.controls[indexGroup].get('password').value) { // form.get('formArray').controls[0]
                         this.stepForward();
                     } else {
                         this._errorMsg = 'Votre mot de passe ne correspond pas';
                     }
-                } else if (this._step === 'Email') {
+                } else if (this._step === 'username') {
                     this._userService.checkExists(formArray.controls[indexGroup].get(this._step).value).subscribe(data => { // form.get('formArray').controls[0]
                         if (data) {
                             this._errorMsg = 'Cet email est déjà utilisé';
@@ -203,35 +203,35 @@ export class SignUpComponent implements OnInit {
     }
 
 
-    private _buildForm(): FormGroup { // TODO
+    private _buildForm(): FormGroup {
         return new FormGroup({
             formArray: new FormArray([
                 new FormGroup({
-                    Prénom: new FormControl('', Validators.compose([
+                    firstname: new FormControl('', Validators.compose([
                         Validators.required, Validators.minLength(3)
                     ])),
-                    Nom: new FormControl('', Validators.compose([
+                    lastname: new FormControl('', Validators.compose([
                         Validators.required, Validators.minLength(3)
                     ])),
                 }),
                 new FormGroup({
-                    Email: new FormControl('', Validators.compose([
+                    username: new FormControl('', Validators.compose([
                         Validators.required,
                         Validators.pattern(
                             '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}' +
                             '\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')
                     ])),
-                    Telephone: new FormControl('', Validators.compose([
+                    telephone: new FormControl('', Validators.compose([
                         Validators.pattern('\\d{10}')
                     ])),
                 }),
                 new FormGroup({
-                    Motdepasse: new FormControl('', Validators.compose([
+                    password: new FormControl('', Validators.compose([
                         Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,30}$')
                     ])),
                     confirmPassword: new FormControl('', Validators.compose([Validators.required])),
                     // validator: MustMatch('password', 'confirmPassword'),
-                    Role: new FormControl('Particulier-propriétaire', Validators.required)
+                    role: new FormControl('Particulier-propriétaire', Validators.required)
                 }),
                 this._buildFormCodeEmail()
             ])
@@ -353,8 +353,8 @@ export class SignUpComponent implements OnInit {
 
     check(f: any): boolean {
         const formArray = this.form.get('formArray') as FormArray;
-        if (f.value.title === 'Compte') {
-            if (formArray.controls[2].get('confirmPassword').value === formArray.controls[2].get('Motdepasse').value && formArray.controls[2].get('Motdepasse').valid) {
+        if (f.value.title === 'Account') {
+            if (formArray.controls[2].get('confirmPassword').value === formArray.controls[2].get('password').value && formArray.controls[2].get('password').valid) {
                 return true;
             }
         } else {
