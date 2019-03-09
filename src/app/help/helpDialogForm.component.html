@@ -1,5 +1,6 @@
 
-<h2 mat-dialog-title >Ticket</h2>
+<div id="helpDialogForm">
+<h2 mat-dialog-title >Ticket ( {{ticket.subject}} )</h2>
 
 <mat-dialog-content>
     <form novalidate [formGroup]="form">
@@ -20,4 +21,6 @@
     <button mat-button type="button" (click)="cancel()">Cancel</button>
     <button mat-button type="submit" (click)="submit(form.value)" [disabled]="form.invalid">Valider</button>
 </mat-dialog-actions>
+
+</div>
 

@@ -1,2 +1,13 @@
 
+#helpDialogForm
+{
+    display:flex;
+    flex-basis:300px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 300px;
+    min-height: 200px;
+}
 
