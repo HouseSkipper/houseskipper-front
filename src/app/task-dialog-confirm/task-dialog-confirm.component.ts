@@ -25,11 +25,12 @@ export class TaskDialogConfirmComponent implements OnInit {
     return this._dialogRef.id;
    }
 
-    onSave(id: string) {
-        this._dialogRef.close(id);
+    onDelete(task) {
+      console.log(task);
+        this._dialogRef.close(task);
     }
 
-    onSaveC(task) {
+    onConfirm(task) {
         this._dialogRef.close(task);
     }
 

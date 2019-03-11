@@ -95,7 +95,6 @@ import { TaskDialogConfirmComponent } from './task-dialog-confirm/task-dialog-co
         HelpComponent,
         HelpDialogFormComponent,
         HelpDialogComponent,
-        HelpComponent,
         AlertMetricComponent,
         HelpComponent,
         HouseDialogDelete,
@@ -139,7 +138,7 @@ import { TaskDialogConfirmComponent } from './task-dialog-confirm/task-dialog-co
         DataService, TasksService, CookieService, DatePipe
     ],
     entryComponents: [
-        ShortcutDialogComponent, BeforeLoginDialogComponent, HouseDialogDelete, TaskDialogConfirmComponent
+        ShortcutDialogComponent, BeforeLoginDialogComponent, HouseDialogDelete, TaskDialogConfirmComponent, HelpDialogComponent
     ],
     bootstrap: [AppComponent]
 })
