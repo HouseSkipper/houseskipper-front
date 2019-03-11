@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import {User} from '../interfaces/user';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {defaultIfEmpty, filter} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -65,6 +64,8 @@ export class UsersService {
     private _options(headerList: Object = {}): any {
         return { headers: new HttpHeaders(Object.assign({ 'Content-Type': 'application/json' }, headerList)) };
     }
+
+
 
 
 }
