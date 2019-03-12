@@ -25,7 +25,7 @@
         </mat-step>
     </mat-horizontal-stepper>
 
-    <form novalidate [formGroup]="form" *ngIf="!file">
+    <form novalidate [formGroup]="form">
         <!-- Caractéristiques générales -->
         <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"
                              (afterExpand)="stepper.selectedIndex = this.stepMatStepper()" hideToggle>

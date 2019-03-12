@@ -67,10 +67,11 @@ export class TasksService {
       return this._http.put<Task>(this._backendURL.oneTask.replace(':id', task.id), task, this._options());
     }
 
-    remove(id: string) {
-      return this._http.delete(this._backendURL.oneTask.replace(':id', id))
+    remove(task: string) {
+      console.log(task);
+      return this._http.delete(this._backendURL.oneTask.replace(':id', task))
         .pipe(
-          map(_ => id)
+          map(_ => task)
         );
     }
 

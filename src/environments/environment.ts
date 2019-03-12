@@ -47,7 +47,8 @@ export const environment = {
             onePrestataire: '/add/prestataire',
             allShortcuts: '/shortcuts',
             addShortcut: '/add/shortcuts',
-            oneShortcut: '/shortcut/:id'
+            oneShortcut: '/interlocuteur/:id',
+            interlocuteur: '/interlocuteur'
         }
     }
 };
