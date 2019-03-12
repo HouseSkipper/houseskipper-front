@@ -582,14 +582,14 @@ export class FormTaskComponent implements OnInit, OnChanges {
             data.append('file', file);
             data.append('description', this.blogFile.description[i]);
             console.log(this.blogFile.description[i]);
-            this._tasksService.uploadFile(data, this.blogTask.taskName).subscribe((_) => console.log(_), null, () => {
-                if (this._addMode) {
-                    this.toTaskList();
-                } else {
+            this._tasksService.uploadFile(data, this.blogTask.taskName).subscribe(null, null, null);
+        }
+        if (this._addMode === true) {
+            console.log('-----');
+            this.toTaskList();
+        } else {
 
-                    this.nextStep();
-                }
-            });
+            this.nextStep();
         }
        // this.uploader.setOptions({url: this._backendURL.upload.replace(':id', this.blogTask.taskName), headers: this._options()});
 
