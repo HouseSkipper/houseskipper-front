@@ -1,6 +1,6 @@
 <app-main-nav-bar></app-main-nav-bar>
 
-<mat-sidenav-container>
+<mat-sidenav-container [hasBackdrop]="false">
     <mat-sidenav id="sideMenu" mode="side" opened [ngStyle]="{ 'width.em': sidenavWidth }">
         <div id="sidenav-content">
             <span style="display:flex; flex-direction:column;" *ngIf="sidenavWidth > 4">
@@ -26,7 +26,7 @@
         </div>
     </mat-sidenav>
 
-    <mat-sidenav id="sideMenuRight" mode="side" position="end" #sidenav>
+    <mat-sidenav id="sideMenuRight" mode="over" position="end" #sidenav>
         <app-interlocuteur-area></app-interlocuteur-area>
     </mat-sidenav>
 
