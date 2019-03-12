@@ -15,7 +15,7 @@ export class SkillsMetricComponent implements OnInit {
     gaugeAppendText = '';
     gaugeSize = 175;
     gaugeForeColor = '#A0ADCD';
-    gaugeMax = 4;
+    gaugeMax = 5;
     gaugeThick = 10;
 
     private _currentSkills: Skill[];

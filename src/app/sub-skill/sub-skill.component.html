@@ -4,7 +4,7 @@
             <ng-template matStepLabel><span matTooltip="{{tooltip(i)}}">{{level}}</span></ng-template>
         </mat-step>
     </mat-horizontal-stepper>
-    <mat-expansion-panel *ngFor="let skillCategory of getSkill().skillCategories" hideToggle>
+    <mat-expansion-panel *ngFor="let skillCategory of getSkill().skillCategories" hideToggle >
         <mat-expansion-panel-header class="right-aligned-header">
             <mat-panel-title>
             </mat-panel-title>
@@ -18,22 +18,22 @@
                 </div>
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <div class="centered" *ngFor="let subSkill of skillCategory.subSkills" style="display: flex; justify-content: center;">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput value="{{subSkill.type}}" disabled style="color: #000000; !important">
-            </mat-form-field>
-            <mat-form-field class="importantField" appearance="outline" style="margin-left: 10px">
-                <mat-label>Niveau estimé</mat-label>
-                <mat-select placeholder="Niveau estimé" required [(ngModel)]="subSkill.nb_works">
-                    <mat-option *ngFor="let level of getLevels(); let i=index" id="subskill-{{subSkill.id}}" [value]="i" (onSelectionChange)="save(subSkill, i)">{{level}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="outline" style="margin-left: 10px; width: 200px">
+            <div class="centered" *ngFor="let subSkill of skillCategory.subSkills" style=" display: flex; justify-content: center">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput value="{{subSkill.type}}" disabled style="color: #000000; !important">
+                </mat-form-field>
+                <mat-form-field class="importantField" appearance="outline" style="margin-left: 10px">
+                    <mat-label>Niveau estimé</mat-label>
+                    <mat-select placeholder="Niveau estimé" required [(ngModel)]="subSkill.nb_works">
+                        <mat-option *ngFor="let level of getLevels(); let i=index" id="subskill-{{subSkill.id}}" [value]="i" (onSelectionChange)="save(subSkill, i)">{{level}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="outline" style="margin-left: 10px; width: 200px">
                 <textarea matInput cdkTextareaAutosize
                           #autosize="cdkTextareaAutosize"
                           cdkAutosizeMinRows="2"
                           cdkAutosizeMaxRows="5" id="desc-{{subSkill.id}}" disabled>{{tooltip(subSkill.nb_works)}}</textarea>
-            </mat-form-field>
-        </div>
+                </mat-form-field>
+            </div>
     </mat-expansion-panel>
 </mat-accordion>

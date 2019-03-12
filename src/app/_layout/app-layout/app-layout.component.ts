@@ -12,9 +12,9 @@ export class AppLayoutComponent implements AfterViewInit {
 
     navItems: NavItem[];
     navItemCollapse: NavItem[];
-    sidenavWidth = 3;
+    sidenavWidth = 15;
     sidenavWidthRight = 2;
-    opened = false;
+    opened = true;
 
     constructor(private navService: MainMenuListService) {
         this.navItems = navService.getMenuEntries();

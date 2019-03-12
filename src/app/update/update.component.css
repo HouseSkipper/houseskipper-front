@@ -1,4 +1,4 @@
-mmamat-accordion {
+mat-accordion {
     padding: 10px;
 }
 
@@ -33,6 +33,10 @@ mat-panel-description {
 .example-headers-align .mat-expansion-panel-header-description {
     justify-content: space-between;
     align-items: center;
+}
+
+.right-aligned-header > .mat-content {
+    justify-content: space-between;
 }
 
 

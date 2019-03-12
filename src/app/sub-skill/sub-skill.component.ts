@@ -17,6 +17,7 @@ export class SubSkillComponent implements OnInit {
 
     private _step: number;
     private average: number;
+    private generalAverage: number;
     private _skill: Skill;
     private _levels: string[] = ['Non défini', 'Novice', 'Débutant avancé', 'Compétent', 'Efficace', 'Expert'];
     private _descLevels: string[] = [
@@ -50,8 +51,14 @@ export class SubSkillComponent implements OnInit {
             .subscribe(_ => {
                 console.log(_);
                 this._skill = _;
-                this._step = this._skill.nb_works;
+                this.setStep(this._skill.nb_works);
             });
+    }
+
+    setStep(index: number) {
+        for (let i = 1; i <= index; i++) {
+            this.stepper.selectedIndex = i;
+        }
     }
 
     triggerResize() {
@@ -71,6 +78,11 @@ export class SubSkillComponent implements OnInit {
     save(subskill: SubSkill, level: number) {
         subskill.nb_works = level;
         this._skillService.updateSubSkill(subskill).subscribe();
+        this.generalAverage = 0;
+        this._skill.skillCategories.forEach(item => {
+            this.generalAverage += this.getCategoryAverage(item);
+        });
+        this.setStep(Math.trunc(this.generalAverage / this._skill.skillCategories.length));
     }
 
 

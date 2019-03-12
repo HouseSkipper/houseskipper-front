@@ -1,118 +1,117 @@
-<div class="content-page">
-    <br>
-        <div class="container">
-            <h3  class="centerElement mat-h3">Mes Informations</h3>
-            <form [formGroup]="form">
-                <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header  class="right-aligned-header">
-                    <mat-panel-title>
-                        <mat-icon svgIcon="icon-houses"></mat-icon>
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Informations d'identité
-                        <mat-icon svgIcon="icon-checked" *ngIf="check(0) === 2"></mat-icon>
-                        <mat-icon svgIcon="icon-error" *ngIf="check(0) === 0"></mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                    <div class="centerElement">
-                        <mat-form-field class="margin importantField" appearance="outline">
-                        <mat-label>Nom</mat-label>
-                        <input matInput placeholder="Nom" formControlName="lastname">
-                        <mat-error class="alert alert-danger">Nom requis</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('lastname').hasError('minlength')" class="alert alert-danger">Le nom doit avoir au moins 3 lettres</mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="centerElement">
-                        <mat-form-field class="margin importantField" appearance="outline">
-                        <mat-label>Prénom</mat-label>
-                        <input matInput placeholder="Prénom" formControlName="firstname">
-                        <mat-error class="alert alert-danger">Prénom requis</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('firstname').hasError('minlength')" class="alert alert-danger">Le prénom doit avoir au moins 3 lettres</mat-error>
-                        </mat-form-field>
-                    </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header class="right-aligned-header">
-                    <mat-panel-title>
-                        <mat-icon class="icon">contacts</mat-icon>
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Informations de contact
-                        <mat-icon svgIcon="icon-checked" *ngIf="check(1) === 2"></mat-icon>
-                        <mat-icon svgIcon="icon-error" *ngIf="check(1) === 0"></mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div class="centerElement">
-                    <mat-form-field class="margin importantField" appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input matInput placeholder="Email" formControlName="username">
-                        <mat-error class="alert alert-danger">Email requis</mat-error>
-                        <mat-error *ngIf="form.invalid && form.get('username').hasError('pattern')" class="alert alert-danger">Email non valide</mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="centerElement">
-                    <mat-form-field class="margin importantField" appearance="outline">
-                        <mat-label>Téléphone</mat-label>
-                        <input matInput placeholder="Téléphone" formControlName="telephone">
-                        <mat-error *ngIf="form.invalid && form.get('telephone').hasError('pattern')" class="alert alert-danger">Numéro de téléphone invalide</mat-error>
-                    </mat-form-field>
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header class="right-aligned-header">
-                    <mat-panel-title>
-                        <mat-icon class="icon">poll</mat-icon>
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Informations sur le compte
-                        <mat-icon svgIcon="icon-checked" *ngIf="check(2) === 2"></mat-icon>
-                        <mat-icon svgIcon="icon-error" *ngIf="check(2) === 0"></mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div class="centerElement">
-                    <mat-label>Rôle</mat-label>
-                    <input disabled formControlName="role">
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header class="right-aligned-header">
-                    <mat-panel-title>
-                        <mat-icon class="icon">error</mat-icon>
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Informations légales
-                        <mat-icon svgIcon="icon-checked" *ngIf="check(3) === 2"></mat-icon>
-                        <mat-icon svgIcon="icon-error" *ngIf="check(3) === 0"></mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div class="centerElement">
-                        <mat-label>Informations légales</mat-label>
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header class="right-aligned-header">
-                    <mat-panel-title>
-                        <mat-icon class="icon">delete</mat-icon>
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Suppression du compte
-                        <mat-icon svgIcon="icon-checked" *ngIf="check(3) === 2"></mat-icon>
-                        <mat-icon svgIcon="icon-error" *ngIf="check(3) === 0"></mat-icon>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div class="centerElement">
-                        <mat-label>Supprimer le compte ?</mat-label>
-                </div>
-            </mat-expansion-panel>
-            </form>
+<mat-accordion class="example-headers-align justify-content">
+    <h3  class="centerElement mat-h3">Mes Informations</h3>
+    <form [formGroup]="form">
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header  class="right-aligned-header">
+                <mat-panel-title>
+                    <mat-icon svgIcon="icon-houses"></mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Informations d'identité
+                    <mat-icon svgIcon="icon-checked" *ngIf="check(0) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="check(0) === 0"></mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
             <div class="centerElement">
-                <button class="actionButton" mat-button type="submit" (click)="saveUser(form.value)">
-                    Valider
-                </button>
+                <mat-form-field class="margin importantField" appearance="outline">
+                    <mat-label>Nom</mat-label>
+                    <input matInput placeholder="Nom" formControlName="lastname">
+                    <mat-error class="alert alert-danger">Nom requis</mat-error>
+                    <mat-error *ngIf="form.invalid && form.get('lastname').hasError('minlength')" class="alert alert-danger">Le nom doit avoir au moins 3 lettres</mat-error>
+                </mat-form-field>
             </div>
-        </div>
-        <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
-        <br>
-        </div>
+            <div class="centerElement">
+                <mat-form-field class="margin importantField" appearance="outline">
+                    <mat-label>Prénom</mat-label>
+                    <input matInput placeholder="Prénom" formControlName="firstname">
+                    <mat-error class="alert alert-danger">Prénom requis</mat-error>
+                    <mat-error *ngIf="form.invalid && form.get('firstname').hasError('minlength')" class="alert alert-danger">Le prénom doit avoir au moins 3 lettres</mat-error>
+                </mat-form-field>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                    <mat-icon class="icon">contacts</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Informations de contact
+                    <mat-icon svgIcon="icon-checked" *ngIf="check(1) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="check(1) === 0"></mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="centerElement">
+                <mat-form-field class="margin importantField" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Email" formControlName="username">
+                    <mat-error class="alert alert-danger">Email requis</mat-error>
+                    <mat-error *ngIf="form.invalid && form.get('username').hasError('pattern')" class="alert alert-danger">Email non valide</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="centerElement">
+                <mat-form-field class="margin importantField" appearance="outline">
+                    <mat-label>Téléphone</mat-label>
+                    <input matInput placeholder="Téléphone" formControlName="telephone">
+                    <mat-error *ngIf="form.invalid && form.get('telephone').hasError('pattern')" class="alert alert-danger">Numéro de téléphone invalide</mat-error>
+                </mat-form-field>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                    <mat-icon class="icon">poll</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Informations sur le compte
+                    <mat-icon svgIcon="icon-checked" *ngIf="check(2) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="check(2) === 0"></mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="centerElement">
+                <mat-form-field class="margin" appearance="outline">
+                    <mat-label>Rôle</mat-label>
+                    <input matInput formControlName="role" readonly />
+                </mat-form-field>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                    <mat-icon class="icon">error</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Informations légales
+                    <mat-icon svgIcon="icon-checked" *ngIf="check(3) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="check(3) === 0"></mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="centerElement">
+                <mat-label>Informations légales</mat-label>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                    <mat-icon class="icon">delete</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    Suppression du compte
+                    <mat-icon svgIcon="icon-checked" *ngIf="check(3) === 2"></mat-icon>
+                    <mat-icon svgIcon="icon-error" *ngIf="check(3) === 0"></mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="centerElement">
+                <mat-label>Supprimer le compte ?</mat-label>
+            </div>
+        </mat-expansion-panel>
+    </form>
+    <div class="centerElement">
+        <button class="actionButton" mat-button type="submit" (click)="saveUser(form.value)">
+            Valider
+        </button>
+    </div>
+    <mat-error *ngIf="errorMsg">{{errorMsg}}</mat-error>
+    <br>
+</mat-accordion>
 
 
