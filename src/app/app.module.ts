@@ -35,10 +35,9 @@ import {LegalBarComponent} from './shared/legal-bar/legal-bar.component';
 import {CheckBrowserComponent} from './checkBrowser/checkBrowser.component';
 import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { PrestataireComponent } from './prestataire/prestataire.component';
-import { ShortcutAreaComponent } from './shared/shortcut-area/shortcut-area.component';
+import { InterlocuteurAreaComponent } from './shared/interlocuteur-area/interlocuteur-area.component';
 import {CookieService} from 'ngx-cookie-service';
-import { ShortcutComponent } from './shortcut/shortcut.component';
-import { ShortcutDialogComponent } from './shortcut-dialog/shortcut-dialog.component';
+import { InterlocuteurComponent } from './interlocuteur/interlocuteur.component';
 import {UpdateComponent} from './update/update.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { BeforeLoginDialogComponent } from './before-login-dialog/before-login-dialog.component';
@@ -79,10 +78,9 @@ import { TaskDialogConfirmComponent } from './task-dialog-confirm/task-dialog-co
         CheckBrowserComponent,
         AppLayoutComponent,
         PrestataireComponent,
-        ShortcutAreaComponent,
+        InterlocuteurAreaComponent,
         UpdateComponent,
-        ShortcutDialogComponent,
-        ShortcutComponent,
+        InterlocuteurComponent,
         BeforeLoginDialogComponent,
         FormTaskComponent,
         SubSkillComponent,
@@ -95,7 +93,6 @@ import { TaskDialogConfirmComponent } from './task-dialog-confirm/task-dialog-co
         HelpComponent,
         HelpDialogFormComponent,
         HelpDialogComponent,
-        HelpComponent,
         AlertMetricComponent,
         HelpComponent,
         HouseDialogDelete,
@@ -139,7 +136,7 @@ import { TaskDialogConfirmComponent } from './task-dialog-confirm/task-dialog-co
         DataService, TasksService, CookieService, DatePipe
     ],
     entryComponents: [
-        ShortcutDialogComponent, BeforeLoginDialogComponent, HouseDialogDelete, TaskDialogConfirmComponent
+        BeforeLoginDialogComponent, HouseDialogDelete, TaskDialogConfirmComponent, HelpDialogComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -25,11 +25,6 @@ export class HelpDialogFormComponent implements OnInit, OnChanges {
     }
 
     ngOnInit () {
-        this._ticket = {
-            subject : '',
-            involved : '',
-            message : ''
-        };
     }
 
 
@@ -54,13 +49,14 @@ export class HelpDialogFormComponent implements OnInit, OnChanges {
 
     @Output('cancel')
     get cancel$ (): EventEmitter<void> {
-        return this.cancel$;
+        return this._cancel$;
     }
 
 
 
     ngOnChanges (data) {
-        if (data.model && data.model.currentValue) {
+        if (data.ticket && data.ticket.currentValue) {
+            this._ticket = data.ticket.currentValue;
             this._form.patchValue(this._ticket);
         } else {
             this._ticket = {
@@ -80,9 +76,13 @@ export class HelpDialogFormComponent implements OnInit, OnChanges {
         });
     }
 
-    cancel() {}
+    cancel () {
+        this._cancel$.emit();
+    }
 
-    submit(tmp: any) {}
+    submit(ticket: helpTicket) {
+        this._submit$.emit(ticket);
+    }
 
 }
 

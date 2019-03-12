@@ -41,22 +41,19 @@ export class HelpComponent implements OnInit {
 
 
     missRDV () {
-        this._ticket.subject = 'Absence rendez-vous';
-        this.showDialog();
+        this.showDialog('Absence rendez-vous');
     }
 
     damage () {
-        this._ticket.subject = 'Sinistre';
-        this.showDialog();
+        this.showDialog('Sinistre');
     }
 
     disagree () {
-        this._ticket.subject = 'Désaccord';
-        this.showDialog();
+        this.showDialog('Désaccord');
     }
 
-    showDialog () {
-        this._dialogRef = this._dialog.open(HelpDialogComponent, {disableClose : true});
+    showDialog (subject :string) {
+        this._dialogRef = this._dialog.open(HelpDialogComponent, {disableClose : true, data:{involved:'',subject:subject}});
         this._dialogRef.afterClosed()
         .pipe(
             filter(_ => !!_)

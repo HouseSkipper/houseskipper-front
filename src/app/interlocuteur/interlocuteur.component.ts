@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Shortcut} from '../interfaces/shortcuts';
-import {INTERLOCUTEUR} from '../shared/shortcut-area/shortcut-area.component';
+import {INTERLOCUTEUR} from '../interfaces/interlocuteur';
+
 
 
 @Component({
-  selector: 'app-shortcut',
-  templateUrl: './shortcut.component.html',
-  styleUrls: ['./shortcut.component.css']
+  selector: 'app-interlocuteur',
+  templateUrl: './interlocuteur.component.html',
+  styleUrls: ['./interlocuteur.component.css']
 })
-export class ShortcutComponent implements OnInit {
+export class InterlocuteurComponent implements OnInit {
   private _interlocuteur: INTERLOCUTEUR;
 
   constructor() {

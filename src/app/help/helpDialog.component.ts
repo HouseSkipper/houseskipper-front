@@ -11,7 +11,7 @@ import { helpTicket } from '../interfaces/helpTicket';
 })
 export class HelpDialogComponent implements OnInit {
 
-    constructor (private _dialogRef :MatDialogRef<HelpDialogComponent>, @Inject(MAT_DIALOG_DATA) private _ticket :helpTicket)
+    constructor (private _dialogRef :MatDialogRef<HelpDialogComponent>, @Inject(MAT_DIALOG_DATA) private _ticket)
     {}
     
     ngOnInit () {
